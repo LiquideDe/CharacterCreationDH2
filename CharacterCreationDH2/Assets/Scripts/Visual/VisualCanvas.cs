@@ -24,7 +24,7 @@ public abstract class VisualCanvas : MonoBehaviour
     protected string ReadText(string nameFile)
     {
         string txt;
-        using (StreamReader _sw = new StreamReader(path + nameFile, Encoding.Default))
+        using (StreamReader _sw = new StreamReader(nameFile, Encoding.Default))
         {
             txt = (_sw.ReadToEnd());
             _sw.Close();
@@ -90,13 +90,13 @@ public abstract class VisualCanvas : MonoBehaviour
         this.changeItemPrev = changeItemPrev;
     }
 
-    public void NextWorld()
+    public void NextItem()
     {
         ResetImages();
         changeItemNext?.Invoke();
     }
 
-    public void PrevWorld()
+    public void PrevItem()
     {
         ResetImages();
         changeItemPrev?.Invoke();

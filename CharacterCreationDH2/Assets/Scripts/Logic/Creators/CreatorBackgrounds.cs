@@ -5,6 +5,7 @@ using UnityEngine;
 public class CreatorBackgrounds
 {
     private List<Background> backgrounds = new List<Background>();
+    private int id;
 
     public CreatorBackgrounds()
     {
@@ -545,5 +546,31 @@ public class CreatorBackgrounds
             new List<GameStat.Inclinations>() {
             GameStat.Inclinations.Offense, GameStat.Inclinations.Tech
             }));
+    }
+
+    public Background GetNextWorld()
+    {
+        if (id + 1 < backgrounds.Count)
+        {
+            id += 1;
+        }
+        else
+        {
+            id = 0;
+        }
+        return backgrounds[id];
+    }
+
+    public Background GetPrevWorld()
+    {
+        if (id - 1 < 0)
+        {
+            id = backgrounds.Count - 1;
+        }
+        else
+        {
+            id -= 1;
+        }
+        return backgrounds[id];
     }
 }

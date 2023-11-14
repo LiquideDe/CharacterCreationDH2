@@ -23,4 +23,10 @@ public class Background
         this.mechImplants = mechImplants;
         pathBackground = $"{Application.dataPath}/Images/Backgrounds/{name}/";
     }
+
+    public string PathBackground { get => pathBackground; }
+    public List<List<string>> Talents { get => talents; }
+    public List<List<Skill>> Skills { get => skills; }
+    public List<List<string>> Equipment { get => equipment; }
+    public List<GameStat.Inclinations> Inclinations { get => inclinations;  }
 }

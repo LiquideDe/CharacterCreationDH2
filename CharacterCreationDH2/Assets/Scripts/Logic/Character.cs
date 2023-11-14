@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Character 
 {
-    private string name, background, role, ageText, prophecy, constitution, look, physFeatures, memoryOfHome, memoryOfBackground, equipment;
+    private string name, background, role, ageText, prophecy, constitution, hair, eyes, skeen, physFeatures, memoryOfHome, memoryOfBackground, equipment;
     private int age, fatePoint, madnessPoints, corruptionPoints, wounds, psyRating, halfMove, fullMove, natisk, fatigue, carryWeight, liftWeight, pushWeight,
         experienceTotal, experienceUnspent, experienceSpent;
     private List<Characteristic> characteristics = new List<Characteristic>();
@@ -25,7 +25,9 @@ public class Character
     public string AgeText { get => ageText; }
     public string Prophecy { get => prophecy;}
     public string Constitution { get => constitution;}
-    public string Look { get => look;}
+    public string Hair { get => hair; }
+    public string Eyes { get => eyes; }
+    public string Skeen { get => skeen; }
     public string PhysFeatures { get => physFeatures;}
     public string MemoryOfHome { get => memoryOfHome;}
     public string MemoryOfBackground { get => memoryOfBackground;}
@@ -176,18 +178,33 @@ public class Character
     public void SetHomeWorld(Homeworld homeworld, int bonusFatePoint = 0, int bonusWound = 0)
     {
         this.homeworld = homeworld;
-        Debug.Log($"Наш новый родной мир {this.homeworld.Name}");
         fatePoint = homeworld.Fatepoint;
         wounds = homeworld.Wound + bonusWound;
         Debug.Log($"Теперь у нас {wounds} ран");
         inclinations.Add(homeworld.Inclination);
 
-        var bonusSkills = homeworld.GetSkillBonus();
+        var bonusSkills = homeworld.GetSkills();
         if (bonusSkills != null)
         {
             foreach(string skill in bonusSkills)
-            UpgradeSkill(skill);
+                UpgradeSkill(skill);
         }
+        var bonusTalents = homeworld.GetTalents();
+        if (bonusTalents != null)
+        {
+            foreach (string talent in bonusTalents)
+                talents.Add(new Talent(talent));
+        }
+        ageText = homeworld.Age;
+        constitution = homeworld.Body;
+        physFeatures = homeworld.Phys;
+        memoryOfHome = homeworld.Remember;
+        hair = homeworld.Hair;
+        eyes = homeworld.Eyes;
+        skeen = homeworld.Skeen;
+        fatePoint = homeworld.Fatepoint;
+        wounds = homeworld.Wound;
+
     }
 
     private void UpgradeSkill(string skillName)
