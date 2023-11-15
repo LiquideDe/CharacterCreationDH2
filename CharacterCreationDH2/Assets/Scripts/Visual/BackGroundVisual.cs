@@ -78,11 +78,11 @@ public class BackGroundVisual : VisualCanvas
                     }
                     if (skillIsKnowledge)
                     {
-                        CreateToggle(skills[i].Name + knowledge.NameKnowledge);
+                        CreateToggle(skills[i].Name + knowledge.NameKnowledge,i);
                     }
                     else
                     {
-                        CreateToggle(skills[i].Name);
+                        CreateToggle(skills[i].Name,i);
                     }
 
                 }
@@ -97,7 +97,7 @@ public class BackGroundVisual : VisualCanvas
                 CreateToggleGroup();
                 for (int i = 0; i < talents.Count; i++)
                 {
-                    CreateToggle(talents[i]);
+                    CreateToggle(talents[i],i);
                 }
             }
         }
@@ -109,15 +109,17 @@ public class BackGroundVisual : VisualCanvas
                 CreateToggleGroup();
                 for (int i = 0; i < equipment.Count; i++)
                 {
-                    CreateToggle(equipment[i]);
+                    CreateToggle(equipment[i],i);
                 }
             }
         }
 
         CreateToggleGroup();
+        int sc = 0;
         foreach(GameStat.Inclinations inclination in background.Inclinations)
         {
-            CreateToggle(inclination.ToString());
+            CreateToggle(inclination.ToString(),sc);
+            sc++;
         }
 
         foreach(GameObject togG in toggleGroups)
@@ -127,7 +129,8 @@ public class BackGroundVisual : VisualCanvas
             {
                 int mult = (int)(count / 4);
                 var sizechanger = togG.GetComponent<RectTransform>();
-                sizechanger.sizeDelta = new Vector2(sizechanger.sizeDelta.x, sizechanger.sizeDelta.y + sizechanger.sizeDelta.y * mult);
+                //sizechanger.sizeDelta = new Vector2(sizechanger.sizeDelta.x, sizechanger.sizeDelta.y + sizechanger.sizeDelta.y * mult);
+                sizechanger.sizeDelta = new Vector2(sizechanger.sizeDelta.x, sizechanger.sizeDelta.y * mult);
             }
         }
 
@@ -140,24 +143,72 @@ public class BackGroundVisual : VisualCanvas
         toggleGroups[^1].transform.SetParent(grid.transform);
     }
 
-    private void CreateToggle(string name)
+    private void CreateToggle(string name, int id)
     {
         toggles.Add(Instantiate(toggle));
-        var newToggle = toggles[^1].GetComponent<Toggle>();
-        newToggle.GetComponentInChildren<Text>().text = name;
+        var newToggle = toggles[^1].GetComponent<MyToggle>();
+        newToggle.Text.text = name;
         newToggle.group = toggleGroups[^1].GetComponent<ToggleGroup>();
         newToggle.transform.SetParent(toggleGroups[^1].transform);
         newToggle.gameObject.SetActive(true);
+        newToggle.Id = id;
     }
 
     public void BackgroundIsChosen()
     {
+        int sch = 0;
         foreach(GameObject ls in toggleGroups)
         {
             if(ls.transform.childCount > 1)
             {
-                Debug.Log($"выбранный пункт {ls.GetComponent<ToggleGroup>().ActiveToggles().FirstOrDefault().GetComponentInChildren<Text>().text}");
+                Debug.Log($"выбранный пункт {ls.GetComponent<ToggleGroup>().ActiveToggles().FirstOrDefault().GetComponent<MyToggle>().Id}");
             }
         }
+        List<Skill> skills = new List<Skill>();
+        foreach (List<Skill> sk in background.Skills)
+        {
+            if (sk.Count > 1)
+            {
+                skills.Add(sk[toggleGroups[sch].GetComponent<ToggleGroup>().ActiveToggles().FirstOrDefault().GetComponent<MyToggle>().Id]);
+                sch++;
+            }
+            else
+            {
+                skills.Add(sk[0]);
+            }
+        }
+
+        List<string> talents = new List<string>();
+        foreach(List<string> tal in background.Talents)
+        {
+            if(tal.Count > 1)
+            {
+                talents.Add(tal[toggleGroups[sch].GetComponent<ToggleGroup>().ActiveToggles().FirstOrDefault().GetComponent<MyToggle>().Id]);
+                sch++;
+            }
+            else
+            {
+                talents.Add(tal[0]);
+            }
+        }
+
+        List<string> equipment = new List<string>();
+        foreach(List<string> eq in background.Equipment)
+        {
+            if(eq.Count > 1)
+            {
+                equipment.Add(eq[toggleGroups[sch].GetComponent<ToggleGroup>().ActiveToggles().FirstOrDefault().GetComponent<MyToggle>().Id]);
+                sch++;
+            }
+            else
+            {
+                equipment.Add(eq[0]);
+            }
+        }
+
+        GameStat.Inclinations inclination = background.Inclinations[toggleGroups[sch].GetComponent<ToggleGroup>().ActiveToggles().FirstOrDefault().GetComponent<MyToggle>().Id];
+        background.SetChosen(skills, talents, equipment, inclination);
+        chosenBack?.Invoke(background);
+        Destroy(gameObject);
     }
 }

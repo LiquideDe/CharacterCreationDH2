@@ -21,12 +21,13 @@ public class MainGame : MonoBehaviour
         homeWorldVisual.regFinalDelegate(FinishChooseWorld);
         ShowNextWorld();*/
 
+        /*
         creatorBackgrounds = new CreatorBackgrounds();
         var visualBack = Instantiate(backgroundCanvas);
         backVisual = visualBack.GetComponent<BackGroundVisual>();
         backVisual.RegDelegate(ShowNextBack, ShowPrevBack);
-
-        ShowNextBack();
+        backVisual.regFinalDelegate(FinishChooseBackGround);
+        ShowNextBack();*/
     }
 
     private void ShowNextWorld()
@@ -54,5 +55,10 @@ public class MainGame : MonoBehaviour
     {
         Debug.Log($"Выбрана планета {world}");
         character.SetHomeWorld(world);
+    }
+
+    private void FinishChooseBackGround(Background background)
+    {
+        character.SetBackground(background);
     }
 }

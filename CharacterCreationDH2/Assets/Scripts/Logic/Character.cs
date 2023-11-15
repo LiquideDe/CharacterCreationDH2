@@ -1,10 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Character 
 {
-    private string name, background, role, ageText, prophecy, constitution, hair, eyes, skeen, physFeatures, memoryOfHome, memoryOfBackground, equipment;
+    private string name, background, role, ageText, prophecy, constitution, hair, eyes, skeen, physFeatures, memoryOfHome, memoryOfBackground;
     private int age, fatePoint, madnessPoints, corruptionPoints, wounds, psyRating, halfMove, fullMove, natisk, fatigue, carryWeight, liftWeight, pushWeight,
         experienceTotal, experienceUnspent, experienceSpent;
     private List<Characteristic> characteristics = new List<Characteristic>();
@@ -15,6 +16,7 @@ public class Character
     private List<string> mentalDisorders = new List<string>();
     private List<string> mutation = new List<string>();
     private List<PsyDisciplence> psyDisciplences = new List<PsyDisciplence>();
+    private List<string> equipments = new List<string>();
     private Homeworld homeworld;
 
     #region Свойства
@@ -31,7 +33,7 @@ public class Character
     public string PhysFeatures { get => physFeatures;}
     public string MemoryOfHome { get => memoryOfHome;}
     public string MemoryOfBackground { get => memoryOfBackground;}
-    public string Equipment { get => equipment;}
+    public List<string> Equipments { get => equipments;}
     public int Age { get => age; set => age = value; }
     public int FatePoint { get => fatePoint; set => fatePoint = value; }
     public int MadnessPoints { get => madnessPoints; set => madnessPoints = value; }
@@ -175,11 +177,11 @@ public class Character
         knowledges.Add(new Knowledge(GameStat.KnowledgeName.War, GameStat.SkillName.CommonLore, GameStat.Inclinations.Intelligence, GameStat.Inclinations.General));
     }
 
-    public void SetHomeWorld(Homeworld homeworld, int bonusFatePoint = 0, int bonusWound = 0)
+    public void SetHomeWorld(Homeworld homeworld)
     {
         this.homeworld = homeworld;
         fatePoint = homeworld.Fatepoint;
-        wounds = homeworld.Wound + bonusWound;
+        wounds = homeworld.Wound;
         Debug.Log($"Теперь у нас {wounds} ран");
         inclinations.Add(homeworld.Inclination);
 
@@ -187,7 +189,7 @@ public class Character
         if (bonusSkills != null)
         {
             foreach(string skill in bonusSkills)
-                UpgradeSkill(skill);
+                UpgradeSkill(null, skill);
         }
         var bonusTalents = homeworld.GetTalents();
         if (bonusTalents != null)
@@ -207,13 +209,41 @@ public class Character
 
     }
 
-    private void UpgradeSkill(string skillName)
+    public void SetBackground(Background background)
     {
+        foreach(Skill skill in background.ChosenSkills)
+        {
+            UpgradeSkill(skill);
+            Debug.Log($"1. Улучшаем навык {skill.Name}");
+        }
+        foreach(string talent in background.ChosenTalents)
+        {
+            talents.Add(new Talent(talent));
+            Debug.Log($"Добавляем талант {talent}");
+        }
+        foreach(string eq in background.ChosenEquipments)
+        {
+            equipments.Add(eq);
+            Debug.Log($"Добавляем в арсенал {eq}");
+        }
+        inclinations.Add(background.ChosenInclination);
+
+    }
+
+    private void UpgradeSkill(Skill newSkill, string nameSkill = "")
+    {
+        Debug.Log($"2. Идет прогресс навыка...");
+        if(newSkill == null)
+        {
+            newSkill = new Skill((GameStat.SkillName)Enum.Parse(typeof(GameStat.SkillName), nameSkill), 1);
+        }
+
         int sch = 0;
         foreach(Skill skill in skills)
         {
-            if(skill.Name == skillName)
+            if(skill.Name == newSkill.Name)
             {
+                Debug.Log($"3.Навык {skill.Name} найден. Навык улучшен.");
                 skill.SetNewLvl();
                 sch += 1;
                 break;
@@ -221,14 +251,20 @@ public class Character
         }
         if(sch == 0)
         {
+            Debug.Log($"2.1 Навык {newSkill.Name} не найден в простых навыках, поиск продолжается...");
+            Knowledge knowledge = (Knowledge)newSkill;
+            Debug.Log($"2.2 Навык переоборудован в знание, и имя его {knowledge.NameKnowledge}");
             foreach (Knowledge skill in knowledges)
             {
-                if (skill.NameKnowledge == skillName)
+                if (skill.NameKnowledge == knowledge.NameKnowledge)
                 {
+                    Debug.Log($"2.3 Улучшили навык {knowledge.NameKnowledge}");
                     skill.SetNewLvl();
                     break;
                 }
             }
         }
     }
+
+
 }
