@@ -548,7 +548,7 @@ public class CreatorBackgrounds
             }));
     }
 
-    public Background GetNextWorld()
+    public Background GetNextBack()
     {
         if (id + 1 < backgrounds.Count)
         {
@@ -561,7 +561,7 @@ public class CreatorBackgrounds
         return backgrounds[id];
     }
 
-    public Background GetPrevWorld()
+    public Background GetPrevBack()
     {
         if (id - 1 < 0)
         {

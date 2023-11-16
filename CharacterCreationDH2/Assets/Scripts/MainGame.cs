@@ -6,9 +6,12 @@ public class MainGame : MonoBehaviour
 {
     private CreatorWorlds creatorWorlds;
     private CreatorBackgrounds creatorBackgrounds;
+    private CreatorRole creatorRole;
+
     private HomeWorldVisual homeWorldVisual;
     private BackGroundVisual backVisual;
-    [SerializeField] GameObject homeWorldCanvas, backgroundCanvas;
+    private RoleVisual roleVisual;
+    [SerializeField] GameObject homeWorldCanvas, backgroundCanvas, roleCanvas;
     private Character character;
     private void Start()
     {
@@ -28,6 +31,15 @@ public class MainGame : MonoBehaviour
         backVisual.RegDelegate(ShowNextBack, ShowPrevBack);
         backVisual.regFinalDelegate(FinishChooseBackGround);
         ShowNextBack();*/
+
+        /*
+        creatorRole = new CreatorRole();
+        var visualRole = Instantiate(roleCanvas);
+        roleVisual = visualRole.GetComponent<RoleVisual>();
+        roleVisual.RegDelegate(ShowNextRole, ShowPrevRole);
+        roleVisual.regFinalDelegate(FinishChooseRole);
+        ShowNextRole();
+        */
     }
 
     private void ShowNextWorld()
@@ -42,23 +54,36 @@ public class MainGame : MonoBehaviour
 
     private void ShowNextBack()
     {
-        backVisual.ShowBackground(creatorBackgrounds.GetNextWorld());
+        backVisual.ShowBackground(creatorBackgrounds.GetNextBack());
     }
 
     private void ShowPrevBack()
     {
-        backVisual.ShowBackground(creatorBackgrounds.GetPrevWorld());
+        backVisual.ShowBackground(creatorBackgrounds.GetPrevBack());
     }
     
+    private void ShowNextRole()
+    {
+        roleVisual.ShowRole(creatorRole.GetNextRole());
+    }
+
+    private void ShowPrevRole()
+    {
+        roleVisual.ShowRole(creatorRole.GetPrevRole());
+    }
 
     private void FinishChooseWorld(Homeworld world)
     {
-        Debug.Log($"Выбрана планета {world}");
         character.SetHomeWorld(world);
     }
 
     private void FinishChooseBackGround(Background background)
     {
         character.SetBackground(background);
+    }
+
+    private void FinishChooseRole(Role role)
+    {
+        character.SetRole(role);
     }
 }

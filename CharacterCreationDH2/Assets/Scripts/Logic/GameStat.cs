@@ -40,7 +40,7 @@ public static class GameStat
     public enum BackgroundName {None, Administratum, Arbitres, AstraTelepatica, Mechanicus, Ministorum,
     Militarum, Izgoi, Sororitas, Mutant, Vichishennii, Heretech, ImperialFleet, RougeTraderFleet }
 
-    public enum RoleName {None, Assasin, Herurgion, Desperado, Ierofant, Mistic, Sage, Seeker, Warrior, 
+    public enum RoleName {None, Assasin, Hirurgion, Desperado, Ierofant, Mistic, Sage, Seeker, Warrior, 
     Fanatic, Kaushisa, Crusader, Ass}
 
 }

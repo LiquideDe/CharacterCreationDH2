@@ -44,12 +44,7 @@ public class BackGroundVisual : VisualCanvas
         path = background.PathBackground;
         textName.text = ReadText(path + "/Название.txt");
         this.background = background;
-        IEnumerable<string> imageFiles = Directory.EnumerateFiles(path, "*.jpg");
-        foreach (string s in imageFiles)
-        {
-            images.Add(ReadImage(s));
-        }
-        image.sprite = images[0];
+        SetImage(path);
         textBonusDescr.text = ReadText(path + "/Бонус.txt");
         textDescr.text = ReadText(path + "/Описание.txt");
         textCitata.text = ReadText(path + "/Цитата.txt");
@@ -157,13 +152,7 @@ public class BackGroundVisual : VisualCanvas
     public void BackgroundIsChosen()
     {
         int sch = 0;
-        foreach(GameObject ls in toggleGroups)
-        {
-            if(ls.transform.childCount > 1)
-            {
-                Debug.Log($"выбранный пункт {ls.GetComponent<ToggleGroup>().ActiveToggles().FirstOrDefault().GetComponent<MyToggle>().Id}");
-            }
-        }
+        
         List<Skill> skills = new List<Skill>();
         foreach (List<Skill> sk in background.Skills)
         {

@@ -7,12 +7,27 @@ public class Role
     private GameStat.RoleName name;
     private List<List<GameStat.Inclinations>> inclinations = new List<List<GameStat.Inclinations>>();
     private List<string> talents = new List<string>();
-    private string textBonus;
+    private string pathRole;
+    private List<GameStat.Inclinations> chosenInclinations = new List<GameStat.Inclinations>();
+    private string chosenTalent;
 
-    public Role(GameStat.RoleName name, string textBonus, List<List<GameStat.Inclinations>> inclinations, List<string> talents)
+    public Role(GameStat.RoleName name, List<List<GameStat.Inclinations>> inclinations, List<string> talents)
     {
         this.inclinations = new List<List<GameStat.Inclinations>>(inclinations);
         this.talents = new List<string>(talents);
-        this.textBonus = textBonus;
+        this.name = name;
+        pathRole = $"{Application.dataPath}/Images/Roles/{name}/";
     }
+
+    public void SetChosen(List<GameStat.Inclinations> chosenInclinations, string chosenTalent)
+    {
+        this.chosenInclinations = new List<GameStat.Inclinations>(chosenInclinations);
+        this.chosenTalent = chosenTalent;
+    }
+
+    public string PathRole { get => pathRole; }
+    public List<string> Talents { get => talents; }
+    public List<List<GameStat.Inclinations>> Inclinations { get => inclinations; }
+    public string ChosenTalent { get => chosenTalent; }
+    public List<GameStat.Inclinations> ChosenInclinations { get => chosenInclinations; }
 }

@@ -101,4 +101,14 @@ public abstract class VisualCanvas : MonoBehaviour
         ResetImages();
         changeItemPrev?.Invoke();
     }
+
+    protected void SetImage(string path)
+    {
+        IEnumerable<string> imageFiles = Directory.EnumerateFiles(path, "*.jpg");
+        foreach (string s in imageFiles)
+        {
+            images.Add(ReadImage(s));
+        }
+        image.sprite = images[0];
+    }
 }

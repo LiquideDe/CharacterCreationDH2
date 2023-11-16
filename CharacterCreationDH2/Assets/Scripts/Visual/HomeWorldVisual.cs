@@ -93,12 +93,7 @@ public class HomeWorldVisual : VisualCanvas
         path = homeworld.PathHomeworld;
         textName.text = ReadText(path + "/Название.txt");        
         this.homeworld = homeworld;
-        IEnumerable<string> imageFiles = Directory.EnumerateFiles(path, "*.jpg");
-        foreach(string s in imageFiles)
-        {
-            images.Add(ReadImage(s));
-        }
-        image.sprite = images[0];
+        SetImage(path);
         textBonusDescr.text = ReadText(path + "/Бонус.txt");
         textDescr.text = ReadText(path + "/Описание.txt");
         textCitata.text = ReadText(path + "/Цитата.txt");

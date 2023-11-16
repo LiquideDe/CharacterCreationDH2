@@ -230,6 +230,16 @@ public class Character
 
     }
 
+    public void SetRole(Role role)
+    {
+        foreach(GameStat.Inclinations incl in role.ChosenInclinations)
+        {
+            inclinations.Add(incl);
+        }
+
+        talents.Add(new Talent(role.ChosenTalent));
+    }
+
     private void UpgradeSkill(Skill newSkill, string nameSkill = "")
     {
         Debug.Log($"2. Идет прогресс навыка...");
