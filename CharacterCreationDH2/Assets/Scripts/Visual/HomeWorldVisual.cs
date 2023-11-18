@@ -250,7 +250,12 @@ public class HomeWorldVisual : VisualCanvas
         {
             naBarabane = GenerateValue(100);
         }
+        
         int id = (int)(naBarabane/variants);
+        if(id >= baraban.Count)
+        {
+            id = baraban.Count - 1;
+        }
         return baraban[id];
     }
 

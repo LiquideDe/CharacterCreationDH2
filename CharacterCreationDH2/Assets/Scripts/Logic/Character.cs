@@ -1,13 +1,14 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Character 
 {
     private string name, background, role, ageText, prophecy, constitution, hair, eyes, skeen, physFeatures, memoryOfHome, memoryOfBackground;
     private int age, fatePoint, madnessPoints, corruptionPoints, wounds, psyRating, halfMove, fullMove, natisk, fatigue, carryWeight, liftWeight, pushWeight,
-        experienceTotal, experienceUnspent, experienceSpent;
+        experienceTotal, experienceUnspent = 1000, experienceSpent;
     private List<Characteristic> characteristics = new List<Characteristic>();
     private List<GameStat.Inclinations> inclinations = new List<GameStat.Inclinations>();
     private List<Talent> talents = new List<Talent>();
@@ -50,6 +51,9 @@ public class Character
     public int ExperienceTotal { get => experienceTotal; set => experienceTotal = value; }
     public int ExperienceUnspent { get => experienceUnspent; set => experienceUnspent = value; }
     public int ExperienceSpent { get => experienceSpent; set => experienceSpent = value; }
+    public List<Characteristic> Characteristics { get => characteristics; set => characteristics = value; }
+    public List<GameStat.Inclinations> Inclinations { get => inclinations; set => inclinations = value; }
+    public List<Skill> Skills { get => skills.Concat(knowledges).ToList(); }
     #endregion
 
     public Character()
@@ -68,6 +72,7 @@ public class Character
         characteristics.Add(new Characteristic(GameStat.CharacterName.Perception, GameStat.Inclinations.Perception, GameStat.Inclinations.Fieldcraft));
         characteristics.Add(new Characteristic(GameStat.CharacterName.Willpower, GameStat.Inclinations.Willpower, GameStat.Inclinations.Psyker));
         characteristics.Add(new Characteristic(GameStat.CharacterName.Fellowship, GameStat.Inclinations.Fellowship, GameStat.Inclinations.Social));
+        characteristics.Add(new Characteristic(GameStat.CharacterName.Influence, GameStat.Inclinations.None, GameStat.Inclinations.None));
 
         skills.Add(new Skill(GameStat.SkillName.Acrobatics, GameStat.Inclinations.Agility, GameStat.Inclinations.General));
         skills.Add(new Skill(GameStat.SkillName.Athletics, GameStat.Inclinations.Strength, GameStat.Inclinations.General));
@@ -119,6 +124,9 @@ public class Character
         knowledges.Add(new Knowledge(GameStat.KnowledgeName.TauLingva, GameStat.SkillName.Linquistics, GameStat.Inclinations.Intelligence, GameStat.Inclinations.General));
         knowledges.Add(new Knowledge(GameStat.KnowledgeName.CriminalCodes, GameStat.SkillName.Linquistics, GameStat.Inclinations.Intelligence, GameStat.Inclinations.General));
         knowledges.Add(new Knowledge(GameStat.KnowledgeName.MarkOfXenos, GameStat.SkillName.Linquistics, GameStat.Inclinations.Intelligence, GameStat.Inclinations.General));
+        knowledges.Add(new Knowledge(GameStat.KnowledgeName.HighGhotic, GameStat.SkillName.Linquistics, GameStat.Inclinations.Intelligence, GameStat.Inclinations.General));
+        knowledges.Add(new Knowledge(GameStat.KnowledgeName.RunesOfOrder, GameStat.SkillName.Linquistics, GameStat.Inclinations.Intelligence, GameStat.Inclinations.General));
+        knowledges.Add(new Knowledge(GameStat.KnowledgeName.EldariLingva, GameStat.SkillName.Linquistics, GameStat.Inclinations.Intelligence, GameStat.Inclinations.General));
         
         knowledges.Add(new Knowledge(GameStat.KnowledgeName.AustroGraphTr, GameStat.SkillName.Trade, GameStat.Inclinations.Intelligence, GameStat.Inclinations.General));
         knowledges.Add(new Knowledge(GameStat.KnowledgeName.AgroTr, GameStat.SkillName.Trade, GameStat.Inclinations.Intelligence, GameStat.Inclinations.General));
@@ -240,7 +248,7 @@ public class Character
         talents.Add(new Talent(role.ChosenTalent));
     }
 
-    private void UpgradeSkill(Skill newSkill, string nameSkill = "")
+    public void UpgradeSkill(Skill newSkill, string nameSkill = "")
     {
         Debug.Log($"2. Идет прогресс навыка...");
         if(newSkill == null)
@@ -252,10 +260,10 @@ public class Character
         foreach(Skill skill in skills)
         {
             if(skill.Name == newSkill.Name)
-            {
-                Debug.Log($"3.Навык {skill.Name} найден. Навык улучшен.");
+            {                
                 skill.SetNewLvl();
                 sch += 1;
+                Debug.Log($"3.Навык {skill.Name} найден. Навык улучшен., новый уровень {skill.LvlLearned}");
                 break;
             }
         }
@@ -273,6 +281,36 @@ public class Character
                     break;
                 }
             }
+        }
+    }
+
+    public List<Characteristic> GetCharacteristicsForGenerate()
+    {
+        foreach(Characteristic characteristic in characteristics)
+        {
+            if(characteristic.Name == homeworld.AdvantageCharacteristics[0].ToString() || characteristic.Name == homeworld.AdvantageCharacteristics[1].ToString())
+            {
+                characteristic.Amount = 30;
+            }
+            else if (characteristic.Name == homeworld.DisadvantageCharacteristic.ToString())
+            {
+                characteristic.Amount = 20;
+            }
+            else
+            {
+                characteristic.Amount = 25;
+            }
+        }
+        return characteristics;
+    }
+
+    public void UpdateCharacteristics(List<Characteristic> characteristics)
+    {
+        int i = 0;
+        foreach (Characteristic characteristic in this.characteristics)
+        {
+            characteristic.Amount = characteristics[i].Amount;
+            i++;
         }
     }
 

@@ -13,7 +13,7 @@ public class Characteristic
 
     public string Name { get { return name.ToString(); } }
     public int LvlLearned { get { return lvlLearnedChar; } }
-    public int Amount { get { return amount; } }
+    public int Amount { get => amount; set => amount = value; }
 
     public GameStat.Inclinations[] Inclinations { get { return inclinations; } }
 
@@ -49,8 +49,4 @@ public class Characteristic
         amount -= 5;
     }
 
-    public void SetAmount(int amount)
-    {
-        this.amount = amount;
-    }
 }

@@ -11,11 +11,12 @@ public class MainGame : MonoBehaviour
     private HomeWorldVisual homeWorldVisual;
     private BackGroundVisual backVisual;
     private RoleVisual roleVisual;
-    [SerializeField] GameObject homeWorldCanvas, backgroundCanvas, roleCanvas;
+    [SerializeField] GameObject homeWorldCanvas, backgroundCanvas, roleCanvas, characteristicGenerateCanvas, characteristicPanelCanvas, skillPanelCanvas;
     private Character character;
     private void Start()
     {
         character = new Character();
+        SetCharNewAmounts();
         /*
         creatorWorlds = new CreatorWorlds();
         var visualHomeworld = Instantiate(homeWorldCanvas);
@@ -40,6 +41,8 @@ public class MainGame : MonoBehaviour
         roleVisual.regFinalDelegate(FinishChooseRole);
         ShowNextRole();
         */
+
+        TrainingCharacteristics();
     }
 
     private void ShowNextWorld()
@@ -75,6 +78,15 @@ public class MainGame : MonoBehaviour
     private void FinishChooseWorld(Homeworld world)
     {
         character.SetHomeWorld(world);
+        //Создание формы для распределения сгенерированных значений
+        
+         /*
+        GameObject gameObject = Instantiate(characteristicGenerateCanvas);
+        var generateCanvas = gameObject.GetComponent<CharacteristicGenerateCanvas>();
+        generateCanvas.RegDelegateFinish(FinishGenerateCharacteristics);
+        generateCanvas.GenerateCharacteristics(character);*/
+
+        
     }
 
     private void FinishChooseBackGround(Background background)
@@ -86,4 +98,51 @@ public class MainGame : MonoBehaviour
     {
         character.SetRole(role);
     }
+
+    private void FinishGenerateCharacteristics(List<Characteristic> characteristics)
+    {
+        character.UpdateCharacteristics(characteristics);
+        //Создание формы для распределения очков. Здесь Характеристики
+        
+    }
+
+    private void TrainingCharacteristics()
+    {
+
+        
+        /*----------------------------------------------*/
+        GameObject gO = Instantiate(characteristicPanelCanvas);
+        gO.SetActive(true);
+        var characteristicCanvas = gO.GetComponent<CanvasTrainingChar>();
+        characteristicCanvas.CreatePanels(character);
+        characteristicCanvas.RegDelegate(TrainingSkill);
+    }
+
+    private void TrainingSkill()
+    {
+        GameObject gO = Instantiate(skillPanelCanvas);
+        gO.SetActive(true);
+        var characteristicCanvas = gO.GetComponent<SkillTrainingCanvas>();
+        characteristicCanvas.CreatePanels(character);
+        characteristicCanvas.RegDelegate(TrainingTalents, TrainingCharacteristics);
+    }
+
+    private void TrainingTalents()
+    {
+
+    }
+
+    private void SetCharNewAmounts()
+    {
+        character.Inclinations.Add(GameStat.Inclinations.Agility);
+        character.Inclinations.Add(GameStat.Inclinations.Ballistic);
+        character.UpgradeSkill(new Skill( GameStat.SkillName.Psyniscience,2));
+        int k = 3;
+        foreach (Characteristic characteristic in character.Characteristics)
+        {
+            characteristic.Amount = 35 + k;
+            k += 2;
+        }
+    }
+
 }
