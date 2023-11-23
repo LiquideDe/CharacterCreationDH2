@@ -27,28 +27,25 @@ public class CanvasTrainingChar : MonoBehaviour
             characteristicPanels.Add(cp.GetComponent<CharacteristicPanel>());
             characteristicPanels[^1].SetParams(character, ch);
             characteristicPanels[^1].RegDelegate(CheckExp);
+            
             ch++;
         }
     }
 
     private bool CheckExp(int cost, int id)
     {
-        Debug.Log($"ѕровер€ем експу");
         if(cost > exp)
         {
-            Debug.Log($"кост больше, возвращаем фолс");
             return false;
         }
         else
         {
-            Debug.Log($"кост меньше, возвращаем тру");
             exp -= cost;
             UpdateExpText();
             character.Characteristics[id].SetNewLvl();
             character.ExperienceSpent += cost;
             character.ExperienceTotal += cost;
             character.ExperienceUnspent -= cost;
-            Debug.Log($"Ќовое опыт {exp}");
             return true;
         }
     }

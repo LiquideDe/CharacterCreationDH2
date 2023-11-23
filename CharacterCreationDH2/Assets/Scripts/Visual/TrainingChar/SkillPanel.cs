@@ -19,7 +19,6 @@ public class SkillPanel : MonoBehaviour
     {
         this.nameSkill = nameSkill;
         textName.text = name;
-        Debug.Log($"skill - {name}, lvlLearned = {lvlLearned}");
         this.lvlLearned = lvlLearned;
         idSkill = id;
         ActivatedTraining(lvlLearned);

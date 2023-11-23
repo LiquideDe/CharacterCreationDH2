@@ -22,11 +22,12 @@ public class HomeWorldVisual : VisualCanvas
     private List<string> eyes = new List<string>();
     private List<string> hair = new List<string>();
     private List<string> age = new List<string>();
+    private List<string> agesInt = new List<string>();
     private List<string> rememberThing = new List<string>();
     private List<string> body = new List<string>();
     private List<string> traditions = new List<string>();
     private List<string> phys = new List<string>();
-    private int generatedFateB, generatedWound;
+    private int generatedFateB, generatedWound, generatedAgeInt;
     private string generatedSkeen, generatedEye, generatedHair, generatedage, generatedRememberThing, generatedBody, generatedTraditions, generatedPhys;
 
     public void FinalTouchToWorld()
@@ -47,6 +48,7 @@ public class HomeWorldVisual : VisualCanvas
             homeworld.Body = generatedBody;
             homeworld.Traditions = generatedTraditions;
             homeworld.Phys = generatedPhys;
+            homeworld.AgeInt = generatedAgeInt;
 
             chosenWorld?.Invoke(homeworld);
             Destroy(gameObject);
@@ -95,6 +97,7 @@ public class HomeWorldVisual : VisualCanvas
         this.homeworld = homeworld;
         SetImage(path);
         textBonusDescr.text = ReadText(path + "/Бонус.txt");
+        homeworld.Bonus = textBonusDescr.text;
         textDescr.text = ReadText(path + "/Описание.txt");
         textCitata.text = ReadText(path + "/Цитата.txt");
         if(images.Count > 1)
@@ -110,6 +113,10 @@ public class HomeWorldVisual : VisualCanvas
         rememberThing = ReadText(path + "/Памятные вещи.txt").Split(new char[] { '/' }).ToList();
         traditions = ReadText(path + "/Традиции.txt").Split(new char[] { '/' }).ToList();
         phys = ReadText(path + "/Физические особенности.txt").Split(new char[] { '/' }).ToList();
+        agesInt = ReadText(path + "/Age.txt").Split(new char[] { '/' }).ToList();
+
+        textBonusDescr.text += $"\n \n +{GameStat.characterTranslate[homeworld.AdvantageCharacteristics[0]]},\n +{GameStat.characterTranslate[homeworld.AdvantageCharacteristics[1]]},\n " +
+            $"-{GameStat.characterTranslate[homeworld.DisadvantageCharacteristic]}";
     }
 
     private int GenerateValue(int max)
@@ -159,6 +166,8 @@ public class HomeWorldVisual : VisualCanvas
             case 2:
                 generatedage = fromInput ? PoleChudes(age, int.Parse(inputs[id].text)) : PoleChudes(age);
                 inputs[2].text = $"В вашем возрасте вас называют как {generatedage}";
+                int varAge = age.IndexOf(generatedage);
+                generatedAgeInt = int.Parse(agesInt[varAge]) + GenerateValue(10);
                 break;
             case 3:
                 generatedHair = fromInput ? PoleChudes(hair, int.Parse(inputs[id].text)) : PoleChudes(hair);

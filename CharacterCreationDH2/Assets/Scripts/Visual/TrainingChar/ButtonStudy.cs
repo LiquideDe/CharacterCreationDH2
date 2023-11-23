@@ -26,13 +26,14 @@ public class ButtonStudy : MonoBehaviour, IPointerDownHandler, IPointerEnterHand
         {
             image.sprite = spriteLearned;
             isActivated = true;
-            payTheCost?.Invoke(cost, id);
+            payTheCost?.Invoke(cost, id);           
         }
         
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+        
         if (isPrevButtActive && !isActivated)
         {
             helpText.text = cost.ToString();

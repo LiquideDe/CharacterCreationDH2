@@ -14,10 +14,10 @@ public class Homeworld
     private GameStat.CharacterName[] advantageCharacteristics = new GameStat.CharacterName[2];
     private GameStat.CharacterName disadvantageCharacteristic;
     private GameStat.Inclinations inclination;
-    private int wound;
+    private int wound, ageInt;
     private List<string> talentsName = new List<string>();
     private List<string> skills = new List<string>();
-    private string age, hair, eyes, skeen, remember, body, traditions, phys;
+    private string age, hair, eyes, skeen, remember, body, traditions, phys, nameWorld, bonus;
 
     public Homeworld(string name)
     {
@@ -25,6 +25,7 @@ public class Homeworld
         pathHomeworld = name;
         List<string> parameters = new List<string>();
         parameters = ReadText(pathHomeworld + "/Parameters.txt").Split(new char[] { '/' }).ToList();
+        nameWorld = ReadText(pathHomeworld + "/Название.txt");
         advantageCharacteristics[0] = (GameStat.CharacterName)Enum.Parse(typeof(GameStat.CharacterName), parameters[0]);
         advantageCharacteristics[1] = (GameStat.CharacterName)Enum.Parse(typeof(GameStat.CharacterName), parameters[1]);
         disadvantageCharacteristic = (GameStat.CharacterName)Enum.Parse(typeof(GameStat.CharacterName), parameters[2]);
@@ -105,4 +106,7 @@ public class Homeworld
     public string Traditions { get => traditions; set => traditions = value; }
     public string Phys { get => phys; set => phys = value; }
     public int PorogFatepoint { get => porogFatepoint; set => porogFatepoint = value; }
+    public string NameWorld { get => nameWorld; }
+    public int AgeInt { get => ageInt; set => ageInt = value; }
+    public string Bonus { get => bonus; set => bonus = value; }
 }

@@ -15,7 +15,7 @@ public class CharacteristicPanel : MonoBehaviour
     private int[] costWithOneIncl = new int[5] {250, 500,750,1000,1500 };
     private int[] costWithTwoIncl = new int[5] {100, 250,500,750,1250 };
     private int amount;
-    private int idChar;
+    public int idChar;
 
 
     public void SetParams(Character character, int id)
@@ -71,7 +71,7 @@ public class CharacteristicPanel : MonoBehaviour
         for (int i = 0; i < buttonStudies.Length; i++)
         {
             buttonStudies[i].Cost = cost[i];
-            buttonStudies[i].RegDelegate(CheckHavePoints);
+            buttonStudies[i].RegDelegate(CheckHavePoints);            
         }
     }
 
@@ -82,7 +82,7 @@ public class CharacteristicPanel : MonoBehaviour
     
     public void RegDelegate(CheckCost checkCost)
     {
-        this.checkCost = checkCost;
+        this.checkCost = checkCost;        
     }
 
     private void CheckHavePoints(int cost, int id)
@@ -93,9 +93,9 @@ public class CharacteristicPanel : MonoBehaviour
         }
         else
         {
-            Debug.Log($"amount до {amount}");
+            Debug.Log($"amount {id} до {amount}");
             amount += 5;
-            Debug.Log($"amount после {amount}");
+            Debug.Log($"amount {id} после {amount}");
             DivideDozenAndUnits();
             if(id < buttonStudies.Length)
             {
@@ -106,11 +106,8 @@ public class CharacteristicPanel : MonoBehaviour
 
     private void DivideDozenAndUnits()
     {
-        textDozen.text = $"{(int)(amount/10)}";
-        float unit = (float)(amount / 10f);
-        string tUnit = unit.ToString();
-        string[] parts = tUnit.Split(',');
-        Debug.Log($"unit = {amount}/{10} = {unit}, parts = {parts[^1]}");
-        textUnits.text = $"{parts[^1]}";
+        char[] arr = amount.ToString().ToCharArray();
+        textDozen.text = arr[0].ToString();
+        textUnits.text = arr[1].ToString();
     }
 }

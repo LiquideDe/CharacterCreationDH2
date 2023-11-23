@@ -10,7 +10,8 @@ public class Skill
     private GameStat.Inclinations[] inclinations = new GameStat.Inclinations[2];
 
     public GameStat.Inclinations[] Inclinations { get { return inclinations; } }
-    public string Name { get { return name.ToString(); } }
+    public string Name { get { return GameStat.skillTranslate[name]; } }
+    public GameStat.SkillName InternalName { get => name; }
 
     public int Cost { get => cost; }
     public int LvlLearned { get => lvlLearned; }
@@ -54,5 +55,19 @@ public class Skill
 
         return sumIncls;
         //cost = ((lvlLearned + 1) * 300) - (100 * sumIncls * (lvlLearned + 1));
+    }
+
+    public bool IsKnowledge()
+    {
+        if (InternalName == GameStat.SkillName.CommonLore || InternalName == GameStat.SkillName.ForbiddenLore ||
+                        InternalName == GameStat.SkillName.Linquistics || InternalName == GameStat.SkillName.ScholasticLore || InternalName == GameStat.SkillName.Trade)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+        
     }
 }

@@ -62,7 +62,7 @@ public class RoleVisual : VisualCanvas
                 CreateToggleGroup();
                 for (int i = 0; i < incl.Count; i++)
                 {
-                    CreateToggle(incl[i].ToString(), i);
+                    CreateToggle(GameStat.inclinationTranslate[incl[i]], i);
                 }
             }
         }

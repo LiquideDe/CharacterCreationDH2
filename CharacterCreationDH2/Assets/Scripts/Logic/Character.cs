@@ -6,9 +6,10 @@ using UnityEngine;
 
 public class Character 
 {
-    private string name, background, role, ageText, prophecy, constitution, hair, eyes, skeen, physFeatures, memoryOfHome, memoryOfBackground;
-    private int age, fatePoint, madnessPoints, corruptionPoints, wounds, psyRating, halfMove, fullMove, natisk, fatigue, carryWeight, liftWeight, pushWeight,
+    private string name, background, role, ageText, prophecy, constitution, hair, eyes, skeen, physFeatures, memoryOfHome, memoryOfBackground, gender, bonusBack;
+    private int age, fatePoint, madnessPoints, corruptionPoints, wounds, psyRating, halfMove, fullMove, natisk, run, fatigue,
         experienceTotal, experienceUnspent = 1000, experienceSpent;
+    private float carryWeight, liftWeight, pushWeight;
     private List<Characteristic> characteristics = new List<Characteristic>();
     private List<GameStat.Inclinations> inclinations = new List<GameStat.Inclinations>();
     private List<Talent> talents = new List<Talent>();
@@ -18,19 +19,22 @@ public class Character
     private List<string> mutation = new List<string>();
     private List<PsyDisciplence> psyDisciplences = new List<PsyDisciplence>();
     private List<string> equipments = new List<string>();
+    private List<MechImplants> implants = new List<MechImplants>();
     private Homeworld homeworld;
+    private List<float> parametrsForWeight;
 
     #region Свойства
-    public string Name { get { return name; } }
+    public string Name { get => name; set => name = value; }
     public Homeworld HomeWorld { get { return homeworld; } }
     public string Background { get { return background; } }
     public string Role { get { return role; } }
     public string AgeText { get => ageText; }
-    public string Prophecy { get => prophecy;}
+    public string Prophecy { get => prophecy; set => prophecy = value; }
     public string Constitution { get => constitution;}
     public string Hair { get => hair; }
     public string Eyes { get => eyes; }
     public string Skeen { get => skeen; }
+    public string Gender { get => gender; }
     public string PhysFeatures { get => physFeatures;}
     public string MemoryOfHome { get => memoryOfHome;}
     public string MemoryOfBackground { get => memoryOfBackground;}
@@ -45,15 +49,20 @@ public class Character
     public int FullMove { get => fullMove;}
     public int Natisk { get => natisk;}
     public int Fatigue { get => fatigue;}
-    public int CarryWeight { get => carryWeight;}
-    public int LiftWeight { get => liftWeight;}
-    public int PushWeight { get => pushWeight;}
+    public float CarryWeight { get => carryWeight;}
+    public float LiftWeight { get => liftWeight;}
+    public float PushWeight { get => pushWeight;}
     public int ExperienceTotal { get => experienceTotal; set => experienceTotal = value; }
     public int ExperienceUnspent { get => experienceUnspent; set => experienceUnspent = value; }
     public int ExperienceSpent { get => experienceSpent; set => experienceSpent = value; }
     public List<Characteristic> Characteristics { get => characteristics; set => characteristics = value; }
-    public List<GameStat.Inclinations> Inclinations { get => inclinations; set => inclinations = value; }
+    public List<GameStat.Inclinations> Inclinations { get => inclinations; }
     public List<Skill> Skills { get => skills.Concat(knowledges).ToList(); }
+    public List<Talent> Talents { get => talents; }
+    public List<MechImplants> Implants { get => implants; }
+    public List<string> MentalDisorders { get => mentalDisorders; set => mentalDisorders = value; }
+    public int Run { get => run; }
+    public string BonusBack { get => bonusBack; set => bonusBack = value; }
     #endregion
 
     public Character()
@@ -63,16 +72,16 @@ public class Character
 
     private void CreateCharacteristics()
     {
-        characteristics.Add(new Characteristic(GameStat.CharacterName.WeaponSkill, GameStat.Inclinations.Weapon, GameStat.Inclinations.Offense));
-        characteristics.Add(new Characteristic(GameStat.CharacterName.BallisticSkill, GameStat.Inclinations.Ballistic, GameStat.Inclinations.Finesse));
-        characteristics.Add(new Characteristic(GameStat.CharacterName.Strength, GameStat.Inclinations.Strength, GameStat.Inclinations.Offense));
-        characteristics.Add(new Characteristic(GameStat.CharacterName.Toughness, GameStat.Inclinations.Toughness, GameStat.Inclinations.Defense));
-        characteristics.Add(new Characteristic(GameStat.CharacterName.Agility, GameStat.Inclinations.Agility, GameStat.Inclinations.Finesse));
-        characteristics.Add(new Characteristic(GameStat.CharacterName.Intelligence, GameStat.Inclinations.Intelligence, GameStat.Inclinations.Knowledge));
-        characteristics.Add(new Characteristic(GameStat.CharacterName.Perception, GameStat.Inclinations.Perception, GameStat.Inclinations.Fieldcraft));
-        characteristics.Add(new Characteristic(GameStat.CharacterName.Willpower, GameStat.Inclinations.Willpower, GameStat.Inclinations.Psyker));
-        characteristics.Add(new Characteristic(GameStat.CharacterName.Fellowship, GameStat.Inclinations.Fellowship, GameStat.Inclinations.Social));
-        characteristics.Add(new Characteristic(GameStat.CharacterName.Influence, GameStat.Inclinations.None, GameStat.Inclinations.None));
+        characteristics.Add(new Characteristic(GameStat.CharacterName.WeaponSkill, GameStat.Inclinations.Weapon, GameStat.Inclinations.Offense)); //0
+        characteristics.Add(new Characteristic(GameStat.CharacterName.BallisticSkill, GameStat.Inclinations.Ballistic, GameStat.Inclinations.Finesse)); //1
+        characteristics.Add(new Characteristic(GameStat.CharacterName.Strength, GameStat.Inclinations.Strength, GameStat.Inclinations.Offense)); //2
+        characteristics.Add(new Characteristic(GameStat.CharacterName.Toughness, GameStat.Inclinations.Toughness, GameStat.Inclinations.Defense)); //3
+        characteristics.Add(new Characteristic(GameStat.CharacterName.Agility, GameStat.Inclinations.Agility, GameStat.Inclinations.Finesse)); //4
+        characteristics.Add(new Characteristic(GameStat.CharacterName.Intelligence, GameStat.Inclinations.Intelligence, GameStat.Inclinations.Knowledge)); //5
+        characteristics.Add(new Characteristic(GameStat.CharacterName.Perception, GameStat.Inclinations.Perception, GameStat.Inclinations.Fieldcraft)); //6
+        characteristics.Add(new Characteristic(GameStat.CharacterName.Willpower, GameStat.Inclinations.Willpower, GameStat.Inclinations.Psyker)); //7
+        characteristics.Add(new Characteristic(GameStat.CharacterName.Fellowship, GameStat.Inclinations.Fellowship, GameStat.Inclinations.Social)); //8
+        characteristics.Add(new Characteristic(GameStat.CharacterName.Influence, GameStat.Inclinations.None, GameStat.Inclinations.None)); //9
 
         skills.Add(new Skill(GameStat.SkillName.Acrobatics, GameStat.Inclinations.Agility, GameStat.Inclinations.General));
         skills.Add(new Skill(GameStat.SkillName.Athletics, GameStat.Inclinations.Strength, GameStat.Inclinations.General));
@@ -190,8 +199,8 @@ public class Character
         this.homeworld = homeworld;
         fatePoint = homeworld.Fatepoint;
         wounds = homeworld.Wound;
-        Debug.Log($"Теперь у нас {wounds} ран");
-        inclinations.Add(homeworld.Inclination);
+        //inclinations.Add(homeworld.Inclination);
+        AddInclination(homeworld.Inclination);
 
         var bonusSkills = homeworld.GetSkills();
         if (bonusSkills != null)
@@ -214,6 +223,7 @@ public class Character
         skeen = homeworld.Skeen;
         fatePoint = homeworld.Fatepoint;
         wounds = homeworld.Wound;
+        age = homeworld.AgeInt;
 
     }
 
@@ -222,35 +232,44 @@ public class Character
         foreach(Skill skill in background.ChosenSkills)
         {
             UpgradeSkill(skill);
-            Debug.Log($"1. Улучшаем навык {skill.Name}");
         }
         foreach(string talent in background.ChosenTalents)
         {
             talents.Add(new Talent(talent));
-            Debug.Log($"Добавляем талант {talent}");
         }
         foreach(string eq in background.ChosenEquipments)
         {
             equipments.Add(eq);
-            Debug.Log($"Добавляем в арсенал {eq}");
         }
-        inclinations.Add(background.ChosenInclination);
-
+        //inclinations.Add(background.ChosenInclination);
+        AddInclination(background.ChosenInclination);
+        if(background.MechImplants != null)
+        {
+            implants.Add(background.MechImplants);
+        }
+        
+        
+        if(implants.Count > 0)
+        {
+            Debug.Log($"{implants[0].Name}");
+        }
+        this.background = background.Name;
+        memoryOfBackground = background.RememberThing;
+        bonusBack = background.Bonus;
     }
 
     public void SetRole(Role role)
     {
         foreach(GameStat.Inclinations incl in role.ChosenInclinations)
         {
-            inclinations.Add(incl);
-        }
+            AddInclination(incl);        }
 
         talents.Add(new Talent(role.ChosenTalent));
+        this.role = role.Name;
     }
 
     public void UpgradeSkill(Skill newSkill, string nameSkill = "")
     {
-        Debug.Log($"2. Идет прогресс навыка...");
         if(newSkill == null)
         {
             newSkill = new Skill((GameStat.SkillName)Enum.Parse(typeof(GameStat.SkillName), nameSkill), 1);
@@ -259,24 +278,20 @@ public class Character
         int sch = 0;
         foreach(Skill skill in skills)
         {
-            if(skill.Name == newSkill.Name)
+            if(skill.InternalName == newSkill.InternalName)
             {                
                 skill.SetNewLvl();
                 sch += 1;
-                Debug.Log($"3.Навык {skill.Name} найден. Навык улучшен., новый уровень {skill.LvlLearned}");
                 break;
             }
         }
         if(sch == 0)
         {
-            Debug.Log($"2.1 Навык {newSkill.Name} не найден в простых навыках, поиск продолжается...");
             Knowledge knowledge = (Knowledge)newSkill;
-            Debug.Log($"2.2 Навык переоборудован в знание, и имя его {knowledge.NameKnowledge}");
             foreach (Knowledge skill in knowledges)
             {
-                if (skill.NameKnowledge == knowledge.NameKnowledge)
+                if (skill.InternalNameKnowledge == knowledge.InternalNameKnowledge)
                 {
-                    Debug.Log($"2.3 Улучшили навык {knowledge.NameKnowledge}");
                     skill.SetNewLvl();
                     break;
                 }
@@ -288,11 +303,12 @@ public class Character
     {
         foreach(Characteristic characteristic in characteristics)
         {
-            if(characteristic.Name == homeworld.AdvantageCharacteristics[0].ToString() || characteristic.Name == homeworld.AdvantageCharacteristics[1].ToString())
+            
+            if(characteristic.InternalName == homeworld.AdvantageCharacteristics[0] || characteristic.InternalName == homeworld.AdvantageCharacteristics[1])
             {
                 characteristic.Amount = 30;
             }
-            else if (characteristic.Name == homeworld.DisadvantageCharacteristic.ToString())
+            else if (characteristic.InternalName == homeworld.DisadvantageCharacteristic)
             {
                 characteristic.Amount = 20;
             }
@@ -300,6 +316,7 @@ public class Character
             {
                 characteristic.Amount = 25;
             }
+
         }
         return characteristics;
     }
@@ -314,5 +331,64 @@ public class Character
         }
     }
 
+    public void AddTalent(Talent talent)
+    {
+        talents.Add(talent);
+    }
 
+    public void CalculatePhysAbilities()
+    {
+        parametrsForWeight = new List<float>();
+        parametrsForWeight.Add(0.9f);
+        parametrsForWeight.Add(2.25f);
+        parametrsForWeight.Add(4.5f);
+        parametrsForWeight.Add(9f);
+        parametrsForWeight.Add(18f);
+        parametrsForWeight.Add(27f);
+        parametrsForWeight.Add(36f);
+        parametrsForWeight.Add(45);
+        parametrsForWeight.Add(56f);
+        parametrsForWeight.Add(67f);
+        parametrsForWeight.Add(78f);
+        parametrsForWeight.Add(90f);
+        parametrsForWeight.Add(112f);
+        parametrsForWeight.Add(225f);
+        parametrsForWeight.Add(337f);
+        parametrsForWeight.Add(450f);
+        parametrsForWeight.Add(675f);
+        parametrsForWeight.Add(900f);
+        parametrsForWeight.Add(1350f);
+        parametrsForWeight.Add(1800f);
+        parametrsForWeight.Add(2250f);
+
+        int force = characteristics[2].Amount / 10 + characteristics[3].Amount / 10;
+        carryWeight = parametrsForWeight[force];
+        liftWeight = carryWeight * 2;
+        pushWeight = liftWeight * 2;
+
+        int speed = characteristics[4].Amount / 10;
+        halfMove = speed;
+        fullMove = speed * 2;
+        natisk = speed * 3;
+        run = speed * 6;
+
+        fatigue = characteristics[3].Amount / 10 + characteristics[7].Amount / 10;
+
+    }
+
+    public void AddInclination(GameStat.Inclinations inclination)
+    {
+        int vh = 0;
+        foreach (GameStat.Inclinations incl in inclinations)
+        {
+            if(incl == inclination)
+            {
+                vh++;
+            }
+        }
+        if(vh == 0)
+        {
+            inclinations.Add(inclination);
+        }
+    }
 }

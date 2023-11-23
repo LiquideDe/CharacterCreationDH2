@@ -13,11 +13,13 @@ public class Talent
     private List<Talent> requirementTalents = new List<Talent>();
     private bool isCanTaken;
     private int rank;
+    private int cost;
 
     public string Name { get { return  name; } }
     public string Description { get { return textDescription; } }
     public GameStat.Inclinations[] Inclinations { get { return inclinations; } }
     public bool IsCanTaken { get => isCanTaken; }
+    public int Cost { get => cost; }
 
     public Talent(string name, string textDescription, int rank ,GameStat.Inclinations firstInclination, GameStat.Inclinations secondInclination, List<Characteristic> requirementCharacteristics,
         List<Skill> requirementSkills, List<MechImplants> requirementImplants, List<Talent> requirementTalents, bool isCanTaken = true)
@@ -47,7 +49,8 @@ public class Talent
     public bool IsTalentAvailable(List<Characteristic> characteristicsOfCharacter,
         List<Skill> skillsOfCharacter, List<MechImplants> implantsOfCharacter, List<Talent> talentsOfCharacter)
     {
-        if(CheckCharacteristic(characteristicsOfCharacter) && CheckSkills(skillsOfCharacter) && CheckImplants(implantsOfCharacter) && CheckTalents(talentsOfCharacter))
+        if(CheckCharacteristic(characteristicsOfCharacter) && CheckSkills(skillsOfCharacter) && CheckImplants(implantsOfCharacter) && CheckTalents(talentsOfCharacter) && isCanTaken
+            && CheckTalentRepeat(talentsOfCharacter))
         {
             return true;
         }
@@ -57,6 +60,17 @@ public class Talent
         }
     }
 
+    public bool CheckTalentRepeat(List<Talent> talentsOfCharacter)
+    {
+        foreach(Talent talent in talentsOfCharacter)
+        {
+            if (talent.Name == name)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
     private bool CheckCharacteristic(List<Characteristic> characteristicsOfCharacter)
     {
         int amountReq = requirementCharacteristics.Count;
@@ -68,7 +82,7 @@ public class Talent
         {
             for(int j = 0; j < characteristicsOfCharacter.Count; j++)
             {
-                if(requirementCharacteristics[i].Name == characteristicsOfCharacter[j].Name)
+                if(requirementCharacteristics[i].InternalName == characteristicsOfCharacter[j].InternalName)
                 {
                     if (requirementCharacteristics[i].Amount > characteristicsOfCharacter[j].Amount)
                     {
@@ -97,7 +111,7 @@ public class Talent
         {
             for(int j = 0; j < skillsOfCharacter.Count; j++)
             {
-                if(requirementSkills[i].Name == skillsOfCharacter[j].Name)
+                if(requirementSkills[i].InternalName == skillsOfCharacter[j].InternalName)
                 {
                     if(requirementSkills[i].LvlLearned > skillsOfCharacter[j].LvlLearned)
                     {
@@ -115,11 +129,13 @@ public class Talent
 
     private bool CheckImplants(List<MechImplants> implantsOfCharacter)
     {
+        
         int amountReq = requirementImplants.Count;
         if (amountReq == 0)
         {
             return true;
         }
+        
         int sum = 0;
         for (int i = 0; i < amountReq; i++)
         {
@@ -154,7 +170,7 @@ public class Talent
         {
             for (int j = 0; j < talentsOfCharacter.Count; j++)
             {
-                if (requirementImplants[i].Name == talentsOfCharacter[j].Name)
+                if (requirementTalents[i].Name == talentsOfCharacter[j].Name)
                 {
                     sum += 1;
                 }
@@ -169,6 +185,19 @@ public class Talent
         {
             return false;
         }
+    }
 
+
+    public void CalculateCost(List<GameStat.Inclinations> inclinations)
+    {
+        int sum = 0;
+        foreach (GameStat.Inclinations incl in inclinations)
+        {
+            if(incl == this.inclinations[0] || incl == this.inclinations[1])
+            {
+                sum++;
+            }
+        }
+        cost = 300 * (1 + rank) - 150 * (rank + sum);
     }
 }

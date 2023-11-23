@@ -6,6 +6,8 @@ public class CreatorTalents
 {
     private List<Talent> talents = new List<Talent>();
 
+    public List<Talent> Talents { get => talents; }
+
     public CreatorTalents()
     {
         /*
@@ -660,5 +662,13 @@ public class CreatorTalents
             }
         }
         return null;
+    }
+
+    public void CalculationCost(List<GameStat.Inclinations> inclinations)
+    {
+        foreach(Talent talent in talents)
+        {
+            talent.CalculateCost(inclinations);
+        }
     }
 }

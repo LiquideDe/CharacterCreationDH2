@@ -16,7 +16,7 @@ public class Role
         this.inclinations = new List<List<GameStat.Inclinations>>(inclinations);
         this.talents = new List<string>(talents);
         this.name = name;
-        pathRole = $"{Application.dataPath}/Images/Roles/{name}/";
+        pathRole = $"{Application.dataPath}/StreamingAssets/Images/Roles/{name}/";
     }
 
     public void SetChosen(List<GameStat.Inclinations> chosenInclinations, string chosenTalent)
@@ -30,4 +30,5 @@ public class Role
     public List<List<GameStat.Inclinations>> Inclinations { get => inclinations; }
     public string ChosenTalent { get => chosenTalent; }
     public List<GameStat.Inclinations> ChosenInclinations { get => chosenInclinations; }
+    public string Name { get => GameStat.roleTranslation[name]; }
 }

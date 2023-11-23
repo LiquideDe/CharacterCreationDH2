@@ -17,6 +17,7 @@ public class BackGroundVisual : VisualCanvas
     [SerializeField] GameObject exampleToggleGroup, toggle, grid;
     private List<GameObject> toggleGroups = new List<GameObject>();
     private List<GameObject> toggles = new List<GameObject>();
+    private List<string> remembers = new List<string>();
     public void FinalTouchToBack()
     {
         finalPanel.SetActive(true);
@@ -46,8 +47,10 @@ public class BackGroundVisual : VisualCanvas
         this.background = background;
         SetImage(path);
         textBonusDescr.text = ReadText(path + "/Бонус.txt");
+        background.Bonus = textBonusDescr.text;
         textDescr.text = ReadText(path + "/Описание.txt");
         textCitata.text = ReadText(path + "/Цитата.txt");
+        remembers = ReadText(path + "/Remember.txt").Split(new char[] { '/' }).ToList();
         if (images.Count > 1)
         {
             InvokeRepeating("ChangeImage", 6, 6);
@@ -57,16 +60,24 @@ public class BackGroundVisual : VisualCanvas
 
     private void CreateToggles()
     {
-        foreach(List<Skill> skills in background.Skills)
+        foreach (List<Skill> skills in background.Skills)
         {
             bool skillIsKnowledge = false;
             if(skills.Count > 1)
             {
-                CreateToggleGroup();
+                if (skills[0].IsKnowledge())
+                {
+                    CreateToggleGroup("Знания");
+                }
+                else
+                {
+                    CreateToggleGroup("Навыки");
+                }
+                
                 for (int i = 0; i < skills.Count; i++)
                 {
                     Knowledge knowledge = null;
-                    if (skills[i].Name == "CommonLore" || skills[i].Name == "ForbiddenLore" || skills[i].Name == "Linquistics" || skills[i].Name == "ScholasticLore" || skills[i].Name == "Trade")
+                    if (skills[i].IsKnowledge())
                     {
                         knowledge = (Knowledge)skills[i];
                         skillIsKnowledge = true;
@@ -89,7 +100,7 @@ public class BackGroundVisual : VisualCanvas
         {
             if(talents.Count > 1)
             {
-                CreateToggleGroup();
+                CreateToggleGroup("Таланты");
                 for (int i = 0; i < talents.Count; i++)
                 {
                     CreateToggle(talents[i],i);
@@ -101,7 +112,7 @@ public class BackGroundVisual : VisualCanvas
         {
             if (equipment.Count > 1)
             {
-                CreateToggleGroup();
+                CreateToggleGroup("Экипировка");
                 for (int i = 0; i < equipment.Count; i++)
                 {
                     CreateToggle(equipment[i],i);
@@ -109,11 +120,11 @@ public class BackGroundVisual : VisualCanvas
             }
         }
 
-        CreateToggleGroup();
+        CreateToggleGroup("Склонности");
         int sc = 0;
         foreach(GameStat.Inclinations inclination in background.Inclinations)
         {
-            CreateToggle(inclination.ToString(),sc);
+            CreateToggle(GameStat.inclinationTranslate[inclination],sc);
             sc++;
         }
 
@@ -131,11 +142,12 @@ public class BackGroundVisual : VisualCanvas
 
     }
 
-    private void CreateToggleGroup()
+    private void CreateToggleGroup(string nameGroup)
     {
         toggleGroups.Add(Instantiate(exampleToggleGroup));
         toggleGroups[^1].SetActive(true);
         toggleGroups[^1].transform.SetParent(grid.transform);
+        toggleGroups[^1].GetComponentInChildren<TextMeshProUGUI>().text = nameGroup;
     }
 
     private void CreateToggle(string name, int id)
@@ -196,7 +208,9 @@ public class BackGroundVisual : VisualCanvas
         }
 
         GameStat.Inclinations inclination = background.Inclinations[toggleGroups[sch].GetComponent<ToggleGroup>().ActiveToggles().FirstOrDefault().GetComponent<MyToggle>().Id];
-        background.SetChosen(skills, talents, equipment, inclination);
+        System.Random random = new System.Random();
+        string rememberThing = remembers[random.Next(0, remembers.Count-1)];
+        background.SetChosen(skills, talents, equipment, inclination, rememberThing);
         chosenBack?.Invoke(background);
         Destroy(gameObject);
     }

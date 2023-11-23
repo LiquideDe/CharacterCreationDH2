@@ -26,11 +26,11 @@ public class SkillTrainingCanvas : MonoBehaviour
         int sk = 0;
         foreach (Skill skill in character.Skills)
         {
-            if (skill.Name == "CommonLore" || skill.Name == "ForbiddenLore" || skill.Name == "Linquistics" || skill.Name == "ScholasticLore" || skill.Name == "Trade")
+            if (skill.IsKnowledge())
             {
-                switch (skill.Name)
+                switch (skill.InternalName)
                 {
-                    case "CommonLore":
+                    case GameStat.SkillName.CommonLore:
                         if (!isCommon)
                         {
                             CreateButtonToList("Общие знания", 0);
@@ -44,7 +44,7 @@ public class SkillTrainingCanvas : MonoBehaviour
                             sk++;
                         }
                         break;
-                    case "ForbiddenLore":
+                    case GameStat.SkillName.ForbiddenLore:
                         if (!isForbidden)
                         {
                             CreateButtonToList("Запретные знания", 1);
@@ -58,7 +58,7 @@ public class SkillTrainingCanvas : MonoBehaviour
                             sk++;
                         }
                         break;
-                    case "Linquistics":
+                    case GameStat.SkillName.Linquistics:
                         if (!isLinquistic)
                         {
                             CreateButtonToList("Языки", 2);
@@ -72,7 +72,7 @@ public class SkillTrainingCanvas : MonoBehaviour
                             sk++;
                         }
                         break;
-                    case "ScholasticLore":
+                    case GameStat.SkillName.ScholasticLore:
                         if (!isScholastic)
                         {
                             CreateButtonToList("Запретные знания", 3);
@@ -86,7 +86,7 @@ public class SkillTrainingCanvas : MonoBehaviour
                             sk++;
                         }
                         break;
-                    case "Trade":
+                    case GameStat.SkillName.Trade:
                         if (!isTrade)
                         {
                             CreateButtonToList("Ремесло", 4);
@@ -108,23 +108,10 @@ public class SkillTrainingCanvas : MonoBehaviour
                 gO.SetActive(true);
                 gO.transform.SetParent(grid.transform);
                 SkillPanels.Add(gO.GetComponent<SkillPanel>());
-                SkillPanels[^1].CreateSkill(skill.Name, skill.CalculateInclinations(character.Inclinations), skill.LvlLearned, sk, skill.Name);
+                SkillPanels[^1].CreateSkill(skill.Name, skill.CalculateInclinations(character.Inclinations), skill.LvlLearned, sk, skill.InternalName.ToString());
                 SkillPanels[^1].RegDelegate(CheckExp);
                 sk++;
             }
-
-            /*
-            if (skill.Name == "CommonLore" || skill.Name == "ForbiddenLore" || skill.Name == "Linquistics" || skill.Name == "ScholasticLore" || skill.Name == "Trade")
-            {
-                Knowledge knowledge = (Knowledge)skill;
-                SkillPanels[^1].CreateSkill(knowledge.NameKnowledge, skill.CalculateInclinations(character.Inclinations), skill.LvlLearned);
-            }
-            else
-            {
-                
-            }*/
-
-
         }
     }
 
@@ -135,7 +122,7 @@ public class SkillTrainingCanvas : MonoBehaviour
         gO.transform.SetParent(gridLorePanels[idPanel].transform);
         SkillPanels.Add(gO.GetComponent<SkillPanel>());
         Knowledge knowledge = (Knowledge)skill;
-        SkillPanels[^1].CreateSkill(knowledge.NameKnowledge, skill.CalculateInclinations(character.Inclinations), skill.LvlLearned, id, knowledge.NameKnowledge);
+        SkillPanels[^1].CreateSkill(knowledge.NameKnowledge, skill.CalculateInclinations(character.Inclinations), skill.LvlLearned, id, knowledge.InternalNameKnowledge.ToString());
         SkillPanels[^1].RegDelegate(CheckExp);
     }
 
@@ -166,7 +153,6 @@ public class SkillTrainingCanvas : MonoBehaviour
             character.ExperienceSpent += cost;
             character.ExperienceTotal += cost;
             character.ExperienceUnspent -= cost;
-            Debug.Log($"Новое опыт {exp}");
             return true;
         }
     }
@@ -176,7 +162,7 @@ public class SkillTrainingCanvas : MonoBehaviour
         textExp.text = $"ОО - {exp}";
     }
 
-    public void RegDelegate(NextPanelTalents nextPanelTalents, PrevPanelChar prevPanelChar)
+    public void RegDelegates(NextPanelTalents nextPanelTalents, PrevPanelChar prevPanelChar)
     {
         this.nextPanelTalents = nextPanelTalents;
         this.prevPanelChar = prevPanelChar;

@@ -7,7 +7,8 @@ public class Knowledge : Skill
     private GameStat.KnowledgeName nameKnowledge;
     private int lvlLearned;
 
-    public string NameKnowledge { get => nameKnowledge.ToString(); }
+    public string NameKnowledge { get => GameStat.knowledgeTranslation[nameKnowledge]; }
+    public GameStat.KnowledgeName InternalNameKnowledge { get => nameKnowledge; }
     public Knowledge(GameStat.KnowledgeName name, GameStat.SkillName nameSkill, GameStat.Inclinations firstInclination, GameStat.Inclinations secondInclination)
         : base (nameSkill, firstInclination, secondInclination)
     {

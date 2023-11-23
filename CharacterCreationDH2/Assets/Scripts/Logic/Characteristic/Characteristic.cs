@@ -11,7 +11,8 @@ public class Characteristic
     private bool isFutureLvl;
     private int amount;
 
-    public string Name { get { return name.ToString(); } }
+    public string Name { get { return GameStat.characterTranslate[name]; } }
+    public GameStat.CharacterName InternalName { get => name; }
     public int LvlLearned { get { return lvlLearnedChar; } }
     public int Amount { get => amount; set => amount = value; }
 

@@ -21,7 +21,8 @@ public class CardWithNumber : MonoBehaviour, IDragHandler, IBeginDragHandler, IE
 
     public void OnDrag(PointerEventData eventData)
     {
-        dragRect.anchoredPosition += eventData.delta/canvas.scaleFactor;
+        //dragRect.anchoredPosition += eventData.delta/canvas.scaleFactor;
+        transform.position += new Vector3(eventData.delta.x, eventData.delta.y);
     }
 
     public void SetAmount(int amount)
