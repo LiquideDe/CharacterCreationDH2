@@ -197,7 +197,6 @@ public class Character
     public void SetHomeWorld(Homeworld homeworld)
     {
         this.homeworld = homeworld;
-        fatePoint = homeworld.Fatepoint;
         wounds = homeworld.Wound;
         //inclinations.Add(homeworld.Inclination);
         AddInclination(homeworld.Inclination);
@@ -222,6 +221,7 @@ public class Character
         eyes = homeworld.Eyes;
         skeen = homeworld.Skeen;
         fatePoint = homeworld.Fatepoint;
+        Debug.Log($"fatePoint = {fatePoint}");
         wounds = homeworld.Wound;
         age = homeworld.AgeInt;
 
@@ -262,7 +262,8 @@ public class Character
     {
         foreach(GameStat.Inclinations incl in role.ChosenInclinations)
         {
-            AddInclination(incl);        }
+            AddInclination(incl);
+        }
 
         talents.Add(new Talent(role.ChosenTalent));
         this.role = role.Name;

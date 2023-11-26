@@ -38,7 +38,7 @@ public class HomeWorldVisual : VisualCanvas
     {
         if(CheckAllInputs())
         {
-            homeworld.Fatepoint += generatedFateB;
+            homeworld.Fatepoint = homeworld.IsBonusFate(generatedFateB);
             homeworld.Wound += generatedWound;
             homeworld.Skeen = generatedSkeen;
             homeworld.Eyes = generatedEye;
@@ -157,6 +157,7 @@ public class HomeWorldVisual : VisualCanvas
         {
             case 0:
                     generatedFateB = fromInput ? int.Parse(inputs[id].text) : GenerateValue(10);
+                Debug.Log($"Проверяем судьбу");
                     inputs[0].text = $"Ваши очки судьбы равны {homeworld.IsBonusFate(generatedFateB)}";
                 break;
             case 1:
