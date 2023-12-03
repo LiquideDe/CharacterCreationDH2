@@ -8,6 +8,9 @@ public class SecondCharacterSheet : MonoBehaviour
     [SerializeField] TextMeshProUGUI textWound, textEquipments, textExpTotal, textExpUnspent, textExpSpent, textMoveHalf, textMoveFull, textNatisk, textRun, 
         textFatigue, textWeight, textWeightUp, textWeightPush, textBonus;
     [SerializeField] CanvasScreenShot screenShot;
+    [SerializeField] WeaponBlock[] weaponBlocks;
+    [SerializeField] ArmorBlock[] armorBlocks;
+    [SerializeField] ArmorOnBody onBody;
     Canvas canvasToScreenShot;
     public delegate void EndGame();
     EndGame endGame;
@@ -17,10 +20,12 @@ public class SecondCharacterSheet : MonoBehaviour
     }
     public void OpenSecondSheet(Character character)
     {
-        textWound.text = character.Wounds.ToString(); ;
-        foreach(string eq in character.Equipments)
+        onBody.SetToughness(character.Characteristics[3].Amount/10);
+        textWound.text = character.Wounds.ToString();
+        Debug.Log($"Всего жэкипировки {character.Equipments.Count}");
+        foreach(Equipment eq in character.Equipments)
         {
-            textEquipments.text += eq + "\n";
+            textEquipments.text += eq.Name + "\n";
         }
         textExpTotal.text = character.ExperienceTotal.ToString();
         textExpSpent.text = character.ExperienceSpent.ToString();
@@ -34,6 +39,36 @@ public class SecondCharacterSheet : MonoBehaviour
         textWeightPush.text = character.PushWeight.ToString();
         textWeightUp.text = character.LiftWeight.ToString();
         textBonus.text = character.BonusBack;
+        foreach(Equipment equipment in character.Equipments)
+        {
+            if(equipment.TypeEq == Equipment.TypeEquipment.Weapon)
+            {
+                Debug.Log($"Нашли оружие");
+                foreach (WeaponBlock block in weaponBlocks)
+                {
+                    if (block.IsEmpty)
+                    {
+                        Weapon weapon = (Weapon)equipment;
+                        block.FillBlock(weapon);
+                        break;
+                    }
+                }
+            }
+            else if (equipment.TypeEq == Equipment.TypeEquipment.Armor)
+            {
+                Debug.Log($"Нашли броню");
+                foreach (ArmorBlock armorBlock in armorBlocks)
+                {
+                    if (armorBlock.IsEmpty)
+                    {
+                        Armor armor = (Armor)equipment;
+                        armorBlock.FillBlock(armor);
+                        break;
+                    }
+                }
+            }
+        }
+
         StartCoroutine(EndWork());
         
     }

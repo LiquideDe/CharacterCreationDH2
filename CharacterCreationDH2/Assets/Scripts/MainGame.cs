@@ -8,19 +8,28 @@ public class MainGame : MonoBehaviour
     private CreatorWorlds creatorWorlds;
     private CreatorBackgrounds creatorBackgrounds;
     private CreatorRole creatorRole;
+    private CreatorSkills creatorSkills;
+    private CreatorTalents creatorTalents;
+    private CreatorEquipment creatorEquipment;
+    private CreatorPsyPowers creatorPsyPowers;
 
     private HomeWorldVisual homeWorldVisual;
     private BackGroundVisual backVisual;
     private RoleVisual roleVisual;
     [SerializeField] GameObject homeWorldCanvas, backgroundCanvas, roleCanvas, characteristicGenerateCanvas, characteristicPanelCanvas, 
-        skillPanelCanvas, talentTrainingCanvas, firstSheet, secondSheet, canvasName;
+        skillPanelCanvas, talentTrainingCanvas, firstSheet, secondSheet, canvasName, psyCanvas;
     [SerializeField] CanvasIntermediate canvasIntermediate;
     private Character character;
     private GameObject tempGameobject;
     private void Start()
     {
-        character = new Character();
-        ShowMainPanel();
+        creatorSkills = new CreatorSkills();
+        creatorTalents = new CreatorTalents();
+        creatorEquipment = new CreatorEquipment();
+        character = new Character(creatorSkills.Skills, creatorSkills.Knowledges, creatorEquipment);
+        creatorPsyPowers = new CreatorPsyPowers();
+        //ShowMainPanel();
+        TeachPsyPowers();
     }
 
     public void OpenHomeWorldCanvas()
@@ -37,11 +46,12 @@ public class MainGame : MonoBehaviour
     public void OpenBackgroundsCanvas()
     {
         canvasIntermediate.gameObject.SetActive(false);
-        creatorBackgrounds = new CreatorBackgrounds();
+        creatorBackgrounds = new CreatorBackgrounds(creatorEquipment);
         var visualBack = Instantiate(backgroundCanvas);
         backVisual = visualBack.GetComponent<BackGroundVisual>();
         backVisual.RegDelegate(ShowNextBack, ShowPrevBack);
         backVisual.regFinalDelegate(FinishChooseBackGround);
+        backVisual.SetCreators(creatorSkills, creatorTalents);
         ShowNextBack();
     }
 
@@ -52,7 +62,7 @@ public class MainGame : MonoBehaviour
         var visualRole = Instantiate(roleCanvas);
         roleVisual = visualRole.GetComponent<RoleVisual>();
         roleVisual.RegDelegate(ShowNextRole, ShowPrevRole);
-        roleVisual.regFinalDelegate(FinishChooseRole);
+        roleVisual.regFinalDelegate(FinishChooseRole, creatorTalents);
         ShowNextRole();
     }
 
@@ -144,22 +154,48 @@ public class MainGame : MonoBehaviour
         GameObject gO = Instantiate(talentTrainingCanvas);
         gO.SetActive(true);
         var talentTraining = gO.GetComponent<TalentTrainingCanvas>();
-        talentTraining.CreateTalentPanels(character);
-        talentTraining.RegDelegates(TrainingSkill, GoToProphecy);
+        talentTraining.CreateTalentPanels(character, creatorTalents);
+        if(character.PsyRating > 0)
+        {
+            talentTraining.RegDelegates(TrainingSkill, TeachPsyPowers);
+        }
+        else
+        {
+            talentTraining.RegDelegates(TrainingSkill, GoToProphecy);
+        }
+        
     }
 
-    private void SetCharNewAmounts()
+    private void TeachPsyPowers()
     {
-        character.AddInclination(GameStat.Inclinations.Agility);
-        character.AddInclination(GameStat.Inclinations.Ballistic);
-        character.UpgradeSkill(new Skill( GameStat.SkillName.Psyniscience,2));
-        character.AddTalent(new Talent("Амбидекстрия"));
-        int k = 3;
+        GameObject gO = Instantiate(psyCanvas);
+        gO.SetActive(true);
+        var psycana = gO.GetComponent<PsyCanvas>();
+        psycana.CreatePsyPanels(creatorPsyPowers.GetPowers(0), creatorPsyPowers.GetConnections(0), 0, character.ExperienceUnspent, character.PsyRating, creatorPsyPowers.GetNameSchool(0));
+        psycana.RegDelegate(CheckReqForPsyPower, GetPsyPower, SetNewPsyLvl);
+        psycana.RegDelegateNextPrev(NextPsySchool, PrevPsySchool);
+    }
 
-        foreach (Characteristic characteristic in character.Characteristics)
+    private void NextPsySchool(int prevSchool, PsyCanvas psycana)
+    {
+        if(prevSchool + 1 < creatorPsyPowers.CountSchools())
         {
-            characteristic.Amount = 35 + k;
-            k += 2;
+            psycana.CreatePsyPanels(creatorPsyPowers.GetPowers(prevSchool + 1), creatorPsyPowers.GetConnections(prevSchool + 1), prevSchool + 1, character.ExperienceUnspent, 
+                character.PsyRating, creatorPsyPowers.GetNameSchool(prevSchool + 1));
+        }
+    }
+
+    private void PrevPsySchool(int prevSchool, PsyCanvas psycana)
+    {
+        if(prevSchool - 1 >= 0)
+        {
+            psycana.CreatePsyPanels(creatorPsyPowers.GetPowers(prevSchool - 1), creatorPsyPowers.GetConnections(prevSchool - 1), prevSchool - 1, character.ExperienceUnspent, 
+                character.PsyRating, creatorPsyPowers.GetNameSchool(prevSchool - 1));
+        }
+        else
+        {
+            Destroy(psycana.gameObject);
+            TrainingTalents();
         }
     }
 
@@ -268,5 +304,33 @@ public class MainGame : MonoBehaviour
         canvasIntermediate.gameObject.SetActive(true);
         canvasIntermediate.OpenIntermediatePanel(TrainingCharacteristics, "В следующих трех окнах вы можете прокачать персонажа: вам доступно 1000 Очков Опыта, которые можно потратить как на " +
             "улучшение храктеристик, так и на навыки и таланты. Вы можете свободно переключаться между ними. Наведя на шкалу интенсивности, вы увидите стоимость улучшения в очках опыта.");
+    }
+
+    private PsyPower GetPsyPower(int school, int id)
+    {
+        return creatorPsyPowers.GetPsyPowerById(school, id);
+    }
+
+    private bool CheckReqForPsyPower(int school, int id)
+    {
+        if(creatorPsyPowers.CheckPowerForAdding(school, id, character))
+        {
+            PsyPower psyPower = creatorPsyPowers.GetPsyPowerById(school, id);
+            character.AddPsyPower(psyPower);
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    private void SetNewPsyLvl(PsyCanvas psyCanvas)
+    {
+        if (character.UpgradePsyRate())
+        {
+            psyCanvas.UpdateTextPsyRate(character.PsyRating);
+            psyCanvas.UpdateText(character.ExperienceUnspent);
+        }
     }
 }

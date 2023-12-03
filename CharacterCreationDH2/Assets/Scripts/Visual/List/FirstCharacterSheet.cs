@@ -11,12 +11,31 @@ public class FirstCharacterSheet : MonoBehaviour
         textFelloweship, textInfluence, textFate, textTalents, textBody, textHair;
     Canvas canvasToScreenShot;
     [SerializeField] CanvasScreenShot screenShot;
+    [SerializeField] GameObject[] circlesWeapon;
+    [SerializeField] GameObject[] circlesBallistic;
+    [SerializeField] GameObject[] circlesStrength;
+    [SerializeField] GameObject[] circlesToughness;
+    [SerializeField] GameObject[] circlesAgility;
+    [SerializeField] GameObject[] circlesIntelligence;
+    [SerializeField] GameObject[] circlesPerception;
+    [SerializeField] GameObject[] circlesWillpower;
+    [SerializeField] GameObject[] circlesFellowship;
+    private List<GameObject[]> circlesGroups = new List<GameObject[]>();
 
     public delegate void ShowNextSheet();
     ShowNextSheet nextSheet;
 
     private void Awake()
     {
+        circlesGroups.Add(circlesWeapon);
+        circlesGroups.Add(circlesBallistic);
+        circlesGroups.Add(circlesStrength);
+        circlesGroups.Add(circlesToughness);
+        circlesGroups.Add(circlesAgility);
+        circlesGroups.Add(circlesIntelligence);
+        circlesGroups.Add(circlesPerception);
+        circlesGroups.Add(circlesWillpower);
+        circlesGroups.Add(circlesFellowship);
         canvasToScreenShot = GetComponent<Canvas>();
     }
     public void FillCharacterSheet(Character character)
@@ -47,6 +66,13 @@ public class FirstCharacterSheet : MonoBehaviour
         textFate.text = character.FatePoint.ToString();
         textBody.text = character.Constitution;
         textHair.text = character.Hair;
+        for (int i = 0; i < circlesGroups.Count; i++)
+        {
+            for(int j = 0; j < character.Characteristics[i].LvlLearned; j++)
+            {
+                circlesGroups[i][j].SetActive(true);
+            }
+        }
         foreach (Talent talent in character.Talents)
         {
             textTalents.text += $"{talent.Name}\n";

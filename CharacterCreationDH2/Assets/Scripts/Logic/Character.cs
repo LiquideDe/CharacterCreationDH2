@@ -17,11 +17,12 @@ public class Character
     private List<Knowledge> knowledges = new List<Knowledge>();
     private List<string> mentalDisorders = new List<string>();
     private List<string> mutation = new List<string>();
-    private List<PsyDisciplence> psyDisciplences = new List<PsyDisciplence>();
-    private List<string> equipments = new List<string>();
+    private List<PsyPower> psyPowers = new List<PsyPower>();
+    private List<Equipment> equipments = new List<Equipment>();
     private List<MechImplants> implants = new List<MechImplants>();
     private Homeworld homeworld;
     private List<float> parametrsForWeight;
+    private CreatorEquipment creatorEquipment;
 
     #region Свойства
     public string Name { get => name; set => name = value; }
@@ -38,13 +39,13 @@ public class Character
     public string PhysFeatures { get => physFeatures;}
     public string MemoryOfHome { get => memoryOfHome;}
     public string MemoryOfBackground { get => memoryOfBackground;}
-    public List<string> Equipments { get => equipments;}
+    public List<Equipment> Equipments { get => equipments;}
     public int Age { get => age; set => age = value; }
     public int FatePoint { get => fatePoint; set => fatePoint = value; }
     public int MadnessPoints { get => madnessPoints; set => madnessPoints = value; }
     public int Wounds { get => wounds; set => wounds = value; }
     public int CorruptionPoints { get => corruptionPoints; set => corruptionPoints = value; }
-    public int PsyRating { get => psyRating; set => psyRating = value; }
+    public int PsyRating { get => psyRating; }
     public int HalfMove { get => halfMove;}
     public int FullMove { get => fullMove;}
     public int Natisk { get => natisk;}
@@ -63,10 +64,15 @@ public class Character
     public List<string> MentalDisorders { get => mentalDisorders; set => mentalDisorders = value; }
     public int Run { get => run; }
     public string BonusBack { get => bonusBack; set => bonusBack = value; }
+    public List<PsyPower> PsyPowers { get => psyPowers; }
     #endregion
 
-    public Character()
+    public Character(List<Skill> skills, List<Knowledge> knowledges, CreatorEquipment creatorEquipment)
     {
+        this.skills = new List<Skill>(skills);
+        this.knowledges = new List<Knowledge>(knowledges);
+        inclinations.Add(GameStat.Inclinations.General);
+        this.creatorEquipment = creatorEquipment;
         CreateCharacteristics();
     }
 
@@ -82,116 +88,7 @@ public class Character
         characteristics.Add(new Characteristic(GameStat.CharacterName.Willpower, GameStat.Inclinations.Willpower, GameStat.Inclinations.Psyker)); //7
         characteristics.Add(new Characteristic(GameStat.CharacterName.Fellowship, GameStat.Inclinations.Fellowship, GameStat.Inclinations.Social)); //8
         characteristics.Add(new Characteristic(GameStat.CharacterName.Influence, GameStat.Inclinations.None, GameStat.Inclinations.None)); //9
-
-        skills.Add(new Skill(GameStat.SkillName.Acrobatics, GameStat.Inclinations.Agility, GameStat.Inclinations.General));
-        skills.Add(new Skill(GameStat.SkillName.Athletics, GameStat.Inclinations.Strength, GameStat.Inclinations.General));
-        skills.Add(new Skill(GameStat.SkillName.Awareness, GameStat.Inclinations.Perception, GameStat.Inclinations.Fieldcraft));
-        skills.Add(new Skill(GameStat.SkillName.Charm, GameStat.Inclinations.Fellowship, GameStat.Inclinations.Social));
-        skills.Add(new Skill(GameStat.SkillName.Command, GameStat.Inclinations.Fellowship, GameStat.Inclinations.Leadership));
-        skills.Add(new Skill(GameStat.SkillName.Commerce, GameStat.Inclinations.Intelligence, GameStat.Inclinations.Knowledge));
-        skills.Add(new Skill(GameStat.SkillName.Deceive, GameStat.Inclinations.Fellowship, GameStat.Inclinations.Social));
-        skills.Add(new Skill(GameStat.SkillName.Dodge, GameStat.Inclinations.Agility, GameStat.Inclinations.Defense));
-        skills.Add(new Skill(GameStat.SkillName.Inquiry, GameStat.Inclinations.Fellowship, GameStat.Inclinations.Social));
-        skills.Add(new Skill(GameStat.SkillName.Interrogation, GameStat.Inclinations.Willpower, GameStat.Inclinations.Social));
-        skills.Add(new Skill(GameStat.SkillName.Intimidate, GameStat.Inclinations.Strength, GameStat.Inclinations.Social));
-        skills.Add(new Skill(GameStat.SkillName.Logic, GameStat.Inclinations.Intelligence, GameStat.Inclinations.Knowledge));
-        skills.Add(new Skill(GameStat.SkillName.Medicae, GameStat.Inclinations.Intelligence, GameStat.Inclinations.Fieldcraft));
-        skills.Add(new Skill(GameStat.SkillName.NavigateStellar, GameStat.Inclinations.Intelligence, GameStat.Inclinations.Fieldcraft));
-        skills.Add(new Skill(GameStat.SkillName.NavigateSurface, GameStat.Inclinations.Intelligence, GameStat.Inclinations.Fieldcraft));
-        skills.Add(new Skill(GameStat.SkillName.NavigateWarp, GameStat.Inclinations.Intelligence, GameStat.Inclinations.Fieldcraft));
-        skills.Add(new Skill(GameStat.SkillName.OperateAero, GameStat.Inclinations.Intelligence, GameStat.Inclinations.Tech));
-        skills.Add(new Skill(GameStat.SkillName.OperateSurf, GameStat.Inclinations.Intelligence, GameStat.Inclinations.Tech));
-        skills.Add(new Skill(GameStat.SkillName.OperateVoidship, GameStat.Inclinations.Intelligence, GameStat.Inclinations.Tech));
-        skills.Add(new Skill(GameStat.SkillName.Parry, GameStat.Inclinations.Weapon, GameStat.Inclinations.Defense));
-        skills.Add(new Skill(GameStat.SkillName.Psyniscience, GameStat.Inclinations.Perception, GameStat.Inclinations.Psyker));
-        skills.Add(new Skill(GameStat.SkillName.Scrutiny, GameStat.Inclinations.Perception, GameStat.Inclinations.General));
-        skills.Add(new Skill(GameStat.SkillName.Security, GameStat.Inclinations.Intelligence, GameStat.Inclinations.Tech));
-        skills.Add(new Skill(GameStat.SkillName.SleightOfHand, GameStat.Inclinations.Agility, GameStat.Inclinations.Knowledge));
-        skills.Add(new Skill(GameStat.SkillName.Stealth, GameStat.Inclinations.Agility, GameStat.Inclinations.Fieldcraft));
-        skills.Add(new Skill(GameStat.SkillName.Survival, GameStat.Inclinations.Perception, GameStat.Inclinations.Fieldcraft));
-        skills.Add(new Skill(GameStat.SkillName.TechUse, GameStat.Inclinations.Intelligence, GameStat.Inclinations.Tech));
-
-        knowledges.Add(new Knowledge(GameStat.KnowledgeName.Arheotech, GameStat.SkillName.ForbiddenLore, GameStat.Inclinations.Intelligence, GameStat.Inclinations.Knowledge));
-        knowledges.Add(new Knowledge(GameStat.KnowledgeName.AstartesOfChaos, GameStat.SkillName.ForbiddenLore, GameStat.Inclinations.Intelligence, GameStat.Inclinations.Knowledge));
-        knowledges.Add(new Knowledge(GameStat.KnowledgeName.Criminal, GameStat.SkillName.ForbiddenLore, GameStat.Inclinations.Intelligence, GameStat.Inclinations.Knowledge));
-        knowledges.Add(new Knowledge(GameStat.KnowledgeName.Demonology, GameStat.SkillName.ForbiddenLore, GameStat.Inclinations.Intelligence, GameStat.Inclinations.Knowledge));
-        knowledges.Add(new Knowledge(GameStat.KnowledgeName.Heresy, GameStat.SkillName.ForbiddenLore, GameStat.Inclinations.Intelligence, GameStat.Inclinations.Knowledge));
-        knowledges.Add(new Knowledge(GameStat.KnowledgeName.HorusHeresyAndLongWar, GameStat.SkillName.ForbiddenLore, GameStat.Inclinations.Intelligence, GameStat.Inclinations.Knowledge));
-        knowledges.Add(new Knowledge(GameStat.KnowledgeName.Inquisition, GameStat.SkillName.ForbiddenLore, GameStat.Inclinations.Intelligence, GameStat.Inclinations.Knowledge));
-        knowledges.Add(new Knowledge(GameStat.KnowledgeName.Mutant, GameStat.SkillName.ForbiddenLore, GameStat.Inclinations.Intelligence, GameStat.Inclinations.Knowledge));
-        knowledges.Add(new Knowledge(GameStat.KnowledgeName.OficioAssasinorum, GameStat.SkillName.ForbiddenLore, GameStat.Inclinations.Intelligence, GameStat.Inclinations.Knowledge));
-        knowledges.Add(new Knowledge(GameStat.KnowledgeName.Pirates, GameStat.SkillName.ForbiddenLore, GameStat.Inclinations.Intelligence, GameStat.Inclinations.Knowledge));
-        knowledges.Add(new Knowledge(GameStat.KnowledgeName.Psykers, GameStat.SkillName.ForbiddenLore, GameStat.Inclinations.Intelligence, GameStat.Inclinations.Knowledge));
-        knowledges.Add(new Knowledge(GameStat.KnowledgeName.Warp, GameStat.SkillName.ForbiddenLore, GameStat.Inclinations.Intelligence, GameStat.Inclinations.Knowledge));
-        knowledges.Add(new Knowledge(GameStat.KnowledgeName.Xenos, GameStat.SkillName.ForbiddenLore, GameStat.Inclinations.Intelligence, GameStat.Inclinations.Knowledge));
         
-        knowledges.Add(new Knowledge(GameStat.KnowledgeName.ImperialCodes, GameStat.SkillName.Linquistics, GameStat.Inclinations.Intelligence, GameStat.Inclinations.General));
-        knowledges.Add(new Knowledge(GameStat.KnowledgeName.Jargon, GameStat.SkillName.Linquistics, GameStat.Inclinations.Intelligence, GameStat.Inclinations.General));
-        knowledges.Add(new Knowledge(GameStat.KnowledgeName.NecrontirLingva, GameStat.SkillName.Linquistics, GameStat.Inclinations.Intelligence, GameStat.Inclinations.General));
-        knowledges.Add(new Knowledge(GameStat.KnowledgeName.OrcsLingva, GameStat.SkillName.Linquistics, GameStat.Inclinations.Intelligence, GameStat.Inclinations.General));
-        knowledges.Add(new Knowledge(GameStat.KnowledgeName.LingvaTechno, GameStat.SkillName.Linquistics, GameStat.Inclinations.Intelligence, GameStat.Inclinations.General));
-        knowledges.Add(new Knowledge(GameStat.KnowledgeName.TauLingva, GameStat.SkillName.Linquistics, GameStat.Inclinations.Intelligence, GameStat.Inclinations.General));
-        knowledges.Add(new Knowledge(GameStat.KnowledgeName.CriminalCodes, GameStat.SkillName.Linquistics, GameStat.Inclinations.Intelligence, GameStat.Inclinations.General));
-        knowledges.Add(new Knowledge(GameStat.KnowledgeName.MarkOfXenos, GameStat.SkillName.Linquistics, GameStat.Inclinations.Intelligence, GameStat.Inclinations.General));
-        knowledges.Add(new Knowledge(GameStat.KnowledgeName.HighGhotic, GameStat.SkillName.Linquistics, GameStat.Inclinations.Intelligence, GameStat.Inclinations.General));
-        knowledges.Add(new Knowledge(GameStat.KnowledgeName.RunesOfOrder, GameStat.SkillName.Linquistics, GameStat.Inclinations.Intelligence, GameStat.Inclinations.General));
-        knowledges.Add(new Knowledge(GameStat.KnowledgeName.EldariLingva, GameStat.SkillName.Linquistics, GameStat.Inclinations.Intelligence, GameStat.Inclinations.General));
-        
-        knowledges.Add(new Knowledge(GameStat.KnowledgeName.AustroGraphTr, GameStat.SkillName.Trade, GameStat.Inclinations.Intelligence, GameStat.Inclinations.General));
-        knowledges.Add(new Knowledge(GameStat.KnowledgeName.AgroTr, GameStat.SkillName.Trade, GameStat.Inclinations.Intelligence, GameStat.Inclinations.General));
-        knowledges.Add(new Knowledge(GameStat.KnowledgeName.ArcheologyTr, GameStat.SkillName.Trade, GameStat.Inclinations.Intelligence, GameStat.Inclinations.General));
-        knowledges.Add(new Knowledge(GameStat.KnowledgeName.ChymicTr, GameStat.SkillName.Trade, GameStat.Inclinations.Intelligence, GameStat.Inclinations.General));
-        knowledges.Add(new Knowledge(GameStat.KnowledgeName.CockTr, GameStat.SkillName.Trade, GameStat.Inclinations.Intelligence, GameStat.Inclinations.General));
-        knowledges.Add(new Knowledge(GameStat.KnowledgeName.CryptoTr, GameStat.SkillName.Trade, GameStat.Inclinations.Intelligence, GameStat.Inclinations.General));
-        knowledges.Add(new Knowledge(GameStat.KnowledgeName.EpistolTr, GameStat.SkillName.Trade, GameStat.Inclinations.Intelligence, GameStat.Inclinations.General));
-        knowledges.Add(new Knowledge(GameStat.KnowledgeName.ExploratorTr, GameStat.SkillName.Trade, GameStat.Inclinations.Intelligence, GameStat.Inclinations.General));
-        knowledges.Add(new Knowledge(GameStat.KnowledgeName.GeologyTr, GameStat.SkillName.Trade, GameStat.Inclinations.Intelligence, GameStat.Inclinations.General));
-        knowledges.Add(new Knowledge(GameStat.KnowledgeName.GunsmithTr, GameStat.SkillName.Trade, GameStat.Inclinations.Intelligence, GameStat.Inclinations.General));
-        knowledges.Add(new Knowledge(GameStat.KnowledgeName.IpolnitelTr, GameStat.SkillName.Trade, GameStat.Inclinations.Intelligence, GameStat.Inclinations.General));
-        knowledges.Add(new Knowledge(GameStat.KnowledgeName.KorabelTr, GameStat.SkillName.Trade, GameStat.Inclinations.Intelligence, GameStat.Inclinations.General));
-        knowledges.Add(new Knowledge(GameStat.KnowledgeName.LingvistTr, GameStat.SkillName.Trade, GameStat.Inclinations.Intelligence, GameStat.Inclinations.General));
-        knowledges.Add(new Knowledge(GameStat.KnowledgeName.MortikatorTr, GameStat.SkillName.Trade, GameStat.Inclinations.Intelligence, GameStat.Inclinations.General));
-        knowledges.Add(new Knowledge(GameStat.KnowledgeName.PredskazatelTr, GameStat.SkillName.Trade, GameStat.Inclinations.Intelligence, GameStat.Inclinations.General));
-        knowledges.Add(new Knowledge(GameStat.KnowledgeName.PustoplavatelTr, GameStat.SkillName.Trade, GameStat.Inclinations.Intelligence, GameStat.Inclinations.General));
-        knowledges.Add(new Knowledge(GameStat.KnowledgeName.RezchikTr, GameStat.SkillName.Trade, GameStat.Inclinations.Intelligence, GameStat.Inclinations.General));
-        knowledges.Add(new Knowledge(GameStat.KnowledgeName.SculptureTr, GameStat.SkillName.Trade, GameStat.Inclinations.Intelligence, GameStat.Inclinations.General));
-        knowledges.Add(new Knowledge(GameStat.KnowledgeName.TechnomantTr, GameStat.SkillName.Trade, GameStat.Inclinations.Intelligence, GameStat.Inclinations.General));
-        
-        knowledges.Add(new Knowledge(GameStat.KnowledgeName.Astromancy, GameStat.SkillName.ScholasticLore, GameStat.Inclinations.Intelligence, GameStat.Inclinations.Knowledge));
-        knowledges.Add(new Knowledge(GameStat.KnowledgeName.Beasts, GameStat.SkillName.ScholasticLore, GameStat.Inclinations.Intelligence, GameStat.Inclinations.Knowledge));
-        knowledges.Add(new Knowledge(GameStat.KnowledgeName.Burocracy, GameStat.SkillName.ScholasticLore, GameStat.Inclinations.Intelligence, GameStat.Inclinations.Knowledge));
-        knowledges.Add(new Knowledge(GameStat.KnowledgeName.Chemistry, GameStat.SkillName.ScholasticLore, GameStat.Inclinations.Intelligence, GameStat.Inclinations.Knowledge));
-        knowledges.Add(new Knowledge(GameStat.KnowledgeName.Cryptology, GameStat.SkillName.ScholasticLore, GameStat.Inclinations.Intelligence, GameStat.Inclinations.Knowledge));
-        knowledges.Add(new Knowledge(GameStat.KnowledgeName.Geraldica, GameStat.SkillName.ScholasticLore, GameStat.Inclinations.Intelligence, GameStat.Inclinations.Knowledge));
-        knowledges.Add(new Knowledge(GameStat.KnowledgeName.ImperialPatents, GameStat.SkillName.ScholasticLore, GameStat.Inclinations.Intelligence, GameStat.Inclinations.Knowledge));
-        knowledges.Add(new Knowledge(GameStat.KnowledgeName.Justice, GameStat.SkillName.ScholasticLore, GameStat.Inclinations.Intelligence, GameStat.Inclinations.Knowledge));
-        knowledges.Add(new Knowledge(GameStat.KnowledgeName.Legends, GameStat.SkillName.ScholasticLore, GameStat.Inclinations.Intelligence, GameStat.Inclinations.Knowledge));
-        knowledges.Add(new Knowledge(GameStat.KnowledgeName.Numerology, GameStat.SkillName.ScholasticLore, GameStat.Inclinations.Intelligence, GameStat.Inclinations.Knowledge));
-        knowledges.Add(new Knowledge(GameStat.KnowledgeName.Occultism, GameStat.SkillName.ScholasticLore, GameStat.Inclinations.Intelligence, GameStat.Inclinations.Knowledge));
-        knowledges.Add(new Knowledge(GameStat.KnowledgeName.Phylosophy, GameStat.SkillName.ScholasticLore, GameStat.Inclinations.Intelligence, GameStat.Inclinations.Knowledge));
-        knowledges.Add(new Knowledge(GameStat.KnowledgeName.TacticImperialis, GameStat.SkillName.ScholasticLore, GameStat.Inclinations.Intelligence, GameStat.Inclinations.Knowledge));
-
-        knowledges.Add(new Knowledge(GameStat.KnowledgeName.Sororitas, GameStat.SkillName.CommonLore, GameStat.Inclinations.Intelligence, GameStat.Inclinations.General));
-        knowledges.Add(new Knowledge(GameStat.KnowledgeName.Arbitres, GameStat.SkillName.CommonLore, GameStat.Inclinations.Intelligence, GameStat.Inclinations.General));
-        knowledges.Add(new Knowledge(GameStat.KnowledgeName.Astartes, GameStat.SkillName.CommonLore, GameStat.Inclinations.Intelligence, GameStat.Inclinations.General));
-        knowledges.Add(new Knowledge(GameStat.KnowledgeName.AstraTelepatica, GameStat.SkillName.CommonLore, GameStat.Inclinations.Intelligence, GameStat.Inclinations.General));
-        knowledges.Add(new Knowledge(GameStat.KnowledgeName.Mechanicus, GameStat.SkillName.CommonLore, GameStat.Inclinations.Intelligence, GameStat.Inclinations.General));
-        knowledges.Add(new Knowledge(GameStat.KnowledgeName.Administratum, GameStat.SkillName.CommonLore, GameStat.Inclinations.Intelligence, GameStat.Inclinations.General));
-        knowledges.Add(new Knowledge(GameStat.KnowledgeName.Askelon, GameStat.SkillName.CommonLore, GameStat.Inclinations.Intelligence, GameStat.Inclinations.General));
-        knowledges.Add(new Knowledge(GameStat.KnowledgeName.CapitanHartisti, GameStat.SkillName.CommonLore, GameStat.Inclinations.Intelligence, GameStat.Inclinations.General));
-        knowledges.Add(new Knowledge(GameStat.KnowledgeName.KolegiaTitanika, GameStat.SkillName.CommonLore, GameStat.Inclinations.Intelligence, GameStat.Inclinations.General));
-        knowledges.Add(new Knowledge(GameStat.KnowledgeName.Eklezarkhia, GameStat.SkillName.CommonLore, GameStat.Inclinations.Intelligence, GameStat.Inclinations.General));
-        knowledges.Add(new Knowledge(GameStat.KnowledgeName.ImperialCredo, GameStat.SkillName.CommonLore, GameStat.Inclinations.Intelligence, GameStat.Inclinations.General));
-        knowledges.Add(new Knowledge(GameStat.KnowledgeName.AstraMilitarum, GameStat.SkillName.CommonLore, GameStat.Inclinations.Intelligence, GameStat.Inclinations.General));
-        knowledges.Add(new Knowledge(GameStat.KnowledgeName.ImperialFleet, GameStat.SkillName.CommonLore, GameStat.Inclinations.Intelligence, GameStat.Inclinations.General));
-        knowledges.Add(new Knowledge(GameStat.KnowledgeName.Imperium, GameStat.SkillName.CommonLore, GameStat.Inclinations.Intelligence, GameStat.Inclinations.General));
-        knowledges.Add(new Knowledge(GameStat.KnowledgeName.Navigators, GameStat.SkillName.CommonLore, GameStat.Inclinations.Intelligence, GameStat.Inclinations.General));
-        knowledges.Add(new Knowledge(GameStat.KnowledgeName.Teroborona, GameStat.SkillName.CommonLore, GameStat.Inclinations.Intelligence, GameStat.Inclinations.General));
-        knowledges.Add(new Knowledge(GameStat.KnowledgeName.RougeTrader, GameStat.SkillName.CommonLore, GameStat.Inclinations.Intelligence, GameStat.Inclinations.General));
-        knowledges.Add(new Knowledge(GameStat.KnowledgeName.ScholaProgenium, GameStat.SkillName.CommonLore, GameStat.Inclinations.Intelligence, GameStat.Inclinations.General));
-        knowledges.Add(new Knowledge(GameStat.KnowledgeName.Techno, GameStat.SkillName.CommonLore, GameStat.Inclinations.Intelligence, GameStat.Inclinations.General));
-        knowledges.Add(new Knowledge(GameStat.KnowledgeName.Criminal, GameStat.SkillName.CommonLore, GameStat.Inclinations.Intelligence, GameStat.Inclinations.General));
-        knowledges.Add(new Knowledge(GameStat.KnowledgeName.War, GameStat.SkillName.CommonLore, GameStat.Inclinations.Intelligence, GameStat.Inclinations.General));
     }
 
     public void SetHomeWorld(Homeworld homeworld)
@@ -237,22 +134,27 @@ public class Character
         {
             talents.Add(new Talent(talent));
         }
-        foreach(string eq in background.ChosenEquipments)
+        foreach(Equipment eq in background.ChosenEquipments)
         {
-            equipments.Add(eq);
+            if(eq.TypeEq != Equipment.TypeEquipment.Special)
+            {
+                equipments.Add(eq);
+            }
+            else
+            {
+                Special special = (Special)eq;
+                equipments.Add(creatorEquipment.GetEquipment(special.FirstName));
+                equipments.Add(creatorEquipment.GetEquipment(special.SecondName));
+            }
+            
         }
         //inclinations.Add(background.ChosenInclination);
         AddInclination(background.ChosenInclination);
         if(background.MechImplants != null)
         {
             implants.Add(background.MechImplants);
-        }
+        }        
         
-        
-        if(implants.Count > 0)
-        {
-            Debug.Log($"{implants[0].Name}");
-        }
         this.background = background.Name;
         memoryOfBackground = background.RememberThing;
         bonusBack = background.Bonus;
@@ -267,6 +169,10 @@ public class Character
 
         talents.Add(new Talent(role.ChosenTalent));
         this.role = role.Name;
+        if (role.InternalName == GameStat.RoleName.Mistic)
+        {
+            psyRating = 1;
+        }
     }
 
     public void UpgradeSkill(Skill newSkill, string nameSkill = "")
@@ -391,5 +297,27 @@ public class Character
         {
             inclinations.Add(inclination);
         }
+    }
+
+    public void AddPsyPower(PsyPower psyPower)
+    {
+        psyPowers.Add(psyPower);
+        psyPower.ActivatePower();
+        experienceUnspent -= psyPower.Cost;
+        experienceSpent += psyPower.Cost;
+        experienceTotal += psyPower.Cost;
+    }
+
+    public bool UpgradePsyRate()
+    {
+        if(experienceUnspent >= (psyRating + 1) * 200)
+        {
+            psyRating += 1;
+            experienceTotal += psyRating * 200;
+            experienceSpent += psyRating * 200;
+            experienceUnspent -= psyRating * 200;
+            return true;
+        }
+        return false;
     }
 }
