@@ -47,11 +47,11 @@ public class CreatorPsyPowers
 
     private PsyPower CreatePsy(string dir)
     {
-        List<string> parameters = new List<string>();
-        parameters = ReadText(dir + "/Param.txt").Split(new char[] { '/' }).ToList();
-        var namePsy = ReadText(dir + "/Название.txt");
+        string[] data = File.ReadAllLines(dir + "/Param.JSON");
+        JSONPsyReader psyReader = JsonUtility.FromJson<JSONPsyReader>(data[0]);
+        var namePsy = psyReader.name;
         var description = ReadText(dir + "/Описание.txt");
-        var action = ReadText(dir + "/Действие.txt");
+        var action = psyReader.action;
         Characteristic[] characteristics = new Characteristic[9];
         characteristics[0] = new Characteristic(GameStat.CharacterName.WeaponSkill, SetAmountForReqCharacteristic(dir + "/WS.txt"));
         characteristics[1] = new Characteristic(GameStat.CharacterName.BallisticSkill, SetAmountForReqCharacteristic(dir + "/BS.txt"));
@@ -63,7 +63,7 @@ public class CreatorPsyPowers
         characteristics[7] = new Characteristic(GameStat.CharacterName.Willpower, SetAmountForReqCharacteristic(dir + "/W.txt"));
         characteristics[8] = new Characteristic(GameStat.CharacterName.Fellowship, SetAmountForReqCharacteristic(dir + "/F.txt"));
         
-        PsyPower psyPower = new PsyPower(namePsy, description, int.Parse(parameters[0]), int.Parse(parameters[1]), int.Parse(parameters[2]), int.Parse(parameters[3]), action, int.Parse(parameters[4]), characteristics);
+        PsyPower psyPower = new PsyPower(namePsy, description, psyReader.cost, psyReader.psyRate, psyReader.id, psyReader.lvl, action, psyReader.parentId, characteristics);
         return psyPower;
     }
 
