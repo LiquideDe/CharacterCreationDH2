@@ -5,11 +5,12 @@ using UnityEngine;
 
 public class PsyPower
 {
-    private string namePower, description, action;
+    private string namePower, description, action, shortDescription;
     private int cost, psyRateRequire, id, lvl, idParent;
     private bool isBase, isActive;
     private Characteristic[] requireCharacteristics = new Characteristic[9];
     private string textCost;
+    private List<Skill> requireSkills = new List<Skill>();
 
 
     
@@ -46,6 +47,12 @@ public class PsyPower
         }
     }
 
+    public void AddReqSkill(Skill skill)
+    {
+        requireSkills.Add(skill);
+        textCost += $", {skill.Name} взято уровней {skill.LvlLearned}";
+    }
+
     public string NamePower { get => namePower; }
     public string Description { get => description; }
     public int Cost { get => cost; }
@@ -58,6 +65,8 @@ public class PsyPower
     public int IdParent { get => idParent; }
     public Characteristic[] RequireCharacteristics { get => requireCharacteristics; }
     public string TextCost { get => textCost; }
+    public string ShortDescription { get => shortDescription; set => shortDescription = value; }
+    public List<Skill> RequireSkills { get => requireSkills; }
 
     public void ActivatePower()
     {

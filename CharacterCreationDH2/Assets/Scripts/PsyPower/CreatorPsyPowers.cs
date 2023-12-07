@@ -64,6 +64,17 @@ public class CreatorPsyPowers
         characteristics[8] = new Characteristic(GameStat.CharacterName.Fellowship, SetAmountForReqCharacteristic(dir + "/F.txt"));
         
         PsyPower psyPower = new PsyPower(namePsy, description, psyReader.cost, psyReader.psyRate, psyReader.id, psyReader.lvl, action, psyReader.parentId, characteristics);
+        psyPower.ShortDescription = ReadText(dir + "/Кратко.txt");
+        string searchDir = "";
+        foreach(GameStat.SkillName skillName in Enum.GetValues(typeof(GameStat.SkillName)))
+        {
+            searchDir = dir + "/" + skillName.ToString() + ".txt";
+            if (File.Exists(searchDir))
+            {
+                int lvl = int.Parse(ReadText(searchDir));
+                psyPower.AddReqSkill(new Skill(skillName, lvl));
+            }
+        }
         return psyPower;
     }
 
@@ -142,7 +153,7 @@ public class CreatorPsyPowers
     {
         PsyPower psyPower = GetPsyPowerById(school, id);
         if(psyPower.PsyRateRequire <= character.PsyRating && psyPower.Cost <= character.ExperienceUnspent && CheckPowerForPossibleConnect(psyPower, school) &&
-            CheckCharacteristics(psyPower.RequireCharacteristics, character.Characteristics) && !psyPower.IsActive)
+            CheckCharacteristics(psyPower.RequireCharacteristics, character.Characteristics) && !psyPower.IsActive && CheckSkills(character.Skills, psyPower.RequireSkills))
         {
             return true;
         }
@@ -168,6 +179,42 @@ public class CreatorPsyPowers
 
         return true;
         
+    }
+
+    private bool CheckSkills(List<Skill> characterSkills, List<Skill> reqSkills)
+    {
+        int sum = 0;
+        if (reqSkills.Count > 0)
+        {
+            foreach (Skill reqSkill in reqSkills)
+            {
+                foreach (Skill charSkill in characterSkills)
+                {
+                    if (reqSkill.InternalName == charSkill.InternalName)
+                    {
+                        if (charSkill.LvlLearned >= reqSkill.LvlLearned)
+                        {
+                            sum++;
+                        }
+                    }
+                }
+            }
+        }
+        else
+        {
+            return true;
+        }
+
+        if(sum == reqSkills.Count)
+        {
+            Debug.Log($"Сумма навыков такая же, возвращаемт тру");
+            return true;
+        }
+        else
+        {
+            Debug.Log($"Сумма навыков НЕ такая же, возвращаемт false");
+            return false;
+        }
     }
 
     public List<PsyPower> GetPowers(int school)

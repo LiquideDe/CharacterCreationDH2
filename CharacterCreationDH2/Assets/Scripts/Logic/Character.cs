@@ -8,7 +8,7 @@ public class Character
 {
     private string name, background, role, ageText, prophecy, constitution, hair, eyes, skeen, physFeatures, memoryOfHome, memoryOfBackground, gender, bonusBack;
     private int age, fatePoint, madnessPoints, corruptionPoints, wounds, psyRating, halfMove, fullMove, natisk, run, fatigue,
-        experienceTotal, experienceUnspent = 1000, experienceSpent;
+        experienceTotal, experienceUnspent = 10000, experienceSpent;
     private float carryWeight, liftWeight, pushWeight;
     private List<Characteristic> characteristics = new List<Characteristic>();
     private List<GameStat.Inclinations> inclinations = new List<GameStat.Inclinations>();

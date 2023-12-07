@@ -33,12 +33,10 @@ public class PsyCanvas : MonoBehaviour
         chosenSchool = school;
         foreach(PsyPower psyPower in psyPowers)
         {
-            Debug.Log($"Ставим пси силу под номером {psyPower.Id} называется {psyPower.NamePower}");
             psyPanels.Add(Instantiate(examplePsyPanel, lvls[psyPower.Lvl].transform));
-            psyPanels[^1].SetPsyPanel(psyPower.NamePower, psyPower.TextCost,psyPower.Cost, psyPower.Id, psyPower.IsActive);
+            psyPanels[^1].SetPsyPanel(psyPower.NamePower, psyPower.ShortDescription,psyPower.Cost, psyPower.Id, psyPower.IsActive);
             psyPanels[^1].RegDelegate(OpenPanel);
             psyPanels[^1].gameObject.SetActive(true);
-            Debug.Log($"{psyPower.Id} закончили");
         }
         foreach(Connection connection in connections)
         {
