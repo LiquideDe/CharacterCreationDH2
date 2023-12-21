@@ -4,18 +4,18 @@ using UnityEngine;
 
 public class Knowledge : Skill
 {
-    private GameStat.KnowledgeName nameKnowledge;
-    private int lvlLearned;
+    private string nameKnowledge;
 
-    public string NameKnowledge { get => GameStat.knowledgeTranslation[nameKnowledge]; }
-    public GameStat.KnowledgeName InternalNameKnowledge { get => nameKnowledge; }
-    public Knowledge(GameStat.KnowledgeName name, GameStat.SkillName nameSkill, GameStat.Inclinations firstInclination, GameStat.Inclinations secondInclination, string description)
-        : base (nameSkill, firstInclination, secondInclination, description)
+    public string NameKnowledge { get => nameKnowledge; }
+    public string InternalNameKnowledge { get => internalName; }
+    public Knowledge(JSONSkillLoader skillLoader, string path)
+        : base (skillLoader, path)
     {
         nameKnowledge = name;
+        isKnowledge = true;
     }
 
-    public Knowledge(GameStat.KnowledgeName name, GameStat.SkillName nameSkill, int lvlLearned)
+    public Knowledge(string name, string nameSkill, int lvlLearned)
         : base (nameSkill, lvlLearned)
     {
         nameKnowledge = name;

@@ -23,16 +23,16 @@ public class Homeworld
     {
         //pathHomeworld = $"{Application.dataPath}/Images/Worlds/{name}/";
         pathHomeworld = name;
-        List<string> parameters = new List<string>();
-        parameters = ReadText(pathHomeworld + "/Parameters.txt").Split(new char[] { '/' }).ToList();
+        string[] data = File.ReadAllLines(name + "/Parameters.JSON");
+        HomeworldLoader worldReader = JsonUtility.FromJson<HomeworldLoader>(data[0]);
         nameWorld = ReadText(pathHomeworld + "/Название.txt");
-        advantageCharacteristics[0] = (GameStat.CharacterName)Enum.Parse(typeof(GameStat.CharacterName), parameters[0]);
-        advantageCharacteristics[1] = (GameStat.CharacterName)Enum.Parse(typeof(GameStat.CharacterName), parameters[1]);
-        disadvantageCharacteristic = (GameStat.CharacterName)Enum.Parse(typeof(GameStat.CharacterName), parameters[2]);
-        fatepoint = int.Parse(parameters[3]);
-        PorogFatepoint = int.Parse(parameters[4]);        
-        inclination = (GameStat.Inclinations)Enum.Parse(typeof(GameStat.Inclinations), parameters[5]);
-        wound = int.Parse(parameters[6]);
+        advantageCharacteristics[0] = (GameStat.CharacterName)Enum.Parse(typeof(GameStat.CharacterName), worldReader.advantageCharacteristicsFirst);
+        advantageCharacteristics[1] = (GameStat.CharacterName)Enum.Parse(typeof(GameStat.CharacterName), worldReader.advantageCharacteristicsSecond);
+        disadvantageCharacteristic = (GameStat.CharacterName)Enum.Parse(typeof(GameStat.CharacterName), worldReader.disadvantageCharacteristic);
+        fatepoint = worldReader.fatepoint;
+        PorogFatepoint = worldReader.porogFatepoint;        
+        inclination = (GameStat.Inclinations)Enum.Parse(typeof(GameStat.Inclinations), worldReader.inclination);
+        wound = worldReader.wound;
         if (File.Exists(pathHomeworld + "/Skills.txt"))
         {
             skills = ReadText(pathHomeworld + "/Skills.txt").Split(new char[] { '/' }).ToList();

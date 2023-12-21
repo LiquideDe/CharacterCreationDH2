@@ -25,7 +25,7 @@ public class TalentTrainingCanvas : MonoBehaviour
         creatorTalents.CalculationCost(character.Inclinations);
         foreach(Talent talent in creatorTalents.Talents)
         {
-            if (talent.IsTalentAvailable(character.Characteristics, character.Skills, character.Implants, character.Talents))
+            if (talent.IsTalentAvailable(character.Characteristics, character.Skills, character.Implants, character.Talents, character.CorruptionPoints, character.InsanityPoints, character.PsyRating))
             {
                 GameObject gO = Instantiate(talentPanelG);
                 gO.SetActive(true);

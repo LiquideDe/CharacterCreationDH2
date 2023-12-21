@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using System;
 
 public class ToggleVisual : VisualCanvas
 {
@@ -26,5 +27,13 @@ public class ToggleVisual : VisualCanvas
         newToggle.gameObject.SetActive(true);
         newToggle.Id = id;
         toggles[^1].GetComponent<ParamInfo>().SetDescription(description);
+
+        int childCount = toggleGroups[^1].transform.childCount - 2;
+        if (childCount > 8)
+        {
+            int rows = (int)Math.Ceiling(childCount / 4f);
+            Debug.Log($"Строк получилось {rows}");
+            toggleGroups[^1].GetComponent<RectTransform>().sizeDelta = new Vector2(toggleGroups[^1].GetComponent<RectTransform>().sizeDelta.x, 40 * rows);
+        }
     }
 }

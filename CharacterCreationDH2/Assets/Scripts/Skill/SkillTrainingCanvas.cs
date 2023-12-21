@@ -26,11 +26,11 @@ public class SkillTrainingCanvas : MonoBehaviour
         int sk = 0;
         foreach (Skill skill in character.Skills)
         {
-            if (skill.IsKnowledge())
+            if (skill.IsKnowledge)
             {
                 switch (skill.InternalName)
                 {
-                    case GameStat.SkillName.CommonLore:
+                    case "CommonLore":
                         if (!isCommon)
                         {
                             CreateButtonToList("Общие знания", 0);
@@ -44,7 +44,7 @@ public class SkillTrainingCanvas : MonoBehaviour
                             sk++;
                         }
                         break;
-                    case GameStat.SkillName.ForbiddenLore:
+                    case "ForbiddenLore":
                         if (!isForbidden)
                         {
                             CreateButtonToList("Запретные знания", 1);
@@ -58,7 +58,7 @@ public class SkillTrainingCanvas : MonoBehaviour
                             sk++;
                         }
                         break;
-                    case GameStat.SkillName.Linquistics:
+                    case "Linquistics":
                         if (!isLinquistic)
                         {
                             CreateButtonToList("Языки", 2);
@@ -72,7 +72,7 @@ public class SkillTrainingCanvas : MonoBehaviour
                             sk++;
                         }
                         break;
-                    case GameStat.SkillName.ScholasticLore:
+                    case "ScholasticLore":
                         if (!isScholastic)
                         {
                             CreateButtonToList("Запретные знания", 3);
@@ -86,7 +86,7 @@ public class SkillTrainingCanvas : MonoBehaviour
                             sk++;
                         }
                         break;
-                    case GameStat.SkillName.Trade:
+                    case "Trade":
                         if (!isTrade)
                         {
                             CreateButtonToList("Ремесло", 4);
@@ -108,7 +108,7 @@ public class SkillTrainingCanvas : MonoBehaviour
                 gO.SetActive(true);
                 gO.transform.SetParent(grid.transform);
                 SkillPanels.Add(gO.GetComponent<SkillPanel>());
-                SkillPanels[^1].CreateSkill(skill.Name, skill.CalculateInclinations(character.Inclinations), skill.LvlLearned, sk, skill.InternalName.ToString());
+                SkillPanels[^1].CreateSkill(skill.Name, skill.CalculateInclinations(character.Inclinations), skill.LvlLearned, sk, skill.InternalName);
                 SkillPanels[^1].RegDelegate(CheckExp);
                 sk++;
             }
@@ -122,7 +122,7 @@ public class SkillTrainingCanvas : MonoBehaviour
         gO.transform.SetParent(gridLorePanels[idPanel].transform);
         SkillPanels.Add(gO.GetComponent<SkillPanel>());
         Knowledge knowledge = (Knowledge)skill;
-        SkillPanels[^1].CreateSkill(knowledge.NameKnowledge, skill.CalculateInclinations(character.Inclinations), skill.LvlLearned, id, knowledge.InternalNameKnowledge.ToString());
+        SkillPanels[^1].CreateSkill(knowledge.NameKnowledge, skill.CalculateInclinations(character.Inclinations), skill.LvlLearned, id, knowledge.InternalNameKnowledge);
         SkillPanels[^1].RegDelegate(CheckExp);
     }
 

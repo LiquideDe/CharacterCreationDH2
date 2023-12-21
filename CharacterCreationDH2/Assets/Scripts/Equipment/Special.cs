@@ -5,11 +5,11 @@ using UnityEngine;
 public class Special : Equipment
 {
     private string firstName, secondName;
-    public Special(string nameEquipment, string description, string firstName, string secondName): base (nameEquipment, description)
+    public Special(JSONSpecialReader specialReader): base (specialReader.name, specialReader.description)
     {
         typeEquipment = TypeEquipment.Special;
-        this.firstName = firstName;
-        this.secondName = secondName;
+        firstName = specialReader.firstEquipment;
+        secondName = specialReader.secondEquipment;
     }
 
     public string FirstName { get => firstName; }

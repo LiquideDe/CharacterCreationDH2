@@ -4,43 +4,41 @@ using UnityEngine;
 
 public class Weapon : Equipment
 {
-    private string classWeapon, rof, damage, penetration, clip, reload, properties, weight;
-    private int range;
+    private string classWeapon, rof, damage, reload, properties;
+    private int range, penetration, clip, weight;
 
     public string ClassWeapon { get => classWeapon; }
     public int Range { get => range; }
     public string Rof { get => rof; }
     public string Damage { get => damage; }
-    public string Penetration { get => penetration;  }
-    public string Clip { get => clip; }
+    public int Penetration { get => penetration;  }
+    public int Clip { get => clip; }
     public string Reload { get => reload;  }
     public string Properties { get => properties; }
-    public string Weight { get => weight; }
+    public int Weight { get => weight; }
 
-    public Weapon(string nameEquipment, string description, string classWeapon, int range, string rof, string damage,
-        string penetration, string clip, string reload, string properties, string weight) :base(nameEquipment, description)
+    public Weapon(JSONRangeReader rangeReader) :base(rangeReader.name, rangeReader.description)
     {
         typeEquipment = TypeEquipment.Weapon;
-        this.classWeapon = classWeapon;
-        this.range = range;
-        this.rof = rof;
-        this.damage = damage;
-        this.penetration = penetration;
-        this.clip = clip;
-        this.reload = reload;
-        this.properties = properties;
-        this.weight = weight;
+        classWeapon = rangeReader.weaponClass;
+        range = rangeReader.range;
+        rof = rangeReader.rof;
+        damage = rangeReader.damage;
+        penetration = rangeReader.penetration;
+        clip = rangeReader.clip;
+        reload = rangeReader.reload;
+        properties = rangeReader.properties;
+        weight = rangeReader.weight;
     }
 
-    public Weapon(string nameEquipment, string description, string classWeapon, string damage, string penetration,
-        string properties, string weight) : base(nameEquipment, description)
+    public Weapon(JSONMeleeReader meleeReader) : base(meleeReader.name, meleeReader.description)
     {
         typeEquipment = TypeEquipment.Weapon;
-        this.classWeapon = classWeapon;
-        this.damage = damage;
-        this.penetration = penetration;
-        this.properties = properties;
-        this.weight = weight;
+        classWeapon = meleeReader.weaponClass;
+        damage = meleeReader.damage;
+        penetration = meleeReader.penetration;
+        properties = meleeReader.properties;
+        weight = meleeReader.weight;
         rof = "";
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using System.IO;
 
 public class PsyCanvas : MonoBehaviour
 {
@@ -20,23 +21,28 @@ public class PsyCanvas : MonoBehaviour
     [SerializeField] PsyPanel examplePsyPanel;
     [SerializeField] GameObject[] lvls;
     [SerializeField] GameObject connectionsContainer, straightLine, panelDescription;
+    [SerializeField] HorizontalLayoutGroup layoutGroupFirst, layoutGroupSecond, layoutGroupThird;
     private int chosenSchool;
     [SerializeField] private TextMeshProUGUI textExp, textName, textCost, textDescription, textAction, textCostPsyRate, textPsyRate, textNameSchool;
     private List<GameObject> lines = new List<GameObject>();
     private int chosenId, experience;
 
 
-    public void CreatePsyPanels(List<PsyPower> psyPowers, List<Connection> connections, int school, int exp, int psyRate, string nameSchool)
+    public void CreatePsyPanels(List<PsyPower> psyPowers, List<Connection> connections, int school, int exp, int psyRate, string nameSchool, JSONSizeSpacing sizeSpacing)
     {
         experience = exp;
         UpdateText(exp);
         chosenSchool = school;
-        foreach(PsyPower psyPower in psyPowers)
+        layoutGroupFirst.spacing = sizeSpacing.firstSpacing;
+        layoutGroupSecond.spacing = sizeSpacing.secondSpacing;
+        layoutGroupThird.spacing = sizeSpacing.thirdSpacing;
+        foreach (PsyPower psyPower in psyPowers)
         {
             psyPanels.Add(Instantiate(examplePsyPanel, lvls[psyPower.Lvl].transform));
             psyPanels[^1].SetPsyPanel(psyPower.NamePower, psyPower.ShortDescription,psyPower.Cost, psyPower.Id, psyPower.IsActive);
             psyPanels[^1].RegDelegate(OpenPanel);
             psyPanels[^1].gameObject.SetActive(true);
+            
         }
         foreach(Connection connection in connections)
         {
@@ -67,10 +73,10 @@ public class PsyCanvas : MonoBehaviour
     {
         //DrawConnection(circles[idFirstPoint].anchoredPosition, circles[idSecondPoint].anchoredPosition);
         //DrawConnection(GetPsyPanelById(idFirstPoint).transform.position, GetPsyPanelById(idSecondPoint).transform.position);
-        DrawStraightLine(GetPsyPanelById(idFirstPoint).transform.position, GetPsyPanelById(idSecondPoint).transform.position);
+        DrawStraightLine(GetPsyPanelById(idFirstPoint).transform.position, GetPsyPanelById(idSecondPoint).transform.position, $"{idFirstPoint}-{idSecondPoint}");
     }
 
-    private void DrawStraightLine(Vector3 firstPoint, Vector3 secondPoint)
+    private void DrawStraightLine(Vector3 firstPoint, Vector3 secondPoint, string name)
     {
 
         var middle = (firstPoint.y + secondPoint.y) / 2.0f;    
@@ -79,16 +85,17 @@ public class PsyCanvas : MonoBehaviour
         vectors[1] = new Vector3(firstPoint.x, middle,0);
         vectors[2] = new Vector3(secondPoint.x, middle, 0);
         vectors[3] = new Vector3(secondPoint.x, secondPoint.y, 0);
-        SetPosition(vectors[0], vectors[1], 0);
-        SetPosition(vectors[1], vectors[2], 90);
-        SetPosition(vectors[2], vectors[3], 0);
+        SetPosition(vectors[0], vectors[1], 0, name);
+        SetPosition(vectors[1], vectors[2], 90, name);
+        SetPosition(vectors[2], vectors[3], 0, name);
 
     }
 
-    private void SetPosition(Vector3 firstPoint, Vector3 secondPoint, int angle)
+    private void SetPosition(Vector3 firstPoint, Vector3 secondPoint, int angle, string name)
     {
         lines.Add(Instantiate(straightLine, connectionsContainer.transform));
         lines[^1].SetActive(true);
+        lines[^1].name = name;
         float height = Vector2.Distance(secondPoint, firstPoint);
         float width = 1;
         lines[^1].GetComponent<RectTransform>().sizeDelta = new Vector2(width, height);

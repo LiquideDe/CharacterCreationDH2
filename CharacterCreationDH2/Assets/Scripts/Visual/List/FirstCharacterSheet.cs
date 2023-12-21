@@ -93,7 +93,7 @@ public class FirstCharacterSheet : MonoBehaviour
 
     private void ActivateSquare(Skill skill)
     {
-        if(!skill.IsKnowledge())
+        if(!skill.IsKnowledge)
         {
             foreach (SkillList skillList in skillSquares)
             {
@@ -113,9 +113,7 @@ public class FirstCharacterSheet : MonoBehaviour
                 {
                     if (skillList.KnowledgeTextName == "")
                     {
-                        
-                        Knowledge knowledge = (Knowledge)skill;
-                        skillList.KnowledgeTextName = knowledge.NameKnowledge;
+                        skillList.KnowledgeTextName = skill.Name;
                         skillList.SetLvlLearned(skill.LvlLearned);
                         break;
                     }

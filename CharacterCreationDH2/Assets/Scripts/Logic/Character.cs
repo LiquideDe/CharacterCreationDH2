@@ -7,14 +7,13 @@ using UnityEngine;
 public class Character 
 {
     private string name, background, role, ageText, prophecy, constitution, hair, eyes, skeen, physFeatures, memoryOfHome, memoryOfBackground, gender, bonusBack;
-    private int age, fatePoint, madnessPoints, corruptionPoints, wounds, psyRating, halfMove, fullMove, natisk, run, fatigue,
+    private int age, fatePoint, insanityPoints, corruptionPoints, wounds, psyRating, halfMove, fullMove, natisk, run, fatigue,
         experienceTotal, experienceUnspent = 10000, experienceSpent;
     private float carryWeight, liftWeight, pushWeight;
     private List<Characteristic> characteristics = new List<Characteristic>();
     private List<GameStat.Inclinations> inclinations = new List<GameStat.Inclinations>();
     private List<Talent> talents = new List<Talent>();
     private List<Skill> skills = new List<Skill>();
-    private List<Knowledge> knowledges = new List<Knowledge>();
     private List<string> mentalDisorders = new List<string>();
     private List<string> mutation = new List<string>();
     private List<PsyPower> psyPowers = new List<PsyPower>();
@@ -42,7 +41,7 @@ public class Character
     public List<Equipment> Equipments { get => equipments;}
     public int Age { get => age; set => age = value; }
     public int FatePoint { get => fatePoint; set => fatePoint = value; }
-    public int MadnessPoints { get => madnessPoints; set => madnessPoints = value; }
+    public int InsanityPoints { get => insanityPoints; set => insanityPoints = value; }
     public int Wounds { get => wounds; set => wounds = value; }
     public int CorruptionPoints { get => corruptionPoints; set => corruptionPoints = value; }
     public int PsyRating { get => psyRating; }
@@ -58,7 +57,7 @@ public class Character
     public int ExperienceSpent { get => experienceSpent; set => experienceSpent = value; }
     public List<Characteristic> Characteristics { get => characteristics; set => characteristics = value; }
     public List<GameStat.Inclinations> Inclinations { get => inclinations; }
-    public List<Skill> Skills { get => skills.Concat(knowledges).ToList(); }
+    public List<Skill> Skills { get => skills; }
     public List<Talent> Talents { get => talents; }
     public List<MechImplants> Implants { get => implants; }
     public List<string> MentalDisorders { get => mentalDisorders; set => mentalDisorders = value; }
@@ -67,10 +66,9 @@ public class Character
     public List<PsyPower> PsyPowers { get => psyPowers; }
     #endregion
 
-    public Character(List<Skill> skills, List<Knowledge> knowledges, CreatorEquipment creatorEquipment)
+    public Character(List<Skill> skills, CreatorEquipment creatorEquipment)
     {
         this.skills = new List<Skill>(skills);
-        this.knowledges = new List<Knowledge>(knowledges);
         inclinations.Add(GameStat.Inclinations.General);
         this.creatorEquipment = creatorEquipment;
         CreateCharacteristics();
@@ -152,7 +150,10 @@ public class Character
         AddInclination(background.ChosenInclination);
         if(background.MechImplants != null)
         {
-            implants.Add(background.MechImplants);
+            foreach(MechImplants implant in background.MechImplants)
+            {
+                implants.Add(implant);
+            }            
         }        
         
         this.background = background.Name;
@@ -169,9 +170,10 @@ public class Character
 
         talents.Add(new Talent(role.ChosenTalent));
         this.role = role.Name;
-        if (role.InternalName == GameStat.RoleName.Mistic)
+        if (role.BonusTalent != "")
         {
             psyRating = 1;
+            talents.Add(new Talent(role.BonusTalent));
         }
     }
 
@@ -179,31 +181,18 @@ public class Character
     {
         if(newSkill == null)
         {
-            newSkill = new Skill((GameStat.SkillName)Enum.Parse(typeof(GameStat.SkillName), nameSkill), 1);
+            newSkill = new Skill(nameSkill, 1);
         }
 
-        int sch = 0;
         foreach(Skill skill in skills)
         {
-            if(skill.InternalName == newSkill.InternalName)
+            if(skill.Name == newSkill.Name)
             {                
                 skill.SetNewLvl();
-                sch += 1;
                 break;
             }
         }
-        if(sch == 0)
-        {
-            Knowledge knowledge = (Knowledge)newSkill;
-            foreach (Knowledge skill in knowledges)
-            {
-                if (skill.InternalNameKnowledge == knowledge.InternalNameKnowledge)
-                {
-                    skill.SetNewLvl();
-                    break;
-                }
-            }
-        }
+
     }
 
     public List<Characteristic> GetCharacteristicsForGenerate()

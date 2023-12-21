@@ -12,7 +12,7 @@ public class CreatorWorlds
     public CreatorWorlds()
     {
         List<string> dirs = new List<string>();
-        dirs.AddRange(Directory.GetDirectories($"{Application.dataPath}/StreamingAssets/Images/Worlds"));
+        dirs.AddRange(Directory.GetDirectories($"{Application.dataPath}/StreamingAssets/Worlds"));
         Debug.Log($"{dirs[0]}");
         for (int i = 0; i < dirs.Count; i++)
         {

@@ -41,7 +41,8 @@ public static class GameStat
         {Inclinations.Weapon, "Ближний бой" },
         {Inclinations.Willpower, "Сила Воли" }
     };
-
+    
+    /*
     public static Dictionary<SkillName, string> skillTranslate = new Dictionary<SkillName, string>()
     {
         {SkillName.Acrobatics, "Акробатика" },
@@ -157,15 +158,16 @@ public static class GameStat
         {KnowledgeName.Occultism, "Оккультизм" },
         {KnowledgeName.Phylosophy, "Философия" },
         {KnowledgeName.TacticImperialis, "Тактика Империалис" },
-        {KnowledgeName.Askelon, "Аскелон" }
-    };
+        {KnowledgeName.Askelon, "Аскелон" },
+        {KnowledgeName.Ministorum, "Экклезиархия" }
+    };*/
     public enum Inclinations {None, Agility, Ballistic, Defense, Fellowship,
     Fieldcraft, Finesse, General, Intelligence, Knowledge, Leadership,
     Offense, Perception, Psyker, Social, Strength, Tech, Toughness,
     Weapon, Willpower};
 
-    public enum CharacterName { None, WeaponSkill, BallisticSkill, Strength, Toughness, Agility, Intelligence, Perception, Willpower, Fellowship, Influence}
-
+    public enum CharacterName { None, WeaponSkill, BallisticSkill, Strength, Toughness, Agility, Intelligence, Perception, Willpower, Fellowship, Influence}    
+    
     public enum SkillName {None, Acrobatics, Athletics, Awareness, Charm, Command,
     Commerce, Deceive, Dodge, Inquiry, Interrogation, Intimidate, Logic,
     Medicae, NavigateSurface, NavigateStellar, NavigateWarp, OperateAero,
@@ -173,62 +175,8 @@ public static class GameStat
     SleightOfHand, Stealth, Survival, TechUse, CommonLore, ForbiddenLore, 
     Linquistics, ScholasticLore, Trade}
 
-    public enum KnowledgeName {None, Arheotech, AstartesOfChaos, CriminalForb, Demonology,
-    Heresy, HorusHeresyAndLongWar, Inquisition, Mutant, OficioAssasinorum, 
-    Pirates, Psykers, Warp, Xenos, RunesOfOrder, MarkOfChaos, EldariLingva, HighGhotic, 
-    ImperialCodes, NecrontirLingva, Jargon, OrcsLingva, LingvaTechno, TauLingva,
-    CriminalCodes, MarkOfXenos, AgroTr, ArcheologyTr, GunsmithTr, AustroGraphTr,
-    ChymicTr, CryptoTr, CockTr, ExploratorTr, LingvistTr, EpistolTr, MortikatorTr,
-    IpolnitelTr, GeologyTr, RezchikTr, SculptureTr, KorabelTr, PredskazatelTr, 
-    TechnomantTr, PustoplavatelTr, Astromancy, Beasts, Burocracy, Chemistry, Cryptology,
-    Geraldica, ImperialPatents, Justice, Legends, Numerology, Occultism, Phylosophy,
-    TacticImperialis, Sororitas, Arbitres, Astartes, AstraTelepatica, Mechanicus, Administratum, 
-    Askelon, CapitanHartisti, KolegiaTitanika, Eklezarkhia, ImperialCredo, AstraMilitarum, 
-    ImperialFleet, Imperium, Navigators, Teroborona, RougeTrader, ScholaProgenium, Techno, 
-    Criminal, War, Ministorum
-    }
-
-    public enum WorldName {None, FeralWorld, ForgeWorld, HighBorn, HiveWorld, TempleWorld, VoidBorn, 
-    AgroWorld, FeodalWorld, FrontWorld, DaemonWorld, PrisonWorld, QuarantineWorld, GardenWorld,
-    ScienseStation }
-
-    public enum BackgroundName {None, Administratum, Arbitres, AstraTelepatica, Mechanicus, Ministorum,
-    Militarum, Izgoi, Sororitas, Mutant, Vichishennii, Heretech, ImperialFleet, RougeTraderFleet }
-
     public enum RoleName {None, Assasin, Hirurgion, Desperado, Ierofant, Mistic, Sage, Seeker, Warrior, 
     Fanatic, Kaushisa, Crusader, Ass}
-
-    public static Dictionary<BackgroundName, string> backstoryTranslation = new Dictionary<BackgroundName, string>()
-    {
-        {BackgroundName.Administratum, "Адептус Администратум" },
-        {BackgroundName.Arbitres, "Адептус Арбитрес" },
-        {BackgroundName.AstraTelepatica, "Адептус Астра Телепатика" },
-        {BackgroundName.Mechanicus, "Адептус Механикус" },
-        {BackgroundName.Ministorum, "Адептус Министорум" },
-        {BackgroundName.Militarum, "Адептус Милитарум" },
-        {BackgroundName.Izgoi, "Изгой" },
-        {BackgroundName.Sororitas, "Адептус Сороритас" },
-        {BackgroundName.Mutant, "Мутант" },
-        {BackgroundName.Heretech, "Еретех" },
-        {BackgroundName.ImperialFleet, "Имперский флот" },
-        {BackgroundName.RougeTraderFleet, "Флот вольного торговца" }
-    };
-
-    public static Dictionary<RoleName, string> roleTranslation = new Dictionary<RoleName, string>()
-    {
-        {RoleName.Assasin, "Ассасин"},
-        {RoleName.Hirurgion, "Хирургеон"},
-        {RoleName.Desperado, "Десперадо"},
-        {RoleName.Ierofant, "Иерофант"},
-        {RoleName.Mistic, "Мистик"},
-        {RoleName.Sage, "Мудрец"},
-        {RoleName.Seeker, "Искатель"},
-        {RoleName.Warrior, "Воитель"},
-        {RoleName.Fanatic, "Фанатик"},
-        {RoleName.Kaushisa, "Кающийся"},
-        {RoleName.Crusader, "Крестоносец"},
-        {RoleName.Ass, "Ас"},
-    };
 
     public static Dictionary<Inclinations, string> descriptionInclination = new Dictionary<Inclinations, string>()
     {

@@ -32,10 +32,14 @@ public class RoleVisual : ToggleVisual
         toggles.Clear();
     }
 
-    public void regFinalDelegate(ChosenRole chosenRole, CreatorTalents creatorTalents)
+    public void OpenRole(Role role, CreatorTalents creatorTalents)
+    {
+        this.creatorTalents = creatorTalents;
+        ShowRole(role);
+    }
+    public void RegFinalDelegate(ChosenRole chosenRole)
     {
         this.chosenRole = chosenRole;
-        this.creatorTalents = creatorTalents;
     }
 
     public void ShowRole(Role role)
@@ -48,7 +52,7 @@ public class RoleVisual : ToggleVisual
         textDescr.text = ReadText(path + "/Описание.txt");
         textCitata.text = "\nСклонности: ";
         textCitata.text += ReadText(path + "/Склонности.txt");
-        gameObject.SetActive(true);
+        gameObject.SetActive(true);      
 
     }
     private void CreateToggles()

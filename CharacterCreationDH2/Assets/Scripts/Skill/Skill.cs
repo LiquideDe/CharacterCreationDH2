@@ -1,31 +1,40 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using System.Text;
 using UnityEngine;
 
 public class Skill
 {
-    protected GameStat.SkillName name;
+    protected string name, internalName;
     private int lvlLearned;
     private int cost;
+    protected bool isKnowledge;
     private GameStat.Inclinations[] inclinations = new GameStat.Inclinations[2];
-    private string description;
+    private string description, typeSkill;
     public string Description { get => description; }
     public GameStat.Inclinations[] Inclinations { get { return inclinations; } }
-    public string Name { get { return GameStat.skillTranslate[name]; } }
-    public GameStat.SkillName InternalName { get => name; }
+    public string Name { get { return name; } }
+    public string InternalName { get => internalName; }
 
     public int Cost { get => cost; }
     public int LvlLearned { get => lvlLearned; }
+    public bool IsKnowledge { get => isKnowledge; }
+    public string TypeSkill { get => typeSkill; }
 
-    public Skill(GameStat.SkillName name, GameStat.Inclinations firstInclination, GameStat.Inclinations secondInclination, string description)
+    public Skill(JSONSkillLoader skillLoader ,string path)
     {
-        this.name = name;
-        inclinations[0] = firstInclination;
-        inclinations[1] = secondInclination;
-        this.description = description;
+        name = skillLoader.name;
+        internalName = skillLoader.internalName;
+        inclinations[0] = (GameStat.Inclinations)Enum.Parse(typeof(GameStat.Inclinations), skillLoader.firstInclination);
+        inclinations[1] = (GameStat.Inclinations)Enum.Parse(typeof(GameStat.Inclinations), skillLoader.secondInclination);
+        typeSkill = skillLoader.type;
+        description = ReadText(path + "/Описание.txt");
+        Debug.Log($"{description}");
     }
 
-    public Skill(GameStat.SkillName name, int lvlLearned)
+    public Skill(string name, int lvlLearned)
     {
         this.name = name;
         this.lvlLearned = lvlLearned;
@@ -36,6 +45,23 @@ public class Skill
         this.name = skill.InternalName;
         this.lvlLearned = lvlLearned;
         this.description = skill.Description;
+    }
+
+    public Skill(string name, int lvl, string internalName)
+    {
+        this.name = name;
+        this.lvlLearned = lvl;
+        this.internalName = internalName;
+    }
+    protected string ReadText(string nameFile)
+    {
+        string txt;
+        using (StreamReader _sw = new StreamReader(nameFile, Encoding.Default))
+        {
+            txt = (_sw.ReadToEnd());
+            _sw.Close();
+        }
+        return txt;
     }
     public int SetNewLvl()
     {
@@ -64,19 +90,5 @@ public class Skill
 
         return sumIncls;
         //cost = ((lvlLearned + 1) * 300) - (100 * sumIncls * (lvlLearned + 1));
-    }
-
-    public bool IsKnowledge()
-    {
-        if (InternalName == GameStat.SkillName.CommonLore || InternalName == GameStat.SkillName.ForbiddenLore ||
-                        InternalName == GameStat.SkillName.Linquistics || InternalName == GameStat.SkillName.ScholasticLore || InternalName == GameStat.SkillName.Trade)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-        
     }
 }

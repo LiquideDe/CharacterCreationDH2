@@ -2,9 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
-using System.IO;
 using System.Text;
-using System.Linq;
 using System;
 
 public class CreatorPsyPowers
@@ -12,6 +10,7 @@ public class CreatorPsyPowers
     private List<List<PsyPower>> psyPowers = new List<List<PsyPower>>();
     private List<string> schoolNames = new List<string>();
     private List<List<Connection>> connections = new List<List<Connection>>();
+    private List<JSONSizeSpacing> sizeSpacings = new List<JSONSizeSpacing>();
     public CreatorPsyPowers()
     {
         List<string> dirs = new List<string>();
@@ -22,6 +21,13 @@ public class CreatorPsyPowers
             psyPowers.Add(CreatePowers(dir));
             schoolNames.Add(ReadText(dir + "/Название.txt"));
             connections.Add(CreateConnection(index));
+            if (File.Exists(dir + "/sizeSpacing.JSON"))
+            {
+                Debug.Log($"Finded");
+                string[] jSonData = File.ReadAllLines(dir + "/sizeSpacing.JSON");
+                JSONSizeSpacing jSONSize = JsonUtility.FromJson<JSONSizeSpacing>(jSonData[0]);
+                sizeSpacings.Add(jSONSize);
+            }
             index++;
         }
     }
@@ -49,45 +55,8 @@ public class CreatorPsyPowers
     {
         string[] data = File.ReadAllLines(dir + "/Param.JSON");
         JSONPsyReader psyReader = JsonUtility.FromJson<JSONPsyReader>(data[0]);
-        var namePsy = psyReader.name;
-        var description = ReadText(dir + "/Описание.txt");
-        var action = psyReader.action;
-        Characteristic[] characteristics = new Characteristic[9];
-        characteristics[0] = new Characteristic(GameStat.CharacterName.WeaponSkill, SetAmountForReqCharacteristic(dir + "/WS.txt"));
-        characteristics[1] = new Characteristic(GameStat.CharacterName.BallisticSkill, SetAmountForReqCharacteristic(dir + "/BS.txt"));
-        characteristics[2] = new Characteristic(GameStat.CharacterName.Strength, SetAmountForReqCharacteristic(dir + "/S.txt"));
-        characteristics[3] = new Characteristic(GameStat.CharacterName.Toughness, SetAmountForReqCharacteristic(dir + "/T.txt"));
-        characteristics[4] = new Characteristic(GameStat.CharacterName.Agility, SetAmountForReqCharacteristic(dir + "/A.txt"));
-        characteristics[5] = new Characteristic(GameStat.CharacterName.Intelligence, SetAmountForReqCharacteristic(dir + "/I.txt"));
-        characteristics[6] = new Characteristic(GameStat.CharacterName.Perception, SetAmountForReqCharacteristic(dir + "/P.txt"));
-        characteristics[7] = new Characteristic(GameStat.CharacterName.Willpower, SetAmountForReqCharacteristic(dir + "/W.txt"));
-        characteristics[8] = new Characteristic(GameStat.CharacterName.Fellowship, SetAmountForReqCharacteristic(dir + "/F.txt"));
-        
-        PsyPower psyPower = new PsyPower(namePsy, description, psyReader.cost, psyReader.psyRate, psyReader.id, psyReader.lvl, action, psyReader.parentId, characteristics);
-        psyPower.ShortDescription = ReadText(dir + "/Кратко.txt");
-        string searchDir = "";
-        foreach(GameStat.SkillName skillName in Enum.GetValues(typeof(GameStat.SkillName)))
-        {
-            searchDir = dir + "/" + skillName.ToString() + ".txt";
-            if (File.Exists(searchDir))
-            {
-                int lvl = int.Parse(ReadText(searchDir));
-                psyPower.AddReqSkill(new Skill(skillName, lvl));
-            }
-        }
+        PsyPower psyPower = new PsyPower(psyReader, dir);
         return psyPower;
-    }
-
-    private int SetAmountForReqCharacteristic(string path)
-    {
-        if (File.Exists(path))
-        {
-            return int.Parse(ReadText(path));
-        }
-        else
-        {
-            return 0;
-        }
     }
 
     private string ReadText(string nameFile)
@@ -153,7 +122,8 @@ public class CreatorPsyPowers
     {
         PsyPower psyPower = GetPsyPowerById(school, id);
         if(psyPower.PsyRateRequire <= character.PsyRating && psyPower.Cost <= character.ExperienceUnspent && CheckPowerForPossibleConnect(psyPower, school) &&
-            CheckCharacteristics(psyPower.RequireCharacteristics, character.Characteristics) && !psyPower.IsActive && CheckSkills(character.Skills, psyPower.RequireSkills))
+            CheckCharacteristics(psyPower.RequireCharacteristics, character.Characteristics) && !psyPower.IsActive && CheckSkills(character.Skills, psyPower.RequireSkills) && 
+            CheckCorruption(psyPower.ReqCorruption, character.CorruptionPoints))
         {
             return true;
         }
@@ -161,21 +131,24 @@ public class CreatorPsyPowers
         return false;
     }
 
-    private bool CheckCharacteristics(Characteristic[] psyReq, List<Characteristic> characteristics)
+    private bool CheckCharacteristics(List<Characteristic> psyReq, List<Characteristic> characteristics)
     {
-        foreach(Characteristic psyReqCharacteristic in psyReq)
+        if (psyReq != null)
         {
-            foreach(Characteristic characteristic in characteristics)
+            foreach (Characteristic psyReqCharacteristic in psyReq)
             {
-                if(psyReqCharacteristic.InternalName == characteristic.InternalName)
+                foreach (Characteristic characteristic in characteristics)
                 {
-                    if (characteristic.Amount < psyReqCharacteristic.Amount)
+                    if (psyReqCharacteristic.InternalName == characteristic.InternalName)
                     {
-                        return false;
+                        if (characteristic.Amount < psyReqCharacteristic.Amount)
+                        {
+                            return false;
+                        }
                     }
                 }
             }
-        }
+        }        
 
         return true;
         
@@ -183,38 +156,54 @@ public class CreatorPsyPowers
 
     private bool CheckSkills(List<Skill> characterSkills, List<Skill> reqSkills)
     {
-        int sum = 0;
-        if (reqSkills.Count > 0)
+        if (reqSkills != null)
         {
-            foreach (Skill reqSkill in reqSkills)
+            int sum = 0;
+
+            if (reqSkills.Count > 0)
             {
-                foreach (Skill charSkill in characterSkills)
+                foreach (Skill reqSkill in reqSkills)
                 {
-                    if (reqSkill.InternalName == charSkill.InternalName)
+                    foreach (Skill charSkill in characterSkills)
                     {
-                        if (charSkill.LvlLearned >= reqSkill.LvlLearned)
+                        if (reqSkill.Name == charSkill.Name)
                         {
-                            sum++;
+                            if (charSkill.LvlLearned >= reqSkill.LvlLearned)
+                            {
+                                sum++;
+                            }
                         }
                     }
                 }
             }
-        }
-        else
-        {
-            return true;
-        }
+            else
+            {
+                return true;
+            }
 
-        if(sum == reqSkills.Count)
-        {
-            Debug.Log($"Сумма навыков такая же, возвращаемт тру");
-            return true;
+            if (sum == reqSkills.Count)
+            {
+                Debug.Log($"Сумма навыков такая же, возвращаемт тру");
+                return true;
+            }
+            else
+            {
+                Debug.Log($"Сумма навыков НЕ такая же, возвращаемт false");
+                return false;
+            }
         }
         else
+            return true;
+        
+    }
+
+    private bool CheckCorruption(int reqCor, int characterCor)
+    {
+        if(reqCor <= characterCor)
         {
-            Debug.Log($"Сумма навыков НЕ такая же, возвращаемт false");
-            return false;
+            return true;
         }
+        return false;
     }
 
     public List<PsyPower> GetPowers(int school)
@@ -235,5 +224,10 @@ public class CreatorPsyPowers
     public string GetNameSchool(int school)
     {
         return schoolNames[school];
+    }
+
+    public JSONSizeSpacing GetSizeSpacing(int school)
+    {
+        return sizeSpacings[school];
     }
 }

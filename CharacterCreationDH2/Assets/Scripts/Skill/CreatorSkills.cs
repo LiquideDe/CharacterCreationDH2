@@ -9,74 +9,53 @@ using UnityEngine;
 public class CreatorSkills
 {
     private List<Skill> skills = new List<Skill>();
-    private List<Knowledge> knowledges = new List<Knowledge>();
 
     public List<Skill> Skills { get => skills; }
-    public List<Knowledge> Knowledges { get => knowledges; }
     public CreatorSkills()
     {
-        List<string> inclinations = new List<string>();
-
-        GameStat.SkillName skillName;
-        GameStat.KnowledgeName knowledgeName;
-        GameStat.Inclinations first;
-        GameStat.Inclinations second;
-        string typeSkill;
         List<string> dirs = new List<string>();
-        dirs.AddRange(Directory.GetDirectories($"{Application.dataPath}/StreamingAssets/Images/Skills"));
+        dirs.AddRange(Directory.GetDirectories($"{Application.dataPath}/StreamingAssets/Skills"));
         for (int i = 0; i < dirs.Count; i++)
         {
-            inclinations = ReadText(dirs[i] + "/Inclinations.txt").Split(new char[] { '/' }).ToList();
-            skillName = (GameStat.SkillName)Enum.Parse(typeof(GameStat.SkillName), ReadText(dirs[i] + "/InternalName.txt"));
-            typeSkill = ReadText(dirs[i] + "/Type.txt");
-            first = (GameStat.Inclinations)Enum.Parse(typeof(GameStat.Inclinations), inclinations[0]);
-            second = (GameStat.Inclinations)Enum.Parse(typeof(GameStat.Inclinations), inclinations[1]);
-            if (typeSkill == "Skill")
+            string[] data = File.ReadAllLines(dirs[i] + "/Parameters.JSON");
+            JSONSkillLoader skillLoader = JsonUtility.FromJson<JSONSkillLoader>(data[0]);
+            if (skillLoader.type != "Knowledge")
             {
-                skills.Add(new Skill(skillName, first, second, ReadText(dirs[i] + "/Описание.txt")));
+                skills.Add(new Skill(skillLoader, dirs[i]));
             }
             else
             {
-                knowledgeName = (GameStat.KnowledgeName)Enum.Parse(typeof(GameStat.KnowledgeName), ReadText(dirs[i] + "/KnowledgeName.txt"));
-                knowledges.Add(new Knowledge(knowledgeName, skillName, first, second, ReadText(dirs[i] + "/Описание.txt")));
+                skills.Add(new Knowledge(skillLoader, dirs[i]));
             }
         }
 
-    }
+    }   
 
-    protected string ReadText(string nameFile)
-    {
-        string txt;
-        using (StreamReader _sw = new StreamReader(nameFile, Encoding.Default))
-        {
-            txt = (_sw.ReadToEnd());
-            _sw.Close();
-        }
-        return txt;
-    }
-
-    public Skill GetSkill(GameStat.SkillName skillName)
+    public Skill GetSkill(string skillName)
     {
         foreach(Skill skill in skills)
         {
-            if(skill.InternalName == skillName)
+            if (string.Compare(skill.Name, skillName, true) == 0)
             {
                 return skill;
             }
         }
+        Debug.Log($"!!!!!! Не нашли умение!!!! Искали {skillName}");
         return null;
     }
 
-    public Knowledge GetKnowledge(GameStat.KnowledgeName knowledgeName)
+    public bool IsSkillKnowledge(string skillName)
     {
-        foreach(Knowledge knowledge in knowledges)
+        foreach (Skill skill in skills)
         {
-            if (knowledge.InternalNameKnowledge == knowledgeName)
+            if (string.Compare(skill.Name, skillName, true) == 0)
             {
-                return knowledge;
+                if (skill.IsKnowledge)
+                {
+                    return true;
+                }
             }
         }
-        return null;
+        return false;
     }
-
 }

@@ -18,6 +18,6 @@ public class SkillList : MonoBehaviour
         }
     }
 
-    public GameStat.SkillName SkillName { get => skillName; }
+    public string SkillName { get => skillName.ToString(); }
     public string KnowledgeTextName { get => textLore.text; set => textLore.text = value; }
 }

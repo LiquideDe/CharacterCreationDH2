@@ -29,8 +29,8 @@ public class WeaponBlock : MonoBehaviour
         }
         
         textDamage.text = weapon.Damage;
-        textPenetration.text = weapon.Penetration;
-        textClip.text = weapon.Clip;
+        textPenetration.text = weapon.Penetration.ToString();
+        textClip.text = weapon.Clip.ToString();
         textReload.text = weapon.Reload;
         textProp.text = weapon.Properties;
         isEmpty = false;

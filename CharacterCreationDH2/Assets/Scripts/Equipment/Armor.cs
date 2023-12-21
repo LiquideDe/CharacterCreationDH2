@@ -6,16 +6,16 @@ public class Armor : Equipment
 {
     private int defHead, defHands, defBody, defLegs, maxAgil, weight;
     private string placeArmor;
-    public Armor(string nameEquipment, string description, string placeArmor, int defHead, int defHands, int defBody, int defLegs, int maxAgil, int weight) : base (nameEquipment, description)
+    public Armor(JSONArmorReader armorReader) : base (armorReader.name, armorReader.description)
     {
         typeEquipment = TypeEquipment.Armor;
-        this.defHead = defHead;
-        this.defHands = defHands;
-        this.defBody = defBody;
-        this.defLegs = defLegs;
-        this.maxAgil = maxAgil;
-        this.weight = weight;
-        this.placeArmor = placeArmor;
+        defHead = armorReader.head;
+        defHands = armorReader.hands;
+        defBody = armorReader.body;
+        defLegs = armorReader.legs;
+        maxAgil = armorReader.maxAgility;
+        weight = armorReader.weight;
+        placeArmor = armorReader.descriptionArmor;
     }
 
     public int DefHead { get => defHead; }

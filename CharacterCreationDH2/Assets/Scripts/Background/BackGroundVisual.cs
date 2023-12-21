@@ -48,6 +48,7 @@ public class BackGroundVisual : ToggleVisual
     }
     public void ShowBackground(Background background)
     {
+        Debug.Log($"Показываем следующий бэк");
         path = background.PathBackground;        
         textName.text = ReadText(path + "/Название.txt");
         this.background = background;
@@ -69,10 +70,9 @@ public class BackGroundVisual : ToggleVisual
     {
         foreach (List<Skill> skills in background.Skills)
         {
-            bool skillIsKnowledge = false;
             if(skills.Count > 1)
             {
-                if (skills[0].IsKnowledge())
+                if (creatorSkills.IsSkillKnowledge(skills[0].Name))
                 {
                     CreateToggleGroup("Знания");
                 }
@@ -83,22 +83,8 @@ public class BackGroundVisual : ToggleVisual
                 
                 for (int i = 0; i < skills.Count; i++)
                 {
-                    Knowledge knowledge = null;
-                    if (skills[i].IsKnowledge())
-                    {
-                        knowledge = (Knowledge)skills[i];
-                        skillIsKnowledge = true;
-                    }
-                    if (skillIsKnowledge)
-                    {
-                        Debug.Log($"имя скилла {skills[i].Name}, имя знания {knowledge.NameKnowledge}");
-                        CreateToggle(skills[i].Name + " " + knowledge.NameKnowledge,i, creatorSkills.GetKnowledge(knowledge.InternalNameKnowledge).Description);
-                        Debug.Log($"Создали");
-                    }
-                    else
-                    {
-                        CreateToggle(skills[i].Name,i, creatorSkills.GetSkill(skills[i].InternalName).Description);
-                    }
+                    Debug.Log($"Ищем скилл под названием {skills[i].Name}");
+                    CreateToggle(skills[i].Name, i, creatorSkills.GetSkill(skills[i].Name).Description);
 
                 }
             
@@ -112,7 +98,7 @@ public class BackGroundVisual : ToggleVisual
                 CreateToggleGroup("Таланты");
                 for (int i = 0; i < talents.Count; i++)
                 {
-                    CreateToggle(talents[i],i,creatorTalents.GetTalent(talents[i]).Description);
+                    CreateToggle(talents[i],i,creatorTalents.GetTalent(talents[i]).ShortDescription);
                 }
             }
         }

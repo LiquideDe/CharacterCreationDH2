@@ -2,116 +2,122 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System;
 
 public class MainGame : MonoBehaviour
-{
-    private CreatorWorlds creatorWorlds;
-    private CreatorBackgrounds creatorBackgrounds;
-    private CreatorRole creatorRole;
+{    
     private CreatorSkills creatorSkills;
     private CreatorTalents creatorTalents;
     private CreatorEquipment creatorEquipment;
-    private CreatorPsyPowers creatorPsyPowers;
-
-    private HomeWorldVisual homeWorldVisual;
-    private BackGroundVisual backVisual;
-    private RoleVisual roleVisual;
-    [SerializeField] GameObject homeWorldCanvas, backgroundCanvas, roleCanvas, characteristicGenerateCanvas, characteristicPanelCanvas, 
-        skillPanelCanvas, talentTrainingCanvas, firstSheet, secondSheet, canvasName, psyCanvas;
-    [SerializeField] CanvasIntermediate canvasIntermediate;
     private Character character;
-    private GameObject tempGameobject;
+
+    [SerializeField] private BackGroundVisual backVisual;
+    [SerializeField] private RoleVisual roleVisual;
+    [SerializeField] private HomeWorldVisual homeWorldVisual;
+    [SerializeField] private CharacteristicGenerateCanvas characteristicGenerateCanvas;
+    [SerializeField] private CanvasTrainingChar charTrainingCanvas;
+    [SerializeField] private SkillTrainingCanvas skillTrainingCanvas;
+    [SerializeField] private TalentTrainingCanvas talentTrainingCanvas;
+    [SerializeField] private PsyCanvas psyCanvas;
+    [SerializeField] GameObject firstSheet, secondSheet, canvasName;
+    [SerializeField] CanvasIntermediate canvasIntermediate;
     private void Start()
     {
         creatorSkills = new CreatorSkills();
         creatorTalents = new CreatorTalents();
         creatorEquipment = new CreatorEquipment();
-        character = new Character(creatorSkills.Skills, creatorSkills.Knowledges, creatorEquipment);
-        creatorPsyPowers = new CreatorPsyPowers();
+        character = new Character(creatorSkills.Skills, creatorEquipment);
+        CreatorRole creatorRole = new CreatorRole();
         //ShowMainPanel();
-        TeachPsyPowers();
-    }
-
-    public void OpenHomeWorldCanvas()
-    {
-        canvasIntermediate.gameObject.SetActive(false);
-        creatorWorlds = new CreatorWorlds();
-        var visualHomeworld = Instantiate(homeWorldCanvas);
-        homeWorldVisual = visualHomeworld.GetComponent<HomeWorldVisual>();
-        homeWorldVisual.RegDelegate(ShowNextWorld, ShowPrevWorld);
-        homeWorldVisual.regFinalDelegate(FinishChooseWorld);
-        ShowNextWorld();
-    }
-
-    public void OpenBackgroundsCanvas()
-    {
-        canvasIntermediate.gameObject.SetActive(false);
-        creatorBackgrounds = new CreatorBackgrounds(creatorEquipment);
-        var visualBack = Instantiate(backgroundCanvas);
-        backVisual = visualBack.GetComponent<BackGroundVisual>();
-        backVisual.RegDelegate(ShowNextBack, ShowPrevBack);
-        backVisual.regFinalDelegate(FinishChooseBackGround);
-        backVisual.SetCreators(creatorSkills, creatorTalents);
-        ShowNextBack();
-    }
-
-    public void OpenRoleCanvas()
-    {
-        canvasIntermediate.gameObject.SetActive(false);
-        creatorRole = new CreatorRole();
-        var visualRole = Instantiate(roleCanvas);
-        roleVisual = visualRole.GetComponent<RoleVisual>();
-        roleVisual.RegDelegate(ShowNextRole, ShowPrevRole);
-        roleVisual.regFinalDelegate(FinishChooseRole, creatorTalents);
-        ShowNextRole();
-    }
-
-    private void ShowNextWorld()
-    {
-        homeWorldVisual.ShowWorld(creatorWorlds.GetNextWorld());
-    }
-
-    private void ShowPrevWorld()
-    {
-        homeWorldVisual.ShowWorld(creatorWorlds.GetPrevWorld());
-    }
-
-    private void ShowNextBack()
-    {
-        backVisual.ShowBackground(creatorBackgrounds.GetNextBack());
-    }
-
-    private void ShowPrevBack()
-    {
-        backVisual.ShowBackground(creatorBackgrounds.GetPrevBack());
-    }
-    
-    private void ShowNextRole()
-    {
-        roleVisual.ShowRole(creatorRole.GetNextRole());
-    }
-
-    private void ShowPrevRole()
-    {
-        roleVisual.ShowRole(creatorRole.GetPrevRole());
-    }
-
-    private void FinishChooseWorld(Homeworld world)
-    {
-        character.SetHomeWorld(world);
         ShowMessageBeforeBackstory();
     }
 
-    private void FinishChooseBackGround(Background background)
+    private void ShowMainPanel()
+    {
+        canvasIntermediate.gameObject.SetActive(true);
+        canvasIntermediate.OpenIntermediatePanel(ShowMessageBeforeWorld, "Это сорок первое тысячелетие. Вот уже сотню веков Император недвижимо восседает на Золотом троне Земли. " +
+            "Волей богов он владычествует над человечеством, и мощью своих неисчислимых армий он повелевает миллионом миров. " +
+            "Он – гниющий труп, незримо поддерживаемый  могуществом Тёмной эры технологий. " +
+            "Он – Великий падальщик, которому каждый день приносят в жертву тысячу душ, и которой поэтому никогда по-настоящему не умрёт. " +
+            "Быть человеком в такие времена – значит быть одним из бессчётных миллиардов. Это значит жить при самом жестоком и кровавом режиме, который можно вообразить. " +
+            "Эта история о тех временах. Забудьте о могуществе технологии и науки, ибо было забыто столь многое, что уже никогда не будет открыто вновь. " +
+            "Забудьте об обещаниях прогресса и взаимопонимания, ибо в беспросветном мраке будущего есть только война. Нет мира среди звезд, есть лишь вечность бойни и резни под смех кровожадных богов.");
+    }
+
+    private void ShowMessageBeforeWorld()
+    {
+        canvasIntermediate.gameObject.SetActive(true);
+        canvasIntermediate.OpenIntermediatePanel(OpenHomeWorldCanvas, "В следующем окне вам нужно выбрать свой родной мир. Тип мира будет отражать ваши привычки, вашу внешность и восприятие мира. " +
+            "Так же родной мир определяет сильные и слабые стороны");
+    }
+
+    private void OpenHomeWorldCanvas()
+    {
+        canvasIntermediate.gameObject.SetActive(false);
+        HomeWorldObserver homeWorldObserver = gameObject.AddComponent<HomeWorldObserver>();
+        homeWorldObserver.RegDelegate(SetHomeWorldToCharacter);
+        homeWorldObserver.OpenHomeWorldCanvas(homeWorldVisual);
+    }
+
+    private void SetHomeWorldToCharacter(Homeworld homeworld)
+    {
+        character.SetHomeWorld(homeworld);
+        ShowMessageBeforeBackstory();
+    }
+
+    private void ShowMessageBeforeBackstory()
+    {
+        canvasIntermediate.gameObject.SetActive(true);
+        canvasIntermediate.OpenIntermediatePanel(OpenBackgroundsCanvas, "В следующем окне вам следует выбрать свою предисторию. Кем вы были до того как поступить на службу инквизиции. Этот выбор " +
+            "повлияет на стартовую экипировку, таланты и склонности");
+    }
+
+    private void OpenBackgroundsCanvas()
+    {
+        canvasIntermediate.gameObject.SetActive(false);
+        BackgroundObserver backgroundObserver = gameObject.AddComponent<BackgroundObserver>();
+        backgroundObserver.RegDelegate(FinishChooseBackground);
+        backgroundObserver.OpenBackgroundCanvas(backVisual, creatorEquipment, creatorSkills, creatorTalents);
+    }
+
+    private void FinishChooseBackground(Background background)
     {
         character.SetBackground(background);
         ShowMessageBeforeRole();
     }
 
+    private void ShowMessageBeforeRole()
+    {
+        canvasIntermediate.gameObject.SetActive(true);
+        canvasIntermediate.OpenIntermediatePanel(OpenRoleCanvas, "В следующем окне вам следует выбрать свою роль. Это больше игромеханический выбор в каком направлении вы хотите развиваться. " +
+            "Выбор роли влияет на таланты и склонности.");
+    }
+
+    private void OpenRoleCanvas()
+    {
+        canvasIntermediate.gameObject.SetActive(false);
+        RoleObserver roleObserver = gameObject.AddComponent<RoleObserver>();
+        roleObserver.RegDelegate(FinishChooseRole);
+        roleObserver.OpenRoleCanvas(roleVisual, creatorTalents);
+    }
     private void FinishChooseRole(Role role)
     {
         character.SetRole(role);
         ShowMessageBeforeGenerate();
+    }
+    private void ShowMessageBeforeGenerate()
+    {
+        canvasIntermediate.gameObject.SetActive(true);
+        canvasIntermediate.OpenIntermediatePanel(OpenGenerateCharacteristic, "В следующем окне вам нужно бросить 2 кубика в 10 граней и записать результат. " +
+            "Вы также можете нажать на кнопку кубика, он сам сгенерирует результат, а затем переставить полученные результаты характеристикам.");
+    }
+    
+    private void OpenGenerateCharacteristic()
+    {
+        canvasIntermediate.gameObject.SetActive(false);
+        GenerateObserver generateObserver = gameObject.AddComponent<GenerateObserver>();
+        generateObserver.RegDelegate(FinishGenerateCharacteristics);
+        generateObserver.OpenGenerateCharacteristic(characteristicGenerateCanvas, character);
     }
 
     private void FinishGenerateCharacteristics(List<Characteristic> characteristics)
@@ -120,83 +126,19 @@ public class MainGame : MonoBehaviour
         ShowMessageBeforeTrainingCharacteristics();
     }
 
-    public void GenerateCharacteristic()
+    private void ShowMessageBeforeTrainingCharacteristics()
+    {
+        canvasIntermediate.gameObject.SetActive(true);
+        canvasIntermediate.OpenIntermediatePanel(Training, "В следующих трех окнах вы можете прокачать персонажа: вам доступно 1000 Очков Опыта, которые можно потратить как на " +
+            "улучшение храктеристик, так и на навыки и таланты. Вы можете свободно переключаться между ними. Наведя на шкалу интенсивности, вы увидите стоимость улучшения в очках опыта.");
+    }
+
+    private void Training()
     {
         canvasIntermediate.gameObject.SetActive(false);
-        GameObject gameObject = Instantiate(characteristicGenerateCanvas);
-        var generateCanvas = gameObject.GetComponent<CharacteristicGenerateCanvas>();
-        generateCanvas.RegDelegateFinish(FinishGenerateCharacteristics);
-        generateCanvas.GenerateCharacteristics(character);
-    }
-
-    private void TrainingCharacteristics()
-    {
-        canvasIntermediate.gameObject.SetActive(false);
-        GameObject gO = Instantiate(characteristicPanelCanvas);
-        gO.SetActive(true);
-        var characteristicCanvas = gO.GetComponent<CanvasTrainingChar>();
-        characteristicCanvas.CreatePanels(character);
-        characteristicCanvas.RegDelegate(TrainingSkill);
-    }
-
-    private void TrainingSkill()
-    {
-        GameObject gO = Instantiate(skillPanelCanvas);
-        gO.SetActive(true);
-        var characteristicCanvas = gO.GetComponent<SkillTrainingCanvas>();
-        characteristicCanvas.CreatePanels(character);
-        characteristicCanvas.RegDelegates(TrainingTalents, TrainingCharacteristics);
-    }
-
-    private void TrainingTalents()
-    {
-        
-        GameObject gO = Instantiate(talentTrainingCanvas);
-        gO.SetActive(true);
-        var talentTraining = gO.GetComponent<TalentTrainingCanvas>();
-        talentTraining.CreateTalentPanels(character, creatorTalents);
-        if(character.PsyRating > 0)
-        {
-            talentTraining.RegDelegates(TrainingSkill, TeachPsyPowers);
-        }
-        else
-        {
-            talentTraining.RegDelegates(TrainingSkill, GoToProphecy);
-        }
-        
-    }
-
-    private void TeachPsyPowers()
-    {
-        GameObject gO = Instantiate(psyCanvas);
-        gO.SetActive(true);
-        var psycana = gO.GetComponent<PsyCanvas>();
-        psycana.CreatePsyPanels(creatorPsyPowers.GetPowers(0), creatorPsyPowers.GetConnections(0), 0, character.ExperienceUnspent, character.PsyRating, creatorPsyPowers.GetNameSchool(0));
-        psycana.RegDelegate(CheckReqForPsyPower, GetPsyPower, SetNewPsyLvl);
-        psycana.RegDelegateNextPrev(NextPsySchool, PrevPsySchool);
-    }
-
-    private void NextPsySchool(int prevSchool, PsyCanvas psycana)
-    {
-        if(prevSchool + 1 < creatorPsyPowers.CountSchools())
-        {
-            psycana.CreatePsyPanels(creatorPsyPowers.GetPowers(prevSchool + 1), creatorPsyPowers.GetConnections(prevSchool + 1), prevSchool + 1, character.ExperienceUnspent, 
-                character.PsyRating, creatorPsyPowers.GetNameSchool(prevSchool + 1));
-        }
-    }
-
-    private void PrevPsySchool(int prevSchool, PsyCanvas psycana)
-    {
-        if(prevSchool - 1 >= 0)
-        {
-            psycana.CreatePsyPanels(creatorPsyPowers.GetPowers(prevSchool - 1), creatorPsyPowers.GetConnections(prevSchool - 1), prevSchool - 1, character.ExperienceUnspent, 
-                character.PsyRating, creatorPsyPowers.GetNameSchool(prevSchool - 1));
-        }
-        else
-        {
-            Destroy(psycana.gameObject);
-            TrainingTalents();
-        }
+        TrainingClass trainingClass = gameObject.AddComponent<TrainingClass>();
+        trainingClass.RegDelegate(GoToProphecy);
+        trainingClass.OpenTraining(charTrainingCanvas, skillTrainingCanvas, talentTrainingCanvas, psyCanvas, character, creatorSkills, creatorTalents);
     }
 
     private void GoToProphecy()
@@ -219,33 +161,10 @@ public class MainGame : MonoBehaviour
     private void PasteName(string name)
     {
         character.Name = name;
-        TakeScreenshotFirst();
-    }
-
-    private void TakeScreenshotFirst()
-    {
-        tempGameobject = Instantiate(firstSheet);
-        tempGameobject.SetActive(true);
-        FirstCharacterSheet characterSheet = tempGameobject.GetComponentInChildren<FirstCharacterSheet>();
-        characterSheet.RegDelegate(TakePause);
-        characterSheet.FillCharacterSheet(character);
-    }
-
-    private void TakePause()
-    {
-        Destroy(tempGameobject);
-        StartCoroutine(TakeScreenshotSecond());
-    }
-
-    IEnumerator TakeScreenshotSecond()
-    {
-        yield return new WaitForSeconds(0.7f);
-        GameObject gO = Instantiate(secondSheet);
-        gO.SetActive(true);
-        SecondCharacterSheet secondCharacter = gO.GetComponentInChildren<SecondCharacterSheet>();
-        secondCharacter.RegDelegate(EndGame);
-        secondCharacter.OpenSecondSheet(character);
-    }
+        ScreenshotObserver screenshotObserver = gameObject.AddComponent<ScreenshotObserver>();
+        screenshotObserver.RegDelegate(EndGame);
+        screenshotObserver.OpenScreenshots(character, firstSheet, secondSheet);
+    }    
 
     private void EndGame()
     {
@@ -258,79 +177,5 @@ public class MainGame : MonoBehaviour
         Debug.Log($"Вышли");
         Application.OpenURL((Application.dataPath) + "/StreamingAssets/CharacterSheets");
         Application.Quit();
-    }
-    private void ShowMainPanel()
-    {
-        canvasIntermediate.gameObject.SetActive(true);
-        canvasIntermediate.OpenIntermediatePanel(ShowMessageBeforeWorld, "Это сорок первое тысячелетие. Вот уже сотню веков Император недвижимо восседает на Золотом троне Земли. " +
-            "Волей богов он владычествует над человечеством, и мощью своих неисчислимых армий он повелевает миллионом миров. " +
-            "Он – гниющий труп, незримо поддерживаемый  могуществом Тёмной эры технологий. " +
-            "Он – Великий падальщик, которому каждый день приносят в жертву тысячу душ, и которой поэтому никогда по-настоящему не умрёт. " +
-            "Быть человеком в такие времена – значит быть одним из бессчётных миллиардов. Это значит жить при самом жестоком и кровавом режиме, который можно вообразить. " +
-            "Эта история о тех временах. Забудьте о могуществе технологии и науки, ибо было забыто столь многое, что уже никогда не будет открыто вновь. " +
-            "Забудьте об обещаниях прогресса и взаимопонимания, ибо в беспросветном мраке будущего есть только война. Нет мира среди звезд, есть лишь вечность бойни и резни под смех кровожадных богов.");
-    }
-
-    private void ShowMessageBeforeWorld()
-    {
-        canvasIntermediate.gameObject.SetActive(true);
-        canvasIntermediate.OpenIntermediatePanel(OpenHomeWorldCanvas, "В следующем окне вам нужно выбрать свой родной мир. Тип мира будет отражать ваши привычки, вашу внешность и восприятие мира. " +
-            "Так же родной мир определяет сильные и слабые стороны");
-    }
-
-    private void ShowMessageBeforeBackstory()
-    {
-        canvasIntermediate.gameObject.SetActive(true);
-        canvasIntermediate.OpenIntermediatePanel(OpenBackgroundsCanvas, "В следующем окне вам следует выбрать свою предисторию. Кем вы были до того как поступить на службу инквизиции. Этот выбор " +
-            "повлияет на стартовую экипировку, таланты и склонности");
-    }
-
-    private void ShowMessageBeforeRole()
-    {
-        canvasIntermediate.gameObject.SetActive(true);
-        canvasIntermediate.OpenIntermediatePanel(OpenRoleCanvas, "В следующем окне вам следует выбрать свою роль. Это больше игромеханический выбор в каком направлении вы хотите развиваться. " +
-            "Выбор роли влияет на таланты и склонности.");
-    }
-
-    private void ShowMessageBeforeGenerate()
-    {
-        canvasIntermediate.gameObject.SetActive(true);
-        canvasIntermediate.OpenIntermediatePanel(GenerateCharacteristic, "В следующем окне вам нужно бросить 2 кубика в 10 граней и записать результат. " +
-            "Вы также можете нажать на кнопку кубика, он сам сгенерирует результат, а затем переставить полученные результаты характеристикам.");
-    }
-
-    private void ShowMessageBeforeTrainingCharacteristics()
-    {
-        canvasIntermediate.gameObject.SetActive(true);
-        canvasIntermediate.OpenIntermediatePanel(TrainingCharacteristics, "В следующих трех окнах вы можете прокачать персонажа: вам доступно 1000 Очков Опыта, которые можно потратить как на " +
-            "улучшение храктеристик, так и на навыки и таланты. Вы можете свободно переключаться между ними. Наведя на шкалу интенсивности, вы увидите стоимость улучшения в очках опыта.");
-    }
-
-    private PsyPower GetPsyPower(int school, int id)
-    {
-        return creatorPsyPowers.GetPsyPowerById(school, id);
-    }
-
-    private bool CheckReqForPsyPower(int school, int id)
-    {
-        if(creatorPsyPowers.CheckPowerForAdding(school, id, character))
-        {
-            PsyPower psyPower = creatorPsyPowers.GetPsyPowerById(school, id);
-            character.AddPsyPower(psyPower);
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-
-    private void SetNewPsyLvl(PsyCanvas psyCanvas)
-    {
-        if (character.UpgradePsyRate())
-        {
-            psyCanvas.UpdateTextPsyRate(character.PsyRating);
-            psyCanvas.UpdateText(character.ExperienceUnspent);
-        }
     }
 }
