@@ -6,5 +6,6 @@ using System;
 public class JSONMeleeReader 
 {
     public string name, description, properties, type, weaponClass, damage;
-    public int weight, penetration;
+    public int penetration;
+    public float weight;
 }

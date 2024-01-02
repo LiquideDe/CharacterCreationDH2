@@ -6,5 +6,6 @@ using System;
 public class JSONRangeReader 
 {
     public string name, description, weaponClass, rof, damage, reload, properties;
-    public int range, penetration, clip, weight;
+    public int range, penetration, clip;
+    public float weight;
 }

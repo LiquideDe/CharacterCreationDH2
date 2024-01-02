@@ -12,7 +12,7 @@ public class PsyPanel : MonoBehaviour, IPointerDownHandler
     [SerializeField] TextMeshProUGUI textName, textCost;
     [SerializeField] Image image;
     [SerializeField] Sprite spriteActive, spriteDeActive;
-    private int id, cost;
+    public int id, cost;
     bool isActive;
 
     public int Id { get => id; }

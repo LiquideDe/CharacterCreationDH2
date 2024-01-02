@@ -6,42 +6,39 @@ public class ScreenshotObserver : MonoBehaviour
 {
     public delegate void Finish();
     Finish finish;
-    private FirstCharacterSheet first;
     private SecondCharacterSheet second;
-    private GameObject secondGO;
     private Character character;
     public void RegDelegate(Finish finish)
     {
         this.finish = finish;
     }
 
-    public void OpenScreenshots(Character character, GameObject first, GameObject second)
+    public void OpenScreenShots(Character character, FirstCharacterSheet first, SecondCharacterSheet second)
     {
-        var tempGameobject = Instantiate(first);
-        tempGameobject.SetActive(true);
-        secondGO = second;
+        this.second = second;
         this.character = character;
-        this.first = tempGameobject.GetComponentInChildren<FirstCharacterSheet>();
-        this.first.RegDelegate(TakePause);
-        this.first.FillCharacterSheet(character);   
+        FirstCharacterSheet firstScreenshot = Instantiate(first);
+        firstScreenshot.RegDelegate(BetwenFirstAndSecondPause);
+        firstScreenshot.FillCharacterSheet(character);
     }
 
-    private void TakePause()
+    private void BetwenFirstAndSecondPause()
     {
-        Destroy(first);
-        StartCoroutine(TakeScreenshotSecond());
+        StartCoroutine(TakePause());
     }
-
-    IEnumerator TakeScreenshotSecond()
+    private void NextScreenshot()
     {
-        yield return new WaitForSeconds(0.7f);
-        GameObject gO = Instantiate(secondGO);
-        gO.SetActive(true);
-        SecondCharacterSheet secondCharacter = gO.GetComponentInChildren<SecondCharacterSheet>();
-        secondCharacter.RegDelegate(FinishScreenShot);
-        secondCharacter.OpenSecondSheet(character);
+        Debug.Log($"Начали второй пробег");
+        SecondCharacterSheet secondScreenshot = Instantiate(second);
+        secondScreenshot.RegDelegate(FinishScreenShot);
+        secondScreenshot.OpenSecondSheet(character);
     }
 
+    IEnumerator TakePause()
+    {
+        yield return new WaitForEndOfFrame();
+        NextScreenshot();
+    }
     private void FinishScreenShot()
     {
         finish?.Invoke();

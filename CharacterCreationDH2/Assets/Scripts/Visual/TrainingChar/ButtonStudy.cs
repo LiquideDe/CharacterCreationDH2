@@ -37,7 +37,7 @@ public class ButtonStudy : MonoBehaviour, IPointerDownHandler, IPointerEnterHand
         if (isPrevButtActive && !isActivated)
         {
             helpText.text = cost.ToString();
-            helpText.transform.position = new Vector3(helpText.transform.position.x, transform.position.y);
+            //helpText.transform.position = new Vector3(helpText.transform.position.x, transform.position.y);
             helpText.gameObject.SetActive(true);            
         }
         

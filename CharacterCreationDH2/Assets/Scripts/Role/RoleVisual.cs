@@ -59,21 +59,18 @@ public class RoleVisual : ToggleVisual
     {
         foreach (List<GameStat.Inclinations> incl in role.Inclinations)
         {
-            //if (incl.Count > 1)
-            //{
-                CreateToggleGroup("Склонности");
-                for (int i = 0; i < incl.Count; i++)
-                {
-                    CreateToggle(GameStat.inclinationTranslate[incl[i]], i, GameStat.descriptionInclination[incl[i]]);
-                }
-            //}
+            CreateToggleGroup("Склонности");
+            for (int i = 0; i < incl.Count; i++)
+            {
+                CreateToggle(GameStat.inclinationTranslate[incl[i]], i, GameStat.descriptionInclination[incl[i]]);
+            }
         }
 
         CreateToggleGroup("Таланты");
         int sc = 0;
         foreach(string talent in role.Talents)
         {
-            CreateToggle(talent, sc, creatorTalents.GetTalent(talent).Description);
+            CreateToggle(talent, sc, creatorTalents.GetTalent(talent).ShortDescription);
             sc++;
         }
 
@@ -97,17 +94,17 @@ public class RoleVisual : ToggleVisual
         {
             if (incl.Count > 1)
             {
-                chosenInclinations.Add(incl[toggleGroups[sch].GetComponent<ToggleGroup>().ActiveToggles().FirstOrDefault().GetComponent<MyToggle>().Id]);
-                sch++;
+                chosenInclinations.Add(incl[toggleGroups[sch].GetComponent<ToggleGroup>().ActiveToggles().FirstOrDefault().GetComponent<MyToggle>().Id]);                
             }
             else
             {
                 chosenInclinations.Add(incl[0]);
             }
+            sch++;
         }
 
         chosenTalent = role.Talents[toggleGroups[sch].GetComponent<ToggleGroup>().ActiveToggles().FirstOrDefault().GetComponent<MyToggle>().Id];
-
+        Debug.Log($"выбранный талант {chosenTalent}, index {sch}");
         role.SetChosen(chosenInclinations, chosenTalent);
         chosenRole?.Invoke(role);
         Destroy(gameObject);

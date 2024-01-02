@@ -9,7 +9,6 @@ public class Skill
 {
     protected string name, internalName;
     private int lvlLearned;
-    private int cost;
     protected bool isKnowledge;
     private GameStat.Inclinations[] inclinations = new GameStat.Inclinations[2];
     private string description, typeSkill;
@@ -17,9 +16,7 @@ public class Skill
     public GameStat.Inclinations[] Inclinations { get { return inclinations; } }
     public string Name { get { return name; } }
     public string InternalName { get => internalName; }
-
-    public int Cost { get => cost; }
-    public int LvlLearned { get => lvlLearned; }
+    public int LvlLearned { get => lvlLearned; set => lvlLearned = value; }
     public bool IsKnowledge { get => isKnowledge; }
     public string TypeSkill { get => typeSkill; }
 
@@ -31,7 +28,6 @@ public class Skill
         inclinations[1] = (GameStat.Inclinations)Enum.Parse(typeof(GameStat.Inclinations), skillLoader.secondInclination);
         typeSkill = skillLoader.type;
         description = ReadText(path + "/Описание.txt");
-        Debug.Log($"{description}");
     }
 
     public Skill(string name, int lvlLearned)

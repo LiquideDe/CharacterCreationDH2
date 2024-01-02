@@ -21,7 +21,6 @@ public class CreatorBackgrounds
 
     public Background GetNextBack()
     {
-        Debug.Log($"Следующий в креаторе");
         if (id + 1 < backgrounds.Count)
         {
             id += 1;

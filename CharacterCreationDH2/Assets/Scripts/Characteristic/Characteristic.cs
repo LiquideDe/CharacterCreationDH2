@@ -13,7 +13,7 @@ public class Characteristic
 
     public string Name { get { return GameStat.characterTranslate[name]; } }
     public GameStat.CharacterName InternalName { get => name; }
-    public int LvlLearned { get { return lvlLearnedChar; } }
+    public int LvlLearned { get => lvlLearnedChar; set => lvlLearnedChar = value; }
     public int Amount { get => amount; set => amount = value; }
 
     public GameStat.Inclinations[] Inclinations { get { return inclinations; } }

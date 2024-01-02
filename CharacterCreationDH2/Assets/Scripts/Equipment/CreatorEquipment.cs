@@ -6,6 +6,8 @@ using UnityEngine;
 public class CreatorEquipment
 {
     private List<Equipment> equipments = new List<Equipment>();
+
+    public List<Equipment> Equipments { get => equipments; }
     public CreatorEquipment()
     {
         string[] things = Directory.GetFiles($"{Application.dataPath}/StreamingAssets/Equipments" + "/Things", "*.JSON");
@@ -13,7 +15,7 @@ public class CreatorEquipment
         {
             string[] data = File.ReadAllLines(thing);
             JSONEquipmentReader equipmentReader = JsonUtility.FromJson<JSONEquipmentReader>(data[0]);
-            equipments.Add(new Equipment(equipmentReader.name, equipmentReader.description));
+            equipments.Add(new Equipment(equipmentReader.name, equipmentReader.description, equipmentReader.weight));
         }
 
         string[] armors = Directory.GetFiles($"{Application.dataPath}/StreamingAssets/Equipments" + "/Armor", "*.JSON");
@@ -60,5 +62,10 @@ public class CreatorEquipment
         }
         Debug.Log($"!!!!ВНИМАНИЕ!!!! Не нашли экипировку {nameEq}");
         return null;
+    }
+
+    public void AddEquipment(Equipment equipment)
+    {
+        equipments.Add(equipment);
     }
 }

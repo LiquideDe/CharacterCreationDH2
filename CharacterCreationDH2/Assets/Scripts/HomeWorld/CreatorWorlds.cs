@@ -31,7 +31,6 @@ public class CreatorWorlds
             id = 0;
         }
 
-        Debug.Log($"id = {id}");
         return homeworlds[id];
     }
 

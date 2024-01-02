@@ -9,15 +9,16 @@ public class SkillPanel : MonoBehaviour
     CheckCost checkCost;
     [SerializeField] ButtonStudy[] buttonStudies;
     [SerializeField] TextMeshProUGUI textName;
+    [SerializeField] ParamInfo paramInfo;
     private int idSkill;
     private int lvlLearned;
     private string nameSkill;
 
     public string Name { get => nameSkill; }
 
-    public void CreateSkill(string name, int amountInclinations, int lvlLearned, int id, string nameSkill)
+    public void CreateSkill(string name, int amountInclinations, int lvlLearned, int id, string description)
     {
-        this.nameSkill = nameSkill;
+        this.nameSkill = name;
         textName.text = name;
         this.lvlLearned = lvlLearned;
         idSkill = id;
@@ -29,6 +30,7 @@ public class SkillPanel : MonoBehaviour
             buttonStudies[i].RegDelegate(CheckHavePoints);
         }
         buttonStudies[0].IsPrevButtActive = true;
+        paramInfo.SetDescription(description);
     }
 
     private void ActivatedTraining(int lvlLearned)
@@ -57,7 +59,7 @@ public class SkillPanel : MonoBehaviour
         else
         {
             lvlLearned += 1;
-            if (id < buttonStudies.Length)
+            if (id + 1 < buttonStudies.Length)
             {
                 buttonStudies[id + 1].IsPrevButtActive = true;
             }

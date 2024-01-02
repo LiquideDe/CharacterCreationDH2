@@ -11,7 +11,7 @@ public class CreatorPsyPowers
     private List<string> schoolNames = new List<string>();
     private List<List<Connection>> connections = new List<List<Connection>>();
     private List<JSONSizeSpacing> sizeSpacings = new List<JSONSizeSpacing>();
-    public CreatorPsyPowers()
+    public CreatorPsyPowers(List<PsyPower> psyPowersCharacter)
     {
         List<string> dirs = new List<string>();
         dirs.AddRange(Directory.GetDirectories($"{Application.dataPath}/StreamingAssets/PsyPowers"));
@@ -23,13 +23,13 @@ public class CreatorPsyPowers
             connections.Add(CreateConnection(index));
             if (File.Exists(dir + "/sizeSpacing.JSON"))
             {
-                Debug.Log($"Finded");
                 string[] jSonData = File.ReadAllLines(dir + "/sizeSpacing.JSON");
                 JSONSizeSpacing jSONSize = JsonUtility.FromJson<JSONSizeSpacing>(jSonData[0]);
                 sizeSpacings.Add(jSONSize);
             }
             index++;
         }
+        SetPsyPowerActive(psyPowersCharacter);
     }
 
     private List<PsyPower> CreatePowers(string dir)
@@ -229,5 +229,22 @@ public class CreatorPsyPowers
     public JSONSizeSpacing GetSizeSpacing(int school)
     {
         return sizeSpacings[school];
+    }
+
+    private void SetPsyPowerActive(List<PsyPower> psyPowersCharacter)
+    {
+        foreach(List<PsyPower> psies in psyPowers)
+        {
+            foreach(PsyPower psyPower in psies)
+            {
+                foreach(PsyPower psyPowerCharacter in psyPowersCharacter)
+                {
+                    if(string.Compare(psyPowerCharacter.NamePower, psyPower.NamePower, true) == 0)
+                    {
+                        psyPower.IsActive = true;
+                    }
+                }
+            }
+        }
     }
 }

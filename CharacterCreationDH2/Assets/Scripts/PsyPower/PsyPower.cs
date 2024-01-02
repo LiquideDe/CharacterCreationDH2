@@ -71,6 +71,11 @@ public class PsyPower
             UpdateTextCost();
     }
 
+    public PsyPower(string name)
+    {
+        namePower = name;
+    }
+
     private string ReadText(string nameFile)
     {
         string txt;
@@ -99,7 +104,7 @@ public class PsyPower
     public int Cost { get => cost; }
     public int PsyRateRequire { get => psyRateRequire; }
     public int Id { get => id; }
-    public bool IsActive { get => isActive; }
+    public bool IsActive { get => isActive; set => isActive = value; }
     public bool IsBase { get => isBase; }
     public string Action { get => action; }
     public int Lvl { get => lvl; }

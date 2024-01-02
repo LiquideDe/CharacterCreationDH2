@@ -9,44 +9,61 @@ public class TalentPanel : MonoBehaviour, IPointerDownHandler
 {
     public delegate void NotificationAboutId(int id, int cost);
     private NotificationAboutId notificationAboutId;
-    [SerializeField] TextMeshProUGUI textDescr, textName, textCost;
+    [SerializeField] TextMeshProUGUI textDescr, textName, textCost, textShortDescr;
+    Image image;
+    [SerializeField] Sprite activeSprite, deactiveSprite;
     int id;
     string description;
     int cost;
-    bool isPossible = true;
+    bool hasAlready, canTraining;
+    public bool HasAlready { get => hasAlready; }
+    public bool CanTraining { get => canTraining; }
+    private void Awake()
+    {
+        image = this.GetComponent<Image>();
+    }
     public void OnPointerDown(PointerEventData eventData)
     {
         
         textDescr.text = textName.text + "\n" + "\n";
         textDescr.text += description;
-        if (isPossible)
+        if (!hasAlready)
         {
             notificationAboutId?.Invoke(id, cost);
         }        
     }
 
-    public void CreatePanel(string name, string description, int cost, int id, NotificationAboutId notificationAboutId)
+    public void CreatePanel(Talent talent, int id, NotificationAboutId notificationAboutId, bool canTraining, bool alreadyHas)
     {
-        textName.text = name;
-        textCost.text = cost.ToString();
-        this.cost = cost;
+        textName.text = talent.Name;
+        textCost.text = talent.Cost.ToString();
+        cost = talent.Cost;
         this.id = id;
-        this.description = description;
+        description = talent.Description;
         this.notificationAboutId = notificationAboutId;
+        textShortDescr.text = talent.ShortDescription;
+        hasAlready = alreadyHas;
+        this.canTraining = canTraining;
+        if (!canTraining)
+        {
+            image.sprite = deactiveSprite;
+        }
     }
 
     public void Deactivate()
     {
-        isPossible = false;
+        hasAlready = true;
         gameObject.SetActive(false);
         textDescr.text = "";
     }
 
     public void CancelOperation()
     {
-        isPossible = true;
+        hasAlready = false;
         gameObject.SetActive(true);
     }
+
+    
 }
 
     

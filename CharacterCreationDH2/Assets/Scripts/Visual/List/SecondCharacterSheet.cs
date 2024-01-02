@@ -3,29 +3,24 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class SecondCharacterSheet : MonoBehaviour
+public class SecondCharacterSheet : TakeScreenshot
 {
     [SerializeField] TextMeshProUGUI textWound, textEquipments, textExpTotal, textExpUnspent, textExpSpent, textMoveHalf, textMoveFull, textNatisk, textRun, 
-        textFatigue, textWeight, textWeightUp, textWeightPush, textBonus;
-    [SerializeField] CanvasScreenShot screenShot;
+        textFatigue, textWeight, textWeightUp, textWeightPush, textBonus, textPsyRate, textPsyPowers, textEquipmentWeight;
     [SerializeField] WeaponBlock[] weaponBlocks;
     [SerializeField] ArmorBlock[] armorBlocks;
     [SerializeField] ArmorOnBody onBody;
-    Canvas canvasToScreenShot;
-    public delegate void EndGame();
-    EndGame endGame;
-    private void Awake()
-    {
-        canvasToScreenShot = GetComponent<Canvas>();
-    }
+
     public void OpenSecondSheet(Character character)
     {
+        gameObject.SetActive(true);
+        this.character = character;
         onBody.SetToughness(character.Characteristics[3].Amount/10);
         textWound.text = character.Wounds.ToString();
-        Debug.Log($"Всего жэкипировки {character.Equipments.Count}");
         foreach(Equipment eq in character.Equipments)
         {
             textEquipments.text += eq.Name + "\n";
+            textEquipmentWeight.text += eq.Weight + "\n";
         }
         textExpTotal.text = character.ExperienceTotal.ToString();
         textExpSpent.text = character.ExperienceSpent.ToString();
@@ -41,9 +36,8 @@ public class SecondCharacterSheet : MonoBehaviour
         textBonus.text = character.BonusBack;
         foreach(Equipment equipment in character.Equipments)
         {
-            if(equipment.TypeEq == Equipment.TypeEquipment.Weapon)
+            if(equipment.TypeEq == Equipment.TypeEquipment.Melee || equipment.TypeEq == Equipment.TypeEquipment.Range)
             {
-                Debug.Log($"Нашли оружие");
                 foreach (WeaponBlock block in weaponBlocks)
                 {
                     if (block.IsEmpty)
@@ -56,7 +50,6 @@ public class SecondCharacterSheet : MonoBehaviour
             }
             else if (equipment.TypeEq == Equipment.TypeEquipment.Armor)
             {
-                Debug.Log($"Нашли броню");
                 foreach (ArmorBlock armorBlock in armorBlocks)
                 {
                     if (armorBlock.IsEmpty)
@@ -69,44 +62,27 @@ public class SecondCharacterSheet : MonoBehaviour
             }
         }
 
-        StartCoroutine(EndWork());
-        
+        foreach(MechImplants implant in character.Implants)
+        {
+            textEquipments.text += implant.Name + "\n";
+        }
+
+        if(character.PsyRating > 0)
+        {
+            textPsyRate.text = character.PsyRating.ToString();
+
+            foreach(PsyPower psyPower in character.PsyPowers)
+            {
+                textPsyPowers.text += psyPower.NamePower + "\n";
+            }
+        }
+        else
+        {
+            textPsyRate.text = "";
+        }
+        StartScreenshot();
+
     }
 
-    IEnumerator TakeScreenshot()
-    {
-        
-        CanvasScreenShot.OnPictureTaken += receivePNGScreenShot;
-
-        //take ScreenShot(Image and Text)
-        screenShot.takeScreenShot(canvasToScreenShot, SCREENSHOT_TYPE.IMAGE_AND_TEXT);
-        //take ScreenShot(Image only)
-        //screenShot.takeScreenShot(canvasToScreenShot, SCREENSHOT_TYPE.IMAGE_ONLY, false);
-        //take ScreenShot(Text only)
-        // screenShot.takeScreenShot(canvasToScreenShot, SCREENSHOT_TYPE.TEXT_ONLY, false);
-        yield return new WaitForSeconds(1);
-    }
-
-    IEnumerator EndWork()
-    {
-        yield return TakeScreenshot();
-        endGame?.Invoke();
-        Destroy(gameObject, 0.2f);
-    }
-
-    void receivePNGScreenShot(byte[] pngArray)
-    {
-        Debug.Log("Picture taken");
-
-        //Do Something With the Image (Save)
-        string path = Application.dataPath + "/StreamingAssets/CharacterSheets/CharacterSheetSecond.png";
-        System.IO.File.WriteAllBytes(path, pngArray);
-        Debug.Log(path);
-        
-    }
-
-    public void RegDelegate(EndGame endGame)
-    {
-        this.endGame = endGame;
-    }
+    
 }

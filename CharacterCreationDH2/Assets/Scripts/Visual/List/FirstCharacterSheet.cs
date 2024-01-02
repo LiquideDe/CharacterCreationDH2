@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class FirstCharacterSheet : MonoBehaviour
+
+public class FirstCharacterSheet : TakeScreenshot
 {
     [SerializeField] SkillList[] skillSquares;
     [SerializeField] TextMeshProUGUI textName, textHomeworld, textBackstory, textRole, textProphecy, textGender, textAge, textSkeen, textPhys, textEyes,
         textTraditions, textMemories, textWeapon, textBallistic, textStrength, textToughness, textAgility, textIntelligence, textPerception, textWillpower,
-        textFelloweship, textInfluence, textFate, textTalents, textBody, textHair;
-    Canvas canvasToScreenShot;
-    [SerializeField] CanvasScreenShot screenShot;
+        textFelloweship, textInfluence, textFate, textTalents, textBody, textHair, textCorruptionPoints, textMutationText, textInsanityPoints, textMentalText;
     [SerializeField] GameObject[] circlesWeapon;
     [SerializeField] GameObject[] circlesBallistic;
     [SerializeField] GameObject[] circlesStrength;
@@ -19,12 +18,9 @@ public class FirstCharacterSheet : MonoBehaviour
     [SerializeField] GameObject[] circlesIntelligence;
     [SerializeField] GameObject[] circlesPerception;
     [SerializeField] GameObject[] circlesWillpower;
-    [SerializeField] GameObject[] circlesFellowship;
+    [SerializeField] GameObject[] circlesFellowship;    
     private List<GameObject[]> circlesGroups = new List<GameObject[]>();
-
-    public delegate void ShowNextSheet();
-    ShowNextSheet nextSheet;
-
+    
     private void Awake()
     {
         circlesGroups.Add(circlesWeapon);
@@ -36,12 +32,14 @@ public class FirstCharacterSheet : MonoBehaviour
         circlesGroups.Add(circlesPerception);
         circlesGroups.Add(circlesWillpower);
         circlesGroups.Add(circlesFellowship);
-        canvasToScreenShot = GetComponent<Canvas>();
     }
     public void FillCharacterSheet(Character character)
     {
+        gameObject.SetActive(true);
+        isFirst = true;
+        this.character = character;
         textName.text = character.Name;
-        textHomeworld.text = character.HomeWorld.NameWorld;
+        textHomeworld.text = character.HomeWorld;
         textBackstory.text = character.Background;
         textRole.text = character.Role;
         textProphecy.text = character.Prophecy;
@@ -85,8 +83,34 @@ public class FirstCharacterSheet : MonoBehaviour
                 ActivateSquare(skill);
             }
         }
-        StartCoroutine(EndWork());
-        
+
+        foreach(string mut in character.Mutation)
+        {
+            textMutationText.text += mut + '\n';
+        }
+
+        foreach(string ins in character.MentalDisorders)
+        {
+            textMentalText.text += ins + '\n';
+        }
+        if(character.CorruptionPoints > 0)
+        {
+            textCorruptionPoints.text = character.CorruptionPoints.ToString();
+        }
+        else
+        {
+            textCorruptionPoints.text = "";
+        }
+
+        if (character.InsanityPoints > 0)
+        {
+            textInsanityPoints.text = character.InsanityPoints.ToString();
+        }
+        else
+        {
+            textInsanityPoints.text = "";
+        }
+        StartScreenshot();
 
 
     }
@@ -124,39 +148,5 @@ public class FirstCharacterSheet : MonoBehaviour
         
     }
 
-    IEnumerator TakeScreenshot()
-    {
-        
-        CanvasScreenShot.OnPictureTaken += receivePNGScreenShot;
-
-        //take ScreenShot(Image and Text)
-        screenShot.takeScreenShot(canvasToScreenShot, SCREENSHOT_TYPE.IMAGE_AND_TEXT);
-        //take ScreenShot(Image only)
-        //screenShot.takeScreenShot(canvasToScreenShot, SCREENSHOT_TYPE.IMAGE_ONLY, false);
-        //take ScreenShot(Text only)
-        // screenShot.takeScreenShot(canvasToScreenShot, SCREENSHOT_TYPE.TEXT_ONLY, false);
-        yield return new WaitForSeconds(2);
-    }
-
-    IEnumerator EndWork()
-    {
-        yield return TakeScreenshot();
-        nextSheet?.Invoke();
-    }
-
-    void receivePNGScreenShot(byte[] pngArray)
-    {
-        Debug.Log("Picture taken");
-
-        //Do Something With the Image (Save)
-        string path = Application.dataPath + "/StreamingAssets/CharacterSheets/CharacterSheetFirst.png";        
-        System.IO.File.WriteAllBytes(path, pngArray);
-        Debug.Log(path);
-        CanvasScreenShot.OnPictureTaken -= receivePNGScreenShot;
-    }
-
-    public void RegDelegate(ShowNextSheet nextSheet)
-    {
-        this.nextSheet = nextSheet;
-    }
+    
 }

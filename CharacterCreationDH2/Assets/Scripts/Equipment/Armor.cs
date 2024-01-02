@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class Armor : Equipment
 {
-    private int defHead, defHands, defBody, defLegs, maxAgil, weight;
+    private int defHead, defHands, defBody, defLegs, maxAgil, armorPoint;
     private string placeArmor;
-    public Armor(JSONArmorReader armorReader) : base (armorReader.name, armorReader.description)
+    public Armor(JSONArmorReader armorReader) : base (armorReader.name, armorReader.description, armorReader.weight)
     {
         typeEquipment = TypeEquipment.Armor;
         defHead = armorReader.head;
@@ -14,8 +14,8 @@ public class Armor : Equipment
         defBody = armorReader.body;
         defLegs = armorReader.legs;
         maxAgil = armorReader.maxAgility;
-        weight = armorReader.weight;
         placeArmor = armorReader.descriptionArmor;
+        armorPoint = armorReader.armorPoint;
     }
 
     public int DefHead { get => defHead; }
@@ -23,6 +23,6 @@ public class Armor : Equipment
     public int DefBody { get => defBody; }
     public int DefLegs { get => defLegs; }
     public int MaxAgil { get => maxAgil;  }
-    public int Weight { get => weight;}
     public string PlaceArmor { get => placeArmor; }
+    public int ArmorPoint { get => armorPoint; }
 }

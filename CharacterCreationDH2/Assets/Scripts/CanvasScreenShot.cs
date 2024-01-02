@@ -25,7 +25,7 @@ public class CanvasScreenShot : MonoBehaviour
     //takes Screenshot
     public void takeScreenShot(Canvas canvasPanel, SCREENSHOT_TYPE screenShotType = SCREENSHOT_TYPE.IMAGE_AND_TEXT, bool createNewInstance = true)
     {
-        StartCoroutine(_takeScreenShot(canvasPanel, screenShotType, createNewInstance));
+        StartCoroutine(_takeScreenShot(canvasPanel, screenShotType, createNewInstance));        
     }
 
     private IEnumerator _takeScreenShot(Canvas canvasPanel, SCREENSHOT_TYPE screenShotType = SCREENSHOT_TYPE.IMAGE_AND_TEXT, bool createNewInstance = true)
@@ -118,10 +118,9 @@ public class CanvasScreenShot : MonoBehaviour
         //Get Image from screen
         screenImage.ReadPixels(new Rect(0, 0, Screen.width, Screen.height), 0, 0);
         screenImage.Apply();
-
         //Convert to png
         byte[] pngBytes = screenImage.EncodeToPNG();
-
+        
         /*FOR TESTING/DEBUGGING PURPOSES ONLY. COMMENT THIS
         string path = Application.persistentDataPath + "/CanvasScreenShot.png";
         System.IO.File.WriteAllBytes(path, pngBytes);

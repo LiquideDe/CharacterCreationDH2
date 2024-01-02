@@ -13,8 +13,9 @@ public class CanvasTrainingChar : MonoBehaviour
     [SerializeField] GameObject charPanel, grid;
     [SerializeField] TextMeshProUGUI textExp;
 
-    public void CreatePanels(Character character)
+    public void ShowCharacteristicPanels(Character character)
     {
+        gameObject.SetActive(true);
         this.character = character;
         exp = character.ExperienceUnspent;
         UpdateExpText();

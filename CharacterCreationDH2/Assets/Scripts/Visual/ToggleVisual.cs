@@ -32,7 +32,6 @@ public class ToggleVisual : VisualCanvas
         if (childCount > 8)
         {
             int rows = (int)Math.Ceiling(childCount / 4f);
-            Debug.Log($"Строк получилось {rows}");
             toggleGroups[^1].GetComponent<RectTransform>().sizeDelta = new Vector2(toggleGroups[^1].GetComponent<RectTransform>().sizeDelta.x, 40 * rows);
         }
     }

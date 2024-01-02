@@ -86,15 +86,6 @@ public abstract class VisualCanvas : MonoBehaviour
 
     public void RegDelegate(ChangeItemToNext changeItemNext, ChangeItemToPrev changeItemPrev)
     {
-        Debug.Log("Зарегестрировали переключение");
-        if(changeItemNext != null)
-        {
-            Debug.Log($"Они не нуль");
-        }
-        else
-        {
-            Debug.Log("Херня какая то");
-        }
         this.changeItemNext = changeItemNext;
         this.changeItemPrev = changeItemPrev;
     }
@@ -102,7 +93,6 @@ public abstract class VisualCanvas : MonoBehaviour
     public void NextItem()
     {
         ResetImages();
-        Debug.Log("Next");
         changeItemNext?.Invoke();
     }
 

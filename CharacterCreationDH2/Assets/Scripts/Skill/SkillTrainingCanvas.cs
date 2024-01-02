@@ -16,14 +16,16 @@ public class SkillTrainingCanvas : MonoBehaviour
     [SerializeField] TextMeshProUGUI textExp;
     [SerializeField] GameObject[] lorePanels;
     [SerializeField] GameObject[] gridLorePanels;
-    private bool isCommon, isForbidden, isLinquistic, isScholastic, isTrade;
+    private bool isCommon, isForbidden, isLinquistic, isScholastic, isTrade, isEdit;
 
-    public void CreatePanels(Character character)
+    public void CreatePanels(Character character, bool isEdit = false)
     {
         this.character = character;
         exp = character.ExperienceUnspent;
+        this.isEdit = isEdit;
         UpdateExpText();
         int sk = 0;
+        
         foreach (Skill skill in character.Skills)
         {
             if (skill.IsKnowledge)
@@ -75,7 +77,7 @@ public class SkillTrainingCanvas : MonoBehaviour
                     case "ScholasticLore":
                         if (!isScholastic)
                         {
-                            CreateButtonToList("Запретные знания", 3);
+                            CreateButtonToList("Ученые знания", 3);
                             CreateKnowledgePanel(skill, 3, sk);
                             isScholastic = true;
                             sk++;
@@ -108,7 +110,7 @@ public class SkillTrainingCanvas : MonoBehaviour
                 gO.SetActive(true);
                 gO.transform.SetParent(grid.transform);
                 SkillPanels.Add(gO.GetComponent<SkillPanel>());
-                SkillPanels[^1].CreateSkill(skill.Name, skill.CalculateInclinations(character.Inclinations), skill.LvlLearned, sk, skill.InternalName);
+                SkillPanels[^1].CreateSkill(skill.Name, skill.CalculateInclinations(character.Inclinations), skill.LvlLearned, sk, skill.Description);
                 SkillPanels[^1].RegDelegate(CheckExp);
                 sk++;
             }
@@ -122,7 +124,7 @@ public class SkillTrainingCanvas : MonoBehaviour
         gO.transform.SetParent(gridLorePanels[idPanel].transform);
         SkillPanels.Add(gO.GetComponent<SkillPanel>());
         Knowledge knowledge = (Knowledge)skill;
-        SkillPanels[^1].CreateSkill(knowledge.NameKnowledge, skill.CalculateInclinations(character.Inclinations), skill.LvlLearned, id, knowledge.InternalNameKnowledge);
+        SkillPanels[^1].CreateSkill(knowledge.NameKnowledge, skill.CalculateInclinations(character.Inclinations), skill.LvlLearned, id, skill.Description);
         SkillPanels[^1].RegDelegate(CheckExp);
     }
 
@@ -138,15 +140,17 @@ public class SkillTrainingCanvas : MonoBehaviour
 
     private bool CheckExp(int cost, int id)
     {
-        Debug.Log($"Проверяем експу");
-        if (cost > exp)
+        if (cost > exp && !isEdit)
         {
-            Debug.Log($"кост больше, возвращаем фолс");
             return false;
+        }
+        else if(isEdit)
+        {
+            character.UpgradeSkill(null, SkillPanels[id].Name);
+            return true;
         }
         else
         {
-            Debug.Log($"кост меньше, возвращаем тру");
             exp -= cost;
             UpdateExpText();
             character.UpgradeSkill(null, SkillPanels[id].Name);
@@ -159,7 +163,15 @@ public class SkillTrainingCanvas : MonoBehaviour
 
     private void UpdateExpText()
     {
-        textExp.text = $"ОО - {exp}";
+        if (isEdit)
+        {
+            textExp.text = $"Бесконечно";
+        }
+        else
+        {
+            textExp.text = $"ОО - {exp}";
+        }
+        
     }
 
     public void RegDelegates(NextPanelTalents nextPanelTalents, PrevPanelChar prevPanelChar)

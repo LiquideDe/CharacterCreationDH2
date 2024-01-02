@@ -26,7 +26,6 @@ public class ArmorOnBody : MonoBehaviour
 
     private void SetBigger(int armorPoint, TextMeshProUGUI textArmor, TextMeshProUGUI textTotal)
     {
-        Debug.Log($"Проверяем {armorPoint} и {textArmor.text}");
         if(textArmor.text == "" && armorPoint != 0)
         {
             textArmor.text = armorPoint.ToString();

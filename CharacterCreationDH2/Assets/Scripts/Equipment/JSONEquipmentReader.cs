@@ -6,5 +6,6 @@ using System;
 public class JSONEquipmentReader
 {
     public string name, description;
+    public float weight;
 }
 

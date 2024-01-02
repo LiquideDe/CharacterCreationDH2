@@ -95,7 +95,7 @@ public class CharacteristicPanel : MonoBehaviour
         {
             amount += 5;
             DivideDozenAndUnits();
-            if(id < buttonStudies.Length)
+            if(id + 1 < buttonStudies.Length)
             {
                 buttonStudies[id + 1].IsPrevButtActive = true;
             }

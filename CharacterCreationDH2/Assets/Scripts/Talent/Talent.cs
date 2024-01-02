@@ -9,7 +9,7 @@ using UnityEngine;
 public class Talent
 {
     private string name;
-    private string textDescription, shortDescription;
+    private string textDescription, shortDescription, listOfRequrements;
     private GameStat.Inclinations[] inclinations = new GameStat.Inclinations[2];
     private List<Characteristic> requirementCharacteristics = new List<Characteristic>();
     private List<Skill> requirementSkills = new List<Skill>();
@@ -17,7 +17,7 @@ public class Talent
     private List<Talent> requirementTalents = new List<Talent>();
     private int requirementPsyRate;
     private int requirementInsanity = 0, requirementCorruption = 0;
-    private bool isCanTaken, isRepeatable;
+    private bool isCanTaken, isRepeatable, isImplant;
     private int rank;
     private int cost;
 
@@ -27,6 +27,7 @@ public class Talent
     public bool IsCanTaken { get => isCanTaken; }
     public int Cost { get => cost; }
     public string ShortDescription { get => shortDescription; }
+    public bool IsImplant { get => isImplant; }
 
     public Talent(string path, bool fullTalent)
     {
@@ -42,63 +43,102 @@ public class Talent
         shortDescription = ReadText(path + "/Краткое описание.txt");
         if(Directory.Exists(path + "/Req"))
         {
+            listOfRequrements = "Требования для Таланта.\n";
             path += "/Req";
             if (Directory.Exists(path + "/Characteristics"))
             {
+                listOfRequrements += "Характеристики:";
                 foreach (GameStat.CharacterName charName in Enum.GetValues(typeof(GameStat.CharacterName)))
                 {                    
                     string searchFile = $"{path}/Characteristics/{charName}.txt";
                     if (File.Exists(searchFile))
                     {
                         requirementCharacteristics.Add(new Characteristic(charName,int.Parse(ReadText(searchFile))));
+                        listOfRequrements += $" {requirementCharacteristics[^1].Name} - {requirementCharacteristics[^1].Amount},";
                     }
                 }
             }
+
+            listOfRequrements = CheckLastSymbol(listOfRequrements);
+
             if(Directory.Exists(path + "/Skills"))
             {
+                listOfRequrements += "Навыки:";
                 string[] files = Directory.GetFiles(path + "/Skills", "*.JSON");
                 foreach(string file in files)
                 {
                     string[] jSonData = File.ReadAllLines(file);
                     JSONSmallSkillLoader jSONSmall = JsonUtility.FromJson<JSONSmallSkillLoader>(jSonData[0]);
                     requirementSkills.Add(new Skill(jSONSmall.name, jSONSmall.lvl, jSONSmall.internalName));
+                    listOfRequrements += $" {requirementSkills[^1].Name} - {requirementSkills[^1].LvlLearned},";
                 }
             }
-            if(File.Exists(path + "/ReqImplants.txt"))
+
+            listOfRequrements = CheckLastSymbol(listOfRequrements);
+            if (File.Exists(path + "/ReqImplants.txt"))
             {
                 string textImplants = ReadText(path + "/ReqImplants.txt");
                 var implants = textImplants.Split(new char[] { '/' }).ToList();
-                foreach(string implant in implants)
+                listOfRequrements += " Импланты:";
+                isImplant = true;
+                foreach (string implant in implants)
                 {
                     requirementImplants.Add(new MechImplants(implant));
+                    listOfRequrements += $" {requirementImplants[^1].Name},";
                 }
             }
-            if(File.Exists(path + "/ReqTalents.txt"))
+
+            listOfRequrements = CheckLastSymbol(listOfRequrements);
+
+            if (File.Exists(path + "/ReqTalents.txt"))
             {
                 string textTalents = ReadText(path + "/ReqTalents.txt");
                 var talents = textTalents.Split(new char[] { '/' }).ToList();
+                listOfRequrements += "Таланты:";
                 foreach (string talent in talents)
                 {
                     requirementTalents.Add(new Talent(talent));
+                    listOfRequrements += $" {requirementTalents[^1].Name},";
                 }
             }
-            if(File.Exists(path + "/ReqCorruption.txt"))
+            listOfRequrements = CheckLastSymbol(listOfRequrements);
+
+            if (File.Exists(path + "/ReqCorruption.txt"))
             {
                 requirementCorruption = int.Parse(ReadText(path + "/ReqCorruption.txt"));
+                listOfRequrements += $" Очков Порчи {requirementCorruption}.";
             }
+
             if (File.Exists(path + "/ReqInsanity.txt"))
             {
                 requirementInsanity = int.Parse(ReadText(path + "/ReqInsanity.txt"));
+                listOfRequrements += $" Очков Безумия {requirementInsanity}.";
             }
+
             if(File.Exists(path + "/ReqPsy.txt"))
             {
                 requirementPsyRate = int.Parse(ReadText(path + "/ReqPsy.txt"));
+                listOfRequrements += $" Пси Рейтинг {requirementPsyRate}.";
             }
             else
             {
                 requirementPsyRate = 0;
             }
+            textDescription = textDescription + '\n' + listOfRequrements;
         }        
+    }
+
+    private string CheckLastSymbol(string text)
+    {
+        if (text.EndsWith(","))
+        {
+            string tempstring = text.TrimEnd(',');
+            return tempstring + ". ";
+        }
+        else
+        {
+            return text;
+        }
     }
     private string ReadText(string nameFile)
     {
@@ -135,7 +175,7 @@ public class Talent
         {
             foreach (Talent talent in talentsOfCharacter)
             {
-                if (talent.Name == name)
+                if (string.Compare(talent.Name, name, true) == 0)
                 {
                     return false;
                 }
@@ -184,7 +224,7 @@ public class Talent
         {
             for(int j = 0; j < skillsOfCharacter.Count; j++)
             {
-                if(requirementSkills[i].InternalName == skillsOfCharacter[j].InternalName)
+                if(string.Compare(requirementSkills[i].Name,skillsOfCharacter[j].Name,true) == 0)
                 {
                     if(requirementSkills[i].LvlLearned > skillsOfCharacter[j].LvlLearned)
                     {
@@ -214,7 +254,7 @@ public class Talent
         {
             for (int j = 0; j < implantsOfCharacter.Count; j++)
             {
-                if(requirementImplants[i].Name == implantsOfCharacter[j].Name)
+                if(string.Compare(requirementImplants[i].Name, implantsOfCharacter[j].Name, true) == 0)
                 {
                     sum += 1;
                 }
@@ -243,7 +283,7 @@ public class Talent
         {
             for (int j = 0; j < talentsOfCharacter.Count; j++)
             {
-                if (requirementTalents[i].Name == talentsOfCharacter[j].Name)
+                if (string.Compare(requirementTalents[i].Name, talentsOfCharacter[j].Name, true) == 0)
                 {
                     sum += 1;
                 }

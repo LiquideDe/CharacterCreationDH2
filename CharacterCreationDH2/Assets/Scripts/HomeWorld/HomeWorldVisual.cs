@@ -157,7 +157,6 @@ public class HomeWorldVisual : VisualCanvas
         {
             case 0:
                     generatedFateB = fromInput ? int.Parse(inputs[id].text) : GenerateValue(10);
-                Debug.Log($"Проверяем судьбу");
                     inputs[0].text = $"Ваши очки судьбы равны {homeworld.IsBonusFate(generatedFateB)}";
                 break;
             case 1:

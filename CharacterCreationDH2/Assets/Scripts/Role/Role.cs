@@ -37,6 +37,10 @@ public class Role
         {
             bonusTalent = ReadText(path + "/Get/psyker.txt");
         }
+        else
+        {
+            bonusTalent = "";
+        }
     }
 
     public void SetChosen(List<GameStat.Inclinations> chosenInclinations, string chosenTalent)

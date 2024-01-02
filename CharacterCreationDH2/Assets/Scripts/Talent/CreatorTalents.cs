@@ -26,7 +26,7 @@ public class CreatorTalents
     {
         foreach (Talent talent in talents)
         {
-            if (talent.Name == name)
+            if (string.Compare(talent.Name, name,true) == 0)
             {
                 return talent;
             }

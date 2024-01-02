@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class TalentTrainingCanvas : MonoBehaviour
@@ -9,45 +10,65 @@ public class TalentTrainingCanvas : MonoBehaviour
     BackToSkill backToSkill;
     public delegate void GetToTheNext();
     GetToTheNext getToTheNext;
-    [SerializeField] GameObject talentPanelG, content;
+    [SerializeField] GameObject content, buttonBuy;
+    [SerializeField] TalentPanel talentPanelG;
     [SerializeField] TextMeshProUGUI textExp;
+    [SerializeField] InfoOfButton[] infoOfbuttons;
+    [SerializeField] Image ImageOfButton;
+    [SerializeField] Sprite finalSprite;
     private List<TalentPanel> talentPanels = new List<TalentPanel>();
     private CreatorTalents creatorTalents;
     private Character character;
     int exp, cost, idPanel;
-    bool isChangeTalent;
+    bool isChangeTalent, isEditor;
+    private List<GameStat.Inclinations> allowedInclinations = new List<GameStat.Inclinations>();
 
-    public void CreateTalentPanels(Character character, CreatorTalents creatorTalents)
+    public void ShowTalentPanels(Character character, CreatorTalents creatorTalents,bool isFinal, bool isEditor = false)
     {
+        if (isFinal)
+        {
+            ImageOfButton.sprite = finalSprite;
+        }
+        gameObject.SetActive(true);
         this.character = character;
         exp = character.ExperienceUnspent;
         this.creatorTalents = creatorTalents;
+        this.isEditor = isEditor;
         creatorTalents.CalculationCost(character.Inclinations);
         foreach(Talent talent in creatorTalents.Talents)
         {
-            if (talent.IsTalentAvailable(character.Characteristics, character.Skills, character.Implants, character.Talents, character.CorruptionPoints, character.InsanityPoints, character.PsyRating))
+            bool isAvailable;
+            if (isEditor)
             {
-                GameObject gO = Instantiate(talentPanelG);
-                gO.SetActive(true);
-                gO.transform.SetParent(content.transform);
-
-
-                talentPanels.Add(gO.GetComponent<TalentPanel>());
-                talentPanels[^1].CreatePanel(talent.Name, talent.Description, talent.Cost, talentPanels.Count - 1, ThatPanelShowTalent);
+                isAvailable = isEditor;
             }
             else
             {
-                talentPanels.Add(null);
-            }            
+                isAvailable = talent.IsTalentAvailable(character.Characteristics, character.Skills, character.Implants, 
+                    character.Talents, character.CorruptionPoints, character.InsanityPoints, character.PsyRating);
+            }
+            
+            CreatePanel(talent, isAvailable);                 
         }
+        ChangeTriggerOnControls();
         UpdateExpText();
+        foreach(InfoOfButton button in infoOfbuttons)
+        {
+            button.RegDelegate(ChangeTriggerOnControls);
+        }
     }
 
     public void CheckExp()
     {
-        if (cost > exp)
+        if (cost > exp && !isEditor)
         {
             talentPanels[idPanel].CancelOperation();
+        }
+        else if (isEditor)
+        {
+            character.AddTalent(creatorTalents.Talents[idPanel]);
+            isChangeTalent = false;
+            talentPanels[idPanel].Deactivate();
         }
         else if(isChangeTalent)
         {
@@ -62,11 +83,74 @@ public class TalentTrainingCanvas : MonoBehaviour
         }
     }
 
+    private void CreatePanel(Talent talent, bool canTraining)
+    {
+        TalentPanel tl = Instantiate(talentPanelG, content.transform);
+        tl.gameObject.SetActive(true);
+        talentPanels.Add(tl);
+        tl.CreatePanel(talent, talentPanels.Count - 1, ThatPanelShowTalent, canTraining, !talent.CheckTalentRepeat(character.Talents));
+    }
+
+    private void ShowOrHideTalent(bool hideOrShow)
+    {
+        foreach (TalentPanel panel in talentPanels)
+        {
+            if (!panel.HasAlready)
+            {
+                panel.gameObject.SetActive(hideOrShow);
+            }
+        }
+    }
+
+    private void ShowTalentsWithFilter()
+    {
+        for(int i = 0; i < talentPanels.Count; i++)
+        {
+            if (!talentPanels[i].HasAlready)
+            {
+                foreach (GameStat.Inclinations inclination in allowedInclinations)
+                {
+                    Talent talent = creatorTalents.Talents[i];
+                    if (talent.Inclinations[0] == inclination || talent.Inclinations[1] == inclination || (infoOfbuttons[^1].IsActive && talent.IsImplant))
+                    {
+                        if (talentPanels[i].CanTraining)
+                        {
+                            
+                            talentPanels[i].gameObject.SetActive(true);
+                            break;
+                        }
+                        else
+                        {
+                            talentPanels[i].gameObject.SetActive(infoOfbuttons[0].IsActive);
+                            break;
+                        }
+                    }
+                }
+                if (creatorTalents.Talents[i].IsImplant && infoOfbuttons[^1].IsActive)
+                {
+                    talentPanels[i].gameObject.SetActive(infoOfbuttons[0].IsActive);
+                }
+            }
+            else
+            {
+                talentPanels[i].gameObject.SetActive(false);
+            }            
+        }
+    }
+
     private void ThatPanelShowTalent(int idPanel, int cost)
     {
-        this.idPanel = idPanel;
-        this.cost = cost;
-        isChangeTalent = true;
+        if (talentPanels[idPanel].CanTraining)
+        {
+            this.idPanel = idPanel;
+            this.cost = cost;
+            isChangeTalent = true;
+            buttonBuy.SetActive(true);
+        }
+        else
+        {
+            buttonBuy.SetActive(false);
+        }
     }
 
     private void UpdateExpText()
@@ -91,4 +175,25 @@ public class TalentTrainingCanvas : MonoBehaviour
         getToTheNext?.Invoke();
         Destroy(gameObject);
     }
+
+    private void ChangeTriggerOnControls()
+    {
+        Debug.Log($"Перестраиваем таланты");
+        ReBuildInclinationList();
+        ShowOrHideTalent(false);
+        ShowTalentsWithFilter();
+    }
+
+    private void ReBuildInclinationList()
+    {
+        allowedInclinations.Clear();
+        foreach(InfoOfButton button in infoOfbuttons)
+        {
+            if (button.IsActive && button.Inclination != GameStat.Inclinations.None)
+            {
+                allowedInclinations.Add(button.Inclination);
+            }
+        }
+    }
+
 }

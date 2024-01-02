@@ -22,15 +22,27 @@ public class PsyCanvas : MonoBehaviour
     [SerializeField] GameObject[] lvls;
     [SerializeField] GameObject connectionsContainer, straightLine, panelDescription;
     [SerializeField] HorizontalLayoutGroup layoutGroupFirst, layoutGroupSecond, layoutGroupThird;
+    [SerializeField] Sprite spriteDone, spriteRegular;
+    [SerializeField] Image imageNextButton;
     private int chosenSchool;
     [SerializeField] private TextMeshProUGUI textExp, textName, textCost, textDescription, textAction, textCostPsyRate, textPsyRate, textNameSchool;
     private List<GameObject> lines = new List<GameObject>();
     private int chosenId, experience;
+    bool isEdit;
 
-
-    public void CreatePsyPanels(List<PsyPower> psyPowers, List<Connection> connections, int school, int exp, int psyRate, string nameSchool, JSONSizeSpacing sizeSpacing)
+    public void CreatePsyPanels(List<PsyPower> psyPowers, List<Connection> connections, int school, int exp, int psyRate, string nameSchool, JSONSizeSpacing sizeSpacing,bool isFinalSchool, bool isEdit = false)
     {
         experience = exp;
+        this.isEdit = isEdit;
+        if (isFinalSchool)
+        {
+            imageNextButton.sprite = spriteDone;
+        }
+        else
+        {
+            imageNextButton.sprite = spriteRegular;
+        }
+
         UpdateText(exp);
         chosenSchool = school;
         layoutGroupFirst.spacing = sizeSpacing.firstSpacing;
@@ -55,7 +67,15 @@ public class PsyCanvas : MonoBehaviour
 
     public void UpdateText(int exp)
     {
-        textExp.text = $"ОО {exp}";
+        if (isEdit)
+        {
+            textExp.text = $"Бесконечно";
+        }
+        else
+        {
+            textExp.text = $"ОО {exp}";
+        }
+        
     }
 
     public void UpdateTextPsyRate(int psyRate)
@@ -77,9 +97,9 @@ public class PsyCanvas : MonoBehaviour
     }
 
     private void DrawStraightLine(Vector3 firstPoint, Vector3 secondPoint, string name)
-    {
-
-        var middle = (firstPoint.y + secondPoint.y) / 2.0f;    
+    {        
+        var middle = (firstPoint.y + secondPoint.y) / 2.0f;
+        
         Vector3[] vectors = new Vector3[4];
         vectors[0] = new Vector3(firstPoint.x, firstPoint.y, 0);
         vectors[1] = new Vector3(firstPoint.x, middle,0);
@@ -93,11 +113,12 @@ public class PsyCanvas : MonoBehaviour
 
     private void SetPosition(Vector3 firstPoint, Vector3 secondPoint, int angle, string name)
     {
+        float koefH = Screen.height / 1080f;
         lines.Add(Instantiate(straightLine, connectionsContainer.transform));
         lines[^1].SetActive(true);
         lines[^1].name = name;
-        float height = Vector2.Distance(secondPoint, firstPoint);
-        float width = 1;
+        float height = Vector2.Distance(secondPoint, firstPoint)/ koefH;
+        float width = 1 * koefH;
         lines[^1].GetComponent<RectTransform>().sizeDelta = new Vector2(width, height);
         float newposX = secondPoint.x + (firstPoint.x - secondPoint.x) / 2;
         float newposY = secondPoint.y + (firstPoint.y - secondPoint.y) / 2;
@@ -158,9 +179,7 @@ public class PsyCanvas : MonoBehaviour
         {
             PsyPanel psyPanel = GetPsyPanelById(chosenId);
             psyPanel.BuyPower();
-            Debug.Log($"exp до {experience}, cost = {psyPanel.Cost}");
             experience -= psyPanel.Cost;
-            Debug.Log($"exp после {experience}");
             UpdateText(experience);
         }
         ClosePanel();

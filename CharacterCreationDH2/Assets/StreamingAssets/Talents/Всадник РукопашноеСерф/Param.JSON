@@ -1,1 +1,1 @@
-{"name": "Всадник Рукопашное", "inclinationFirst": "Weapon", "inclinationSecond": "Offense", "rank": 1, "canActivate" : true, "repeatable": false}
+{"name": "Пилот Рукопашное Наземное", "inclinationFirst": "Weapon", "inclinationSecond": "Offense", "rank": 1, "canActivate" : true, "repeatable": false}

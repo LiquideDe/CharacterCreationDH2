@@ -38,7 +38,6 @@ public class BackgroundObserver : MonoBehaviour
 
     private void ShowNextBack()
     {
-        Debug.Log($"Следующий");
         backVisual.ShowBackground(creatorBackgrounds.GetNextBack());
     }
 }

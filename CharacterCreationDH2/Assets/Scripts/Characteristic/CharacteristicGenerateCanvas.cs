@@ -10,10 +10,10 @@ public class CharacteristicGenerateCanvas : MonoBehaviour
     private List<Characteristic> characteristics;
     private List<CharacteristicCard> characteristicCards = new List<CharacteristicCard>();
 
-    public void GenerateCharacteristics(Character character)
+    public void GenerateCharacteristics(Character character, int averageLvl)
     {
         gameObject.SetActive(true);
-        characteristics = new List<Characteristic>(character.GetCharacteristicsForGenerate());
+        characteristics = new List<Characteristic>(character.GetCharacteristicsForGenerate(averageLvl));
         foreach(Characteristic characteristic in characteristics)
         {
             GameObject gameObject = Instantiate(characteristicPanel);

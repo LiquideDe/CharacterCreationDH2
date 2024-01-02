@@ -48,7 +48,6 @@ public class BackGroundVisual : ToggleVisual
     }
     public void ShowBackground(Background background)
     {
-        Debug.Log($"Показываем следующий бэк");
         path = background.PathBackground;        
         textName.text = ReadText(path + "/Название.txt");
         this.background = background;
@@ -70,59 +69,47 @@ public class BackGroundVisual : ToggleVisual
     {
         foreach (List<Skill> skills in background.Skills)
         {
-            if(skills.Count > 1)
+            if (creatorSkills.IsSkillKnowledge(skills[0].Name))
             {
-                if (creatorSkills.IsSkillKnowledge(skills[0].Name))
-                {
-                    CreateToggleGroup("Знания");
-                }
-                else
-                {
-                    CreateToggleGroup("Навыки");
-                }
-                
-                for (int i = 0; i < skills.Count; i++)
-                {
-                    Debug.Log($"Ищем скилл под названием {skills[i].Name}");
-                    CreateToggle(skills[i].Name, i, creatorSkills.GetSkill(skills[i].Name).Description);
+                CreateToggleGroup("Знания");
+            }
+            else
+            {
+                CreateToggleGroup("Навыки");
+            }
 
-                }
-            
+            for (int i = 0; i < skills.Count; i++)
+            {
+                CreateToggle(skills[i].Name, i, creatorSkills.GetSkill(skills[i].Name).Description);
             }
         }
 
         foreach(List<string> talents in background.Talents)
         {
-            if(talents.Count > 1)
+            CreateToggleGroup("Таланты");
+            for (int i = 0; i < talents.Count; i++)
             {
-                CreateToggleGroup("Таланты");
-                for (int i = 0; i < talents.Count; i++)
-                {
-                    CreateToggle(talents[i],i,creatorTalents.GetTalent(talents[i]).ShortDescription);
-                }
+                CreateToggle(talents[i], i, creatorTalents.GetTalent(talents[i]).ShortDescription);
             }
         }
 
         foreach(List<Equipment> equipment in background.Equipment)
         {
-            //if (equipment.Count > 1)
-            //{
-                CreateToggleGroup("Экипировка");
-                for (int i = 0; i < equipment.Count; i++)
+            CreateToggleGroup("Экипировка");
+            for (int i = 0; i < equipment.Count; i++)
+            {
+                if (equipment[i].TypeEq == Equipment.TypeEquipment.Melee || equipment[i].TypeEq == Equipment.TypeEquipment.Range)
                 {
-                    if(equipment[i].TypeEq == Equipment.TypeEquipment.Weapon)
-                    {
-                        Weapon weapon = (Weapon)equipment[i];
-                        string dopText = $"\n Урон {weapon.Damage}, БрПроб {weapon.Penetration}, Качества {weapon.Properties}";
-                        CreateToggle(equipment[i].Name, i, equipment[i].Description + dopText);
-                    }
-                    else
-                    {
-                        CreateToggle(equipment[i].Name, i, equipment[i].Description);
-                    }
-                    
+                    Weapon weapon = (Weapon)equipment[i];
+                    string dopText = $"\n Урон {weapon.Damage}, БрПроб {weapon.Penetration}, Качества {weapon.Properties}";
+                    CreateToggle(equipment[i].Name, i, equipment[i].Description + dopText);
                 }
-            //}
+                else
+                {
+                    CreateToggle(equipment[i].Name, i, equipment[i].Description);
+                }
+
+            }
         }
 
         CreateToggleGroup("Склонности");
@@ -152,19 +139,19 @@ public class BackGroundVisual : ToggleVisual
     public void BackgroundIsChosen()
     {
         int sch = 0;
-        
+        Debug.Log($"Начали отсчет sch = {sch}");
         List<Skill> skills = new List<Skill>();
         foreach (List<Skill> sk in background.Skills)
         {
             if (sk.Count > 1)
             {
                 skills.Add(sk[toggleGroups[sch].GetComponent<ToggleGroup>().ActiveToggles().FirstOrDefault().GetComponent<MyToggle>().Id]);
-                sch++;
             }
             else
             {
                 skills.Add(sk[0]);
             }
+            sch++;
         }
 
         List<string> talents = new List<string>();
@@ -173,12 +160,12 @@ public class BackGroundVisual : ToggleVisual
             if(tal.Count > 1)
             {
                 talents.Add(tal[toggleGroups[sch].GetComponent<ToggleGroup>().ActiveToggles().FirstOrDefault().GetComponent<MyToggle>().Id]);
-                sch++;
             }
             else
             {
                 talents.Add(tal[0]);
             }
+            sch++;
         }
 
         List<Equipment> equipment = new List<Equipment>();
@@ -186,13 +173,13 @@ public class BackGroundVisual : ToggleVisual
         {
             if(eq.Count > 1)
             {
-                equipment.Add(eq[toggleGroups[sch].GetComponent<ToggleGroup>().ActiveToggles().FirstOrDefault().GetComponent<MyToggle>().Id]);
-                sch++;
+                equipment.Add(eq[toggleGroups[sch].GetComponent<ToggleGroup>().ActiveToggles().FirstOrDefault().GetComponent<MyToggle>().Id]);                
             }
             else
             {
                 equipment.Add(eq[0]);
             }
+            sch++;
         }
 
         GameStat.Inclinations inclination = background.Inclinations[toggleGroups[sch].GetComponent<ToggleGroup>().ActiveToggles().FirstOrDefault().GetComponent<MyToggle>().Id];

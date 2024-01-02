@@ -14,10 +14,9 @@ public class ArmorBlock : MonoBehaviour
     {
         textName.text = armor.Name;
         textPlace.text = armor.PlaceArmor;
-        textArmorPoint.text = armor.DefBody.ToString();
+        textArmorPoint.text = armor.ArmorPoint.ToString();
         textMaxAg.text = armor.MaxAgil.ToString();
         textWeight.text = armor.Weight.ToString();
-        Debug.Log($"Посылаем в онбоди");
         onBody.SetArmor(armor);
         isEmpty = false;
     }

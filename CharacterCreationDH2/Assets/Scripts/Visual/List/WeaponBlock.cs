@@ -13,25 +13,26 @@ public class WeaponBlock : MonoBehaviour
     public bool IsEmpty { get => isEmpty; }
     public void FillBlock(Weapon weapon)
     {
-        textName.text = weapon.Name;
-        textClass.text = weapon.ClassWeapon;
-        textRange.text = weapon.Range.ToString();
-        Debug.Log($"имя оружия {weapon.Name}");
-        if (weapon.Rof.Contains("/"))
+        if(weapon.TypeEq == Equipment.TypeEquipment.Range)
         {
-            List<string> rofs = weapon.Rof.Split(new char[] { '/' }).ToList();
-            if (rofs.Count > 1)
+            textRange.text = weapon.Range.ToString();
+            textClip.text = weapon.Clip.ToString();
+            textReload.text = weapon.Reload;
+            if (weapon.Rof.Contains("/"))
             {
-                textRoFSingle.text = rofs[0];
-                textRoFShort.text = rofs[1];
-                textRoFLong.text = rofs[2];
+                List<string> rofs = weapon.Rof.Split(new char[] { '/' }).ToList();
+                if (rofs.Count > 1)
+                {
+                    textRoFSingle.text = rofs[0];
+                    textRoFShort.text = rofs[1];
+                    textRoFLong.text = rofs[2];
+                }
             }
         }
-        
+        textName.text = weapon.Name;
+        textClass.text = weapon.ClassWeapon;   
         textDamage.text = weapon.Damage;
         textPenetration.text = weapon.Penetration.ToString();
-        textClip.text = weapon.Clip.ToString();
-        textReload.text = weapon.Reload;
         textProp.text = weapon.Properties;
         isEmpty = false;
     }

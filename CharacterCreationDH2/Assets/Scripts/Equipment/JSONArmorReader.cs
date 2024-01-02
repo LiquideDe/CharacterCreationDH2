@@ -5,5 +5,6 @@ using System;
 public class JSONArmorReader 
 {
     public string name, description, descriptionArmor;
-    public int head, hands, body, legs, maxAgility, weight;
+    public int head, hands, body, legs, maxAgility, armorPoint;
+    public float weight;
 }

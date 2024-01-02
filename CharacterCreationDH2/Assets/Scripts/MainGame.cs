@@ -10,7 +10,9 @@ public class MainGame : MonoBehaviour
     private CreatorTalents creatorTalents;
     private CreatorEquipment creatorEquipment;
     private Character character;
-
+    public delegate void ExitToMenu();
+    ExitToMenu exitToMenu;
+    int averageLvl;
     [SerializeField] private BackGroundVisual backVisual;
     [SerializeField] private RoleVisual roleVisual;
     [SerializeField] private HomeWorldVisual homeWorldVisual;
@@ -19,21 +21,26 @@ public class MainGame : MonoBehaviour
     [SerializeField] private SkillTrainingCanvas skillTrainingCanvas;
     [SerializeField] private TalentTrainingCanvas talentTrainingCanvas;
     [SerializeField] private PsyCanvas psyCanvas;
-    [SerializeField] GameObject firstSheet, secondSheet, canvasName;
+    [SerializeField] private ProphecyCanvas prophecyCanvas;
+    [SerializeField] GameObject canvasName;
+    [SerializeField] FirstCharacterSheet firstSheet;
+    [SerializeField] SecondCharacterSheet secondSheet;
     [SerializeField] CanvasIntermediate canvasIntermediate;
-    private void Start()
+    [SerializeField] ChooseAverageLvl chooseAverageLvl;
+    [SerializeField] CanvasChoiceManulaAndRandom chooseManRan;
+    [SerializeField] ManualCharacteristic manualCharacteristic;
+    [SerializeField] GameObject trainingVideo, trainingVideoPsyker;
+
+    public void ShowMainPanel(ExitToMenu exitToMenu)
     {
+        this.exitToMenu = exitToMenu;
+        gameObject.SetActive(true);
         creatorSkills = new CreatorSkills();
         creatorTalents = new CreatorTalents();
         creatorEquipment = new CreatorEquipment();
         character = new Character(creatorSkills.Skills, creatorEquipment);
-        CreatorRole creatorRole = new CreatorRole();
-        //ShowMainPanel();
-        ShowMessageBeforeBackstory();
-    }
+        character.ExperienceUnspent = 1000;
 
-    private void ShowMainPanel()
-    {
         canvasIntermediate.gameObject.SetActive(true);
         canvasIntermediate.OpenIntermediatePanel(ShowMessageBeforeWorld, "Это сорок первое тысячелетие. Вот уже сотню веков Император недвижимо восседает на Золотом троне Земли. " +
             "Волей богов он владычествует над человечеством, и мощью своих неисчислимых армий он повелевает миллионом миров. " +
@@ -103,10 +110,49 @@ public class MainGame : MonoBehaviour
     private void FinishChooseRole(Role role)
     {
         character.SetRole(role);
-        ShowMessageBeforeGenerate();
+        ShowChoiceBetweenManualAndRandom();
     }
-    private void ShowMessageBeforeGenerate()
+
+    private void ShowChoiceBetweenManualAndRandom()
     {
+        CanvasChoiceManulaAndRandom manulaAndRandom = Instantiate(chooseManRan);
+        manulaAndRandom.ShowChoose(ShowMessageBeforeAverageForManual, ShowMessageBeforeAverageForRandom);
+    }
+
+    private void ShowMessageBeforeAverageForManual()
+    {
+        canvasIntermediate.gameObject.SetActive(true);
+        canvasIntermediate.OpenIntermediatePanel(OpenSliderWithAverageForManual, "В следующем окне вам нужно выбрать стартовый уровень характеристик. Чем они выше тем аколит считается сильнее и опытнее. " +
+            "Обычно стартовый уровень обговаривает с Мастером Игры");
+    }
+    private void ShowMessageBeforeAverageForRandom()
+    {
+        canvasIntermediate.gameObject.SetActive(true);
+        canvasIntermediate.OpenIntermediatePanel(OpenSliderWithAverageForRandom, "В следующем окне вам нужно выбрать стартовый уровень характеристик. Чем они выше тем аколит считается сильнее и опытнее. " +
+            "Обычно стартовый уровень обговаривает с Мастером Игры");
+    }
+
+    private void OpenSliderWithAverageForManual()
+    {
+        canvasIntermediate.gameObject.SetActive(false);
+        ChooseAverageLvl AverageLvl = Instantiate(chooseAverageLvl);
+        AverageLvl.ShowChooseAverage(ShowMessageBeforeManual);
+    }
+    private void OpenSliderWithAverageForRandom()
+    {
+        canvasIntermediate.gameObject.SetActive(false);
+        ChooseAverageLvl AverageLvl = Instantiate(chooseAverageLvl);
+        AverageLvl.ShowChooseAverage(ShowMessageBeforeGenerate);
+    }
+    private void ShowMessageBeforeManual(int lvl)
+    {
+        averageLvl = lvl;
+        canvasIntermediate.gameObject.SetActive(true);
+        canvasIntermediate.OpenIntermediatePanel(OpenManualCharacteristic, "В следующем окне вам нужно распределить 60 очков по собственному желанию");
+    }
+    private void ShowMessageBeforeGenerate(int lvl)
+    {
+        averageLvl = lvl;
         canvasIntermediate.gameObject.SetActive(true);
         canvasIntermediate.OpenIntermediatePanel(OpenGenerateCharacteristic, "В следующем окне вам нужно бросить 2 кубика в 10 граней и записать результат. " +
             "Вы также можете нажать на кнопку кубика, он сам сгенерирует результат, а затем переставить полученные результаты характеристикам.");
@@ -117,7 +163,14 @@ public class MainGame : MonoBehaviour
         canvasIntermediate.gameObject.SetActive(false);
         GenerateObserver generateObserver = gameObject.AddComponent<GenerateObserver>();
         generateObserver.RegDelegate(FinishGenerateCharacteristics);
-        generateObserver.OpenGenerateCharacteristic(characteristicGenerateCanvas, character);
+        generateObserver.OpenGenerateCharacteristic(characteristicGenerateCanvas, character, averageLvl);
+    }
+
+    private void OpenManualCharacteristic()
+    {
+        canvasIntermediate.gameObject.SetActive(false);
+        ManualCharacteristic manul = Instantiate(manualCharacteristic);
+        manul.ShowManual(ShowMessageBeforeTrainingCharacteristics, character, averageLvl);
     }
 
     private void FinishGenerateCharacteristics(List<Characteristic> characteristics)
@@ -138,16 +191,23 @@ public class MainGame : MonoBehaviour
         canvasIntermediate.gameObject.SetActive(false);
         TrainingClass trainingClass = gameObject.AddComponent<TrainingClass>();
         trainingClass.RegDelegate(GoToProphecy);
-        trainingClass.OpenTraining(charTrainingCanvas, skillTrainingCanvas, talentTrainingCanvas, psyCanvas, character, creatorSkills, creatorTalents);
+        trainingClass.OpenTraining(charTrainingCanvas, skillTrainingCanvas, talentTrainingCanvas, psyCanvas, character, creatorTalents);
+        if(character.PsyRating > 0)
+        {
+            trainingClass.LoadVideo(trainingVideoPsyker);
+        }
+        else
+        {
+            trainingClass.LoadVideo(trainingVideo);
+        }
     }
 
     private void GoToProphecy()
     {
-        Prophecy prophecy = new Prophecy();
-        character.Prophecy = prophecy.GenerateProphecy(character);
-        character.CalculatePhysAbilities();
-        Destroy(canvasIntermediate.gameObject);
-        InputName();
+        ProphecyCanvas prophecy = Instantiate(prophecyCanvas);
+        prophecy.gameObject.SetActive(true);
+        prophecy.RegDelegate(InputName);
+        prophecy.StartChoose(character);
     }
 
     private void InputName()
@@ -161,9 +221,10 @@ public class MainGame : MonoBehaviour
     private void PasteName(string name)
     {
         character.Name = name;
+        Save save = new Save(character);
         ScreenshotObserver screenshotObserver = gameObject.AddComponent<ScreenshotObserver>();
         screenshotObserver.RegDelegate(EndGame);
-        screenshotObserver.OpenScreenshots(character, firstSheet, secondSheet);
+        screenshotObserver.OpenScreenShots(character, firstSheet, secondSheet);
     }    
 
     private void EndGame()
@@ -173,9 +234,8 @@ public class MainGame : MonoBehaviour
 
     IEnumerator ExitGame()
     {
-        yield return new WaitForSeconds(0.1f);
-        Debug.Log($"Вышли");
-        Application.OpenURL((Application.dataPath) + "/StreamingAssets/CharacterSheets");
-        Application.Quit();
+        yield return new WaitForSeconds(0.1f);        
+        exitToMenu?.Invoke();
+        Destroy(gameObject);
     }
 }
