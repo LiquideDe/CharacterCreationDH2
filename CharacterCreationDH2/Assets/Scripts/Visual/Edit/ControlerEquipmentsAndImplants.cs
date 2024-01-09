@@ -106,7 +106,7 @@ public class ControlerEquipmentsAndImplants : MonoBehaviour
         {
             foreach (ItemListActiveButton item in listItems)
             {
-                Destroy(item.gameObject);
+                DestroyImmediate(item.gameObject);
             }
             listItems.Clear();
         }

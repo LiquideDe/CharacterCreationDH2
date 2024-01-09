@@ -26,12 +26,12 @@ public class ArmorOnBody : MonoBehaviour
 
     private void SetBigger(int armorPoint, TextMeshProUGUI textArmor, TextMeshProUGUI textTotal)
     {
-        if(textArmor.text == "" && armorPoint != 0)
+        if(textArmor.text == "" && armorPoint > 0)
         {
             textArmor.text = armorPoint.ToString();
             textTotal.text = (armorPoint + bonusToughness).ToString();
         }
-        else if(armorPoint == 0)
+        else if(textArmor.text == "" && armorPoint == 0)
         {
             textTotal.text = bonusToughness.ToString();
         }

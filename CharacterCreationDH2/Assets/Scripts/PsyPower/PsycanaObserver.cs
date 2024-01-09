@@ -12,6 +12,7 @@ public class PsycanaObserver : MonoBehaviour
     private CreatorPsyPowers creatorPsyPowers;
     private Character character;
     bool isEdit;
+    bool isNBpush;
 
     public void ShowPsyPowers(PsyCanvas psyCanvas, CreatorPsyPowers creatorPsyPowers, Character character, bool isEdit = false)
     {
@@ -21,10 +22,10 @@ public class PsycanaObserver : MonoBehaviour
         this.isEdit = isEdit;
         psycana = Instantiate(psyCanvas);
         psycana.gameObject.SetActive(true);
-        psycana.CreatePsyPanels(creatorPsyPowers.GetPowers(0), creatorPsyPowers.GetConnections(0), 0, character.ExperienceUnspent, character.PsyRating,
-            creatorPsyPowers.GetNameSchool(0), creatorPsyPowers.GetSizeSpacing(0),false, isEdit);
         psycana.RegDelegate(CheckReqForPsyPower, GetPsyPower, SetNewPsyLvl);
         psycana.RegDelegateNextPrev(NextPsySchool, PrevPsySchool);
+        psycana.CreatePsyPanels(creatorPsyPowers.GetPowers(0), creatorPsyPowers.GetConnections(0), 0, character.ExperienceUnspent, character.PsyRating,
+            creatorPsyPowers.GetNameSchool(0), creatorPsyPowers.GetSizeSpacing(0),false, isEdit);        
     }
 
     public void RegDelegate(PrevPage prevPage, NextPage nextPage)
@@ -35,15 +36,28 @@ public class PsycanaObserver : MonoBehaviour
 
     private void NextPsySchool(int prevSchool, PsyCanvas psycana)
     {
+        if (!isNBpush && psycana.IsDone)
+        {
+            isNBpush = true;
+            StartCoroutine(Next(prevSchool, psycana));
+        }        
+    }
+
+    IEnumerator Next(int prevSchool, PsyCanvas psycana)
+    {
+        yield return new WaitForSeconds(0.1f);
+        Coroutine clear = StartCoroutine(psycana.ClearLists());
+        yield return clear;
         if (prevSchool + 1 < creatorPsyPowers.CountSchools())
         {
             bool isFinal = false;
-            if(prevSchool + 1 == creatorPsyPowers.CountSchools() - 1)
+            if (prevSchool + 1 == creatorPsyPowers.CountSchools() - 1)
             {
                 isFinal = true;
             }
+            
             psycana.CreatePsyPanels(creatorPsyPowers.GetPowers(prevSchool + 1), creatorPsyPowers.GetConnections(prevSchool + 1), prevSchool + 1, character.ExperienceUnspent,
-                character.PsyRating, creatorPsyPowers.GetNameSchool(prevSchool + 1), creatorPsyPowers.GetSizeSpacing(prevSchool + 1), isFinal, isEdit);
+                character.PsyRating, creatorPsyPowers.GetNameSchool(prevSchool + 1), creatorPsyPowers.GetSizeSpacing(prevSchool + 1), isFinal, isEdit);            
         }
         else
         {
@@ -51,14 +65,30 @@ public class PsycanaObserver : MonoBehaviour
             Destroy(psycana.gameObject);
             Destroy(this);
         }
+        yield return new WaitForEndOfFrame();
+        isNBpush = false;
     }
 
     private void PrevPsySchool(int prevSchool, PsyCanvas psycana)
+    {        
+        if (!isNBpush && psycana.IsDone)
+        {
+            isNBpush = true;
+            StartCoroutine(Prev(prevSchool, psycana));
+        }        
+    }
+
+    IEnumerator Prev(int prevSchool, PsyCanvas psycana)
     {
+        yield return new WaitForSeconds(0.1f);
+        Coroutine clear = StartCoroutine(psycana.ClearLists());
+        yield return clear;
         if (prevSchool - 1 >= 0)
         {
+            
             psycana.CreatePsyPanels(creatorPsyPowers.GetPowers(prevSchool - 1), creatorPsyPowers.GetConnections(prevSchool - 1), prevSchool - 1, character.ExperienceUnspent,
-                character.PsyRating, creatorPsyPowers.GetNameSchool(prevSchool - 1), creatorPsyPowers.GetSizeSpacing(prevSchool - 1),false, isEdit);
+                character.PsyRating, creatorPsyPowers.GetNameSchool(prevSchool - 1), creatorPsyPowers.GetSizeSpacing(prevSchool - 1), false, isEdit);
+            isNBpush = false;
         }
         else
         {
@@ -95,4 +125,5 @@ public class PsycanaObserver : MonoBehaviour
             psyCanvas.UpdateText(character.ExperienceUnspent);
         }
     }
+
 }

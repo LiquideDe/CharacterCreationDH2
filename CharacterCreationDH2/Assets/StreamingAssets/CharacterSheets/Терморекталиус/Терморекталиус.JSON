@@ -1,14 +1,14 @@
-{"name":"Квиннель","background":"Адептус Сороритас","role":"Воитель","ageText":"Паренек","prophecy":"Лишь безумцы достаточно сильны для процветания.","constitution":"Жилистый","hair":"Черные","eyes":"Серые","skeen":"Светлая","physFeatures":"Татуировка над глазом","memoryOfHome":"Набор татуировщика","memoryOfBackground":"Треснувший заряд Экстерминатора","gender":"Ж","bonusBack":"Несокрушимая Преданность: Всякий раз, когда персонаж из Адептус Сороритас получает 1 или больше очков Порчи, она получает вместо этого столько же (но минус 1) очков Безумия. ","homeworld":"Мир Улий","talents":"Выучка с Оружием Зажигательное/Выучка с Оружием Цепное/Быстрая Перезарядка/Шаг В Сторону","inclinations":"General/Perception/Social/Ballistic/Defense/Offense/Strength/Weapon","implants":"","mentalDisorders":"","mutation":"","equipments":"Ручной огнемёт/Цепной меч/Хроно/Инфопланшет/Микро-наушник/Лампа/Флак-жилет/Лёгкий панцирь силовика","psyPowers":"","age":19,"fatePoint":4,"insanityPoints":0,"corruptionPoints":0,"wounds":13,"psyRating":0,"halfMove":4,"fullMove":8,"natisk":12,"run":24,"fatigue":7,"experienceTotal":1000,"experienceUnspent":0,"experienceSpent":1000,"carryWeight":56.0,"liftWeight":112.0,"pushWeight":224.0}
-{"name":"Навык Рукопашной","amount":42,"lvlLearnedChar":1}
-{"name":"Навык Стрельбы","amount":43,"lvlLearnedChar":0}
-{"name":"Сила","amount":43,"lvlLearnedChar":0}
-{"name":"Выносливость","amount":40,"lvlLearnedChar":0}
-{"name":"Ловкость","amount":45,"lvlLearnedChar":0}
-{"name":"Интеллект","amount":32,"lvlLearnedChar":0}
-{"name":"Восприятие","amount":46,"lvlLearnedChar":0}
-{"name":"Сила Воли","amount":36,"lvlLearnedChar":0}
-{"name":"Общительность","amount":38,"lvlLearnedChar":0}
-{"name":"Влияние","amount":38,"lvlLearnedChar":0}
+{"name":"Терморекталиус","background":"Имперский флот","role":"Кающийся","ageText":"Выживальщик","prophecy":"Лишь безумцы достаточно сильны для процветания.","constitution":"Резкий","hair":"Черные","eyes":"Лиловые","skeen":"Тёмная","physFeatures":"Шестой палец(отрезанный)","memoryOfHome":"Разбитый дисплей ауспекса","memoryOfBackground":"Осколок силиката изоляции","gender":"","bonusBack":"Тренировка ближнего боя: Персонаж Имперского флота получает ещё одну степень успеха на успешных проверках Навыка Стрельбы, которые он делает против целей В Упор, на Ближней Дистанции или в Ближнем Бою. ","homeworld":"Карантинный мир","talents":"Выучка с Оружием Твёрдотельное/Выучка с Оружием Шоковое/Крепкий орешек","inclinations":"General/Fieldcraft/Offense/Agility/Toughness/Intelligence","implants":"","mentalDisorders":"","mutation":"","equipments":"Дробовик/Шоковый хлыст/Флак-плащ/Респиратор/Микро-наушник","psyPowers":"","age":34,"fatePoint":2,"insanityPoints":0,"corruptionPoints":0,"wounds":11,"psyRating":0,"halfMove":3,"fullMove":6,"natisk":9,"run":18,"fatigue":6,"experienceTotal":1000,"experienceUnspent":0,"experienceSpent":1000,"carryWeight":36.0,"liftWeight":72.0,"pushWeight":144.0}
+{"name":"Навык Рукопашной","amount":44,"lvlLearnedChar":0}
+{"name":"Навык Стрельбы","amount":52,"lvlLearnedChar":1}
+{"name":"Сила","amount":33,"lvlLearnedChar":0}
+{"name":"Выносливость","amount":35,"lvlLearnedChar":0}
+{"name":"Ловкость","amount":30,"lvlLearnedChar":0}
+{"name":"Интеллект","amount":43,"lvlLearnedChar":0}
+{"name":"Восприятие","amount":33,"lvlLearnedChar":0}
+{"name":"Сила Воли","amount":34,"lvlLearnedChar":0}
+{"name":"Общительность","amount":35,"lvlLearnedChar":1}
+{"name":"Влияние","amount":29,"lvlLearnedChar":0}
 {"name":"Акробатика","lvlLearned":0}
 {"name":"Администратум","lvlLearned":0}
 {"name":"Агро","lvlLearned":0}
@@ -27,7 +27,7 @@
 {"name":"Звери","lvlLearned":0}
 {"name":"Бюрократия","lvlLearned":0}
 {"name":"Капитаны-хартисты","lvlLearned":0}
-{"name":"Обаяние","lvlLearned":1}
+{"name":"Обаяние","lvlLearned":0}
 {"name":"Химия","lvlLearned":0}
 {"name":"Химик","lvlLearned":0}
 {"name":"Повар","lvlLearned":0}
@@ -40,7 +40,7 @@
 {"name":"Криптограф","lvlLearned":0}
 {"name":"Обман","lvlLearned":0}
 {"name":"Демонология","lvlLearned":0}
-{"name":"Уклонение","lvlLearned":1}
+{"name":"Уклонение","lvlLearned":0}
 {"name":"Экклезиархия","lvlLearned":0}
 {"name":"Язык Эльдар","lvlLearned":0}
 {"name":"Эпистолярий","lvlLearned":0}
@@ -49,11 +49,11 @@
 {"name":"Геральдика","lvlLearned":0}
 {"name":"Оружейник","lvlLearned":0}
 {"name":"Ересь","lvlLearned":0}
-{"name":"Высокий Готик","lvlLearned":1}
+{"name":"Высокий Готик","lvlLearned":0}
 {"name":"Ересь Хоруса и Долгая Война","lvlLearned":0}
 {"name":"Имперские Коды","lvlLearned":0}
 {"name":"Имперское Кредо","lvlLearned":0}
-{"name":"Имперский Флот","lvlLearned":0}
+{"name":"Имперский Флот","lvlLearned":1}
 {"name":"Имперские Патенты","lvlLearned":0}
 {"name":"Империум","lvlLearned":0}
 {"name":"Дознание","lvlLearned":0}
@@ -72,10 +72,10 @@
 {"name":"Знаки Хаоса","lvlLearned":0}
 {"name":"Метки Ксеносов","lvlLearned":0}
 {"name":"Адептус Механикус","lvlLearned":0}
-{"name":"Медика","lvlLearned":1}
+{"name":"Медика","lvlLearned":0}
 {"name":"Мортикатор","lvlLearned":0}
 {"name":"Мутанты","lvlLearned":0}
-{"name":"Навигация Звездная","lvlLearned":0}
+{"name":"Навигация Звездная","lvlLearned":1}
 {"name":"Навигация Наземная","lvlLearned":0}
 {"name":"Навигация Варп","lvlLearned":0}
 {"name":"Навигаторы","lvlLearned":0}
@@ -85,9 +85,9 @@
 {"name":"Официо Ассасинорум","lvlLearned":0}
 {"name":"Управление Аэронавтика","lvlLearned":0}
 {"name":"Управление Наземная","lvlLearned":0}
-{"name":"Управление Космические","lvlLearned":0}
+{"name":"Управление Космические","lvlLearned":1}
 {"name":"Оркский","lvlLearned":0}
-{"name":"Парирование","lvlLearned":1}
+{"name":"Парирование","lvlLearned":0}
 {"name":"Философия","lvlLearned":0}
 {"name":"Пираты","lvlLearned":0}
 {"name":"Предсказатель","lvlLearned":0}
@@ -102,7 +102,7 @@
 {"name":"Скульптор","lvlLearned":0}
 {"name":"Безопасность","lvlLearned":0}
 {"name":"Ловкость рук","lvlLearned":0}
-{"name":"Адепта Сороритас","lvlLearned":1}
+{"name":"Адепта Сороритас","lvlLearned":0}
 {"name":"Скрытность","lvlLearned":0}
 {"name":"Выживание","lvlLearned":0}
 {"name":"Тактика Империалис","lvlLearned":0}

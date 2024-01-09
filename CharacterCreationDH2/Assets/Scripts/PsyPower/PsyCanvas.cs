@@ -28,9 +28,16 @@ public class PsyCanvas : MonoBehaviour
     [SerializeField] private TextMeshProUGUI textExp, textName, textCost, textDescription, textAction, textCostPsyRate, textPsyRate, textNameSchool;
     private List<GameObject> lines = new List<GameObject>();
     private int chosenId, experience;
-    bool isEdit;
+    bool isEdit, isDone;
+
+    public bool IsDone { get => isDone; }
 
     public void CreatePsyPanels(List<PsyPower> psyPowers, List<Connection> connections, int school, int exp, int psyRate, string nameSchool, JSONSizeSpacing sizeSpacing,bool isFinalSchool, bool isEdit = false)
+    {
+        StartCoroutine(CrPsyPanels(psyPowers, connections, school, exp, psyRate, nameSchool, sizeSpacing, isFinalSchool, isEdit));
+    }
+
+    IEnumerator CrPsyPanels(List<PsyPower> psyPowers, List<Connection> connections, int school, int exp, int psyRate, string nameSchool, JSONSizeSpacing sizeSpacing, bool isFinalSchool, bool isEdit)
     {
         experience = exp;
         this.isEdit = isEdit;
@@ -51,18 +58,27 @@ public class PsyCanvas : MonoBehaviour
         foreach (PsyPower psyPower in psyPowers)
         {
             psyPanels.Add(Instantiate(examplePsyPanel, lvls[psyPower.Lvl].transform));
-            psyPanels[^1].SetPsyPanel(psyPower.NamePower, psyPower.ShortDescription,psyPower.Cost, psyPower.Id, psyPower.IsActive);
+            psyPanels[^1].SetPsyPanel(psyPower.NamePower, psyPower.ShortDescription, psyPower.Cost, psyPower.Id, psyPower.IsActive);
             psyPanels[^1].RegDelegate(OpenPanel);
             psyPanels[^1].gameObject.SetActive(true);
-            
+
         }
-        foreach(Connection connection in connections)
+        int i = 0;
+        yield return new WaitForSeconds(0.2f);
+        foreach (Connection connection in connections)
         {
-            StartCoroutine(PauseForConnection(connection));
+            CreateConnections(connection.ParentPsyPower.Id, connection.ChildPsyPower.Id);
+            i++;
         }
         UpdateTextPsyRate(psyRate);
         textNameSchool.text = $"{nameSchool}";
+        yield return DoneIsDone();
+    }
 
+    IEnumerator DoneIsDone()
+    {
+        isDone = true;
+        yield return new WaitForEndOfFrame();
     }
 
     public void UpdateText(int exp)
@@ -82,11 +98,6 @@ public class PsyCanvas : MonoBehaviour
     {
         textPsyRate.text = $"Ваш Пси Рейтинг равен {psyRate}";
         textCostPsyRate.text = $"Для улучшения Пси Рейтинга нужно {200 * (psyRate + 1)} очков опыта.";
-    }
-    IEnumerator PauseForConnection(Connection connection)
-    {
-        yield return new WaitForSeconds(0.2f);
-        CreateConnections(connection.ParentPsyPower.Id, connection.ChildPsyPower.Id);
     }
 
     private void CreateConnections(int idFirstPoint, int idSecondPoint)
@@ -187,13 +198,11 @@ public class PsyCanvas : MonoBehaviour
 
     public void ButtonNextSchool()
     {
-        ClearLists();
         nextSchool?.Invoke(chosenSchool, this);
     }
 
     public void ButtonPrevSchool()
     {
-        ClearLists();
         prevSchool?.Invoke(chosenSchool, this);
     }
 
@@ -202,7 +211,7 @@ public class PsyCanvas : MonoBehaviour
         newPsyLvl?.Invoke(this);
     }
 
-    private void ClearLists()
+    public IEnumerator ClearLists()
     {
         foreach (PsyPanel psyPanel in psyPanels)
         {
@@ -214,5 +223,8 @@ public class PsyCanvas : MonoBehaviour
             Destroy(connection);
         }
         lines.Clear();
+        
+        yield return new WaitForEndOfFrame();
+        isDone = false;
     }
 }
