@@ -15,7 +15,7 @@ public class CreatorEquipment
         {
             string[] data = File.ReadAllLines(thing);
             JSONEquipmentReader equipmentReader = JsonUtility.FromJson<JSONEquipmentReader>(data[0]);
-            equipments.Add(new Equipment(equipmentReader.name, equipmentReader.description, equipmentReader.weight));
+            equipments.Add(new Equipment(equipmentReader.name, equipmentReader.description, equipmentReader.rarity, equipmentReader.weight));
         }
 
         string[] armors = Directory.GetFiles($"{Application.dataPath}/StreamingAssets/Equipments" + "/Armor", "*.JSON");
@@ -40,6 +40,14 @@ public class CreatorEquipment
             string[] data = File.ReadAllLines(range);
             JSONRangeReader rangeReader = JsonUtility.FromJson<JSONRangeReader>(data[0]);
             equipments.Add(new Weapon(rangeReader));
+        }
+
+        string[] grenadeWeapons = Directory.GetFiles($"{Application.dataPath}/StreamingAssets/Equipments" + "/Weapons/Grenade", "*.JSON");
+        foreach (string grenade in grenadeWeapons)
+        {
+            string[] data = File.ReadAllLines(grenade);
+            JSONGrenadeReader grenadeReader = JsonUtility.FromJson<JSONGrenadeReader>(data[0]);
+            equipments.Add(new Weapon(grenadeReader));
         }
 
         string[] specialWeapons = Directory.GetFiles($"{Application.dataPath}/StreamingAssets/Equipments" + "/Special", "*.JSON");

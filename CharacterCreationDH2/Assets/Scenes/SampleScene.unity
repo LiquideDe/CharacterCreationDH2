@@ -1337,6 +1337,7 @@ MonoBehaviour:
   editCharacter: {fileID: 1663620039867285912, guid: 68cbcf9d2a2261849a23e9a1bdb0e13c, type: 3}
   createNewCharacter: {fileID: 6567599535112259235, guid: 54445980baea759409e1e89af0799665, type: 3}
   canvasMainMenu: {fileID: 202311929}
+  spinnerExample: {fileID: 3254931332422111564, guid: 501ae081b75202944af98f03a945e155, type: 3}
   canvasLoads: {fileID: 8638798782533238220, guid: d337664e8b0ce82439fc62c1a50494b6, type: 3}
   upgradeCharacter: {fileID: 568313937833087635, guid: 780e6891d507a7b4b8c4c28bdaacfcf6, type: 3}
 --- !u!4 &1492691638

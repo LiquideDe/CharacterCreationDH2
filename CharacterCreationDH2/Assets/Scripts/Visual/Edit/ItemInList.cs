@@ -9,9 +9,9 @@ public class ItemInList : MonoBehaviour
     public delegate void ChooseItem(string name);
     ChooseItem chooseItem;
 
-    public void SetParams(string name, ChooseItem deleteItem)
+    public void SetParams(string name, ChooseItem chooseItem)
     {
-        this.chooseItem = deleteItem;
+        this.chooseItem = chooseItem;
         textName.text = name;
         gameObject.SetActive(true);
     }

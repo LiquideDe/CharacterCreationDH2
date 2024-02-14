@@ -9,24 +9,15 @@ public class ControlerEquipmentsAndImplants : MonoBehaviour
     private Character character;
     private CreatorEquipment creatorEquipment;
     [SerializeField] ItemInList itemInListExample;
-    [SerializeField] ItemListActiveButton itemListActiveButton;
-    [SerializeField] TMP_InputField inputImplantname;
-    [SerializeField] Transform contentListEq, contentNewEq;
-    [SerializeField] GameObject listNewEq;
-    [SerializeField] Button buttonNewEq;
+    [SerializeField] Transform contentListEq;
     [SerializeField] CreatorNewEquipment creatorNewEquipment;
     [SerializeField] NewMelee newMelee;
     [SerializeField] NewRange newRange;
     [SerializeField] NewArmor newArmor;
-    private List<ItemListActiveButton> listItems = new List<ItemListActiveButton>();
+    [SerializeField] NewGrenade newGrenade;
+    [SerializeField] PanelWithInputText panelWithInputTextExample;
+    [SerializeField] ListWithEquipments listWithEquipmentsExample;
 
-    private void Start()
-    {
-        creatorNewEquipment.RegDelegate(CreateNewEquipment);
-        newMelee.RegDelegate(CreateNewEquipment);
-        newRange.RegDelegate(CreateNewEquipment);
-        newArmor.RegDelegate(CreateNewEquipment);
-    }
     public void SetParams(Character character, CreatorEquipment creatorEquipment)
     {
         this.character = character;
@@ -47,96 +38,79 @@ public class ControlerEquipmentsAndImplants : MonoBehaviour
 
     public void ShowMeleeWeapon()
     {
-        buttonNewEq.onClick.RemoveAllListeners();
-        ShowEquipment(Equipment.TypeEquipment.Melee);
-        buttonNewEq.onClick.AddListener(ShowMeleeCreator);
+        ShowEquipment(newMelee, SearchEquipmentByType(Equipment.TypeEquipment.Melee));
     }
 
     public void ShowRangeWeapon()
     {
-        buttonNewEq.onClick.RemoveAllListeners();
-        ShowEquipment(Equipment.TypeEquipment.Range);
-        buttonNewEq.onClick.AddListener(ShowRangeCreator);
+        ShowEquipment(newRange, SearchEquipmentByType(Equipment.TypeEquipment.Range));
     }
 
     public void ShowArmor()
     {
-        buttonNewEq.onClick.RemoveAllListeners();
-        ShowEquipment(Equipment.TypeEquipment.Armor);
-        buttonNewEq.onClick.AddListener(ShowArmorCreator);
+        ShowEquipment(newArmor, SearchEquipmentByType(Equipment.TypeEquipment.Armor));
     }
 
     public void ShowEquipmentThing()
     {
-        buttonNewEq.onClick.RemoveAllListeners();
-        ShowEquipment(Equipment.TypeEquipment.Thing);
-        buttonNewEq.onClick.AddListener(ShowThingCreator);
+        ShowEquipment(creatorNewEquipment, SearchEquipmentByType(Equipment.TypeEquipment.Thing));
     }
 
-    private void ShowEquipment(Equipment.TypeEquipment type)
+    public void ShowGrenade()
     {
-        Debug.Log($"Срабатываем");
-        CleanListNewEq();
-        listNewEq.gameObject.SetActive(true);
+        ShowEquipment(newGrenade, SearchEquipmentByType(Equipment.TypeEquipment.Grenade));
+    }
+
+    private List<Equipment> SearchEquipmentByType(Equipment.TypeEquipment type)
+    {
+        List<Equipment> equipments = new List<Equipment>();
         foreach (Equipment equipment in creatorEquipment.Equipments)
         {
             if (equipment.TypeEq == type)
             {
-                listItems.Add(Instantiate(itemListActiveButton, contentNewEq));
-                listItems[^1].SetParams(equipment.Name, GetNewEquipment);
+                equipments.Add(equipment);
             }
         }
+        return equipments;
+    }
+    private void ShowEquipment(CreatorNewEquipment creatorPanelExample, List<Equipment> equipments)
+    {
+        var listWithEquipments = Instantiate(listWithEquipmentsExample, transform);
+        listWithEquipments.SetParams(creatorPanelExample, equipments, CreateNewEquipment);
     }
 
     private void CreateNewEquipment(Equipment equipment)
     {
-        creatorEquipment.AddEquipment(equipment);
-        GetNewEquipment(equipment.Name);
-    }
-    public void CreateNewImplant()
-    {
-        character.Implants.Add(new MechImplants(inputImplantname.text));
-        ItemInList itemInList = Instantiate(itemInListExample, contentListEq);
-        itemInList.SetParams(inputImplantname.text, DeleteImplant);
-        inputImplantname.text = "";
-    }
-    private void CleanListNewEq()
-    {
-        if (listItems.Count > 0)
+        int sch = 0;
+        foreach(Equipment eq in creatorEquipment.Equipments)
         {
-            foreach (ItemListActiveButton item in listItems)
+            if(eq == equipment)
             {
-                DestroyImmediate(item.gameObject);
+                sch++;
+                break;
             }
-            listItems.Clear();
         }
-    }
 
-    private void GetNewEquipment(string name)
-    {
-        character.Equipments.Add(creatorEquipment.GetEquipment(name));
+        if(sch < 1)
+        {
+            creatorEquipment.Equipments.Add(equipment);
+        }
+        character.Equipments.Add(equipment);
         ItemInList itemInList = Instantiate(itemInListExample, contentListEq);
-        itemInList.SetParams(name, DeleteEquipment);
+        itemInList.SetParams(equipment.Name, DeleteEquipment);
+
+    }
+    public void AddNewImplant()
+    {
+        var panelWithInputText = Instantiate(panelWithInputTextExample, transform);
+        panelWithInputText.Init(SetImplant);        
     }
 
-    private void ShowMeleeCreator()
+    private void SetImplant(string name)
     {
-        newMelee.gameObject.SetActive(true);
-    }
-
-    private void ShowRangeCreator()
-    {
-        newRange.gameObject.SetActive(true);
-    }
-
-    private void ShowThingCreator()
-    {
-        creatorNewEquipment.gameObject.SetActive(true);
-    }
-
-    private void ShowArmorCreator()
-    {
-        newArmor.gameObject.SetActive(true);
+        character.Implants.Add(new MechImplants(name));
+        ItemInList itemInList = Instantiate(itemInListExample, contentListEq);
+        itemInList.SetParams(name, DeleteImplant);
     }
     private void DeleteEquipment(string name)
     {

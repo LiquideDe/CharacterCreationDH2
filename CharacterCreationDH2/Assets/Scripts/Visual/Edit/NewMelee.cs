@@ -24,7 +24,6 @@ public class NewMelee : CreatorNewEquipment
         {
             float.TryParse(inputWeight.text, out weight);
             int.TryParse(inputPenetration.text, out penetration);
-            Debug.Log($"weight = {weight}");
             JSONMeleeReader meleeReader = new JSONMeleeReader();
             meleeReader.name = inputName.text;
             meleeReader.penetration = penetration;

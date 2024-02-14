@@ -5,7 +5,7 @@ using System;
 [Serializable]
 public class JSONEquipmentReader
 {
-    public string name, description;
+    public string name, description, rarity;
     public float weight;
 }
 

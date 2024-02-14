@@ -10,7 +10,7 @@ public class CanvasEditMenu : MonoBehaviour
     [SerializeField] Transform contentListMutation, contentListMental;
     [SerializeField] ControlerEquipmentsAndImplants equipAndImplants;
     [SerializeField] AmountCharacteristicChanger characteristicChanger;
-    [SerializeField] TMP_InputField inputNameMutation, inputNameMental;
+    [SerializeField] PanelWithInputText panelWithInputTextExample;
     private Character character;
     public delegate void NextMenu();
     NextMenu nextMenu;
@@ -141,25 +141,27 @@ public class CanvasEditMenu : MonoBehaviour
 
     public void CreateMutation()
     {
-        if(inputNameMutation.text.Length > 0)
-        {
-            character.Mutation.Add(inputNameMutation.text);
-            ItemInList itemInList = Instantiate(itemInListExample, contentListMutation);
-            itemInList.SetParams(inputNameMutation.text, DeleteMutation);
-            inputNameMutation.text = "";
-        }        
+        var panelWithInputText = Instantiate(panelWithInputTextExample, transform);
+        panelWithInputText.Init(SetMutation);
     }
 
     public void CreateMental()
     {
-        if(inputNameMental.text.Length > 0)
-        {
-            character.MentalDisorders.Add(inputNameMental.text);
-            ItemInList itemInList = Instantiate(itemInListExample, contentListMental);
-            itemInList.SetParams(inputNameMental.text, DeleteMutation);
-            inputNameMental.text = "";
-        }        
+        var panelWithInputText = Instantiate(panelWithInputTextExample, transform);
+        panelWithInputText.Init(SetMental);
     }
 
+    private void SetMutation(string name)
+    {
+        character.Mutation.Add(name);
+        ItemInList itemInList = Instantiate(itemInListExample, contentListMutation);
+        itemInList.SetParams(name, DeleteMutation);
+    }
 
+    private void SetMental(string name)
+    {
+        character.MentalDisorders.Add(name);
+        ItemInList itemInList = Instantiate(itemInListExample, contentListMental);
+        itemInList.SetParams(name, DeleteMentalDisorders);
+    }
 }

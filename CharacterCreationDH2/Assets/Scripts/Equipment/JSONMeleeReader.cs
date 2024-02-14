@@ -5,7 +5,7 @@ using System;
 [Serializable]
 public class JSONMeleeReader 
 {
-    public string name, description, properties, type, weaponClass, damage;
+    public string name, description, properties, type, weaponClass, damage, rarity;
     public int penetration;
     public float weight;
 }

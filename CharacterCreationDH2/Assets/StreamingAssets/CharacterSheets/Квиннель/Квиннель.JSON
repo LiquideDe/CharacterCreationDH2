@@ -1,0 +1,116 @@
+{"name":"Квиннель","background":"Адептус Сороритас","role":"Воитель","ageText":"Паренек","prophecy":"Лишь безумцы достаточно сильны для процветания.","constitution":"Жилистый","hair":"Черные","eyes":"Серые","skeen":"Светлая","physFeatures":"Татуировка над глазом","memoryOfHome":"Набор татуировщика","memoryOfBackground":"Треснувший заряд Экстерминатора","gender":"","bonusBack":"Несокрушимая Преданность: Всякий раз, когда персонаж из Адептус Сороритас получает 1 или больше очков Порчи, она получает вместо этого столько же (но минус 1) очков Безумия. ","homeworld":"Мир Улий","talents":"Выучка с Оружием Зажигательное/Выучка с Оружием Цепное/Быстрая Перезарядка/Неистовство/Неостановимый Натиск","inclinations":"General/Perception/Social/Ballistic/Defense/Offense/Strength/Weapon","implants":"","mentalDisorders":"","mutation":"","equipments":"Ручной огнемёт/Цепной меч/Хроно/Инфопланшет/Микро-наушник/Лампа/Лёгкий панцирь силовика","psyPowers":"","age":19,"fatePoint":4,"insanityPoints":0,"corruptionPoints":0,"wounds":13,"psyRating":0,"halfMove":4,"fullMove":8,"natisk":12,"run":24,"fatigue":7,"experienceTotal":1500,"experienceUnspent":0,"experienceSpent":1500,"carryWeight":56.0,"liftWeight":112.0,"pushWeight":224.0}
+{"name":"Навык Рукопашной","amount":52,"lvlLearnedChar":2}
+{"name":"Навык Стрельбы","amount":43,"lvlLearnedChar":0}
+{"name":"Сила","amount":43,"lvlLearnedChar":0}
+{"name":"Выносливость","amount":40,"lvlLearnedChar":0}
+{"name":"Ловкость","amount":45,"lvlLearnedChar":0}
+{"name":"Интеллект","amount":32,"lvlLearnedChar":0}
+{"name":"Восприятие","amount":46,"lvlLearnedChar":1}
+{"name":"Сила Воли","amount":36,"lvlLearnedChar":0}
+{"name":"Общительность","amount":38,"lvlLearnedChar":0}
+{"name":"Влияние","amount":38,"lvlLearnedChar":0}
+{"name":"Акробатика","lvlLearned":0}
+{"name":"Администратум","lvlLearned":0}
+{"name":"Агро","lvlLearned":0}
+{"name":"Адептус Арбитрес","lvlLearned":0}
+{"name":"Археолог","lvlLearned":0}
+{"name":"Археотех","lvlLearned":0}
+{"name":"Сектор Аскеллон","lvlLearned":0}
+{"name":"Адептус Астартес","lvlLearned":0}
+{"name":"Космодесантники Хаоса","lvlLearned":0}
+{"name":"Астра Милитарум","lvlLearned":0}
+{"name":"Адептус Астра Телепатика","lvlLearned":0}
+{"name":"Астромансия","lvlLearned":0}
+{"name":"Атлетика","lvlLearned":1}
+{"name":"Астрограф","lvlLearned":0}
+{"name":"Бдительность","lvlLearned":0}
+{"name":"Звери","lvlLearned":0}
+{"name":"Бюрократия","lvlLearned":0}
+{"name":"Капитаны-хартисты","lvlLearned":0}
+{"name":"Обаяние","lvlLearned":1}
+{"name":"Химия","lvlLearned":0}
+{"name":"Химик","lvlLearned":0}
+{"name":"Повар","lvlLearned":0}
+{"name":"Командование","lvlLearned":0}
+{"name":"Коммерция","lvlLearned":0}
+{"name":"Преступность","lvlLearned":0}
+{"name":"Преступные шифры","lvlLearned":0}
+{"name":"Криминальные Картели","lvlLearned":0}
+{"name":"Криптология","lvlLearned":0}
+{"name":"Криптограф","lvlLearned":0}
+{"name":"Обман","lvlLearned":0}
+{"name":"Демонология","lvlLearned":0}
+{"name":"Уклонение","lvlLearned":1}
+{"name":"Экклезиархия","lvlLearned":0}
+{"name":"Язык Эльдар","lvlLearned":0}
+{"name":"Эпистолярий","lvlLearned":0}
+{"name":"Эксплоратор","lvlLearned":0}
+{"name":"Геолог","lvlLearned":0}
+{"name":"Геральдика","lvlLearned":0}
+{"name":"Оружейник","lvlLearned":0}
+{"name":"Ересь","lvlLearned":0}
+{"name":"Высокий Готик","lvlLearned":1}
+{"name":"Ересь Хоруса и Долгая Война","lvlLearned":0}
+{"name":"Имперские Коды","lvlLearned":0}
+{"name":"Имперское Кредо","lvlLearned":0}
+{"name":"Имперский Флот","lvlLearned":0}
+{"name":"Имперские Патенты","lvlLearned":0}
+{"name":"Империум","lvlLearned":0}
+{"name":"Дознание","lvlLearned":0}
+{"name":"Инквизиция","lvlLearned":0}
+{"name":"Допрос","lvlLearned":0}
+{"name":"Запугивание","lvlLearned":1}
+{"name":"Исполнитель","lvlLearned":0}
+{"name":"Жаргон Наёмников","lvlLearned":0}
+{"name":"Правосудие","lvlLearned":0}
+{"name":"Коллегия Титаника","lvlLearned":0}
+{"name":"Корабел","lvlLearned":0}
+{"name":"Легенды","lvlLearned":0}
+{"name":"Лингва-Техно","lvlLearned":0}
+{"name":"Лингвист","lvlLearned":0}
+{"name":"Логика","lvlLearned":0}
+{"name":"Знаки Хаоса","lvlLearned":0}
+{"name":"Метки Ксеносов","lvlLearned":0}
+{"name":"Адептус Механикус","lvlLearned":0}
+{"name":"Медика","lvlLearned":1}
+{"name":"Мортикатор","lvlLearned":0}
+{"name":"Мутанты","lvlLearned":0}
+{"name":"Навигация Звездная","lvlLearned":0}
+{"name":"Навигация Наземная","lvlLearned":0}
+{"name":"Навигация Варп","lvlLearned":0}
+{"name":"Навигаторы","lvlLearned":0}
+{"name":"Некронтир","lvlLearned":0}
+{"name":"Нумерология","lvlLearned":0}
+{"name":"Оккультизм","lvlLearned":0}
+{"name":"Официо Ассасинорум","lvlLearned":0}
+{"name":"Управление Аэронавтика","lvlLearned":0}
+{"name":"Управление Наземная","lvlLearned":0}
+{"name":"Управление Космические","lvlLearned":0}
+{"name":"Оркский","lvlLearned":0}
+{"name":"Парирование","lvlLearned":1}
+{"name":"Философия","lvlLearned":0}
+{"name":"Пираты","lvlLearned":0}
+{"name":"Предсказатель","lvlLearned":0}
+{"name":"Псайкеры","lvlLearned":0}
+{"name":"Психонаука","lvlLearned":0}
+{"name":"Пустоплаватель","lvlLearned":0}
+{"name":"Резчик","lvlLearned":0}
+{"name":"Вольные Торговцы","lvlLearned":0}
+{"name":"Руны Ордена","lvlLearned":0}
+{"name":"Схола Прогениум","lvlLearned":0}
+{"name":"Проницательность","lvlLearned":0}
+{"name":"Скульптор","lvlLearned":0}
+{"name":"Безопасность","lvlLearned":0}
+{"name":"Ловкость рук","lvlLearned":0}
+{"name":"Адепта Сороритас","lvlLearned":1}
+{"name":"Скрытность","lvlLearned":0}
+{"name":"Выживание","lvlLearned":0}
+{"name":"Тактика Империалис","lvlLearned":0}
+{"name":"Язык Тау","lvlLearned":0}
+{"name":"Техно","lvlLearned":0}
+{"name":"Техномант","lvlLearned":0}
+{"name":"Техпользование","lvlLearned":0}
+{"name":"Силы Планетарной Обороны","lvlLearned":0}
+{"name":"Война","lvlLearned":0}
+{"name":"Варп","lvlLearned":0}
+{"name":"Ксеносы","lvlLearned":0}

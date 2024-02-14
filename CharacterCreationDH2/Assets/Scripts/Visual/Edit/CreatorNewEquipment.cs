@@ -1,16 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using TMPro;
 using System.IO;
 
-public class CreatorNewEquipment : MonoBehaviour
+public class CreatorNewEquipment : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler
 {
     public delegate void CreateNewEq(Equipment equipment);
     protected CreateNewEq createNewEq;
     protected string nameEq;
     protected float weight;
-    public TMP_InputField inputName, inputWeight;
+    public TMP_InputField inputName, inputWeight, inputRarity;
     protected List<TMP_InputField> inputs = new List<TMP_InputField>();
 
     private void Start()
@@ -33,8 +34,9 @@ public class CreatorNewEquipment : MonoBehaviour
             reader.name = inputName.text;
             reader.description = "";
             reader.weight = weight;
+            reader.rarity = inputRarity.text;
             SaveEquipment($"{Application.dataPath}/StreamingAssets/Equipments/Things/{reader.name}.JSON", reader);
-            Equipment equipment = new Equipment(inputName.text, "", weight);
+            Equipment equipment = new Equipment(inputName.text, "", inputRarity.text, weight);
             createNewEq?.Invoke(equipment);
             ClearInputs();
             gameObject.SetActive(false);
@@ -54,5 +56,20 @@ public class CreatorNewEquipment : MonoBehaviour
         List<string> data = new List<string>();
         data.Add(JsonUtility.ToJson(jsonToSave));
         File.WriteAllLines(path, data);
+    }
+
+    public void OnBeginDrag(PointerEventData eventData)
+    {
+        
+    }
+
+    public void OnEndDrag(PointerEventData eventData)
+    {
+        
+    }
+
+    public void OnDrag(PointerEventData eventData)
+    {
+        transform.localPosition += new Vector3(eventData.delta.x, eventData.delta.y, 0);
     }
 }

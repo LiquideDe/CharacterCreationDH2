@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 using TMPro;
 
 
-public class ButtonStudy : MonoBehaviour, IPointerDownHandler, IPointerEnterHandler, IPointerExitHandler
+public class ButtonStudy : MonoBehaviour, IPointerDownHandler, IPointerExitHandler
 {
     public delegate void PayTheCost(int cost, int id);
     PayTheCost payTheCost;
@@ -20,6 +20,10 @@ public class ButtonStudy : MonoBehaviour, IPointerDownHandler, IPointerEnterHand
     public bool IsPrevButtActive { get => isPrevButtActive; set => isPrevButtActive = value; }
     public int Cost { get => cost; set => cost = value; }
 
+    private void Start()
+    {
+        helpText.text = $"{cost} нн";
+    }
     public void OnPointerDown(PointerEventData eventData)
     {
         if (isPrevButtActive && !isActivated)
@@ -30,7 +34,7 @@ public class ButtonStudy : MonoBehaviour, IPointerDownHandler, IPointerEnterHand
         }
         
     }
-
+    /*
     public void OnPointerEnter(PointerEventData eventData)
     {
         
@@ -38,14 +42,14 @@ public class ButtonStudy : MonoBehaviour, IPointerDownHandler, IPointerEnterHand
         {
             helpText.text = cost.ToString();
             //helpText.transform.position = new Vector3(helpText.transform.position.x, transform.position.y);
-            helpText.gameObject.SetActive(true);            
+            //helpText.gameObject.SetActive(true);            
         }
         
-    }
+    }*/
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        helpText.gameObject.SetActive(false);
+        //helpText.gameObject.SetActive(false);
     }
 
     private void Awake()
