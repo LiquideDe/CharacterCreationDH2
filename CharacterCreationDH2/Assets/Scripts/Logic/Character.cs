@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class Character 
 {
-    private string name, background, role, ageText, prophecy, constitution, hair, eyes, skeen, physFeatures, memoryOfHome, memoryOfBackground, gender, bonusBack, homeworld;
+    private string name, background, role, ageText, prophecy, constitution, hair, eyes, skeen, physFeatures, memoryOfHome, memoryOfBackground, gender, bonusBack, homeworld, elite, tradition;
     private int age, fatePoint, insanityPoints, corruptionPoints, wounds, psyRating, halfMove, fullMove, natisk, run, fatigue,
         experienceTotal, experienceUnspent, experienceSpent;
     private float carryWeight, liftWeight, pushWeight;
@@ -21,23 +21,11 @@ public class Character
     private List<Equipment> equipments = new List<Equipment>();
     private List<MechImplants> implants = new List<MechImplants>();
     private List<float> parametrsForWeight = new List<float>();
+    private List<Feature> features = new List<Feature>();
     private CreatorEquipment creatorEquipment;
 
     #region Свойства
-    public string Name { get => name; set => name = value; }
-    public string HomeWorld { get { return homeworld; } }
-    public string Background { get { return background; } }
-    public string Role { get { return role; } }
-    public string AgeText { get => ageText; }
-    public string Prophecy { get => prophecy; set => prophecy = value; }
-    public string Constitution { get => constitution;}
-    public string Hair { get => hair; }
-    public string Eyes { get => eyes; }
-    public string Skeen { get => skeen; }
-    public string Gender { get => gender; }
-    public string PhysFeatures { get => physFeatures;}
-    public string MemoryOfHome { get => memoryOfHome;}
-    public string MemoryOfBackground { get => memoryOfBackground;}
+
     public List<Equipment> Equipments { get => equipments;}
     public int Age { get => age; set => age = value; }
     public int FatePoint { get => fatePoint; set => fatePoint = value; }
@@ -65,6 +53,25 @@ public class Character
     public string BonusBack { get => bonusBack; set => bonusBack = value; }
     public List<string> Mutation { get => mutation; }
     public List<PsyPower> PsyPowers { get => psyPowers; }
+    public List<Feature> Features { get => features; }
+    public string Name { get => name; set => name = value; }
+    public string Background { get => background; set => background = value; }
+    public string Role { get => role; set => role = value; }
+    public string AgeText { get => ageText; set => ageText = value; }
+    public string Prophecy { get => prophecy; set => prophecy = value; }
+    public string Constitution { get => constitution; set => constitution = value; }
+    public string Hair { get => hair; set => hair = value; }
+    public string Eyes { get => eyes; set => eyes = value; }
+    public string Skeen { get => skeen; set => skeen = value; }
+    public string PhysFeatures { get => physFeatures; set => physFeatures = value; }
+    public string MemoryOfHome { get => memoryOfHome; set => memoryOfHome = value; }
+    public string MemoryOfBackground { get => memoryOfBackground; set => memoryOfBackground = value; }
+    public string Gender { get => gender; set => gender = value; }
+    public string BonusBack1 { get => bonusBack; set => bonusBack = value; }
+    public string Homeworld { get => homeworld; set => homeworld = value; }
+    public string Elite { get => elite; set => elite = value; }
+    public string Tradition { get => tradition; set => tradition = value; }
+
     #endregion
 
     public Character(List<Skill> skills, CreatorEquipment creatorEquipment)
@@ -336,6 +343,7 @@ public class Character
         carryWeight = loadCharacter.carryWeight;
         constitution = loadCharacter.constitution;
         corruptionPoints = loadCharacter.corruptionPoints;
+        elite = loadCharacter.elite;
         List<string> listEq = new List<string>();
         listEq = loadCharacter.equipments.Split(new char[] { '/' }).ToList();
         if(CheckString(listEq))
@@ -345,7 +353,18 @@ public class Character
                 equipments.Add(creatorEquipment.GetEquipment(equipment));
             }
         }
-        
+
+        List<string> listFeat = loadCharacter.features.Split(new char[] { '/' }).ToList();
+        if (CheckString(listFeat))
+        {
+            List<string> featureLvl = loadCharacter.featuresLvl.Split(new char[] { '/' }).ToList();
+            for(int i = 0; i < listFeat.Count; i++)
+            {
+                int.TryParse(featureLvl[i], out int lvl);
+                features.Add(new Feature(listFeat[i], lvl));
+            }
+        }
+
         experienceSpent = loadCharacter.experienceSpent;
         experienceTotal = loadCharacter.experienceTotal;
         experienceUnspent = loadCharacter.experienceUnspent;
@@ -439,6 +458,7 @@ public class Character
         }
 
         psyRating = loadCharacter.psyRating;
+        tradition = loadCharacter.tradition;
     }
 
     private bool CheckString(List<string> list)
@@ -452,5 +472,19 @@ public class Character
         }
 
         return false;
+    }
+
+    public void SetGender(string gender)
+    {
+        if(string.Compare(background, "Адептус Сороритас", true) == 0)
+        {
+            this.gender = "Ж";
+        }
+        else
+        {
+            this.gender = gender;
+        }
+
+
     }
 }

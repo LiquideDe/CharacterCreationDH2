@@ -25,7 +25,7 @@ public class Homeworld
         pathHomeworld = name;
         string[] data = File.ReadAllLines(name + "/Parameters.JSON");
         HomeworldLoader worldReader = JsonUtility.FromJson<HomeworldLoader>(data[0]);
-        nameWorld = ReadText(pathHomeworld + "/Название.txt");
+        nameWorld = GameStat.ReadText(pathHomeworld + "/Название.txt");
         advantageCharacteristics[0] = (GameStat.CharacterName)Enum.Parse(typeof(GameStat.CharacterName), worldReader.advantageCharacteristicsFirst);
         advantageCharacteristics[1] = (GameStat.CharacterName)Enum.Parse(typeof(GameStat.CharacterName), worldReader.advantageCharacteristicsSecond);
         disadvantageCharacteristic = (GameStat.CharacterName)Enum.Parse(typeof(GameStat.CharacterName), worldReader.disadvantageCharacteristic);
@@ -35,12 +35,12 @@ public class Homeworld
         wound = worldReader.wound;
         if (File.Exists(pathHomeworld + "/Skills.txt"))
         {
-            skills = ReadText(pathHomeworld + "/Skills.txt").Split(new char[] { '/' }).ToList();
+            skills = GameStat.ReadText(pathHomeworld + "/Skills.txt").Split(new char[] { '/' }).ToList();
         }
 
         if (File.Exists(pathHomeworld + "/Talents.txt"))
         {
-            talentsName = ReadText(pathHomeworld + "/Talents.txt").Split(new char[] { '/' }).ToList();
+            talentsName = GameStat.ReadText(pathHomeworld + "/Talents.txt").Split(new char[] { '/' }).ToList();
         }
     }
 
@@ -66,17 +66,6 @@ public class Homeworld
         {
             return null;
         }
-    }
-
-    private string ReadText(string nameFile)
-    {
-        string txt;
-        using (StreamReader _sw = new StreamReader(nameFile, Encoding.Default))
-        {
-            txt = (_sw.ReadToEnd());
-            _sw.Close();
-        }
-        return txt;
     }
 
     public int IsBonusFate(int bonus)

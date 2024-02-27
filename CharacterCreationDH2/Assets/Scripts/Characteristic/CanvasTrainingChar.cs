@@ -22,12 +22,19 @@ public class CanvasTrainingChar : MonoBehaviour
         int ch = 0;
         foreach(Characteristic characteristic in character.Characteristics)
         {
-            GameObject cp = Instantiate(charPanel);
+            GameObject cp = Instantiate(charPanel, grid.transform);
             cp.SetActive(true);
-            cp.transform.SetParent(grid.transform);
             characteristicPanels.Add(cp.GetComponent<CharacteristicPanel>());
-            characteristicPanels[^1].SetParams(character, ch);
-            characteristicPanels[^1].RegDelegate(CheckExp);
+            if(characteristic.InternalName != GameStat.CharacterName.Influence)
+            {
+                characteristicPanels[^1].SetParams(character, ch);
+                characteristicPanels[^1].RegDelegate(CheckExp);
+            }
+            else
+            {
+                characteristicPanels[^1].SetParams(character, ch, true);
+                characteristicPanels[^1].RegDelegate(CheckExp);
+            }
             
             ch++;
         }
@@ -39,15 +46,30 @@ public class CanvasTrainingChar : MonoBehaviour
         {
             return false;
         }
-        else
+        else if(character.Characteristics[id].Amount < 95)
         {
             exp -= cost;
             UpdateExpText();
-            character.Characteristics[id].SetNewLvl();
+            
             character.ExperienceSpent += cost;
             character.ExperienceTotal += cost;
             character.ExperienceUnspent -= cost;
-            return true;
+            if(character.Characteristics[id].InternalName != GameStat.CharacterName.Influence)
+            {
+                character.Characteristics[id].SetNewLvl();
+                return true;
+            }
+            else
+            {
+                character.Characteristics[id].Amount += 5;
+                characteristicPanels[id].AddAmount(5);
+                                
+                return false;                
+            }            
+        }
+        else
+        {
+            return false;
         }
     }
 

@@ -14,9 +14,13 @@ public class CanvasEditMenu : MonoBehaviour
     private Character character;
     public delegate void NextMenu();
     NextMenu nextMenu;
+    public delegate void PrevMenu();
+    PrevMenu prevMenu;
+    public delegate void Done();
+    Done done;
 
 
-    public void ShowEditor(Character character, CreatorEquipment creatorEquipment, NextMenu nextMenu)
+    public void ShowEditor(Character character, CreatorEquipment creatorEquipment, NextMenu nextMenu, PrevMenu prevMenu, Done done)
     {
         textName.text = character.Name;
         textCorPoint.text = character.CorruptionPoints.ToString();
@@ -27,6 +31,8 @@ public class CanvasEditMenu : MonoBehaviour
         equipAndImplants.SetParams(character, creatorEquipment);
         characteristicChanger.SetParams(character);
         this.nextMenu = nextMenu;
+        this.done = done;
+        this.prevMenu = prevMenu;
         gameObject.SetActive(true);
 
         foreach (string mutation in character.Mutation)
@@ -139,6 +145,12 @@ public class CanvasEditMenu : MonoBehaviour
         Destroy(gameObject);
     }
 
+    public void Prev()
+    {
+        prevMenu?.Invoke();
+        Destroy(gameObject);
+    }
+
     public void CreateMutation()
     {
         var panelWithInputText = Instantiate(panelWithInputTextExample, transform);
@@ -163,5 +175,11 @@ public class CanvasEditMenu : MonoBehaviour
         character.MentalDisorders.Add(name);
         ItemInList itemInList = Instantiate(itemInListExample, contentListMental);
         itemInList.SetParams(name, DeleteMentalDisorders);
+    }
+
+    public void ShowEndMenu()
+    {
+        done?.Invoke();
+        Destroy(gameObject);
     }
 }

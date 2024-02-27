@@ -16,12 +16,25 @@ public class CharacteristicPanel : MonoBehaviour
     private int[] costWithTwoIncl = new int[5] {100, 250,500,750,1250 };
     private int amount;
     public int idChar;
+    private bool isInfluence;
 
-
-    public void SetParams(Character character, int id)
+    public void SetParams(Character character, int id, bool isInfluence = false)
     {
         idChar = id;
-        textName.text = $"{character.Characteristics[id].Name}";
+        if(string.Compare(character.Characteristics[id].Name, "Общительность", true) == 0)
+        {
+            textName.text = $"Общитель- \nность";
+        }
+        else if (string.Compare(character.Characteristics[id].Name, "Выносливость", true) == 0)
+        {
+            textName.text = $"Выносли- \nвость";
+        }
+        else
+        {
+            textName.text = $"{character.Characteristics[id].Name}";
+        }
+
+        this.isInfluence = isInfluence;
         amount = character.Characteristics[id].Amount;
         DivideDozenAndUnits();
         SetInclination(character.Characteristics[id].Inclinations);
@@ -56,14 +69,25 @@ public class CharacteristicPanel : MonoBehaviour
 
     private void ActivatedTraining(int lvlLearned)
     {
-        for(int i = 0; i < lvlLearned; i++)
+        if(!isInfluence)
         {
-            buttonStudies[i].Activated();
-            if(i < buttonStudies.Length)
+            for (int i = 0; i < lvlLearned; i++)
             {
-                buttonStudies[i + 1].IsPrevButtActive = true;
+                buttonStudies[i].Activated();
+                if (i < buttonStudies.Length)
+                {
+                    buttonStudies[i + 1].IsPrevButtActive = true;
+                }
             }
         }
+        else
+        {
+            for(int i = buttonStudies.Length - 1;i > 0; i--)
+            {
+                buttonStudies[i].gameObject.SetActive(false);
+            }
+        }
+        
     }
 
     private void SetCost(int[] cost)
@@ -95,9 +119,10 @@ public class CharacteristicPanel : MonoBehaviour
         {
             amount += 5;
             DivideDozenAndUnits();
-            if(id + 1 < buttonStudies.Length)
+            if(id + 1 < buttonStudies.Length && !isInfluence)
             {
                 buttonStudies[id + 1].IsPrevButtActive = true;
+                buttonStudies[id + 1].UpdateCost();
             }
         }
     }
@@ -107,5 +132,11 @@ public class CharacteristicPanel : MonoBehaviour
         char[] arr = amount.ToString().ToCharArray();
         textDozen.text = arr[0].ToString();
         textUnits.text = arr[1].ToString();
+    }
+
+    public void AddAmount(int amount)
+    {
+        this.amount += amount;
+        DivideDozenAndUnits();
     }
 }

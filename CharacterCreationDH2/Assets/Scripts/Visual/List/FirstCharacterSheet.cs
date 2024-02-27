@@ -39,7 +39,7 @@ public class FirstCharacterSheet : TakeScreenshot
         isFirst = true;
         this.character = character;
         textName.text = character.Name;
-        textHomeworld.text = character.HomeWorld;
+        textHomeworld.text = character.Homeworld;
         textBackstory.text = character.Background;
         textRole.text = character.Role;
         textProphecy.text = character.Prophecy;
@@ -73,9 +73,20 @@ public class FirstCharacterSheet : TakeScreenshot
         }
         foreach (Talent talent in character.Talents)
         {
-            textTalents.text += $"{talent.Name}\n";
+            textTalents.text += $", {talent.Name}";
         }
-
+        foreach(Feature feature in character.Features)
+        {
+            if(feature.Lvl > 0)
+            {
+                textTalents.text += $", {feature.Name}({feature.Lvl})";
+            }
+            else
+            {
+                textTalents.text += $", {feature.Name}";
+            }
+            
+        }
         foreach (Skill skill in character.Skills)
         {
             if(skill.LvlLearned > 0)

@@ -39,8 +39,8 @@ public class Talent
         rank = talentReader.rank;
         isCanTaken = talentReader.canActivate;
         isRepeatable = talentReader.repeatable;
-        textDescription = ReadText(path + "/Описание.txt");
-        shortDescription = ReadText(path + "/Краткое описание.txt");
+        textDescription = GameStat.ReadText(path + "/Описание.txt");
+        shortDescription = GameStat.ReadText(path + "/Краткое описание.txt");
         if(Directory.Exists(path + "/Req"))
         {
             listOfRequrements = "Требования для Таланта.\n";
@@ -53,7 +53,7 @@ public class Talent
                     string searchFile = $"{path}/Characteristics/{charName}.txt";
                     if (File.Exists(searchFile))
                     {
-                        requirementCharacteristics.Add(new Characteristic(charName,int.Parse(ReadText(searchFile))));
+                        requirementCharacteristics.Add(new Characteristic(charName,int.Parse(GameStat.ReadText(searchFile))));
                         listOfRequrements += $" {requirementCharacteristics[^1].Name} - {requirementCharacteristics[^1].Amount},";
                     }
                 }
@@ -77,7 +77,7 @@ public class Talent
             listOfRequrements = CheckLastSymbol(listOfRequrements);
             if (File.Exists(path + "/ReqImplants.txt"))
             {
-                string textImplants = ReadText(path + "/ReqImplants.txt");
+                string textImplants = GameStat.ReadText(path + "/ReqImplants.txt");
                 var implants = textImplants.Split(new char[] { '/' }).ToList();
                 listOfRequrements += " Импланты:";
                 isImplant = true;
@@ -92,7 +92,7 @@ public class Talent
 
             if (File.Exists(path + "/ReqTalents.txt"))
             {
-                string textTalents = ReadText(path + "/ReqTalents.txt");
+                string textTalents = GameStat.ReadText(path + "/ReqTalents.txt");
                 var talents = textTalents.Split(new char[] { '/' }).ToList();
                 listOfRequrements += "Таланты:";
                 foreach (string talent in talents)
@@ -105,19 +105,19 @@ public class Talent
 
             if (File.Exists(path + "/ReqCorruption.txt"))
             {
-                requirementCorruption = int.Parse(ReadText(path + "/ReqCorruption.txt"));
+                requirementCorruption = int.Parse(GameStat.ReadText(path + "/ReqCorruption.txt"));
                 listOfRequrements += $" Очков Порчи {requirementCorruption}.";
             }
 
             if (File.Exists(path + "/ReqInsanity.txt"))
             {
-                requirementInsanity = int.Parse(ReadText(path + "/ReqInsanity.txt"));
+                requirementInsanity = int.Parse(GameStat.ReadText(path + "/ReqInsanity.txt"));
                 listOfRequrements += $" Очков Безумия {requirementInsanity}.";
             }
 
             if(File.Exists(path + "/ReqPsy.txt"))
             {
-                requirementPsyRate = int.Parse(ReadText(path + "/ReqPsy.txt"));
+                requirementPsyRate = int.Parse(GameStat.ReadText(path + "/ReqPsy.txt"));
                 listOfRequrements += $" Пси Рейтинг {requirementPsyRate}.";
             }
             else
@@ -139,16 +139,6 @@ public class Talent
         {
             return text;
         }
-    }
-    private string ReadText(string nameFile)
-    {
-        string txt;
-        using (StreamReader _sw = new StreamReader(nameFile, Encoding.Default))
-        {
-            txt = (_sw.ReadToEnd());
-            _sw.Close();
-        }
-        return txt;
     }
     public Talent(string name)
     {

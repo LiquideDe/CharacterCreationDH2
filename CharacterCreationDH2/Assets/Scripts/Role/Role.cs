@@ -21,7 +21,7 @@ public class Role
         string[] files = Directory.GetFiles(path + "/Get/Inclinations", "*.txt");
         foreach(string file in files)
         {
-            string textIncl = ReadText(file);
+            string textIncl = GameStat.ReadText(file);
             var inc = textIncl.Split(new char[] { '/' }).ToList();
             inclinations.Add(new List<GameStat.Inclinations>());
             foreach (string inclination in inc)
@@ -30,12 +30,12 @@ public class Role
             }
         }
 
-        string tl = ReadText(path + "/Get/talents.txt");
+        string tl = GameStat.ReadText(path + "/Get/talents.txt");
         talents.AddRange(tl.Split(new char[] { '/' }).ToList());
-        name = ReadText(path + "/Название.txt");
+        name = GameStat.ReadText(path + "/Название.txt");
         if(File.Exists(path + "/Get/psyker.txt"))
         {
-            bonusTalent = ReadText(path + "/Get/psyker.txt");
+            bonusTalent = GameStat.ReadText(path + "/Get/psyker.txt");
         }
         else
         {
@@ -47,17 +47,6 @@ public class Role
     {
         this.chosenInclinations = new List<GameStat.Inclinations>(chosenInclinations);
         this.chosenTalent = chosenTalent;
-    }
-
-    private string ReadText(string nameFile)
-    {
-        string txt;
-        using (StreamReader _sw = new StreamReader(nameFile, Encoding.Default))
-        {
-            txt = (_sw.ReadToEnd());
-            _sw.Close();
-        }
-        return txt;
     }
 
     public string PathRole { get => pathRole; }

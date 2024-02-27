@@ -17,12 +17,14 @@ public class OperationWithCharacter : MonoBehaviour
     protected CreatorSkills creatorSkills;
     protected CreatorTalents creatorTalents;
     protected CreatorPsyPowers creatorPsyPowers;
+    protected CreatorFeatures creatorFeatures;
 
     protected void InitialCreators(string path)
     {
         creatorEquipment = new CreatorEquipment();
         creatorSkills = new CreatorSkills();
         creatorTalents = new CreatorTalents();
+        creatorFeatures = new CreatorFeatures();
         character = new Character(creatorSkills.Skills, creatorEquipment);
         Load load = new Load();
         load.LoadCharacter(character, path);

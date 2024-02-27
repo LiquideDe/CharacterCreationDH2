@@ -6,7 +6,7 @@ using System;
 public class SaveLoadCharacter
 {
     public string name, background, role, ageText, prophecy, constitution, hair, eyes, skeen, physFeatures, memoryOfHome, 
-        memoryOfBackground, gender, bonusBack, homeworld, talents, inclinations, implants, mentalDisorders, mutation, equipments, psyPowers;
+        memoryOfBackground, gender, bonusBack, homeworld, talents, inclinations, implants, mentalDisorders, mutation, equipments, psyPowers, features, featuresLvl, elite, tradition;
     public int age, fatePoint, insanityPoints, corruptionPoints, wounds, psyRating, halfMove, fullMove, natisk, run, fatigue,
         experienceTotal, experienceUnspent, experienceSpent;
     public float carryWeight, liftWeight, pushWeight;

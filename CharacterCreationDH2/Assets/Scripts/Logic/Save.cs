@@ -30,7 +30,7 @@ public class Save
         saveLoad.gender = character.Gender;
         saveLoad.hair = character.Hair;
         saveLoad.halfMove = character.HalfMove;
-        saveLoad.homeworld = character.HomeWorld;
+        saveLoad.homeworld = character.Homeworld;
         saveLoad.insanityPoints = character.InsanityPoints;
         saveLoad.liftWeight = character.LiftWeight;
         saveLoad.memoryOfBackground = character.MemoryOfBackground;
@@ -45,6 +45,8 @@ public class Save
         saveLoad.run = character.Run;
         saveLoad.skeen = character.Skeen;
         saveLoad.wounds = character.Wounds;
+        saveLoad.elite = character.Elite;
+        saveLoad.tradition = character.Tradition;
 
         saveLoad.talents = "";
         foreach (Talent talent in character.Talents)
@@ -101,6 +103,18 @@ public class Save
             saveLoad.inclinations += "/";
         }
         saveLoad.inclinations = DeleteLastChar(saveLoad.inclinations);
+
+        saveLoad.features = "";
+        saveLoad.featuresLvl = "";
+        foreach(Feature feature in character.Features)
+        {
+            saveLoad.features += feature.Name;
+            saveLoad.features += "/";
+            saveLoad.featuresLvl += feature.Lvl;
+            saveLoad.featuresLvl += "/";
+        }
+        saveLoad.features = DeleteLastChar(saveLoad.features); 
+        saveLoad.featuresLvl = DeleteLastChar(saveLoad.featuresLvl); 
 
         data.Add(JsonUtility.ToJson(saveLoad));
 

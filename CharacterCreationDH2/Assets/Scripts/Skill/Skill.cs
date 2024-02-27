@@ -27,7 +27,7 @@ public class Skill
         inclinations[0] = (GameStat.Inclinations)Enum.Parse(typeof(GameStat.Inclinations), skillLoader.firstInclination);
         inclinations[1] = (GameStat.Inclinations)Enum.Parse(typeof(GameStat.Inclinations), skillLoader.secondInclination);
         typeSkill = skillLoader.type;
-        description = ReadText(path + "/Описание.txt");
+        description = GameStat.ReadText(path + "/Описание.txt");
     }
 
     public Skill(string name, int lvlLearned)
@@ -48,16 +48,6 @@ public class Skill
         this.name = name;
         this.lvlLearned = lvl;
         this.internalName = internalName;
-    }
-    protected string ReadText(string nameFile)
-    {
-        string txt;
-        using (StreamReader _sw = new StreamReader(nameFile, Encoding.Default))
-        {
-            txt = (_sw.ReadToEnd());
-            _sw.Close();
-        }
-        return txt;
     }
     public int SetNewLvl()
     {

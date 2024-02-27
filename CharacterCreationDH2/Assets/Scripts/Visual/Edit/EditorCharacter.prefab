@@ -288,6 +288,7 @@ MonoBehaviour:
   firstSheet: {fileID: 4625915919483757503, guid: 98827be13ceb02644a3090b542c2ceb7, type: 3}
   secondSheet: {fileID: 3582742957284651589, guid: d8d21d4e4dc14f44b8fa21b5c7cdcaad, type: 3}
   editMenu: {fileID: 3768144783983909499, guid: 152a297b215a61c4aa3f92ead2ed536c, type: 3}
+  editProperty: {fileID: 8142888719651666361, guid: 24832c2ff8ffba542bd6a64443b0b38f, type: 3}
 --- !u!1 &5496748568663618351
 GameObject:
   m_ObjectHideFlags: 0

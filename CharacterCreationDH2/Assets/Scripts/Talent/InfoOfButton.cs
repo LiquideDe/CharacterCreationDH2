@@ -12,7 +12,7 @@ public class InfoOfButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     public string description;
     private Image image;
     [SerializeField] Sprite activeSprite, deActivesprite;
-    [SerializeField] bool isActive, isHideAll;
+    [SerializeField] bool isActive, isHideUnavailable, isHideShow;
     [SerializeField] GameStat.Inclinations inclination;
     public delegate void ClickOnButton();
     ClickOnButton clickOnButton;
@@ -41,7 +41,7 @@ public class InfoOfButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     private string ComposeText()
     {
         string text;
-        if (!isHideAll)
+        if (!isHideUnavailable && !isHideShow)
         {
             if (isActive)
             {
@@ -52,7 +52,7 @@ public class InfoOfButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
                 text = "Показать таланты связанные с " + description;
             }
         }
-        else
+        else if(isHideUnavailable)
         {
             if (isActive)
             {
@@ -63,22 +63,48 @@ public class InfoOfButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
                 text = "Показать недоступные таланты";
             }
         }
+        else
+        {
+            if (isActive)
+            {
+                text = "Показать все таланты";
+            }
+            else
+            {
+                text = "Скрыть все таланты";
+            }
+        }
         return text;
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        ChangeActive();
+        clickOnButton?.Invoke();
+    }
+
+    public void ChangeActive()
+    {
         if (isActive)
         {
-            isActive = false;
-            image.sprite = deActivesprite;
+            DeActivate();
 
         }
         else
         {
-            isActive = true;
-            image.sprite = activeSprite;
+            Activate();
         }
-        clickOnButton?.Invoke();
+    }
+
+    public void DeActivate()
+    {
+        isActive = false;
+        image.sprite = deActivesprite;
+    }
+
+    public void Activate()
+    {
+        isActive = true;
+        image.sprite = activeSprite;
     }
 }

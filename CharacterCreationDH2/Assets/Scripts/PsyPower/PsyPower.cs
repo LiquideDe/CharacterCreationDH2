@@ -19,7 +19,7 @@ public class PsyPower
     
     public PsyPower(JSONPsyReader psyReader, string path)
     {
-        description = ReadText(path + "/Описание.txt");        
+        description = GameStat.ReadText(path + "/Описание.txt");        
         namePower = psyReader.name;
         cost = psyReader.cost;
         psyRateRequire = psyReader.psyRate;
@@ -27,7 +27,7 @@ public class PsyPower
         action = psyReader.action;
         lvl = psyReader.lvl;
         idParent = psyReader.parentId;
-        shortDescription = ReadText(path + "/Кратко.txt");
+        shortDescription = GameStat.ReadText(path + "/Кратко.txt");
         
         if (id == 0)
         {
@@ -44,7 +44,7 @@ public class PsyPower
                     string searchFile = $"{path}/Characteristics/{charName}.txt";
                     if (File.Exists(searchFile))
                     {
-                        requireCharacteristics.Add(new Characteristic(charName, int.Parse(ReadText(searchFile))));
+                        requireCharacteristics.Add(new Characteristic(charName, int.Parse(GameStat.ReadText(searchFile))));
                     }
                 }
             }
@@ -62,7 +62,7 @@ public class PsyPower
             }
             if (File.Exists(path + "/Corruption.txt"))
             {
-                reqCorruption = int.Parse(ReadText(path + "/Corruption.txt"));
+                reqCorruption = int.Parse(GameStat.ReadText(path + "/Corruption.txt"));
             }
 
         }
@@ -76,16 +76,6 @@ public class PsyPower
         namePower = name;
     }
 
-    private string ReadText(string nameFile)
-    {
-        string txt;
-        using (StreamReader _sw = new StreamReader(nameFile, Encoding.Default))
-        {
-            txt = (_sw.ReadToEnd());
-            _sw.Close();
-        }
-        return txt;
-    }
     private void UpdateTextCost()
     {
         textCost = $"ОО {cost}";

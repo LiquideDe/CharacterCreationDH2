@@ -1,5 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text;
 using UnityEngine;
 
 public static class GameStat
@@ -200,4 +203,15 @@ public static class GameStat
         {Inclinations.Weapon, "Отображают способность персонажа повышать Навык рукопашной, а также связанные с ней умения и таланты. " },
         {Inclinations.Willpower, "Отображают способность персонажа повышать Силу Воли, а также связанные с ней умения и таланты. " }
     };
+
+    public static string ReadText(string nameFile)
+    {
+        string txt;
+        using (StreamReader _sw = new StreamReader(nameFile, Encoding.Default))
+        {
+            txt = (_sw.ReadToEnd());
+            _sw.Close();
+        }
+        return txt;
+    }
 }

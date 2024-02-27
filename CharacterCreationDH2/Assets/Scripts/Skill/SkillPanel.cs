@@ -38,7 +38,7 @@ public class SkillPanel : MonoBehaviour
         for (int i = 0; i < lvlLearned; i++)
         {
             buttonStudies[i].Activated();
-            if (i < buttonStudies.Length)
+            if (i < buttonStudies.Length - 1)
             {
                 buttonStudies[i + 1].IsPrevButtActive = true;
             }
@@ -62,6 +62,7 @@ public class SkillPanel : MonoBehaviour
             if (id + 1 < buttonStudies.Length)
             {
                 buttonStudies[id + 1].IsPrevButtActive = true;
+                buttonStudies[id + 1].UpdateCost();
             }
         }
     }

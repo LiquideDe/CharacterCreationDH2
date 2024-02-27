@@ -16,6 +16,7 @@ public class TalentTrainingCanvas : MonoBehaviour
     [SerializeField] InfoOfButton[] infoOfbuttons;
     [SerializeField] Image ImageOfButton;
     [SerializeField] Sprite finalSprite;
+    [SerializeField] InfoOfButton buttonHideAll;
     private List<TalentPanel> talentPanels = new List<TalentPanel>();
     private CreatorTalents creatorTalents;
     private Character character;
@@ -56,6 +57,7 @@ public class TalentTrainingCanvas : MonoBehaviour
         {
             button.RegDelegate(ChangeTriggerOnControls);
         }
+        buttonHideAll.RegDelegate(ShowHideAll);
     }
 
     public void CheckExp()
@@ -111,7 +113,7 @@ public class TalentTrainingCanvas : MonoBehaviour
                 foreach (GameStat.Inclinations inclination in allowedInclinations)
                 {
                     Talent talent = creatorTalents.Talents[i];
-                    if (talent.Inclinations[0] == inclination || talent.Inclinations[1] == inclination || (infoOfbuttons[^1].IsActive && talent.IsImplant))
+                    if (talent.Inclinations[0] == inclination || talent.Inclinations[1] == inclination)
                     {
                         if (talentPanels[i].CanTraining)
                         {
@@ -125,10 +127,6 @@ public class TalentTrainingCanvas : MonoBehaviour
                             break;
                         }
                     }
-                }
-                if (creatorTalents.Talents[i].IsImplant && infoOfbuttons[^1].IsActive)
-                {
-                    talentPanels[i].gameObject.SetActive(infoOfbuttons[0].IsActive);
                 }
             }
             else
@@ -155,7 +153,15 @@ public class TalentTrainingCanvas : MonoBehaviour
 
     private void UpdateExpText()
     {
-        textExp.text = $"ОО - {exp}";
+        if (isEditor)
+        {
+            textExp.text = $"Бесконечно";
+        }
+        else
+        {
+            textExp.text = $"ОО - {exp}";
+        }
+        
     }
 
     public void RegDelegates(BackToSkill backToSkill, GetToTheNext getToTheNext)
@@ -194,6 +200,25 @@ public class TalentTrainingCanvas : MonoBehaviour
                 allowedInclinations.Add(button.Inclination);
             }
         }
+    }
+
+    public void ShowHideAll()
+    {
+        if (buttonHideAll.IsActive)
+        {
+            foreach (InfoOfButton button in infoOfbuttons)
+            {
+                button.DeActivate();
+            }
+        }
+        else
+        {
+            foreach (InfoOfButton button in infoOfbuttons)
+            {
+                button.Activate();
+            }
+        }
+        ChangeTriggerOnControls();
     }
 
 }

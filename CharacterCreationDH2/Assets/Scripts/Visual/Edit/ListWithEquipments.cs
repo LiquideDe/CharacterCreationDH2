@@ -44,7 +44,8 @@ public class ListWithEquipments : MonoBehaviour
 
     public void CreateNewEquipment()
     {
-        CreatorNewEquipment newEq = Instantiate(newEquipment, transform);
+        Canvas canvas = GetComponentInParent<Canvas>();
+        CreatorNewEquipment newEq = Instantiate(newEquipment, canvas.transform);
         newEq.RegDelegate(ReturnNewEquipment);
     }
 

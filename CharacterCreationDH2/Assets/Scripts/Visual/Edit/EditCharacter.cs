@@ -6,18 +6,25 @@ using TMPro;
 
 public class EditCharacter : OperationWithCharacter
 {
-    [SerializeField] CanvasEditMenu editMenu;      
+    [SerializeField] CanvasEditMenu editMenu;
+    [SerializeField] EditPropertyCharacter editProperty;
 
     public void ShowEditMenu(string path)
     {
         InitialCreators(path);
-        OpenEditCharacteristics();
+        OpenEditProperty();
+    }
+
+    private void OpenEditProperty()
+    {
+        var edProp = Instantiate(editProperty);
+        edProp.SetParams(character, creatorFeatures, OpenEditCharacteristics);
     }
 
     private void OpenEditCharacteristics()
     {
         CanvasEditMenu edMenu = Instantiate(editMenu);
-        edMenu.ShowEditor(character, creatorEquipment, OpenEditSkill);
+        edMenu.ShowEditor(character, creatorEquipment, OpenEditSkill, OpenEditProperty, Finish);
     }
     private void OpenEditSkill()
     {

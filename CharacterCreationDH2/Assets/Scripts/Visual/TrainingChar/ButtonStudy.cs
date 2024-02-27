@@ -21,8 +21,11 @@ public class ButtonStudy : MonoBehaviour, IPointerDownHandler, IPointerExitHandl
     public int Cost { get => cost; set => cost = value; }
 
     private void Start()
-    {
-        helpText.text = $"{cost} нн";
+    {        
+        if (isPrevButtActive && !isActivated)
+        {
+            helpText.text = $"{cost} нн";
+        }
     }
     public void OnPointerDown(PointerEventData eventData)
     {
@@ -72,7 +75,11 @@ public class ButtonStudy : MonoBehaviour, IPointerDownHandler, IPointerExitHandl
     {
         isPrevButtActive = true;
         isActivated = true;
-        image.sprite = spriteLearned;
+        image.sprite = spriteLearned;        
     }
 
+    public void UpdateCost()
+    {
+        helpText.text = $"{cost} нн";
+    }
 }

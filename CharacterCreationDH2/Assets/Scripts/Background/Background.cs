@@ -24,10 +24,10 @@ public class Background
     public Background(string path, CreatorEquipment equipment)
     {
         pathBackground = path;
-        name = ReadText(path + "/Название.txt");
+        name = GameStat.ReadText(path + "/Название.txt");
         if (File.Exists(path + "/Get/Inclinations.txt"))
         {
-            List<string> incs = ReadText(pathBackground + "/Get/Inclinations.txt").Split(new char[] { '/' }).ToList();
+            List<string> incs = GameStat.ReadText(pathBackground + "/Get/Inclinations.txt").Split(new char[] { '/' }).ToList();
             foreach(string incl in incs)
             {
                 inclinations.Add((GameStat.Inclinations)Enum.Parse(typeof(GameStat.Inclinations), incl));
@@ -59,7 +59,7 @@ public class Background
             foreach (string file in files)
             {
                 talents.Add(new List<string>());
-                talents[^1].AddRange(ReadText(file).Split(new char[] { '/' }).ToList());
+                talents[^1].AddRange(GameStat.ReadText(file).Split(new char[] { '/' }).ToList());
             }
         }
 
@@ -70,7 +70,7 @@ public class Background
             foreach (string file in files)
             {
                 List<string> eqs = new List<string>();
-                eqs.AddRange(ReadText(file).Split(new char[] { '/' }).ToList());
+                eqs.AddRange(GameStat.ReadText(file).Split(new char[] { '/' }).ToList());
                 equipments.Add(new List<Equipment>());
                 foreach (string eq in eqs)
                 {
@@ -83,7 +83,7 @@ public class Background
         {
             mechImplants = new List<MechImplants>();
             List<string> implants = new List<string>();
-            implants.AddRange(ReadText(path + "/Get/Implants.txt").Split(new char[] { '/' }).ToList());
+            implants.AddRange(GameStat.ReadText(path + "/Get/Implants.txt").Split(new char[] { '/' }).ToList());
             foreach(string implant in implants)
             {
                 mechImplants.Add(new MechImplants(implant));
@@ -101,16 +101,7 @@ public class Background
         this.chosenInclination = chosenInclination;
         this.rememberThing = rememberThing;
     }
-    private string ReadText(string nameFile)
-    {
-        string txt;
-        using (StreamReader _sw = new StreamReader(nameFile, Encoding.Default))
-        {
-            txt = (_sw.ReadToEnd());
-            _sw.Close();
-        }
-        return txt;
-    }
+
     public string PathBackground { get => pathBackground; }
     public List<List<string>> Talents { get => talents; }
     public List<List<Skill>> Skills { get => skills; }

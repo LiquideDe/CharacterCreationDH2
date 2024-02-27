@@ -19,7 +19,7 @@ public class CreatorPsyPowers
         foreach(string dir in dirs)
         {
             psyPowers.Add(CreatePowers(dir));
-            schoolNames.Add(ReadText(dir + "/Название.txt"));
+            schoolNames.Add(GameStat.ReadText(dir + "/Название.txt"));
             connections.Add(CreateConnection(index));
             if (File.Exists(dir + "/sizeSpacing.JSON"))
             {
@@ -57,17 +57,6 @@ public class CreatorPsyPowers
         JSONPsyReader psyReader = JsonUtility.FromJson<JSONPsyReader>(data[0]);
         PsyPower psyPower = new PsyPower(psyReader, dir);
         return psyPower;
-    }
-
-    private string ReadText(string nameFile)
-    {
-        string txt;
-        using (StreamReader _sw = new StreamReader(nameFile, Encoding.Default))
-        {
-            txt = (_sw.ReadToEnd());
-            _sw.Close();
-        }
-        return txt;
     }
 
     private List<Connection> CreateConnection(int school)

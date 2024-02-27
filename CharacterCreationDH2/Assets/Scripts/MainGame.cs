@@ -218,9 +218,10 @@ public class MainGame : MonoBehaviour
         canName.RegDelegate(PasteName);
     }
 
-    private void PasteName(string name)
+    private void PasteName(string name, string gender)
     {
         character.Name = name;
+        character.SetGender(gender);
         Save save = new Save(character);
         ScreenshotObserver screenshotObserver = gameObject.AddComponent<ScreenshotObserver>();
         screenshotObserver.RegDelegate(EndGame);

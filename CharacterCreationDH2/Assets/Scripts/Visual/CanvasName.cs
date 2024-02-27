@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class CanvasName : MonoBehaviour
 {
     [SerializeField] TMP_InputField inputName;
-    public delegate void GoToScreenshot(string name);
+    [SerializeField] Toggle toggleMale, toggleFemale;
+    public delegate void GoToScreenshot(string name, string gender);
     GoToScreenshot toScreenshot;
 
     public void RegDelegate(GoToScreenshot toScreenshot)
@@ -16,7 +18,20 @@ public class CanvasName : MonoBehaviour
 
     public void TextInput()
     {
-        toScreenshot?.Invoke(inputName.text);
-        Destroy(gameObject);
+        if(inputName.text.Length > 0)
+        {
+            string gender;
+            if (toggleMale.isOn)
+            {
+                gender = "Ì";
+            }
+            else
+            {
+                gender = "Æ";
+            }
+            toScreenshot?.Invoke(inputName.text, gender);
+            Destroy(gameObject);
+        }
+        
     }
 }
