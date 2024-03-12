@@ -20,7 +20,7 @@ public class SecondCharacterSheet : TakeScreenshot
     {
         gameObject.SetActive(true);
         this.character = character;
-        onBody.SetToughness(character.Characteristics[3].Amount/10);
+        onBody.SetToughness(character.BonusToughness);
         textWound.text = character.Wounds.ToString();
         foreach(Equipment eq in character.Equipments)
         {

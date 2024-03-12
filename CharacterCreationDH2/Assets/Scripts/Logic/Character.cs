@@ -71,6 +71,7 @@ public class Character
     public string Homeworld { get => homeworld; set => homeworld = value; }
     public string Elite { get => elite; set => elite = value; }
     public string Tradition { get => tradition; set => tradition = value; }
+    public int BonusToughness { get => GetBonusToughness(); }
 
     #endregion
 
@@ -150,6 +151,8 @@ public class Character
         advantageCharacteristicSecond = homeworld.AdvantageCharacteristics[1];
         disadvantageCharacteristic = homeworld.DisadvantageCharacteristic;
 
+        tradition = homeworld.Traditions;
+
     }
 
     public void SetBackground(Background background)
@@ -161,6 +164,10 @@ public class Character
         foreach(string talent in background.ChosenTalents)
         {
             talents.Add(new Talent(talent));
+            if(string.Compare(talent, "Псайкер", true) == 0)
+            {
+                psyRating = 1;
+            }
         }
         foreach(Equipment eq in background.ChosenEquipments)
         {
@@ -199,12 +206,13 @@ public class Character
         }
 
         talents.Add(new Talent(role.ChosenTalent));
+
+        
         this.role = role.Name;
-        if (role.BonusTalent.Length > 0)
+        if (role.BonusTalent.Length > 0 && psyRating < 1)
         {
             psyRating = 1;
             talents.Add(new Talent(role.BonusTalent));
-            Debug.Log($"Последний талант {talents[^1].Name}, пси рейтинг {psyRating}");
         }
     }
 
@@ -260,6 +268,11 @@ public class Character
 
     public void AddTalent(Talent talent)
     {
+        if(talent.Inclinations[0] == GameStat.Inclinations.Elite)
+        {
+            elite = talent.Name;
+        }
+        
         talents.Add(talent);
     }
 
@@ -484,7 +497,19 @@ public class Character
         {
             this.gender = gender;
         }
+    }
 
+    private int GetBonusToughness()
+    {
+        int bToughness = characteristics[3].Amount / 10;
+        foreach(Feature feature in features)
+        {
+            if (string.Compare(feature.Name, "Сверхъестественная Выносливость") == 0 || string.Compare(feature.Name, "Демонический") == 0)
+            {
+                bToughness += feature.Lvl;
+            }
+        }
 
+        return bToughness;
     }
 }

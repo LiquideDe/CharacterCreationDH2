@@ -21,11 +21,8 @@ public class ProphecyCanvas : MonoBehaviour
 
     public void GenerateFromInput()
     {
-        var eventSystem = EventSystem.current;
-        if (!eventSystem.alreadySelecting) 
-            eventSystem.SetSelectedGameObject(null);
-
-
+        EventSystem.current.SetSelectedGameObject(null);
+        Debug.Log($"Сняли выбор гуи");
         if (int.TryParse(inputField.text, out int number))
         {
             if (number <= 100 && number > 0)

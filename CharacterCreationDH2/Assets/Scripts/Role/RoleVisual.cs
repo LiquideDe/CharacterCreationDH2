@@ -104,7 +104,6 @@ public class RoleVisual : ToggleVisual
         }
 
         chosenTalent = role.Talents[toggleGroups[sch].GetComponent<ToggleGroup>().ActiveToggles().FirstOrDefault().GetComponent<MyToggle>().Id];
-        Debug.Log($"выбранный талант {chosenTalent}, index {sch}");
         role.SetChosen(chosenInclinations, chosenTalent);
         chosenRole?.Invoke(role);
         Destroy(gameObject);

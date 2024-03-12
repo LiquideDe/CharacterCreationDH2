@@ -9,7 +9,7 @@ public class FirstCharacterSheet : TakeScreenshot
     [SerializeField] SkillList[] skillSquares;
     [SerializeField] TextMeshProUGUI textName, textHomeworld, textBackstory, textRole, textProphecy, textGender, textAge, textSkeen, textPhys, textEyes,
         textTraditions, textMemories, textWeapon, textBallistic, textStrength, textToughness, textAgility, textIntelligence, textPerception, textWillpower,
-        textFelloweship, textInfluence, textFate, textTalents, textBody, textHair, textCorruptionPoints, textMutationText, textInsanityPoints, textMentalText;
+        textFelloweship, textInfluence, textFate, textTalents, textBody, textHair, textCorruptionPoints, textMutationText, textInsanityPoints, textMentalText, textElite;
     [SerializeField] GameObject[] circlesWeapon;
     [SerializeField] GameObject[] circlesBallistic;
     [SerializeField] GameObject[] circlesStrength;
@@ -48,7 +48,7 @@ public class FirstCharacterSheet : TakeScreenshot
         textSkeen.text = character.Skeen;
         textPhys.text = character.PhysFeatures;
         textEyes.text = character.Eyes;
-        //textTraditions.text = character.HomeWorld.Traditions;
+        textTraditions.text = character.Tradition;
         textMemories.text = $"{character.MemoryOfHome}, {character.MemoryOfBackground}";
         textWeapon.text = character.Characteristics[0].Amount.ToString();
         textBallistic.text = character.Characteristics[1].Amount.ToString();
@@ -60,6 +60,7 @@ public class FirstCharacterSheet : TakeScreenshot
         textWillpower.text = character.Characteristics[7].Amount.ToString();
         textFelloweship.text = character.Characteristics[8].Amount.ToString();
         textInfluence.text = character.Characteristics[9].Amount.ToString();
+        textElite.text = character.Elite;
 
         textFate.text = character.FatePoint.ToString();
         textBody.text = character.Constitution;
@@ -73,9 +74,25 @@ public class FirstCharacterSheet : TakeScreenshot
         }
         foreach (Talent talent in character.Talents)
         {
-            textTalents.text += $", {talent.Name}";
+            if(string.Compare(talent.Name, "Псайкер", true) == 0)
+            {
+                if (string.Compare("Адептус Астра Телепатика", character.Background) == 0)
+                {
+                    textTalents.text += ", Санкционированный Псайкер";
+                }
+                else
+                {
+                    textTalents.text += ", Несанкционированный Псайкер";
+                }
+            }
+            else
+            {
+                textTalents.text += $", {talent.Name}";
+            }
+            
         }
-        foreach(Feature feature in character.Features)
+        
+        foreach (Feature feature in character.Features)
         {
             if(feature.Lvl > 0)
             {
@@ -87,6 +104,9 @@ public class FirstCharacterSheet : TakeScreenshot
             }
             
         }
+        char[] myChar = { ' ', ',' };
+        textTalents.text = textTalents.text.TrimStart(myChar);
+
         foreach (Skill skill in character.Skills)
         {
             if(skill.LvlLearned > 0)

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -8,7 +9,16 @@ public class Load
     public void LoadCharacter(Character character, string path)
     {
         //var path = $"{Application.dataPath}/StreamingAssets/CharacterSheets//.JSON";
-        string[] data = File.ReadAllLines(path);
+
+        string allText = File.ReadAllText(path);
+        //string[] data = File.ReadAllLines(path);
+        allText = allText.Replace(Environment.NewLine, string.Empty);
+        string[] data = allText.Split(new[] {'{','}' }, StringSplitOptions.RemoveEmptyEntries);
+
+        for(int i = 0; i < data.Length; i++)
+        {
+            data[i] = $"{{ {data[i]} }}";
+        }
 
         SaveLoadCharacter loadCharacter = JsonUtility.FromJson<SaveLoadCharacter>(data[0]);
 

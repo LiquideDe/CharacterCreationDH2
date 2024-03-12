@@ -26,7 +26,7 @@ public class ListNewInclinations : MonoBehaviour
                     break;
                 }
             }
-            if (sch < 1 && inclination != GameStat.Inclinations.None)
+            if (sch < 1 && inclination != GameStat.Inclinations.None && inclination != GameStat.Inclinations.Elite)
             {
                 activeButtons.Add(Instantiate(itemExample, content));
                 activeButtons[^1].SetParams(GameStat.inclinationTranslate[inclination], ChooseThisInclination);

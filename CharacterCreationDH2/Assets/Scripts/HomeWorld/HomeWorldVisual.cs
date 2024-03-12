@@ -46,7 +46,9 @@ public class HomeWorldVisual : VisualCanvas
             homeworld.Age = generatedage;
             homeworld.Remember = generatedRememberThing;
             homeworld.Body = generatedBody;
-            homeworld.Traditions = generatedTraditions;
+            string trad = generatedTraditions;
+            int pos = trad.LastIndexOf(':');
+            homeworld.Traditions = trad.Substring(0,pos);
             homeworld.Phys = generatedPhys;
             homeworld.AgeInt = generatedAgeInt;
 

@@ -116,7 +116,7 @@ public class Save
         saveLoad.features = DeleteLastChar(saveLoad.features); 
         saveLoad.featuresLvl = DeleteLastChar(saveLoad.featuresLvl); 
 
-        data.Add(JsonUtility.ToJson(saveLoad));
+        data.Add(JsonUtility.ToJson(saveLoad,true));
 
         foreach(Characteristic characteristic in character.Characteristics)
         {
@@ -124,7 +124,7 @@ public class Save
             saveCharacteristic.name = characteristic.Name;
             saveCharacteristic.amount = characteristic.Amount;
             saveCharacteristic.lvlLearnedChar = characteristic.LvlLearned;
-            data.Add(JsonUtility.ToJson(saveCharacteristic));
+            data.Add(JsonUtility.ToJson(saveCharacteristic,true));
         }
 
         foreach(Skill skill in character.Skills)
@@ -132,7 +132,7 @@ public class Save
             SaveLoadSkill saveSkill = new SaveLoadSkill();
             saveSkill.name = skill.Name;
             saveSkill.lvlLearned = skill.LvlLearned;
-            data.Add(JsonUtility.ToJson(saveSkill));
+            data.Add(JsonUtility.ToJson(saveSkill, true));
         }
 
         File.WriteAllLines(path, data);

@@ -1287,7 +1287,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 3768144783968582886}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.8272659
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -2009,7 +2009,7 @@ MonoBehaviour:
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 40
+  m_fontSizeMax: 30
   m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
@@ -3624,7 +3624,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 3768144782961679510}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.8272659
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -6277,7 +6277,7 @@ MonoBehaviour:
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 40
+  m_fontSizeMax: 30
   m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
@@ -7342,8 +7342,8 @@ MonoBehaviour:
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
-  m_fontSizeMin: 18
-  m_fontSizeMax: 40
+  m_fontSizeMin: 12
+  m_fontSizeMax: 30
   m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
@@ -9259,7 +9259,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 3768144784134602681}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.8272659
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
