@@ -24,6 +24,7 @@ public class NewArmor : CreatorNewEquipment
     {
         if(inputName.text.Length > 0 && inputWeight.text.Length > 0)
         {
+            audioWork.PlayDone();
             int.TryParse(inputArmorPoint.text, out armor);
             int.TryParse(inputHeadPoint.text, out head);
             int.TryParse(inputHandsPoint.text, out hands);
@@ -83,12 +84,14 @@ public class NewArmor : CreatorNewEquipment
                 armorReader.descriptionArmor = $"Покрывает только голову.";
             }
 
+            armorReader.typeEquipment = Equipment.TypeEquipment.Armor.ToString();
             armorReader.description += $"Броня {armor}, максимальная ловкость {maxAgility}.";
-            SaveEquipment($"{Application.dataPath}/StreamingAssets/Equipments/Armor/{armorReader.name}.JSON", armorReader);
+            armorReader.amount = 1;
             Armor armorEq = new Armor(armorReader);
+            SaveEquipment($"{Application.dataPath}/StreamingAssets/Equipments/Armor/{armorReader.name}.JSON", armorReader);
+            
             createNewEq?.Invoke(armorEq);
-            ClearInputs();
-            gameObject.SetActive(false);
+            Destroy(gameObject);
         }
     }
 }

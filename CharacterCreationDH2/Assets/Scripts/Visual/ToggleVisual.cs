@@ -26,6 +26,7 @@ public class ToggleVisual : VisualCanvas
         newToggle.transform.SetParent(toggleGroups[^1].transform);
         newToggle.gameObject.SetActive(true);
         newToggle.Id = id;
+        newToggle.onValueChanged.AddListener(delegate { audioWork.PlayClick(); });
         toggles[^1].GetComponent<ParamInfo>().SetDescription(description);
 
         int childCount = toggleGroups[^1].transform.childCount - 2;

@@ -7,6 +7,8 @@ public class ItemFeature : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI textName;
     [SerializeField] TMP_InputField inputLvl;
+    public string NameFeature { get => textName.text; }
+    public string Lvl { get => inputLvl.text; }
 
     public delegate void ChangeLvl(Feature feature);
     ChangeLvl changeLvl;

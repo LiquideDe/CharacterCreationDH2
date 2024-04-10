@@ -17,8 +17,9 @@ public class CharacteristicPanel : MonoBehaviour
     private int amount;
     public int idChar;
     private bool isInfluence;
+    AudioWork audioWork;
 
-    public void SetParams(Character character, int id, bool isInfluence = false)
+    public void SetParams(Character character, int id, AudioWork audioWork, bool isInfluence = false)
     {
         idChar = id;
         if(string.Compare(character.Characteristics[id].Name, "Общительность", true) == 0)
@@ -33,7 +34,7 @@ public class CharacteristicPanel : MonoBehaviour
         {
             textName.text = $"{character.Characteristics[id].Name}";
         }
-
+        this.audioWork = audioWork;
         this.isInfluence = isInfluence;
         amount = character.Characteristics[id].Amount;
         DivideDozenAndUnits();
@@ -113,10 +114,12 @@ public class CharacteristicPanel : MonoBehaviour
     {
         if (!(bool)checkCost?.Invoke(cost, idChar))
         {
+            audioWork.PlayWarning();
             buttonStudies[id].CancelOperation();
         }
         else
         {
+            audioWork.PlayClick();
             amount += 5;
             DivideDozenAndUnits();
             if(id + 1 < buttonStudies.Length && !isInfluence)

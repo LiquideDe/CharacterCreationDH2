@@ -8,16 +8,19 @@ public class ButtonToList : MonoBehaviour, IPointerDownHandler
 {
     [SerializeField] TextMeshProUGUI textName;
     private GameObject additionalPanel;
+    AudioWork audioWork;
 
     public string TextName { set => textName.text = value; }
 
     public void OnPointerDown(PointerEventData eventData)
     {
+        audioWork.PlayClick();
         additionalPanel.SetActive(true);
     }
 
-    public void SetPanel(GameObject additionalPanel)
+    public void SetPanel(GameObject additionalPanel, AudioWork audioWork)
     {
         this.additionalPanel = additionalPanel;
+        this.audioWork = audioWork;
     }
 }

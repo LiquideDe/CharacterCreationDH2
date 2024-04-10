@@ -72,16 +72,8 @@ public class Save
         }
         saveLoad.mutation = DeleteLastChar(saveLoad.mutation);
 
-        saveLoad.equipments = "";
-        foreach (Equipment equipment in character.Equipments)
-        {
-            saveLoad.equipments += equipment.Name;
-            saveLoad.equipments += "/";
-        }
-        saveLoad.equipments = DeleteLastChar(saveLoad.equipments);
-
         saveLoad.implants = "";
-        foreach (MechImplants implant in character.Implants)
+        foreach (MechImplant implant in character.Implants)
         {
             saveLoad.implants += implant.Name;
             saveLoad.implants += "/";
@@ -133,6 +125,97 @@ public class Save
             saveSkill.name = skill.Name;
             saveSkill.lvlLearned = skill.LvlLearned;
             data.Add(JsonUtility.ToJson(saveSkill, true));
+        }
+
+        foreach(Equipment equipment in character.Equipments)
+        {
+            if(equipment.TypeEq == Equipment.TypeEquipment.Armor)
+            {
+                Debug.Log($"Сохраняем броню {equipment.ClearName}");
+                JSONArmorReader armorReader = new JSONArmorReader();
+                Armor armor = (Armor)equipment;
+                armorReader.amount = armor.Amount;
+                armorReader.armorPoint = armor.ArmorPoint;
+                armorReader.body = armor.DefBody;
+                armorReader.description = armor.Description;
+                armorReader.descriptionArmor = armor.PlaceArmor;
+                armorReader.hands = armor.DefHands;
+                armorReader.head = armor.DefHead;
+                armorReader.legs = armor.DefLegs;
+                armorReader.maxAgility = armor.MaxAgil;
+                armorReader.name = armor.ClearName;
+                armorReader.typeEquipment = armor.TypeEq.ToString(); ;
+                armorReader.weight = armor.Weight;
+                data.Add(JsonUtility.ToJson(armorReader, true));
+            }
+            else if(equipment.TypeEq == Equipment.TypeEquipment.Grenade)
+            {
+                Debug.Log($"Сохраняем гранату {equipment.ClearName}");
+                JSONGrenadeReader grenadeReader = new JSONGrenadeReader();
+                Weapon grenade = (Weapon)equipment;
+                grenadeReader.amount = grenade.Amount;
+                grenadeReader.damage = grenade.Damage;
+                grenadeReader.description = grenade.Description;
+                grenadeReader.name = grenade.ClearName;
+                grenadeReader.penetration = grenade.Penetration;
+                grenadeReader.properties = grenade.Properties;
+                grenadeReader.rarity = grenade.Rarity;
+                grenadeReader.typeEquipment = grenade.TypeEq.ToString();
+                grenadeReader.weaponClass = grenade.ClassWeapon;
+                grenadeReader.weight = grenade.Weight;
+                data.Add(JsonUtility.ToJson(grenadeReader, true));
+            }
+            else if (equipment.TypeEq == Equipment.TypeEquipment.Melee)
+            {
+                Debug.Log($"Сохраняем ближний {equipment.ClearName}");
+                JSONMeleeReader meleeReader = new JSONMeleeReader();
+                Weapon melee = (Weapon)equipment;
+                meleeReader.amount = melee.Amount;
+                meleeReader.damage = melee.Damage;
+                meleeReader.description = melee.Description;
+                meleeReader.name = melee.ClearName;
+                meleeReader.penetration = melee.Penetration;
+                meleeReader.properties = melee.Properties;
+                meleeReader.rarity = melee.Rarity;
+                meleeReader.typeEquipment = melee.TypeEq.ToString();
+                meleeReader.type = melee.TypeEq.ToString();
+                meleeReader.weaponClass = melee.ClassWeapon;
+                meleeReader.weight = melee.Weight;
+                data.Add(JsonUtility.ToJson(meleeReader, true));
+            }
+            else if (equipment.TypeEq == Equipment.TypeEquipment.Range)
+            {
+                Debug.Log($"Сохраняем дальнюю {equipment.ClearName}");
+                JSONRangeReader rangeReader = new JSONRangeReader();
+                Weapon range = (Weapon)equipment;
+                rangeReader.amount = range.Amount;
+                rangeReader.damage = range.Damage;
+                rangeReader.description = range.Description;
+                rangeReader.name = range.ClearName;
+                rangeReader.penetration = range.Penetration;
+                rangeReader.properties = range.Properties;
+                rangeReader.rarity = range.Rarity;
+                rangeReader.typeEquipment = range.TypeEq.ToString();
+                rangeReader.weaponClass = range.ClassWeapon;
+                rangeReader.weight = range.Weight;
+                rangeReader.clip = range.Clip;
+                rangeReader.range = range.Range;
+                rangeReader.reload = range.Reload;
+                rangeReader.rof = range.Rof;
+                data.Add(JsonUtility.ToJson(rangeReader, true));
+            }
+            else if (equipment.TypeEq == Equipment.TypeEquipment.Thing)
+            {
+                Debug.Log($"Сохраняем вещь {equipment.ClearName}");
+                JSONEquipmentReader equipmentReader = new JSONEquipmentReader();
+                equipmentReader.amount = equipment.Amount;
+                equipmentReader.description = equipment.Description;
+                equipmentReader.name = equipment.ClearName;
+                equipmentReader.rarity = equipment.Rarity;
+                equipmentReader.typeEquipment = equipment.TypeEq.ToString();
+                equipmentReader.weight = equipment.Weight;
+                data.Add(JsonUtility.ToJson(equipmentReader, true));
+            }
         }
 
         File.WriteAllLines(path, data);

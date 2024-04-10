@@ -13,6 +13,7 @@ public class TrainingClass : MonoBehaviour
     private Character character;
     private FinishTraining finishTraining;
     private CreatorTalents creatorTalents;
+    private AudioWork audioWork;
 
     public void RegDelegate(FinishTraining finishTraining)
     {
@@ -29,9 +30,10 @@ public class TrainingClass : MonoBehaviour
         GameObject videoPlayer = Instantiate(video);
         videoPlayer.SetActive(true);
     }
-    public void OpenTraining(CanvasTrainingChar characteristicPanel, SkillTrainingCanvas skillTrainingCanvas, TalentTrainingCanvas talentTrainingCanvas, PsyCanvas psyCanvas, Character character, 
-        CreatorTalents creatorTalents)
+    public void OpenTraining(CanvasTrainingChar characteristicPanel, SkillTrainingCanvas skillTrainingCanvas, TalentTrainingCanvas talentTrainingCanvas, PsyCanvas psyCanvas, Character character,
+        CreatorTalents creatorTalents, AudioWork audioWork)
     {
+        this.audioWork = audioWork;
         this.characteristicPanel = characteristicPanel;
         this.skillTrainingCanvas = skillTrainingCanvas;
         this.talentTrainingCanvas = talentTrainingCanvas;
@@ -46,7 +48,7 @@ public class TrainingClass : MonoBehaviour
     {
         CanvasTrainingChar charPanel = Instantiate(characteristicPanel);
         charPanel.gameObject.SetActive(true);
-        charPanel.ShowCharacteristicPanels(character);
+        charPanel.ShowCharacteristicPanels(character, audioWork);
         charPanel.RegDelegate(OpenSkillTraining);
     }
 
@@ -54,7 +56,7 @@ public class TrainingClass : MonoBehaviour
     {
         SkillTrainingCanvas skillTraining = Instantiate(skillTrainingCanvas);
         skillTraining.gameObject.SetActive(true);
-        skillTraining.CreatePanels(character);
+        skillTraining.CreatePanels(character, audioWork);
         skillTraining.RegDelegates(OpenTalentTraining, OpenCharacteristicTraining);
     }
 
@@ -65,12 +67,12 @@ public class TrainingClass : MonoBehaviour
         if (character.PsyRating > 0)
         {
             talentTraining.RegDelegates(OpenSkillTraining, OpenTrainingPsy);
-            talentTraining.ShowTalentPanels(character, creatorTalents,false);
+            talentTraining.ShowTalentPanels(character, creatorTalents,false,audioWork);
         }
         else
         {
             talentTraining.RegDelegates(OpenSkillTraining, Finish);
-            talentTraining.ShowTalentPanels(character, creatorTalents,true);
+            talentTraining.ShowTalentPanels(character, creatorTalents,true, audioWork);
         }
     }
 
@@ -78,7 +80,7 @@ public class TrainingClass : MonoBehaviour
     {
         PsycanaObserver psycanaObserver = gameObject.AddComponent<PsycanaObserver>();
         psycanaObserver.RegDelegate(OpenTalentTraining, Finish);
-        psycanaObserver.ShowPsyPowers(psyCanvas, creatorPsyPowers, character);
+        psycanaObserver.ShowPsyPowers(psyCanvas, creatorPsyPowers, character, audioWork);
     }
     
 

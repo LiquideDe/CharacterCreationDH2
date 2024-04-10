@@ -19,7 +19,7 @@ public class Character
     private List<string> mutation = new List<string>();
     private List<PsyPower> psyPowers = new List<PsyPower>();
     private List<Equipment> equipments = new List<Equipment>();
-    private List<MechImplants> implants = new List<MechImplants>();
+    private List<MechImplant> implants = new List<MechImplant>();
     private List<float> parametrsForWeight = new List<float>();
     private List<Feature> features = new List<Feature>();
     private CreatorEquipment creatorEquipment;
@@ -47,7 +47,7 @@ public class Character
     public List<GameStat.Inclinations> Inclinations { get => inclinations; }
     public List<Skill> Skills { get => skills; }
     public List<Talent> Talents { get => talents; }
-    public List<MechImplants> Implants { get => implants; }
+    public List<MechImplant> Implants { get => implants; }
     public List<string> MentalDisorders { get => mentalDisorders; set => mentalDisorders = value; }
     public int Run { get => run; }
     public string BonusBack { get => bonusBack; set => bonusBack = value; }
@@ -179,15 +179,16 @@ public class Character
             {
                 Special special = (Special)eq;
                 equipments.Add(creatorEquipment.GetEquipment(special.FirstName));
+                equipments[^1].Amount = special.Amount;
                 equipments.Add(creatorEquipment.GetEquipment(special.SecondName));
+                equipments[^1].Amount = special.Amount;
             }
             
         }
-        //inclinations.Add(background.ChosenInclination);
         AddInclination(background.ChosenInclination);
         if(background.MechImplants != null)
         {
-            foreach(MechImplants implant in background.MechImplants)
+            foreach(MechImplant implant in background.MechImplants)
             {
                 implants.Add(implant);
             }            
@@ -347,7 +348,7 @@ public class Character
         return false;
     }
 
-    public void LoadData(SaveLoadCharacter loadCharacter, List<SaveLoadCharacteristic> characteristics, List<SaveLoadSkill> skills)
+    public void LoadData(SaveLoadCharacter loadCharacter, List<SaveLoadCharacteristic> characteristics, List<SaveLoadSkill> skills, List<Equipment> equipments)
     {
         age = loadCharacter.age;
         ageText = loadCharacter.ageText;
@@ -357,15 +358,6 @@ public class Character
         constitution = loadCharacter.constitution;
         corruptionPoints = loadCharacter.corruptionPoints;
         elite = loadCharacter.elite;
-        List<string> listEq = new List<string>();
-        listEq = loadCharacter.equipments.Split(new char[] { '/' }).ToList();
-        if(CheckString(listEq))
-        {
-            foreach (string equipment in listEq)
-            {
-                equipments.Add(creatorEquipment.GetEquipment(equipment));
-            }
-        }
 
         List<string> listFeat = loadCharacter.features.Split(new char[] { '/' }).ToList();
         if (CheckString(listFeat))
@@ -389,13 +381,14 @@ public class Character
         hair = loadCharacter.hair;
         halfMove = loadCharacter.halfMove;
         homeworld = loadCharacter.homeworld;
+        
         List<string> impl = new List<string>();
         impl = loadCharacter.implants.Split(new char[] { '/' }).ToList();
         if (CheckString(impl))
         {
             foreach (string implant in impl)
             {
-                implants.Add(new MechImplants(implant));
+                implants.Add(new MechImplant(implant));
             }
         }        
 
@@ -472,6 +465,7 @@ public class Character
 
         psyRating = loadCharacter.psyRating;
         tradition = loadCharacter.tradition;
+        this.equipments.AddRange(equipments);
     }
 
     private bool CheckString(List<string> list)
@@ -511,5 +505,23 @@ public class Character
         }
 
         return bToughness;
+    }
+
+    public void LoadImplants(CreatorImplant creatorImplant)
+    {
+        foreach(MechImplant mechImplant in creatorImplant.Implants)
+        {
+            foreach (MechImplant implant in implants)
+            {
+                if(string.Compare(mechImplant.Name, implant.Name, true) == 0)
+                {
+                    implant.Armor = mechImplant.Armor;
+                    implant.BonusToughness = mechImplant.BonusToughness;
+                    implant.Description = mechImplant.Description;
+                    implant.Place = mechImplant.Place;
+                }
+            }
+        }
+        
     }
 }

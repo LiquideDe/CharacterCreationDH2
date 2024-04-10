@@ -9,34 +9,30 @@ public class CanvasTrainingChar : MonoBehaviour
     NextPanelSkill nextPanelSkill;
     private int exp;
     private Character character;
-    private List<CharacteristicPanel> characteristicPanels = new List<CharacteristicPanel>();
+    [SerializeField] List<CharacteristicPanel> characteristicPanels;
     [SerializeField] GameObject charPanel, grid;
     [SerializeField] TextMeshProUGUI textExp;
+    AudioWork audioWork;
 
-    public void ShowCharacteristicPanels(Character character)
+    public void ShowCharacteristicPanels(Character character, AudioWork audioWork)
     {
+        this.audioWork = audioWork;
         gameObject.SetActive(true);
         this.character = character;
         exp = character.ExperienceUnspent;
         UpdateExpText();
-        int ch = 0;
-        foreach(Characteristic characteristic in character.Characteristics)
+        for(int i = 0; i < characteristicPanels.Count; i++)
         {
-            GameObject cp = Instantiate(charPanel, grid.transform);
-            cp.SetActive(true);
-            characteristicPanels.Add(cp.GetComponent<CharacteristicPanel>());
-            if(characteristic.InternalName != GameStat.CharacterName.Influence)
+            if (character.Characteristics[i].InternalName != GameStat.CharacterName.Influence)
             {
-                characteristicPanels[^1].SetParams(character, ch);
-                characteristicPanels[^1].RegDelegate(CheckExp);
+                characteristicPanels[i].SetParams(character, i, audioWork);
+                characteristicPanels[i].RegDelegate(CheckExp);
             }
             else
             {
-                characteristicPanels[^1].SetParams(character, ch, true);
-                characteristicPanels[^1].RegDelegate(CheckExp);
+                characteristicPanels[i].SetParams(character, i, audioWork,true);
+                characteristicPanels[i].RegDelegate(CheckExp);
             }
-            
-            ch++;
         }
     }
 
@@ -85,6 +81,7 @@ public class CanvasTrainingChar : MonoBehaviour
 
     public void NextButton()
     {
+        audioWork.PlayClick();
         nextPanelSkill?.Invoke();
         Destroy(gameObject);
     }

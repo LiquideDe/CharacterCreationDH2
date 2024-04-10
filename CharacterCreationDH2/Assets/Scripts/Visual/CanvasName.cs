@@ -10,16 +10,19 @@ public class CanvasName : MonoBehaviour
     [SerializeField] Toggle toggleMale, toggleFemale;
     public delegate void GoToScreenshot(string name, string gender);
     GoToScreenshot toScreenshot;
+    AudioWork audioWork;
 
-    public void RegDelegate(GoToScreenshot toScreenshot)
+    public void RegDelegate(GoToScreenshot toScreenshot, AudioWork audioWork)
     {
         this.toScreenshot = toScreenshot;
+        this.audioWork = audioWork;
     }
 
     public void TextInput()
     {
         if(inputName.text.Length > 0)
         {
+            audioWork.PlayDone();
             string gender;
             if (toggleMale.isOn)
             {
@@ -31,6 +34,10 @@ public class CanvasName : MonoBehaviour
             }
             toScreenshot?.Invoke(inputName.text, gender);
             Destroy(gameObject);
+        }
+        else
+        {
+            audioWork.PlayWarning();
         }
         
     }

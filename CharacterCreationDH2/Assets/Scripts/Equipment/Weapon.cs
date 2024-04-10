@@ -16,7 +16,7 @@ public class Weapon : Equipment
     public string Reload { get => reload;  }
     public string Properties { get => properties; }
 
-    public Weapon(JSONRangeReader rangeReader) :base(rangeReader.name, rangeReader.description, rangeReader.rarity, rangeReader.weight)
+    public Weapon(JSONRangeReader rangeReader) :base(rangeReader.name, rangeReader.description, rangeReader.rarity, rangeReader.amount, rangeReader.weight)
     {
         typeEquipment = TypeEquipment.Range;
         classWeapon = rangeReader.weaponClass;
@@ -29,7 +29,7 @@ public class Weapon : Equipment
         properties = rangeReader.properties;
     }
 
-    public Weapon(JSONMeleeReader meleeReader) : base(meleeReader.name, meleeReader.description, meleeReader.rarity, meleeReader.weight)
+    public Weapon(JSONMeleeReader meleeReader) : base(meleeReader.name, meleeReader.description, meleeReader.rarity, meleeReader.amount, meleeReader.weight)
     {
         typeEquipment = TypeEquipment.Melee;
         classWeapon = meleeReader.weaponClass;
@@ -39,7 +39,7 @@ public class Weapon : Equipment
         rof = "";
     }
 
-    public Weapon(JSONGrenadeReader grenadeReader) : base (grenadeReader.name, grenadeReader.description, grenadeReader.rarity, grenadeReader.weight)
+    public Weapon(JSONGrenadeReader grenadeReader) : base (grenadeReader.name, grenadeReader.description, grenadeReader.rarity, grenadeReader.amount, grenadeReader.weight)
     {
         typeEquipment = TypeEquipment.Grenade;
         classWeapon = grenadeReader.weaponClass;

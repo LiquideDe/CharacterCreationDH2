@@ -1,1 +1,1 @@
-{"name":"Крак граната","description":"","damage":"2к10+4В","rarity":"РД","weaponClass":"Метательное","properties":"Оглушающее","penetration":6,"weight":0.5}
+{"name":"Крак граната","description":"","damage":"2к10+4В","rarity":"РД","weaponClass":"Метательное","properties":"Оглушающее","penetration":6,"weight":0.5,"amount" : 1, "typeEquipment" : "Grenade"}

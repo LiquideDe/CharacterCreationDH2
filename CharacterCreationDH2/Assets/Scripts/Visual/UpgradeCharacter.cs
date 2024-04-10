@@ -24,7 +24,7 @@ public class UpgradeCharacter : OperationWithCharacter
             character.ExperienceUnspent += exp;
             TrainingClass train = gameObject.AddComponent<TrainingClass>();
             train.RegDelegate(Finish);
-            train.OpenTraining(characteristicPanel, skillTrainingCanvas, talentTrainingCanvas, psyCanvas, character, creatorTalents);
+            train.OpenTraining(characteristicPanel, skillTrainingCanvas, talentTrainingCanvas, psyCanvas, character, creatorTalents, audioWork);
         }
         
     }

@@ -10,15 +10,17 @@ public class InclinationList : MonoBehaviour
     [SerializeField] ListNewInclinations listNewInclinationsExample;
     private List<ItemInList> itemInclinations = new List<ItemInList>();
     List<GameStat.Inclinations> inclinationsCharacter = new List<GameStat.Inclinations>();
+    AudioWork audioWork;
 
-    public void SetParams(List<GameStat.Inclinations> inclinationsCharacter)
+    public void SetParams(List<GameStat.Inclinations> inclinationsCharacter, AudioWork audioWork)
     {
         gameObject.SetActive(true);
+        this.audioWork = audioWork;
         this.inclinationsCharacter = inclinationsCharacter;
         foreach(GameStat.Inclinations charIncl in inclinationsCharacter)
         {
             itemInclinations.Add(Instantiate(itemExample, content));
-            itemInclinations[^1].SetParams(GameStat.inclinationTranslate[charIncl], RemoveThisInclination);
+            itemInclinations[^1].SetParams(GameStat.inclinationTranslate[charIncl], RemoveThisInclination, audioWork);
         }
     }
 
@@ -28,6 +30,7 @@ public class InclinationList : MonoBehaviour
         {
             if(string.Compare(name, GameStat.inclinationTranslate[charIncl]) == 0)
             {
+                audioWork.PlayCancel();
                 inclinationsCharacter.Remove(charIncl);
                 break;
             }
@@ -36,9 +39,10 @@ public class InclinationList : MonoBehaviour
 
     public void ShowListWithNewInclination()
     {
+        audioWork.PlayClick();
         Canvas canvas = GetComponentInParent<Canvas>();
         var listNewInclinations = Instantiate(listNewInclinationsExample, canvas.transform);
-        listNewInclinations.SetParams(inclinationsCharacter, AddThisInclination);
+        listNewInclinations.SetParams(inclinationsCharacter, AddThisInclination, audioWork);
     }
 
     private void AddThisInclination(string name)
@@ -49,7 +53,7 @@ public class InclinationList : MonoBehaviour
             {
                 inclinationsCharacter.Add(inclination);
                 itemInclinations.Add(Instantiate(itemExample, content));
-                itemInclinations[^1].SetParams(GameStat.inclinationTranslate[inclination], RemoveThisInclination);
+                itemInclinations[^1].SetParams(GameStat.inclinationTranslate[inclination], RemoveThisInclination, audioWork);
                 break;
             }
         }        

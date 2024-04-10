@@ -9,7 +9,7 @@ public class RoleObserver : MonoBehaviour
     private RoleVisual roleVisual;
     private FinishChooseRole finishChooseRole;
 
-    public void OpenRoleCanvas(RoleVisual roleVisual, CreatorTalents creatorTalents)
+    public void OpenRoleCanvas(RoleVisual roleVisual, CreatorTalents creatorTalents, AudioWork audioWork)
     {
         
         creatorRole = new CreatorRole();
@@ -17,6 +17,7 @@ public class RoleObserver : MonoBehaviour
         this.roleVisual.RegDelegate(ShowNextRole, ShowPrevRole);
         this.roleVisual.RegFinalDelegate(Finish);
         this.roleVisual.OpenRole(creatorRole.GetNextRole(), creatorTalents);
+        this.roleVisual.SetAudio(audioWork);
     }
 
     public void RegDelegate(FinishChooseRole finishChooseRole)

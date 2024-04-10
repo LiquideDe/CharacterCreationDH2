@@ -14,11 +14,11 @@ public class GenerateObserver : MonoBehaviour
         this.finishGenerated = finishGenerated;
     }
 
-    public void OpenGenerateCharacteristic(CharacteristicGenerateCanvas characteristicGenerateCanvas, Character character, int averageLvl)
+    public void OpenGenerateCharacteristic(CharacteristicGenerateCanvas characteristicGenerateCanvas, Character character, int averageLvl, AudioWork audioWork)
     {
         this.characteristicGenerateCanvas = Instantiate(characteristicGenerateCanvas);
         this.characteristicGenerateCanvas.RegDelegateFinish(FinishGenerateCharacteristics);
-        this.characteristicGenerateCanvas.GenerateCharacteristics(character, averageLvl);
+        this.characteristicGenerateCanvas.GenerateCharacteristics(character, averageLvl, audioWork);
     }
 
     private void FinishGenerateCharacteristics(List<Characteristic> characteristics)

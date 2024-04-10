@@ -30,10 +30,12 @@ public class MainGame : MonoBehaviour
     [SerializeField] CanvasChoiceManulaAndRandom chooseManRan;
     [SerializeField] ManualCharacteristic manualCharacteristic;
     [SerializeField] GameObject trainingVideo, trainingVideoPsyker;
+    AudioWork audioWork;
 
-    public void ShowMainPanel(ExitToMenu exitToMenu)
+    public void ShowMainPanel(ExitToMenu exitToMenu, AudioWork audioWork)
     {
         this.exitToMenu = exitToMenu;
+        this.audioWork = audioWork;
         gameObject.SetActive(true);
         creatorSkills = new CreatorSkills();
         creatorTalents = new CreatorTalents();
@@ -41,6 +43,7 @@ public class MainGame : MonoBehaviour
         character = new Character(creatorSkills.Skills, creatorEquipment);
         character.ExperienceUnspent = 1000;
 
+        canvasIntermediate.SetAudio(audioWork);
         canvasIntermediate.gameObject.SetActive(true);
         canvasIntermediate.OpenIntermediatePanel(ShowMessageBeforeWorld, "Это сорок первое тысячелетие. Вот уже сотню веков Император недвижимо восседает на Золотом троне Земли. " +
             "Волей богов он владычествует над человечеством, и мощью своих неисчислимых армий он повелевает миллионом миров. " +
@@ -63,7 +66,7 @@ public class MainGame : MonoBehaviour
         canvasIntermediate.gameObject.SetActive(false);
         HomeWorldObserver homeWorldObserver = gameObject.AddComponent<HomeWorldObserver>();
         homeWorldObserver.RegDelegate(SetHomeWorldToCharacter);
-        homeWorldObserver.OpenHomeWorldCanvas(homeWorldVisual);
+        homeWorldObserver.OpenHomeWorldCanvas(homeWorldVisual, audioWork);
     }
 
     private void SetHomeWorldToCharacter(Homeworld homeworld)
@@ -84,7 +87,7 @@ public class MainGame : MonoBehaviour
         canvasIntermediate.gameObject.SetActive(false);
         BackgroundObserver backgroundObserver = gameObject.AddComponent<BackgroundObserver>();
         backgroundObserver.RegDelegate(FinishChooseBackground);
-        backgroundObserver.OpenBackgroundCanvas(backVisual, creatorEquipment, creatorSkills, creatorTalents);
+        backgroundObserver.OpenBackgroundCanvas(backVisual, creatorSkills, creatorTalents, audioWork);
     }
 
     private void FinishChooseBackground(Background background)
@@ -105,7 +108,7 @@ public class MainGame : MonoBehaviour
         canvasIntermediate.gameObject.SetActive(false);
         RoleObserver roleObserver = gameObject.AddComponent<RoleObserver>();
         roleObserver.RegDelegate(FinishChooseRole);
-        roleObserver.OpenRoleCanvas(roleVisual, creatorTalents);
+        roleObserver.OpenRoleCanvas(roleVisual, creatorTalents, audioWork);
     }
     private void FinishChooseRole(Role role)
     {
@@ -116,7 +119,7 @@ public class MainGame : MonoBehaviour
     private void ShowChoiceBetweenManualAndRandom()
     {
         CanvasChoiceManulaAndRandom manulaAndRandom = Instantiate(chooseManRan);
-        manulaAndRandom.ShowChoose(ShowMessageBeforeAverageForManual, ShowMessageBeforeAverageForRandom);
+        manulaAndRandom.ShowChoose(ShowMessageBeforeAverageForManual, ShowMessageBeforeAverageForRandom, audioWork);
     }
 
     private void ShowMessageBeforeAverageForManual()
@@ -136,13 +139,13 @@ public class MainGame : MonoBehaviour
     {
         canvasIntermediate.gameObject.SetActive(false);
         ChooseAverageLvl AverageLvl = Instantiate(chooseAverageLvl);
-        AverageLvl.ShowChooseAverage(ShowMessageBeforeManual);
+        AverageLvl.ShowChooseAverage(ShowMessageBeforeManual, audioWork);
     }
     private void OpenSliderWithAverageForRandom()
     {
         canvasIntermediate.gameObject.SetActive(false);
         ChooseAverageLvl AverageLvl = Instantiate(chooseAverageLvl);
-        AverageLvl.ShowChooseAverage(ShowMessageBeforeGenerate);
+        AverageLvl.ShowChooseAverage(ShowMessageBeforeGenerate, audioWork);
     }
     private void ShowMessageBeforeManual(int lvl)
     {
@@ -163,14 +166,14 @@ public class MainGame : MonoBehaviour
         canvasIntermediate.gameObject.SetActive(false);
         GenerateObserver generateObserver = gameObject.AddComponent<GenerateObserver>();
         generateObserver.RegDelegate(FinishGenerateCharacteristics);
-        generateObserver.OpenGenerateCharacteristic(characteristicGenerateCanvas, character, averageLvl);
+        generateObserver.OpenGenerateCharacteristic(characteristicGenerateCanvas, character, averageLvl, audioWork);
     }
 
     private void OpenManualCharacteristic()
     {
         canvasIntermediate.gameObject.SetActive(false);
         ManualCharacteristic manul = Instantiate(manualCharacteristic);
-        manul.ShowManual(ShowMessageBeforeTrainingCharacteristics, character, averageLvl);
+        manul.ShowManual(ShowMessageBeforeTrainingCharacteristics, character, averageLvl, audioWork);
     }
 
     private void FinishGenerateCharacteristics(List<Characteristic> characteristics)
@@ -191,7 +194,7 @@ public class MainGame : MonoBehaviour
         canvasIntermediate.gameObject.SetActive(false);
         TrainingClass trainingClass = gameObject.AddComponent<TrainingClass>();
         trainingClass.RegDelegate(GoToProphecy);
-        trainingClass.OpenTraining(charTrainingCanvas, skillTrainingCanvas, talentTrainingCanvas, psyCanvas, character, creatorTalents);
+        trainingClass.OpenTraining(charTrainingCanvas, skillTrainingCanvas, talentTrainingCanvas, psyCanvas, character, creatorTalents, audioWork);
         if(character.PsyRating > 0)
         {
             trainingClass.LoadVideo(trainingVideoPsyker);
@@ -207,7 +210,7 @@ public class MainGame : MonoBehaviour
         ProphecyCanvas prophecy = Instantiate(prophecyCanvas);
         prophecy.gameObject.SetActive(true);
         prophecy.RegDelegate(InputName);
-        prophecy.StartChoose(character);
+        prophecy.StartChoose(character, audioWork);
     }
 
     private void InputName()
@@ -215,7 +218,7 @@ public class MainGame : MonoBehaviour
         GameObject gO = Instantiate(canvasName);
         gO.SetActive(true);
         CanvasName canName = gO.GetComponent<CanvasName>();
-        canName.RegDelegate(PasteName);
+        canName.RegDelegate(PasteName, audioWork);
     }
 
     private void PasteName(string name, string gender)
@@ -230,6 +233,7 @@ public class MainGame : MonoBehaviour
 
     private void EndGame()
     {
+        audioWork.PlayClick();
         StartCoroutine(ExitGame());
     }
 

@@ -10,14 +10,15 @@ public class ArmorBlock : MonoBehaviour
     bool isEmpty = true;
     public bool IsEmpty { get => isEmpty; }
 
-    public void FillBlock(Armor armor)
+    public void FillBlock(Armor armor, List<MechImplant> mechImplants)
     {
         textName.text = armor.Name;
         textPlace.text = armor.PlaceArmor;
         textArmorPoint.text = armor.ArmorPoint.ToString();
         textMaxAg.text = armor.MaxAgil.ToString();
         textWeight.text = armor.Weight.ToString();
-        onBody.SetArmor(armor);
+        
+        onBody.SetArmor(armor, mechImplants);
         isEmpty = false;
     }
 }

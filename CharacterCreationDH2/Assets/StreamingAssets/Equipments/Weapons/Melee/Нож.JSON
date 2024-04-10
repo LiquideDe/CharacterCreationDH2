@@ -1,1 +1,1 @@
-{"name":"Нож","description":"","properties":"","type":"","weaponClass":"Рукопашное","damage":"1к5","rarity":"ИЗ","penetration":0,"weight":1.0}
+{"name":"Нож","description":"","properties":"","type":"","weaponClass":"Рукопашное","damage":"1к5","rarity":"ИЗ","penetration":0,"weight":1.0,"amount" : 1, "typeEquipment" : "Melee"}

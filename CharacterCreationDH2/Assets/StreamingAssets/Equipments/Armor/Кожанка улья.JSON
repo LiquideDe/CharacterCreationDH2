@@ -1,1 +1,1 @@
-{"name":"Кожанка улья","description":"","descriptionArmor":"","rarity":"Обычно","head":0,"hands":1,"body":1,"legs":0,"maxAgility":0,"armorPoint":0,"weight":5.0}
+{"name":"Кожанка улья","description":"","descriptionArmor":"","rarity":"Обычно","head":0,"hands":1,"body":1,"legs":0,"maxAgility":0,"armorPoint":0,"weight":5.0,"amount" : 1, "typeEquipment" : "Armor"}

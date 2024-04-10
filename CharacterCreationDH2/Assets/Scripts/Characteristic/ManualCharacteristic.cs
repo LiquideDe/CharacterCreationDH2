@@ -12,10 +12,12 @@ public class ManualCharacteristic : MonoBehaviour
     Character character;
     int maxAmount, totalPoints;
     List<int> baseAmounts = new List<int>();
+    AudioWork audioWork;
 
-    public void ShowManual(Finish finish, Character character, int averageLvl)
+    public void ShowManual(Finish finish, Character character, int averageLvl, AudioWork audioWork)
     {
         this.finish = finish;
+        this.audioWork = audioWork;
         character.GetCharacteristicsForGenerate(averageLvl);
         for(int i = 0; i < character.Characteristics.Count; i++)
         {
@@ -38,10 +40,15 @@ public class ManualCharacteristic : MonoBehaviour
     {        
         if(totalPoints > 0 && character.Characteristics[id].Amount < maxAmount)
         {
+            audioWork.PlayClick();
             totalPoints--;
             character.Characteristics[id].Amount++;
             textAmounts[id].text = character.Characteristics[id].Amount.ToString();
             textTotalPoints.text = $"Осталось очков: {totalPoints}";
+        }
+        else
+        {
+            audioWork.PlayWarning();
         }
         
     }
@@ -50,16 +57,21 @@ public class ManualCharacteristic : MonoBehaviour
     {
         if(character.Characteristics[id].Amount - 1 >= baseAmounts[id])
         {
+            audioWork.PlayClick();
             character.Characteristics[id].Amount--;
             textAmounts[id].text = character.Characteristics[id].Amount.ToString();
             totalPoints++;
             textTotalPoints.text = $"Осталось очков: {totalPoints}";
         }
-        
+        else
+        {
+            audioWork.PlayWarning();
+        }
     }
 
     public void CloseManual()
     {
+        audioWork.PlayDone();
         finish?.Invoke();
         Destroy(gameObject);
     }

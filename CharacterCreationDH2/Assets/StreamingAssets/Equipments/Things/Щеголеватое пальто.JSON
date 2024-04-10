@@ -1,1 +1,1 @@
-{"name":"Щеголеватое пальто","description":"Вычурное пальто","rarity":"Обычно","weight":1.0}
+{"name":"Щеголеватое пальто","description":"Вычурное пальто","rarity":"Обычно","weight":1.0,"amount" : 1, "typeEquipment" : "Thing"}

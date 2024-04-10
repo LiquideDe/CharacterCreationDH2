@@ -1,1 +1,1 @@
-{"name":"Цепной топор","description":"","properties":"Разрывное","type":"","weaponClass":"Рукопашное","damage":"1к10+4Р","rarity":"ДЕ","penetration":2,"weight":13.0}
+{"name":"Цепной топор","description":"","properties":"Разрывное","type":"","weaponClass":"Рукопашное","damage":"1к10+4Р","rarity":"ДЕ","penetration":2,"weight":13.0,"amount" : 1, "typeEquipment" : "Melee"}

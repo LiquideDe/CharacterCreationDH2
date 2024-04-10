@@ -8,13 +8,13 @@ public class CreatorBackgrounds
     private List<Background> backgrounds = new List<Background>();
     private int id;
 
-    public CreatorBackgrounds(CreatorEquipment equipment)
+    public CreatorBackgrounds()
     {
         List<string> dirs = new List<string>();
         dirs.AddRange(Directory.GetDirectories($"{Application.dataPath}/StreamingAssets/Backgrounds"));
         for (int i = 0; i < dirs.Count; i++)
         {
-            backgrounds.Add(new Background(dirs[i], equipment));
+            backgrounds.Add(new Background(dirs[i]));
         }
         
     }

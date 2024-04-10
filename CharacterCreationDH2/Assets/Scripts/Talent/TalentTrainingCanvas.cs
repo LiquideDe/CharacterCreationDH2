@@ -22,10 +22,12 @@ public class TalentTrainingCanvas : MonoBehaviour
     private Character character;
     int exp, cost, idPanel;
     bool isChangeTalent, isEditor;
+    AudioWork audioWork;
     private List<GameStat.Inclinations> allowedInclinations = new List<GameStat.Inclinations>();
 
-    public void ShowTalentPanels(Character character, CreatorTalents creatorTalents,bool isFinal, bool isEditor = false)
+    public void ShowTalentPanels(Character character, CreatorTalents creatorTalents,bool isFinal, AudioWork audioWork, bool isEditor = false)
     {
+        this.audioWork = audioWork;
         if (isFinal)
         {
             ImageOfButton.sprite = finalSprite;
@@ -56,6 +58,7 @@ public class TalentTrainingCanvas : MonoBehaviour
         foreach(InfoOfButton button in infoOfbuttons)
         {
             button.RegDelegate(ChangeTriggerOnControls);
+            button.SetAudio(audioWork);
         }
         buttonHideAll.RegDelegate(ShowHideAll);
     }
@@ -64,16 +67,19 @@ public class TalentTrainingCanvas : MonoBehaviour
     {
         if (cost > exp && !isEditor)
         {
+            audioWork.PlayWarning();
             talentPanels[idPanel].CancelOperation();
         }
         else if (isEditor)
         {
+            audioWork.PlayDone();
             character.AddTalent(creatorTalents.Talents[idPanel]);
             isChangeTalent = false;
             talentPanels[idPanel].Deactivate();
         }
         else if(isChangeTalent)
         {
+            audioWork.PlayDone();
             exp -= cost;
             UpdateExpText();
             character.AddTalent(creatorTalents.Talents[idPanel]);
@@ -90,7 +96,7 @@ public class TalentTrainingCanvas : MonoBehaviour
         TalentPanel tl = Instantiate(talentPanelG, content.transform);
         tl.gameObject.SetActive(true);
         talentPanels.Add(tl);
-        tl.CreatePanel(talent, talentPanels.Count - 1, ThatPanelShowTalent, canTraining, !talent.CheckTalentRepeat(character.Talents));
+        tl.CreatePanel(talent, talentPanels.Count - 1, ThatPanelShowTalent, canTraining, !talent.CheckTalentRepeat(character.Talents), audioWork);
     }
 
     private void ShowOrHideTalent(bool hideOrShow)
@@ -172,19 +178,21 @@ public class TalentTrainingCanvas : MonoBehaviour
 
     public void ButtonBack()
     {
+        audioWork.PlayClick();
         backToSkill?.Invoke();
         Destroy(gameObject);
     }
 
     public void ButtonNext()
     {
+        audioWork.PlayClick();
         getToTheNext?.Invoke();
         Destroy(gameObject);
     }
 
     private void ChangeTriggerOnControls()
     {
-        Debug.Log($"Перестраиваем таланты");
+        audioWork.PlayClick();
         ReBuildInclinationList();
         ShowOrHideTalent(false);
         ShowTalentsWithFilter();

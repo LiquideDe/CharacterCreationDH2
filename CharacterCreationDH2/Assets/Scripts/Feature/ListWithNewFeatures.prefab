@@ -680,7 +680,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5989473109068922274}
   m_HandleRect: {fileID: 6678025588229222313}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -1107,6 +1107,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
+        m_MethodName: Play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 9108178194906689248}
         m_TargetAssemblyTypeName: ListWithNewFeatures, Assembly-CSharp
         m_MethodName: Cancel
@@ -1493,3 +1505,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   content: {fileID: 7636223216856895088}
   itemFeatureExample: {fileID: 1919997197072822027}
+  soundClick: {fileID: 0}

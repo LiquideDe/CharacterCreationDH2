@@ -21,6 +21,13 @@ public abstract class VisualCanvas : MonoBehaviour
     protected bool isTextFullOpen;
     protected int id;
 
+    protected AudioWork audioWork;
+
+    public void SetAudio(AudioWork audioWork)
+    {
+        this.audioWork = audioWork;
+    }
+
     protected string ReadText(string nameFile)
     {
         string txt;
@@ -51,18 +58,19 @@ public abstract class VisualCanvas : MonoBehaviour
 
     public void ShowOrHideFullText()
     {
+        audioWork.PlayClick();
         if (isTextFullOpen)
-        {
+        {            
             panel.SetActive(false);
             //textButton.text = "Show FULL";
             isTextFullOpen = false;
         }
         else
-        {
+        {            
             panel.SetActive(true);
             //textButton.text = "Hide FULL";
             isTextFullOpen = true;
-        }
+        }        
     }
 
     protected void ChangeImage()
@@ -92,12 +100,14 @@ public abstract class VisualCanvas : MonoBehaviour
 
     public void NextItem()
     {
+        audioWork.PlayClick();
         ResetImages();
         changeItemNext?.Invoke();
     }
 
     public void PrevItem()
     {
+        audioWork.PlayClick();
         ResetImages();
         changeItemPrev?.Invoke();
     }

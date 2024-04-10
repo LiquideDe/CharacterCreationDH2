@@ -14,14 +14,16 @@ public class EditPropertyCharacter : MonoBehaviour
     Character character;
     public delegate void NextWindow();
     NextWindow nextWindow;
+    AudioWork audioWork;
 
-    public void SetParams(Character character, CreatorFeatures creatorFeatures, NextWindow nextWindow)
+    public void SetParams(Character character, CreatorFeatures creatorFeatures, NextWindow nextWindow, AudioWork audioWork)
     {
         gameObject.SetActive(true);
         this.character = character;
-        inclinationList.SetParams(character.Inclinations);
-        listWithFeatures.SetParams(character, creatorFeatures.Features);
+        inclinationList.SetParams(character.Inclinations, audioWork);
+        listWithFeatures.SetParams(character, creatorFeatures.Features, audioWork);
         this.nextWindow = nextWindow;
+        this.audioWork = audioWork;
 
         inputName.text = character.Name;
         inputHome.text = character.Homeworld;
@@ -49,6 +51,7 @@ public class EditPropertyCharacter : MonoBehaviour
 
     public void ChangeProperty()
     {
+        audioWork.PlayDone();
         CancelSelect();
         int.TryParse(inputAge.text, out int age);
         character.Name = inputName.text;
@@ -71,6 +74,7 @@ public class EditPropertyCharacter : MonoBehaviour
 
     public void Next()
     {
+        audioWork.PlayClick();
         nextWindow?.Invoke();
         Destroy(gameObject);
     }

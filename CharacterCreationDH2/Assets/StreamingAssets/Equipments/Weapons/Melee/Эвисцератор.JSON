@@ -1,1 +1,1 @@
-{"name":"Эвисцератор","description":"","properties":"Бритвенно-острое,Разрывное,Громоздкое","type":"","weaponClass":"Рукопашное","damage":"2к10У","rarity":"ОР","penetration":9,"weight":15.0}
+{"name":"Эвисцератор","description":"","properties":"Бритвенно-острое,Разрывное,Громоздкое","type":"","weaponClass":"Рукопашное","damage":"2к10У","rarity":"ОР","penetration":9,"weight":15.0,"amount" : 1, "typeEquipment" : "Melee"}

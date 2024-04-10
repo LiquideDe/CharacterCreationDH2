@@ -5,7 +5,7 @@ using System;
 [Serializable]
 public class JSONRangeReader 
 {
-    public string name, description, weaponClass, rof, damage, reload, properties, rarity;
-    public int range, penetration, clip;
+    public string name, description, weaponClass, rof, damage, reload, properties, rarity, typeEquipment;
+    public int range, penetration, clip, amount;
     public float weight;
 }

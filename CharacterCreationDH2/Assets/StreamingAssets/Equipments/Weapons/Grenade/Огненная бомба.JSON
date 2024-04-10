@@ -1,1 +1,1 @@
-{"name":"Огненная бомба","description":"","damage":"1к10+2Э","rarity":"ИЗ","weaponClass":"Метательное","properties":"Взрыв(2),Зажигательное","penetration":0,"weight":0.5}
+{"name":"Огненная бомба","description":"","damage":"1к10+2Э","rarity":"ИЗ","weaponClass":"Метательное","properties":"Взрыв(2),Зажигательное","penetration":0,"weight":0.5,"amount" : 1, "typeEquipment" : "Grenade"}

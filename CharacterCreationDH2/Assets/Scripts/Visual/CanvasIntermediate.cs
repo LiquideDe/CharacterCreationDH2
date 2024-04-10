@@ -8,9 +8,15 @@ public class CanvasIntermediate : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI descriptionText;
     [SerializeField] Button button;
+    AudioWork audioWork;
     public delegate void NextTask();
     NextTask nextTask;
 
+
+    public void SetAudio(AudioWork audioWork)
+    {
+        this.audioWork = audioWork;
+    }
     public void OpenIntermediatePanel(NextTask nextTask, string text)
     {
         button.onClick.RemoveAllListeners();
@@ -21,6 +27,7 @@ public class CanvasIntermediate : MonoBehaviour
 
     public void ButtonPressed()
     {
+        audioWork.PlayDone();
         nextTask?.Invoke();
     }
 

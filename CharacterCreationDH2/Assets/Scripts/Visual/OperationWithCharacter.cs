@@ -18,6 +18,8 @@ public class OperationWithCharacter : MonoBehaviour
     protected CreatorTalents creatorTalents;
     protected CreatorPsyPowers creatorPsyPowers;
     protected CreatorFeatures creatorFeatures;
+    protected CreatorImplant creatorImplant;
+    protected AudioWork audioWork;
 
     protected void InitialCreators(string path)
     {
@@ -25,19 +27,23 @@ public class OperationWithCharacter : MonoBehaviour
         creatorSkills = new CreatorSkills();
         creatorTalents = new CreatorTalents();
         creatorFeatures = new CreatorFeatures();
+        creatorImplant = new CreatorImplant();
         character = new Character(creatorSkills.Skills, creatorEquipment);
         Load load = new Load();
         load.LoadCharacter(character, path);
+        character.LoadImplants(creatorImplant);
         creatorPsyPowers = new CreatorPsyPowers(character.PsyPowers);
     }
 
-    public void RegDelegate(BackToMenu backToMenu)
+    public void RegDelegate(BackToMenu backToMenu, AudioWork audioWork)
     {
         this.backToMenu = backToMenu;
+        this.audioWork = audioWork;
     }
 
     public void SaveAndExit()
     {
+        audioWork.PlayClick();
         Save save = new Save(character);
         ScreenshotObserver screenshotObserver = gameObject.AddComponent<ScreenshotObserver>();
         screenshotObserver.RegDelegate(JustExit);
@@ -46,6 +52,7 @@ public class OperationWithCharacter : MonoBehaviour
 
     public void SaveAndExitToMenu()
     {
+        audioWork.PlayClick();
         Save save = new Save(character);
         ScreenshotObserver screenshotObserver = gameObject.AddComponent<ScreenshotObserver>();
         screenshotObserver.RegDelegate(ExitToMainMenu);
@@ -54,15 +61,18 @@ public class OperationWithCharacter : MonoBehaviour
 
     public void JustExit()
     {
+        audioWork.PlayClick();
         Application.OpenURL((Application.dataPath) + "/StreamingAssets/CharacterSheets");
         Application.Quit();
     }
     protected void Finish()
     {
+        audioWork.PlayClick();
         exitPanel.SetActive(true);
     }
     private void ExitToMainMenu()
     {
+        audioWork.PlayClick();
         backToMenu?.Invoke();
         Destroy(gameObject);
     }

@@ -13,7 +13,7 @@ public class Talent
     private GameStat.Inclinations[] inclinations = new GameStat.Inclinations[2];
     private List<Characteristic> requirementCharacteristics = new List<Characteristic>();
     private List<Skill> requirementSkills = new List<Skill>();
-    private List<MechImplants> requirementImplants = new List<MechImplants>();
+    private List<MechImplant> requirementImplants = new List<MechImplant>();
     private List<Talent> requirementTalents = new List<Talent>();
     private int requirementPsyRate;
     private int requirementInsanity = 0, requirementCorruption = 0;
@@ -83,7 +83,7 @@ public class Talent
                 isImplant = true;
                 foreach (string implant in implants)
                 {
-                    requirementImplants.Add(new MechImplants(implant));
+                    requirementImplants.Add(new MechImplant(implant));
                     listOfRequrements += $" {requirementImplants[^1].Name},";
                 }
             }
@@ -146,7 +146,7 @@ public class Talent
     }
 
     public bool IsTalentAvailable(List<Characteristic> characteristicsOfCharacter,
-        List<Skill> skillsOfCharacter, List<MechImplants> implantsOfCharacter, List<Talent> talentsOfCharacter, int corruption, int insanity, int characterPsyRate)
+        List<Skill> skillsOfCharacter, List<MechImplant> implantsOfCharacter, List<Talent> talentsOfCharacter, int corruption, int insanity, int characterPsyRate)
     {
         if(CheckCharacteristic(characteristicsOfCharacter) && CheckSkills(skillsOfCharacter) && CheckImplants(implantsOfCharacter) && CheckTalents(talentsOfCharacter) && isCanTaken
             && CheckTalentRepeat(talentsOfCharacter) && insanity >= requirementInsanity && corruption >= requirementCorruption && characterPsyRate >= requirementPsyRate)
@@ -230,7 +230,7 @@ public class Talent
         return true;
     }
 
-    private bool CheckImplants(List<MechImplants> implantsOfCharacter)
+    private bool CheckImplants(List<MechImplant> implantsOfCharacter)
     {
         
         int amountReq = requirementImplants.Count;

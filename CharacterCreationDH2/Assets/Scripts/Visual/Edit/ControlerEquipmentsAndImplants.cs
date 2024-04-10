@@ -8,7 +8,8 @@ public class ControlerEquipmentsAndImplants : MonoBehaviour
 {
     private Character character;
     private CreatorEquipment creatorEquipment;
-    [SerializeField] ItemInList itemInListExample;
+    private CreatorImplant creatorImplant;
+    [SerializeField] ItemWithAmount itemInListExample;
     [SerializeField] Transform contentListEq;
     [SerializeField] CreatorNewEquipment creatorNewEquipment;
     [SerializeField] NewMelee newMelee;
@@ -17,47 +18,70 @@ public class ControlerEquipmentsAndImplants : MonoBehaviour
     [SerializeField] NewGrenade newGrenade;
     [SerializeField] PanelWithInputText panelWithInputTextExample;
     [SerializeField] ListWithEquipments listWithEquipmentsExample;
+    [SerializeField] ListWithImplants listWithImplantsExample;
+    AudioWork audioWork;
 
-    public void SetParams(Character character, CreatorEquipment creatorEquipment)
+    public void SetParams(Character character, CreatorEquipment creatorEquipment, CreatorImplant creatorImplant, AudioWork audioWork)
     {
+        this.audioWork = audioWork;
         this.character = character;
         this.creatorEquipment = creatorEquipment;
+        this.creatorImplant = creatorImplant;
 
         foreach (Equipment equipment in character.Equipments)
         {
-            ItemInList itemInList = Instantiate(itemInListExample, contentListEq);
-            itemInList.SetParams(equipment.Name, DeleteEquipment);
+            ItemWithAmount itemInList = Instantiate(itemInListExample, contentListEq);
+            itemInList.SetParams(equipment.Name, DeleteEquipment, audioWork);
+            itemInList.SetAmountAndDelegate(equipment.Amount, ChangeAmount);
         }
 
-        foreach (MechImplants implant in character.Implants)
+        foreach (MechImplant implant in character.Implants)
         {
             ItemInList itemInList = Instantiate(itemInListExample, contentListEq);
-            itemInList.SetParams(implant.Name, DeleteImplant);
+            itemInList.SetParams(implant.Name, DeleteImplant, audioWork);
+        }
+    }
+
+    private void ChangeAmount(string name, int amount)
+    {
+        audioWork.PlayClick();
+        foreach (Equipment eq in character.Equipments)
+        {
+            if (string.Compare(eq.Name, name, true) == 0)
+            {
+                eq.Amount = amount;
+                break;
+            }
         }
     }
 
     public void ShowMeleeWeapon()
     {
+        audioWork.PlayClick();
         ShowEquipment(newMelee, SearchEquipmentByType(Equipment.TypeEquipment.Melee));
     }
 
     public void ShowRangeWeapon()
     {
+        audioWork.PlayClick();
         ShowEquipment(newRange, SearchEquipmentByType(Equipment.TypeEquipment.Range));
     }
 
     public void ShowArmor()
     {
+        audioWork.PlayClick();
         ShowEquipment(newArmor, SearchEquipmentByType(Equipment.TypeEquipment.Armor));
     }
 
     public void ShowEquipmentThing()
     {
+        audioWork.PlayClick();
         ShowEquipment(creatorNewEquipment, SearchEquipmentByType(Equipment.TypeEquipment.Thing));
     }
 
     public void ShowGrenade()
     {
+        audioWork.PlayClick();
         ShowEquipment(newGrenade, SearchEquipmentByType(Equipment.TypeEquipment.Grenade));
     }
 
@@ -76,7 +100,7 @@ public class ControlerEquipmentsAndImplants : MonoBehaviour
     private void ShowEquipment(CreatorNewEquipment creatorPanelExample, List<Equipment> equipments)
     {
         var listWithEquipments = Instantiate(listWithEquipmentsExample, transform);
-        listWithEquipments.SetParams(creatorPanelExample, equipments, CreateNewEquipment);
+        listWithEquipments.SetParams(creatorPanelExample, equipments, CreateNewEquipment,audioWork);
     }
 
     private void CreateNewEquipment(Equipment equipment)
@@ -97,20 +121,22 @@ public class ControlerEquipmentsAndImplants : MonoBehaviour
         }
         character.Equipments.Add(equipment);
         ItemInList itemInList = Instantiate(itemInListExample, contentListEq);
-        itemInList.SetParams(equipment.Name, DeleteEquipment);
+        itemInList.SetParams(equipment.Name, DeleteEquipment, audioWork);
 
     }
-    public void AddNewImplant()
+    public void ShowImplants()
     {
-        var panelWithInputText = Instantiate(panelWithInputTextExample, transform);
-        panelWithInputText.Init(SetImplant);        
+        audioWork.PlayClick();
+        Canvas canvas = GetComponentInParent<Canvas>();
+        var ListWithImplants = Instantiate(listWithImplantsExample, canvas.transform);
+        ListWithImplants.SetParams(creatorImplant.Implants, SetImplant, audioWork);
     }
 
-    private void SetImplant(string name)
+    private void SetImplant(MechImplant mechImplant)
     {
-        character.Implants.Add(new MechImplants(name));
+        character.Implants.Add(mechImplant);
         ItemInList itemInList = Instantiate(itemInListExample, contentListEq);
-        itemInList.SetParams(name, DeleteImplant);
+        itemInList.SetParams(mechImplant.Name, DeleteImplant, audioWork);
     }
     private void DeleteEquipment(string name)
     {
@@ -119,6 +145,7 @@ public class ControlerEquipmentsAndImplants : MonoBehaviour
             
             if (string.Compare(eq.Name, name, true) == 0)
             {
+                audioWork.PlayCancel();
                 character.Equipments.Remove(eq);
                 break;
             }
@@ -127,13 +154,15 @@ public class ControlerEquipmentsAndImplants : MonoBehaviour
 
     private void DeleteImplant(string name)
     {
-        foreach (MechImplants im in character.Implants)
+        foreach (MechImplant im in character.Implants)
         {
             if (string.Compare(im.Name, name, true) == 0)
             {
+                audioWork.PlayCancel();
                 character.Implants.Remove(im);
                 break;
             }
         }
     }
+    
 }

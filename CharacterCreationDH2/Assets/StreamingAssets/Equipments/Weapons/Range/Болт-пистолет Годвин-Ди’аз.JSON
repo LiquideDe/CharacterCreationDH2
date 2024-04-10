@@ -1,1 +1,1 @@
-{"name":"Болт-пистолет Годвин-Ди’аз", "description":"", "weaponClass":"Пистолет", "range":40, "rof":"O/2/-", "damage":"1к10+5В", "penetration":4, "clip":10, "reload":"Полн", "properties":"Надежное, Разрывное", "weight":3, "rarity" : "Чрезв. Редко"}
+{"name":"Болт-пистолет Годвин-Ди’аз", "description":"", "weaponClass":"Пистолет", "range":40, "rof":"O/2/-", "damage":"1к10+5В", "penetration":4, "clip":10, "reload":"Полн", "properties":"Надежное, Разрывное", "weight":3, "rarity" : "Чрезв. Редко","amount" : 1, "typeEquipment" : "Range"}

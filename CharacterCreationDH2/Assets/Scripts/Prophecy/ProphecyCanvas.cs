@@ -13,16 +13,18 @@ public class ProphecyCanvas : MonoBehaviour
     [SerializeField] GameObject button;
     Character character;
     Prophecy prophecy;
+    AudioWork audioWork;
 
     public void GenerateFromButton()
     {
+        audioWork.PlayClick();
         SetText(prophecy.GenerateProphecy(character));        
     }
 
     public void GenerateFromInput()
     {
+        audioWork.PlayClick();
         EventSystem.current.SetSelectedGameObject(null);
-        Debug.Log($"Сняли выбор гуи");
         if (int.TryParse(inputField.text, out int number))
         {
             if (number <= 100 && number > 0)
@@ -50,8 +52,9 @@ public class ProphecyCanvas : MonoBehaviour
         this.finishProphecy = finishProphecy;
     }
 
-    public void StartChoose(Character character)
+    public void StartChoose(Character character, AudioWork audioWork)
     {
+        this.audioWork = audioWork;
         prophecy = new Prophecy();
         this.character = character;
     }
@@ -60,8 +63,13 @@ public class ProphecyCanvas : MonoBehaviour
     {
         if(textDescription.text != "")
         {
+            audioWork.PlayDone();
             finishProphecy?.Invoke();
             Destroy(gameObject);
+        }
+        else
+        {
+            audioWork.PlayWarning();
         }
     }
 }

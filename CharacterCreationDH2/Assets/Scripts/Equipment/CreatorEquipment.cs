@@ -15,7 +15,7 @@ public class CreatorEquipment
         {
             string[] data = File.ReadAllLines(thing);
             JSONEquipmentReader equipmentReader = JsonUtility.FromJson<JSONEquipmentReader>(data[0]);
-            equipments.Add(new Equipment(equipmentReader.name, equipmentReader.description, equipmentReader.rarity, equipmentReader.weight));
+            equipments.Add(new Equipment(equipmentReader.name, equipmentReader.description, equipmentReader.rarity, equipmentReader.amount, equipmentReader.weight));
         }
 
         string[] armors = Directory.GetFiles($"{Application.dataPath}/StreamingAssets/Equipments" + "/Armor", "*.JSON");
@@ -63,7 +63,7 @@ public class CreatorEquipment
     {
         foreach(Equipment equipment in equipments)
         {
-            if(string.Compare(nameEq, equipment.Name, true) == 0)
+            if(string.Compare(nameEq, equipment.ClearName, true) == 0)
             {
                 return equipment;
             }

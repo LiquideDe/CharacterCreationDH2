@@ -1,1 +1,1 @@
-{"name":"Ячеистый капюшон","description":"Покрывает только голову.Броня 3, максимальная ловкость 100.","descriptionArmor":"Покрывает только голову.","head":3,"hands":0,"body":0,"legs":0,"maxAgility":100,"armorPoint":3,"weight":0.5, "rarity" : "Чрезв. Редко"}
+{"name":"Ячеистый капюшон","description":"Покрывает только голову.Броня 3, максимальная ловкость 100.","descriptionArmor":"Покрывает только голову.","head":3,"hands":0,"body":0,"legs":0,"maxAgility":100,"armorPoint":3,"weight":0.5, "rarity" : "Чрезв. Редко","amount" : 1, "typeEquipment" : "Armor"}

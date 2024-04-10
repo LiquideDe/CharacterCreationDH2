@@ -1,1 +1,1 @@
-{"name":"Флак-шлем","description":"Покрывает только голову.Броня 2, максимальная ловкость 0.","descriptionArmor":"Покрывает только голову.","head":2,"hands":0,"body":0,"legs":0,"maxAgility":0,"armorPoint":2,"weight":2.0}
+{"name":"Флак-шлем","description":"Покрывает только голову.Броня 2, максимальная ловкость 0.","descriptionArmor":"Покрывает только голову.","head":2,"hands":0,"body":0,"legs":0,"maxAgility":0,"armorPoint":2,"weight":2.0,"amount" : 1, "typeEquipment" : "Armor"}

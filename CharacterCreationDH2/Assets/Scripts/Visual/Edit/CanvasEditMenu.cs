@@ -18,18 +18,20 @@ public class CanvasEditMenu : MonoBehaviour
     PrevMenu prevMenu;
     public delegate void Done();
     Done done;
+    AudioWork audioWork;
 
 
-    public void ShowEditor(Character character, CreatorEquipment creatorEquipment, NextMenu nextMenu, PrevMenu prevMenu, Done done)
+    public void ShowEditor(Character character, CreatorEquipment creatorEquipment, CreatorImplant creatorImplant, NextMenu nextMenu, PrevMenu prevMenu, Done done, AudioWork audioWork)
     {
+        this.audioWork = audioWork;
         textName.text = character.Name;
         textCorPoint.text = character.CorruptionPoints.ToString();
         textMadPoint.text = character.InsanityPoints.ToString();
         textWound.text = character.Wounds.ToString();
         textFatePoints.text = character.FatePoint.ToString();
         this.character = character;
-        equipAndImplants.SetParams(character, creatorEquipment);
-        characteristicChanger.SetParams(character);
+        equipAndImplants.SetParams(character, creatorEquipment, creatorImplant, audioWork);
+        characteristicChanger.SetParams(character, audioWork);
         this.nextMenu = nextMenu;
         this.done = done;
         this.prevMenu = prevMenu;
@@ -38,13 +40,13 @@ public class CanvasEditMenu : MonoBehaviour
         foreach (string mutation in character.Mutation)
         {
             ItemInList itemInList = Instantiate(itemInListExample, contentListMutation);
-            itemInList.SetParams(mutation, DeleteMutation);
+            itemInList.SetParams(mutation, DeleteMutation, audioWork);
         }
 
         foreach (string mental in character.MentalDisorders)
         {
             ItemInList itemInList = Instantiate(itemInListExample, contentListMental);
-            itemInList.SetParams(mental, DeleteMentalDisorders);
+            itemInList.SetParams(mental, DeleteMentalDisorders, audioWork);
         }
     }
 
@@ -54,6 +56,7 @@ public class CanvasEditMenu : MonoBehaviour
         {
             if (string.Compare(mut, name, true) == 0)
             {
+                audioWork.PlayCancel();
                 character.Mutation.Remove(mut);
                 break;
             }
@@ -66,6 +69,7 @@ public class CanvasEditMenu : MonoBehaviour
         {
             if (string.Compare(ment, name, true) == 0)
             {
+                audioWork.PlayCancel();
                 character.Mutation.Remove(ment);
                 break;
             }
@@ -76,8 +80,13 @@ public class CanvasEditMenu : MonoBehaviour
     {
         if(character.CorruptionPoints < 100)
         {
+            audioWork.PlayClick();
             character.CorruptionPoints += 1;
             textCorPoint.text = character.CorruptionPoints.ToString();
+        }
+        else
+        {
+            audioWork.PlayWarning();
         }
         
     }
@@ -86,46 +95,68 @@ public class CanvasEditMenu : MonoBehaviour
     {
         if(character.CorruptionPoints > 0)
         {
+            audioWork.PlayClick();
             character.CorruptionPoints -= 1;
             textCorPoint.text = character.CorruptionPoints.ToString();
-        }        
+        }
+        else
+        {
+            audioWork.PlayWarning();
+        }
     }
 
     public void PlusInsanity()
     {
         if(character.InsanityPoints < 100)
         {
+            audioWork.PlayClick();
             character.InsanityPoints += 1;
             textMadPoint.text = character.InsanityPoints.ToString();
-        }    
+        }
+        else
+        {
+            audioWork.PlayWarning();
+        }
     }
 
     public void MinusInsanity()
     {
         if(character.InsanityPoints > 0)
         {
+            audioWork.PlayClick();
             character.InsanityPoints -= 1;
             textMadPoint.text = character.InsanityPoints.ToString();
-        }        
+        }
+        else
+        {
+            audioWork.PlayWarning();
+        }
     }
 
     public void PlusWound()
     {
+        audioWork.PlayClick();
         character.Wounds += 1;
         textWound.text = character.Wounds.ToString();
     }
 
     public void MinusWound()
     {
-        if(character.Wounds > 0)
+        if(character.Wounds > -10)
         {
+            audioWork.PlayClick();
             character.Wounds -= 1;
             textWound.text = character.Wounds.ToString();
+        }
+        else
+        {
+            audioWork.PlayWarning();
         }
     }
 
     public void PlusFate()
     {
+        audioWork.PlayClick();
         character.FatePoint += 1;
         textFatePoints.text = character.FatePoint.ToString();
     }
@@ -134,52 +165,67 @@ public class CanvasEditMenu : MonoBehaviour
     {
         if (character.FatePoint > 0)
         {
+            audioWork.PlayClick();
             character.FatePoint -= 1;
             textFatePoints.text = character.FatePoint.ToString();
+        }
+        else
+        {
+            audioWork.PlayWarning();
         }
     }
 
     public void Next()
     {
+        audioWork.PlayClick();
         nextMenu?.Invoke();
         Destroy(gameObject);
     }
 
     public void Prev()
     {
+        audioWork.PlayClick();
         prevMenu?.Invoke();
         Destroy(gameObject);
     }
 
     public void CreateMutation()
     {
+        audioWork.PlayClick();
         var panelWithInputText = Instantiate(panelWithInputTextExample, transform);
-        panelWithInputText.Init(SetMutation);
+        panelWithInputText.Init(SetMutation, audioWork);
     }
 
     public void CreateMental()
     {
+        audioWork.PlayClick();
         var panelWithInputText = Instantiate(panelWithInputTextExample, transform);
-        panelWithInputText.Init(SetMental);
+        panelWithInputText.Init(SetMental, audioWork);
     }
 
     private void SetMutation(string name)
     {
         character.Mutation.Add(name);
         ItemInList itemInList = Instantiate(itemInListExample, contentListMutation);
-        itemInList.SetParams(name, DeleteMutation);
+        itemInList.SetParams(name, DeleteMutation, audioWork);
     }
 
     private void SetMental(string name)
     {
         character.MentalDisorders.Add(name);
         ItemInList itemInList = Instantiate(itemInListExample, contentListMental);
-        itemInList.SetParams(name, DeleteMentalDisorders);
+        itemInList.SetParams(name, DeleteMentalDisorders, audioWork);
     }
 
     public void ShowEndMenu()
     {
+        audioWork.PlayDone();
         done?.Invoke();
         Destroy(gameObject);
+    }
+
+    public void PlayClick()
+    {
+        audioWork.PlayClick();
     }
 }

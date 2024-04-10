@@ -15,18 +15,19 @@ public class BackGroundVisual : ToggleVisual
     [SerializeField] GameObject finalPanel;
     private Background background;
     
-    
     private List<string> remembers = new List<string>();
     private CreatorSkills creatorSkills;
     private CreatorTalents creatorTalents;
     public void FinalTouchToBack()
     {
+        audioWork.PlayDone();
         finalPanel.SetActive(true);
         CreateToggles();
     }
 
     public void CancelChose()
     {
+        audioWork.PlayCancel();
         finalPanel.SetActive(false);
         foreach(GameObject g in toggleGroups)
         {
@@ -93,7 +94,7 @@ public class BackGroundVisual : ToggleVisual
             }
         }
 
-        foreach(List<Equipment> equipment in background.Equipment)
+        foreach(List<Equipment> equipment in background.Equipments)
         {
             CreateToggleGroup("Экипировка");
             for (int i = 0; i < equipment.Count; i++)
@@ -131,13 +132,11 @@ public class BackGroundVisual : ToggleVisual
                 sizechanger.sizeDelta = new Vector2(sizechanger.sizeDelta.x, sizechanger.sizeDelta.y * mult);
             }
         }
-
-    }
-
-    
+    }    
 
     public void BackgroundIsChosen()
     {
+        audioWork.PlayDone();
         int sch = 0;
         Debug.Log($"Начали отсчет sch = {sch}");
         List<Skill> skills = new List<Skill>();
@@ -169,7 +168,7 @@ public class BackGroundVisual : ToggleVisual
         }
 
         List<Equipment> equipment = new List<Equipment>();
-        foreach(List<Equipment> eq in background.Equipment)
+        foreach(List<Equipment> eq in background.Equipments)
         {
             if(eq.Count > 1)
             {

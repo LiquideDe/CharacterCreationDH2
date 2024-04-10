@@ -6,10 +6,16 @@ using UnityEngine.EventSystems;
 public class CharacteristicCard : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI textName, textAmount;
-
+    AudioWork audioWork;
     public void SetTextName(string name)
     {
         textName.text = name;
+        
+    }
+
+    public void SetAudio(AudioWork audioWork)
+    {
+        this.audioWork = audioWork;
     }
 
     public void SetAmount(int amount)
@@ -19,6 +25,7 @@ public class CharacteristicCard : MonoBehaviour
 
     public void PlusAmount(int amount)
     {
+        audioWork.PlayClick();
         textAmount.text = $"{int.Parse(textAmount.text) + amount}";
     }
 

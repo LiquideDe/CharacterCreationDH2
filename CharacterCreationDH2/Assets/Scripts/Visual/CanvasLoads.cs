@@ -11,9 +11,11 @@ public class CanvasLoads : MonoBehaviour
     ReturnPath returnPath;
     [SerializeField] ItemListActiveButton itemExample;
     [SerializeField] Transform listWithLoads;
+    AudioWork audioWork;
 
-    public void ShowLoads(JustReturnToMenu justReturnToMenu, ReturnPath returnPath)
+    public void ShowLoads(JustReturnToMenu justReturnToMenu, ReturnPath returnPath, AudioWork audioWork)
     {
+        this.audioWork = audioWork;
         this.justReturnToMenu = justReturnToMenu;
         this.returnPath = returnPath;
         gameObject.SetActive(true);
@@ -24,18 +26,20 @@ public class CanvasLoads : MonoBehaviour
         {
             var dir = new DirectoryInfo(load);
             ItemListActiveButton item = Instantiate(itemExample, listWithLoads);
-            item.SetParams(dir.Name, ReturnPathToMain);
+            item.SetParams(dir.Name, ReturnPathToMain, audioWork);
         }
     }
 
     private void ReturnPathToMain(string name)
     {
+        audioWork.PlayDone();
         returnPath?.Invoke($"{Application.dataPath}/StreamingAssets/CharacterSheets/{name}/{name}.JSON");
         Destroy(gameObject);
     }
 
     public void ReturnEmpty()
     {
+        audioWork.PlayCancel();
         justReturnToMenu?.Invoke();
         Destroy(gameObject);
     }

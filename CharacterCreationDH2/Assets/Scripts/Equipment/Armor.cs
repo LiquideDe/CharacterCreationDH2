@@ -6,7 +6,7 @@ public class Armor : Equipment
 {
     private int defHead, defHands, defBody, defLegs, maxAgil, armorPoint;
     private string placeArmor;
-    public Armor(JSONArmorReader armorReader) : base (armorReader.name, armorReader.description, armorReader.rarity,armorReader.weight)
+    public Armor(JSONArmorReader armorReader) : base (armorReader.name, armorReader.description, armorReader.rarity, armorReader.amount, armorReader.weight)
     {
         typeEquipment = TypeEquipment.Armor;
         defHead = armorReader.head;

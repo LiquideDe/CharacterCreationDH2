@@ -9,8 +9,9 @@ public class CharacteristicGenerateCanvas : MonoBehaviour
     [SerializeField] GameObject characteristicPanel, randomCard, gridCards, gridRandomCards;
     private List<Characteristic> characteristics;
     private List<CharacteristicCard> characteristicCards = new List<CharacteristicCard>();
+    AudioWork audioWork;
 
-    public void GenerateCharacteristics(Character character, int averageLvl)
+    public void GenerateCharacteristics(Character character, int averageLvl, AudioWork audioWork)
     {
         gameObject.SetActive(true);
         characteristics = new List<Characteristic>(character.GetCharacteristicsForGenerate(averageLvl));
@@ -22,15 +23,18 @@ public class CharacteristicGenerateCanvas : MonoBehaviour
             CharacteristicCard characteristicCard = gameObject.GetComponent<CharacteristicCard>();
             characteristicCard.SetTextName(characteristic.Name);
             characteristicCard.SetAmount(characteristic.Amount);
+            characteristicCard.SetAudio(audioWork);
             characteristicCards.Add(characteristicCard);
             GameObject gameObject1 = Instantiate(randomCard);
             gameObject1.transform.SetParent(gridRandomCards.transform);
+            this.audioWork = audioWork;
             gameObject1.SetActive(true);
         }
     }
 
     public void GenerateFinished()
     {
+        audioWork.PlayDone();
         for(int i = 0; i < characteristicCards.Count; i++)
         {
             characteristics[i].Amount = characteristicCards[i].Amount;

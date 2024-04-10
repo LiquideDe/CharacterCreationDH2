@@ -18,10 +18,16 @@ public class InfoOfButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     ClickOnButton clickOnButton;
     public bool IsActive { get => isActive; }
     public GameStat.Inclinations Inclination { get => inclination; }
+    AudioWork audioWork;
 
     private void Start()
     {
         image = GetComponent<Image>();
+    }
+
+    public void SetAudio(AudioWork audioWork)
+    {
+        this.audioWork = audioWork;
     }
     public void OnPointerEnter(PointerEventData eventData)
     {
@@ -79,6 +85,7 @@ public class InfoOfButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        audioWork.PlayClick();
         ChangeActive();
         clickOnButton?.Invoke();
     }

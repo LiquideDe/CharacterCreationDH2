@@ -5,12 +5,14 @@ using TMPro;
 
 public class ItemInList : MonoBehaviour
 {
-    [SerializeField] TextMeshProUGUI textName;
+    [SerializeField] protected TextMeshProUGUI textName;    
     public delegate void ChooseItem(string name);
     ChooseItem chooseItem;
+    AudioWork audioWork;
 
-    public void SetParams(string name, ChooseItem chooseItem)
+    public void SetParams(string name, ChooseItem chooseItem, AudioWork audioWork)
     {
+        this.audioWork = audioWork;
         this.chooseItem = chooseItem;
         textName.text = name;
         gameObject.SetActive(true);
@@ -18,6 +20,7 @@ public class ItemInList : MonoBehaviour
 
     public void ChooseThis()
     {
+        audioWork.PlayClick();
         chooseItem?.Invoke(textName.text);
         Destroy(gameObject);
     }

@@ -32,12 +32,14 @@ public class HomeWorldVisual : VisualCanvas
 
     public void FinalTouchToWorld()
     {
+        audioWork.PlayDone();
         finalPanel.SetActive(true);
     }
     public void WorldIsChosen()
     {
         if(CheckAllInputs())
         {
+            audioWork.PlayDone();
             homeworld.Fatepoint = homeworld.IsBonusFate(generatedFateB);
             homeworld.Wound += generatedWound;
             homeworld.Skeen = generatedSkeen;
@@ -54,10 +56,15 @@ public class HomeWorldVisual : VisualCanvas
 
             chosenWorld?.Invoke(homeworld);
             Destroy(gameObject);
-        }        
+        }
+        else
+        {
+            audioWork.PlayWarning();
+        }
     }
     public void CancelChose()
     {
+        audioWork.PlayCancel();
         finalPanel.SetActive(false);
         CancelAllTexts();
     }
@@ -132,6 +139,7 @@ public class HomeWorldVisual : VisualCanvas
     {
         if (!IsInputFieldTyped(id))
         {
+            audioWork.PlayClick();
             ContinueGenerate(id, false);
         }        
     }
@@ -268,9 +276,5 @@ public class HomeWorldVisual : VisualCanvas
             id = baraban.Count - 1;
         }
         return baraban[id];
-    }
-
-    
-
-    
+    } 
 }

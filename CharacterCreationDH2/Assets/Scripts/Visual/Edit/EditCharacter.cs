@@ -18,19 +18,19 @@ public class EditCharacter : OperationWithCharacter
     private void OpenEditProperty()
     {
         var edProp = Instantiate(editProperty);
-        edProp.SetParams(character, creatorFeatures, OpenEditCharacteristics);
+        edProp.SetParams(character, creatorFeatures, OpenEditCharacteristics, audioWork);
     }
 
     private void OpenEditCharacteristics()
     {
         CanvasEditMenu edMenu = Instantiate(editMenu);
-        edMenu.ShowEditor(character, creatorEquipment, OpenEditSkill, OpenEditProperty, Finish);
+        edMenu.ShowEditor(character, creatorEquipment, creatorImplant,OpenEditSkill, OpenEditProperty, Finish, audioWork);
     }
     private void OpenEditSkill()
     {
         SkillTrainingCanvas skillTr = Instantiate(skillTrainingCanvas);
         skillTr.gameObject.SetActive(true);
-        skillTr.CreatePanels(character, true);
+        skillTr.CreatePanels(character, audioWork,true);
         skillTr.RegDelegates(OpenEditTalent, OpenEditCharacteristics);
     }
 
@@ -39,14 +39,14 @@ public class EditCharacter : OperationWithCharacter
         TalentTrainingCanvas talentTr = Instantiate(talentTrainingCanvas);
         talentTr.gameObject.SetActive(true);
         talentTr.RegDelegates(OpenEditSkill, OpenEditPsy);
-        talentTr.ShowTalentPanels(character, creatorTalents, false, true);        
+        talentTr.ShowTalentPanels(character, creatorTalents, false,audioWork, true);        
     }
 
     private void OpenEditPsy()
     {
         PsycanaObserver psycanaObserver = gameObject.AddComponent<PsycanaObserver>();
         psycanaObserver.RegDelegate(OpenEditTalent, Finish);
-        psycanaObserver.ShowPsyPowers(psyCanvas, creatorPsyPowers, character, true);
+        psycanaObserver.ShowPsyPowers(psyCanvas, creatorPsyPowers, character, audioWork,true);
     }
 
     

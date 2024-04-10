@@ -1,1 +1,1 @@
-{"name":"Цеп","description":"","properties":"Гибкое,Примитивное(8)","type":"","weaponClass":"Рукопашное","damage":"1к10+2У","rarity":"РД","penetration":0,"weight":8.0}
+{"name":"Цеп","description":"","properties":"Гибкое,Примитивное(8)","type":"","weaponClass":"Рукопашное","damage":"1к10+2У","rarity":"РД","penetration":0,"weight":8.0,"amount" : 1, "typeEquipment" : "Melee"}

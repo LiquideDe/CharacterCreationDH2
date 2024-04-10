@@ -17,12 +17,14 @@ public class RoleVisual : ToggleVisual
 
     public void FinalTouchToRole()
     {
+        audioWork.PlayDone();
         finalPanel.SetActive(true);
         CreateToggles();
     }
 
     public void CancelChose()
     {
+        audioWork.PlayCancel();
         finalPanel.SetActive(false);
         foreach (GameObject g in toggleGroups)
         {
@@ -89,6 +91,7 @@ public class RoleVisual : ToggleVisual
 
     public void RoleIsChosen()
     {
+        audioWork.PlayDone();
         int sch = 0;
         foreach (List<GameStat.Inclinations> incl in role.Inclinations)
         {

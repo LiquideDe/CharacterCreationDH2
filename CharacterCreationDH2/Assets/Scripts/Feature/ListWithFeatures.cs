@@ -10,11 +10,13 @@ public class ListWithFeatures : MonoBehaviour
     Character character;
     List<Feature> features = new List<Feature>();
     List<ItemFeature> itemFeatures = new List<ItemFeature>();
+    AudioWork audioWork;
 
-    public void SetParams(Character character, List<Feature> features)
+    public void SetParams(Character character, List<Feature> features, AudioWork audioWork)
     {
         this.character = character;
         this.features = features;
+        this.audioWork = audioWork;
         foreach(Feature feature in character.Features)
         {
             AddingItem(feature);
@@ -23,18 +25,21 @@ public class ListWithFeatures : MonoBehaviour
 
     public void ShowNewFeatures()
     {
+        audioWork.PlayClick();
         Canvas canvas = GetComponentInParent<Canvas>();
         var listWithNewFeatures = Instantiate(listWithNewFeaturesExample, canvas.transform);
-        listWithNewFeatures.SetParams(features, character.Features, AddNewFeature);
+        listWithNewFeatures.SetParams(features, character.Features, AddNewFeature, audioWork);
     }
 
     private void ChangeLvl(Feature feature)
     {
+        audioWork.PlayClick();
         FindFeature(feature).Lvl = feature.Lvl;
     }
 
     private void RemoveFeature(Feature feature)
     {
+        audioWork.PlayCancel();
         character.Features.Remove(FindFeature(feature));
     }
 

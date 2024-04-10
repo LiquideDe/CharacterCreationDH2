@@ -10,10 +10,12 @@ public class ListNewInclinations : MonoBehaviour
     [SerializeField] Transform content;
     [SerializeField] ItemListActiveButton itemExample;
     private List<ItemListActiveButton> activeButtons = new List<ItemListActiveButton>();
+    AudioWork audioWork;
 
-    public void SetParams(List<GameStat.Inclinations> inclinationsCharacter, ReturnNameInclination returnInclination)
+    public void SetParams(List<GameStat.Inclinations> inclinationsCharacter, ReturnNameInclination returnInclination, AudioWork audioWork)
     {
         gameObject.SetActive(true);
+        this.audioWork = audioWork;
         this.returnInclination = returnInclination;
         foreach (GameStat.Inclinations inclination in Enum.GetValues(typeof(GameStat.Inclinations)))
         {
@@ -29,19 +31,21 @@ public class ListNewInclinations : MonoBehaviour
             if (sch < 1 && inclination != GameStat.Inclinations.None && inclination != GameStat.Inclinations.Elite)
             {
                 activeButtons.Add(Instantiate(itemExample, content));
-                activeButtons[^1].SetParams(GameStat.inclinationTranslate[inclination], ChooseThisInclination);
+                activeButtons[^1].SetParams(GameStat.inclinationTranslate[inclination], ChooseThisInclination, audioWork);
             }
         }
     }
 
     private void ChooseThisInclination(string name)
     {
+        audioWork.PlayDone();
         returnInclination?.Invoke(name);
-        Cancel();
+        Destroy(gameObject);
     }
 
     public void Cancel()
     {
+        audioWork.PlayCancel();
         Destroy(gameObject);
     }
 }

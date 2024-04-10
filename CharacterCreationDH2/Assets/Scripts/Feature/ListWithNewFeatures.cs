@@ -9,11 +9,13 @@ public class ListWithNewFeatures : MonoBehaviour
     List<ItemFeatureActive> items = new List<ItemFeatureActive>();
     public delegate void ReturnNewFeature(Feature feature);
     ReturnNewFeature returnNew;
+    AudioWork audioWork;
 
-    public void SetParams(List<Feature> features, List<Feature> featuresCharacter, ReturnNewFeature returnNew)
+    public void SetParams(List<Feature> features, List<Feature> featuresCharacter, ReturnNewFeature returnNew, AudioWork audioWork)
     {
         gameObject.SetActive(true);
         this.returnNew = returnNew;
+        this.audioWork = audioWork;
         foreach(Feature feature in features)
         {
             int sch = 0;
@@ -36,12 +38,14 @@ public class ListWithNewFeatures : MonoBehaviour
 
     private void AddThisFeature(Feature feature)
     {
+        audioWork.PlayDone();
         returnNew?.Invoke(feature);
-        Cancel();
+        Destroy(gameObject);
     }
 
     public void Cancel()
     {
+        audioWork.PlayCancel();
         Destroy(gameObject);
     }
 }

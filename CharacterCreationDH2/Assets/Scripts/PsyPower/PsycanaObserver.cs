@@ -13,9 +13,11 @@ public class PsycanaObserver : MonoBehaviour
     private Character character;
     bool isEdit;
     bool isNBpush;
+    AudioWork audioWork;
 
-    public void ShowPsyPowers(PsyCanvas psyCanvas, CreatorPsyPowers creatorPsyPowers, Character character, bool isEdit = false)
+    public void ShowPsyPowers(PsyCanvas psyCanvas, CreatorPsyPowers creatorPsyPowers, Character character, AudioWork audioWork,bool isEdit = false)
     {
+        this.audioWork = audioWork;
         this.psyCanvas = psyCanvas;
         this.creatorPsyPowers = creatorPsyPowers;
         this.character = character;
@@ -24,6 +26,7 @@ public class PsycanaObserver : MonoBehaviour
         psycana.gameObject.SetActive(true);
         psycana.RegDelegate(CheckReqForPsyPower, GetPsyPower, SetNewPsyLvl);
         psycana.RegDelegateNextPrev(NextPsySchool, PrevPsySchool);
+        psycana.SetAudio(audioWork);
         psycana.CreatePsyPanels(creatorPsyPowers.GetPowers(0), creatorPsyPowers.GetConnections(0), 0, character.ExperienceUnspent, character.PsyRating,
             creatorPsyPowers.GetNameSchool(0), creatorPsyPowers.GetSizeSpacing(0),false, isEdit);        
     }
@@ -38,6 +41,7 @@ public class PsycanaObserver : MonoBehaviour
     {
         if (!isNBpush && psycana.IsDone)
         {
+            audioWork.PlayClick();
             isNBpush = true;
             StartCoroutine(Next(prevSchool, psycana));
         }        
@@ -73,6 +77,7 @@ public class PsycanaObserver : MonoBehaviour
     {        
         if (!isNBpush && psycana.IsDone)
         {
+            audioWork.PlayClick();
             isNBpush = true;
             StartCoroutine(Prev(prevSchool, psycana));
         }        
@@ -107,12 +112,14 @@ public class PsycanaObserver : MonoBehaviour
     {
         if (creatorPsyPowers.CheckPowerForAdding(school, id, character) || isEdit)
         {
+            audioWork.PlayDone();
             PsyPower psyPower = creatorPsyPowers.GetPsyPowerById(school, id);
             character.AddPsyPower(psyPower, isEdit);
             return true;
         }
         else
         {
+            audioWork.PlayWarning();
             return false;
         }
     }
@@ -121,8 +128,13 @@ public class PsycanaObserver : MonoBehaviour
     {
         if (character.UpgradePsyRate(isEdit))
         {
+            audioWork.PlayDone();
             psyCanvas.UpdateTextPsyRate(character.PsyRating);
             psyCanvas.UpdateText(character.ExperienceUnspent);
+        }
+        else
+        {
+            audioWork.PlayWarning();
         }
     }
 

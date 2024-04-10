@@ -23,6 +23,13 @@ public class PsyCanvas : MonoBehaviour
     [SerializeField] GameObject connectionsContainer, straightLine, panelDescription;
     [SerializeField] HorizontalLayoutGroup layoutGroupFirst, layoutGroupSecond, layoutGroupThird;
     [SerializeField] Sprite spriteDone, spriteRegular;
+    AudioWork audioWork;
+
+    internal void SetAudio(AudioWork audioWork)
+    {
+        this.audioWork = audioWork;
+    }
+
     [SerializeField] Image imageNextButton;
     private int chosenSchool;
     [SerializeField] private TextMeshProUGUI textExp, textName, textCost, textDescription, textAction, textCostPsyRate, textPsyRate, textNameSchool;
@@ -170,6 +177,7 @@ public class PsyCanvas : MonoBehaviour
 
     private void OpenPanel(int id)
     {
+        audioWork.PlayClick();
         chosenId = id;
         panelDescription.SetActive(true);
         PsyPower psyPower = getPsyPower?.Invoke(chosenSchool, id);
@@ -181,6 +189,7 @@ public class PsyCanvas : MonoBehaviour
 
     public void ClosePanel()
     {
+        audioWork.PlayCancel();
         panelDescription.SetActive(false);
     }
 
@@ -188,10 +197,15 @@ public class PsyCanvas : MonoBehaviour
     {
         if (CheckPsyPowerForTeach(chosenId))
         {
+            audioWork.PlayDone();
             PsyPanel psyPanel = GetPsyPanelById(chosenId);
             psyPanel.BuyPower();
             experience -= psyPanel.Cost;
             UpdateText(experience);
+        }
+        else
+        {
+            audioWork.PlayWarning();
         }
         ClosePanel();
     }

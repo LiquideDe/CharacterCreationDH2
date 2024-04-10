@@ -60,14 +60,14 @@ public class SecondCharacterSheet : TakeScreenshot
                     if (armorBlock.IsEmpty)
                     {
                         Armor armor = (Armor)equipment;
-                        armorBlock.FillBlock(armor);
+                        armorBlock.FillBlock(armor, character.Implants);
                         break;
                     }
                 }
             }
         }
 
-        foreach(MechImplants implant in character.Implants)
+        foreach(MechImplant implant in character.Implants)
         {
             textEquipments.text += implant.Name + "\n";
         }

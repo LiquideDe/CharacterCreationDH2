@@ -18,23 +18,25 @@ public class TalentPanel : MonoBehaviour, IPointerDownHandler
     bool hasAlready, canTraining;
     public bool HasAlready { get => hasAlready; }
     public bool CanTraining { get => canTraining; }
+    AudioWork audioWork;
     private void Awake()
     {
         image = this.GetComponent<Image>();
     }
     public void OnPointerDown(PointerEventData eventData)
     {
-        
         textDescr.text = textName.text + "\n" + "\n";
         textDescr.text += description;
+        audioWork.PlayClick();
         if (!hasAlready)
         {
             notificationAboutId?.Invoke(id, cost);
         }        
     }
 
-    public void CreatePanel(Talent talent, int id, NotificationAboutId notificationAboutId, bool canTraining, bool alreadyHas)
+    public void CreatePanel(Talent talent, int id, NotificationAboutId notificationAboutId, bool canTraining, bool alreadyHas, AudioWork audioWork)
     {
+        this.audioWork = audioWork;
         textName.text = talent.Name;
         textCost.text = talent.Cost.ToString();
         cost = talent.Cost;

@@ -10,13 +10,14 @@ public class BackgroundObserver : MonoBehaviour
     private BackGroundVisual backVisual;
     private FinishChooseBackground finishChooseBackground;
 
-    public void OpenBackgroundCanvas(BackGroundVisual backVisual, CreatorEquipment creatorEq, CreatorSkills creatorSkills, CreatorTalents creatorTalents)
+    public void OpenBackgroundCanvas(BackGroundVisual backVisual, CreatorSkills creatorSkills, CreatorTalents creatorTalents, AudioWork audioWork)
     {
-        creatorBackgrounds = new CreatorBackgrounds(creatorEq);
+        creatorBackgrounds = new CreatorBackgrounds();
         this.backVisual = Instantiate(backVisual);
         this.backVisual.RegDelegate(ShowNextBack, ShowPrevBack);
         this.backVisual.regFinalDelegate(FinishChooseBackGround);
         this.backVisual.SetCreators(creatorSkills, creatorTalents);
+        this.backVisual.SetAudio(audioWork);
         ShowNextBack();
     }
 

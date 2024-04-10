@@ -10,17 +10,20 @@ public class ChooseAverageLvl : MonoBehaviour
     Finish finish;
     [SerializeField] Slider slider;
     [SerializeField] TextMeshProUGUI textLvl;
+    AudioWork audioWork;
 
     public void Done()
     {
+        audioWork.PlayDone();
         finish?.Invoke((int)slider.value);
         Destroy(gameObject);
     }
 
-    public void ShowChooseAverage(Finish finish)
+    public void ShowChooseAverage(Finish finish, AudioWork audioWork)
     {
         gameObject.SetActive(true);
         this.finish = finish;
+        this.audioWork = audioWork;
     }
 
     public void SliderChange()

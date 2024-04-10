@@ -17,9 +17,11 @@ public class SkillTrainingCanvas : MonoBehaviour
     [SerializeField] GameObject[] lorePanels;
     [SerializeField] GameObject[] gridLorePanels;
     private bool isCommon, isForbidden, isLinquistic, isScholastic, isTrade, isEdit;
+    AudioWork audioWork;
 
-    public void CreatePanels(Character character, bool isEdit = false)
+    public void CreatePanels(Character character, AudioWork audioWork,bool isEdit = false)
     {
+        this.audioWork = audioWork;
         this.character = character;
         exp = character.ExperienceUnspent;
         this.isEdit = isEdit;
@@ -135,22 +137,25 @@ public class SkillTrainingCanvas : MonoBehaviour
         kP.transform.SetParent(grid.transform);
         ButtonToList buttonTo = kP.GetComponent<ButtonToList>();
         buttonTo.TextName = textName;
-        buttonTo.SetPanel(lorePanels[idPanel]);
+        buttonTo.SetPanel(lorePanels[idPanel], audioWork);
     }
 
     private bool CheckExp(int cost, int id)
     {
         if (cost > exp && !isEdit)
         {
+            audioWork.PlayCancel();
             return false;
         }
         else if(isEdit)
         {
+            audioWork.PlayDone();
             character.UpgradeSkill(null, SkillPanels[id].Name);
             return true;
         }
         else
         {
+            audioWork.PlayDone();
             exp -= cost;
             UpdateExpText();
             character.UpgradeSkill(null, SkillPanels[id].Name);
@@ -182,13 +187,25 @@ public class SkillTrainingCanvas : MonoBehaviour
 
     public void NextButton()
     {
+        audioWork.PlayClick();
         nextPanelTalents?.Invoke();
         Destroy(gameObject);
     }
 
     public void PrevButton()
     {
+        audioWork.PlayClick();
         prevPanelChar?.Invoke();
         Destroy(gameObject);
+    }
+
+    public void OpenPanel()
+    {
+        audioWork.PlayClick();
+    }
+
+    public void ClosePanel()
+    {
+        audioWork.PlayCancel();
     }
 }

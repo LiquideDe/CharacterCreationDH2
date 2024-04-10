@@ -9,13 +9,13 @@ public class HomeWorldObserver : MonoBehaviour
     private HomeWorldVisual homeWorldVisual;
     private FinishChooseWorld finishChooseWorld;
 
-    public void OpenHomeWorldCanvas(HomeWorldVisual homeWorldVisual)
+    public void OpenHomeWorldCanvas(HomeWorldVisual homeWorldVisual, AudioWork audioWork)
     {
         creatorWorlds = new CreatorWorlds();
-
         this.homeWorldVisual = Instantiate(homeWorldVisual);
         this.homeWorldVisual.RegDelegate(ShowNextWorld, ShowPrevWorld);
         this.homeWorldVisual.regFinalDelegate(Finish);
+        this.homeWorldVisual.SetAudio(audioWork);
         ShowNextWorld();
     }
 
