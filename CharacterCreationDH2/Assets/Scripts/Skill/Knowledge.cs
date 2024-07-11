@@ -4,21 +4,20 @@ using UnityEngine;
 
 public class Knowledge : Skill
 {
-    private string nameKnowledge;
+    private string _nameKnowledge;
 
-    public string NameKnowledge { get => nameKnowledge; }
-    public string InternalNameKnowledge { get => internalName; }
+    public string NameKnowledge { get => _nameKnowledge; }
+    public string InternalNameKnowledge { get => _internalName; }
     public Knowledge(JSONSkillLoader skillLoader, string path)
         : base (skillLoader, path)
     {
-        nameKnowledge = name;
-        isKnowledge = true;
+        _nameKnowledge = _name;
+        _isKnowledge = true;
     }
 
-    public Knowledge(string name, string nameSkill, int lvlLearned)
-        : base (nameSkill, lvlLearned)
+    public Knowledge(Knowledge skill, int lvl) : base(skill, lvl)
     {
-        nameKnowledge = name;
+        _nameKnowledge = skill.NameKnowledge;
+        _isKnowledge = skill.IsKnowledge;
     }
-
 }

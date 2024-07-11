@@ -7,7 +7,7 @@ public class CreatorEquipment
 {
     private List<Equipment> equipments = new List<Equipment>();
 
-    public List<Equipment> Equipments { get => equipments; }
+    public List<Equipment> Equipments  => equipments; 
     public CreatorEquipment()
     {
         string[] things = Directory.GetFiles($"{Application.dataPath}/StreamingAssets/Equipments" + "/Things", "*.JSON");
@@ -63,7 +63,7 @@ public class CreatorEquipment
     {
         foreach(Equipment equipment in equipments)
         {
-            if(string.Compare(nameEq, equipment.ClearName, true) == 0)
+            if(string.Compare(nameEq, equipment.Name, true) == 0)
             {
                 return equipment;
             }

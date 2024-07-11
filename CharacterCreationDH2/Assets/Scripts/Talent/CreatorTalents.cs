@@ -35,12 +35,4 @@ public class CreatorTalents
         Debug.Log($"!!!!! Не нашли талантант !!!! Искали {name}");
         return null;
     }
-
-    public void CalculationCost(List<GameStat.Inclinations> inclinations)
-    {
-        foreach(Talent talent in talents)
-        {
-            talent.CalculateCost(inclinations);
-        }
-    }
 }

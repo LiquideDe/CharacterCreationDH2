@@ -1,7 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public class Equipment : IName
 {
     private string nameEquipment, description, rarity;
@@ -22,12 +18,23 @@ public class Equipment : IName
         this.amount = amount;
     }
 
-    public string Name { get => GetName(); }
-    public string ClearName { get => nameEquipment; }
-    public string Description { get => description; }
-    public TypeEquipment TypeEq { get => typeEquipment; }
-    public float Weight { get => weight; }
-    public string Rarity { get => rarity; }
+    public Equipment(Equipment equipment)
+    {
+        nameEquipment = equipment.Name;
+        description = equipment.Description;
+        rarity = equipment.Rarity;
+        weight = equipment.Weight;
+        amount = equipment.Amount;
+        typeEquipment = equipment.TypeEq;
+    }
+
+    public string NameWithAmount => GetName(); 
+    public string Name => nameEquipment;
+
+    public string Description => description; 
+    public TypeEquipment TypeEq => typeEquipment; 
+    public float Weight => weight; 
+    public string Rarity => rarity; 
     public int Amount { get => amount; set => amount = value; }
 
     private string GetName()

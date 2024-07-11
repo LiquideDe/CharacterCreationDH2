@@ -15,7 +15,7 @@ public class CreatorImplant
         foreach(string implant in implantsJson)
         {
             string[] data = File.ReadAllLines(implant);
-            ImplantSaveLoad implantSaveLoad = JsonUtility.FromJson<ImplantSaveLoad>(data[0]);
+            SaveLoadImplant implantSaveLoad = JsonUtility.FromJson<SaveLoadImplant>(data[0]);
             implants.Add(new MechImplant(implantSaveLoad));
         }
     }

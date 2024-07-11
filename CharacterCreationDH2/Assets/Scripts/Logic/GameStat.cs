@@ -7,18 +7,18 @@ using UnityEngine;
 
 public static class GameStat
 {
-    public static Dictionary<CharacterName, string> characterTranslate = new Dictionary<CharacterName, string>()
+    public static Dictionary<CharacteristicName, string> characterTranslate = new Dictionary<CharacteristicName, string>()
     {
-        { CharacterName.WeaponSkill,"Навык Рукопашной" },
-        { CharacterName.BallisticSkill,"Навык Стрельбы" },
-        { CharacterName.Strength,"Сила" },
-        { CharacterName.Toughness,"Выносливость" },
-        { CharacterName.Agility,"Ловкость" },
-        { CharacterName.Intelligence,"Интеллект" },
-        { CharacterName.Perception,"Восприятие" },
-        { CharacterName.Willpower,"Сила Воли" },
-        { CharacterName.Fellowship,"Общительность" },
-        { CharacterName.Influence,"Влияние" }
+        { CharacteristicName.WeaponSkill,"Навык Рукопашной" },
+        { CharacteristicName.BallisticSkill,"Навык Стрельбы" },
+        { CharacteristicName.Strength,"Сила" },
+        { CharacteristicName.Toughness,"Выносливость" },
+        { CharacteristicName.Agility,"Ловкость" },
+        { CharacteristicName.Intelligence,"Интеллект" },
+        { CharacteristicName.Perception,"Восприятие" },
+        { CharacteristicName.Willpower,"Сила Воли" },
+        { CharacteristicName.Fellowship,"Общительность" },
+        { CharacteristicName.Influence,"Влияние" }
 
     };
 
@@ -44,13 +44,45 @@ public static class GameStat
         {Inclinations.Weapon, "Ближний бой" },
         {Inclinations.Willpower, "Сила Воли" }
     };
+
+    public static Dictionary<string, Inclinations> inclinationReverseTranslate = new Dictionary<string, Inclinations>()
+    {
+        { "Ловкость", Inclinations.Agility },
+        { "Стрельба", Inclinations.Ballistic },
+        {     "Защита"          ,Inclinations.Defense                      },
+        {     "Общительность"   ,Inclinations.Fellowship                      },
+        {     "Полевое"         ,Inclinations.Fieldcraft                       },
+        {     "Изящество"       ,Inclinations.Finesse                          },
+        {     "Общее"           ,Inclinations.General                          },
+        {     "Интеллект"       ,Inclinations.Intelligence                     },
+        {     "Познание"        ,Inclinations.Knowledge                        },
+        {     "Лидерство"       ,Inclinations.Leadership                       },
+        {     "Нападение"       ,Inclinations.Offense                          },
+        {     "Восприятие"      ,Inclinations.Perception                               },
+        {     "Псайкер"         ,Inclinations.Psyker                           },
+        {     "Общение"         ,Inclinations.Social                           },
+        {     "Сила"            ,Inclinations.Strength                     },
+        {     "Тех"             ,Inclinations.Tech                         },
+        {     "Выносливость"    ,Inclinations.Toughness                                 },
+        {     "Ближний бой"     ,Inclinations.Weapon                                       },
+        {     "Сила Воли"       ,Inclinations.Willpower                        }
+    };
+
+    public static Dictionary<string, string> KnowledgeTranslate = new Dictionary<string, string>()
+    {
+        {"Trade", "Ремесло" },
+        {"CommonLore", "Общие знания" },
+        {"ForbiddenLore", "Запретные знания" },
+        {"ScholasticLore", "Ученые знания" },
+        {"Linquistics", "Лингвистика" }
+    };
     
     public enum Inclinations {None, Agility, Ballistic, Defense, Fellowship,
     Fieldcraft, Finesse, General, Intelligence, Knowledge, Leadership,
     Offense, Perception, Psyker, Social, Strength, Tech, Toughness,
     Weapon, Willpower, Elite};
 
-    public enum CharacterName { None, WeaponSkill, BallisticSkill, Strength, Toughness, Agility, Intelligence, Perception, Willpower, Fellowship, Influence}    
+    public enum CharacteristicName { None, WeaponSkill, BallisticSkill, Strength, Toughness, Agility, Intelligence, Perception, Willpower, Fellowship, Influence}    
     
     public enum SkillName {None, Acrobatics, Athletics, Awareness, Charm, Command,
     Commerce, Deceive, Dodge, Inquiry, Interrogation, Intimidate, Logic,

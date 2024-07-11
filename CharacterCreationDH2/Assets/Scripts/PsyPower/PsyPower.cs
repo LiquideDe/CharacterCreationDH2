@@ -1,21 +1,16 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
 using UnityEngine;
 
-
-public class PsyPower
+public class PsyPower : IName
 {
     private string namePower, description, action, shortDescription;
     private int cost, psyRateRequire, id, lvl, idParent, reqCorruption = 0;
-    private bool isBase, isActive;
+    private bool isBase;
     private List<Characteristic> requireCharacteristics;
     private string textCost;
     private List<Skill> requireSkills;
-
-
     
     public PsyPower(JSONPsyReader psyReader, string path)
     {
@@ -39,7 +34,7 @@ public class PsyPower
             if (Directory.Exists(path + "/Characteristics"))
             {
                 requireCharacteristics = new List<Characteristic>();
-                foreach (GameStat.CharacterName charName in Enum.GetValues(typeof(GameStat.CharacterName)))
+                foreach (GameStat.CharacteristicName charName in Enum.GetValues(typeof(GameStat.CharacteristicName)))
                 {
                     string searchFile = $"{path}/Characteristics/{charName}.txt";
                     if (File.Exists(searchFile))
@@ -65,10 +60,9 @@ public class PsyPower
                 reqCorruption = int.Parse(GameStat.ReadText(path + "/Corruption.txt"));
             }
 
-        }
-        
+        }        
 
-            UpdateTextCost();
+            SetTextCost();
     }
 
     public PsyPower(string name)
@@ -76,25 +70,11 @@ public class PsyPower
         namePower = name;
     }
 
-    private void UpdateTextCost()
-    {
-        textCost = $"ÎÎ {cost}";
-        textCost += $", ÏÐ{psyRateRequire}";
-        if(requireCharacteristics != null)
-        {
-            foreach (Characteristic characteristic in requireCharacteristics)
-            {
-                textCost += $", {characteristic.Name} {characteristic.Amount}";
-            }
-        }        
-    }
-
-    public string NamePower { get => namePower; }
+    public string Name { get => namePower; }
     public string Description { get => description; }
     public int Cost { get => cost; }
     public int PsyRateRequire { get => psyRateRequire; }
     public int Id { get => id; }
-    public bool IsActive { get => isActive; set => isActive = value; }
     public bool IsBase { get => isBase; }
     public string Action { get => action; }
     public int Lvl { get => lvl; }
@@ -105,14 +85,16 @@ public class PsyPower
     public List<Skill> RequireSkills { get => requireSkills; }
     public int ReqCorruption { get => reqCorruption; }
 
-    public void ActivatePower()
+    private void SetTextCost()
     {
-        isActive = true;
-    }
-
-    public void DeactivatePower()
-    {
-        isActive = false;
-    }
+        textCost = $"ÎÎ {cost}, ÏÐ{psyRateRequire}";
+        if(requireCharacteristics != null)
+        {
+            foreach (Characteristic characteristic in requireCharacteristics)
+            {
+                textCost += $", {characteristic.Name} {characteristic.Amount}";
+            }
+        }        
+    }    
 
 }

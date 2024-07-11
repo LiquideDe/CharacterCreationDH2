@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3cc0c26e0b9c3694bac528a192eb0268, type: 3}
+  m_Name: PrefabHolder
+  m_EditorClassIdentifier: 
+  _intermediatePrefab: {fileID: 3207260225493177803, guid: ad4a23fa53a2763439231aade899ebaa, type: 3}
+  _homeworldPrefab: {fileID: 7094391380234999990, guid: d49f9cafb0c4701478a68ca3afd5d8c3, type: 3}
+  _homeworldFinalPrefab: {fileID: 4226158092642322544, guid: aafb939e4f5f2e14e919a84bcc0cc3d6, type: 3}
+  _mainMenuPrefab: {fileID: 3917887911595897138, guid: 8449d6b73a1acbf4284b9fe873ccf701, type: 3}
+  _backgroundPrefab: {fileID: 3816353026440592145, guid: 1fce95aa755683b41bbb287d5c375676, type: 3}
+  _backgroundFinalPrefab: {fileID: 292439495070755594, guid: d973926cca8b1ac4fbb9281bac3f79b2, type: 3}
+  _rolePrefab: {fileID: 180789720966915298, guid: ca1f2cb65bf6ce44da6c8f2e513b6578, type: 3}
+  _rolePrefabFinal: {fileID: 292439495070755594, guid: d973926cca8b1ac4fbb9281bac3f79b2, type: 3}
+  _chooseBetweenManualAndRandom: {fileID: 4164811852971504617, guid: 006ea4372d4fedf4aa4abb9949b7db5e, type: 3}
+  _characteristicRandomPrefab: {fileID: 3323039963964777101, guid: e12b8bdcae1307b42a675f83c351d19d, type: 3}
+  _characteristicManual: {fileID: 6113670121111708238, guid: 24bd1c1596d19354284fea256bdab974, type: 3}
+  _upgradeCharacteristic: {fileID: 3547599375573791126, guid: 35911fb1f51016e4da4698c3e102aa54, type: 3}
+  _upgradeSkill: {fileID: 6402224352316528277, guid: 73f92937f56c02e448e22a1bd4e3c124, type: 3}
+  _upgradeTalent: {fileID: 6950630544867491620, guid: f58e0381bbb4f0d47827ffa85b536d34, type: 3}
+  _upgradePsycana: {fileID: 6081453817695499458, guid: a1109ea862d0b094eb467de89f62e74f, type: 3}
+  _prophecy: {fileID: 4975995989735464092, guid: 21635876c9682444592255b10f60143e, type: 3}
+  _name: {fileID: 3581127258877520317, guid: e4fca89187a76284fae43fa123a6da6d, type: 3}
+  _firstPrint: {fileID: 4625915919483757508, guid: 98827be13ceb02644a3090b542c2ceb7, type: 3}
+  _secondPrint: {fileID: 6864241174354044374, guid: d8d21d4e4dc14f44b8fa21b5c7cdcaad, type: 3}
+  _thirdPrint: {fileID: 4814195163982192321, guid: d2541995b40b21b45bac37cca718d8d7, type: 3}
+  _loads: {fileID: 8685582688883909786, guid: d95fd2f184fc9e04e97a9c0956f8e8f4, type: 3}
+  _inputExperience: {fileID: 6338349745758706809, guid: 1c7e7d01fc1d3ef4a87aae1ca617258f, type: 3}
+  _finalMenu: {fileID: 5052041870619752007, guid: 77f6c12d76620f9418e776424f13e5b0, type: 3}
+  _listWithNewItems: {fileID: 7671163508091397375, guid: 6fa5b65c22af2d14aa3f9cfc1f3e1b7d, type: 3}
+  _inputNewProperty: {fileID: 8557356640731411926, guid: 5ca2c2090699c9f41af779d343dfea00, type: 3}
+  _editProperties: {fileID: 7252297147027845699, guid: 3e81f0fec67acb2409f1ca5b704fa712, type: 3}
+  _editCharacteristicsAndEquipments: {fileID: 62796992833238675, guid: eaa82ccd63d1dff4ca8da574b900548f, type: 3}
+  _newEquipment: {fileID: 7619161592510571683, guid: bf8cfa72beac5774e92462ba70e991ef, type: 3}
+  _newMelee: {fileID: 7476109923001524757, guid: 47221e5988495e14692e43d5293ceef5, type: 3}
+  _newRange: {fileID: 648878917856675659, guid: a7bcbb9871400da48a5019a1bdf0ac1a, type: 3}
+  _newGrenade: {fileID: 4393461766088294898, guid: 311cb2d45aa89bf43808fc803cb31183, type: 3}
+  _newArmor: {fileID: 6408959074878856044, guid: 200800e4c62c2b74c89822d315900ef8, type: 3}
+  _listWithNewItemsAndNewButton: {fileID: 3325932088576600271, guid: e9ee30b5d5698fd478382c48bd943bd4, type: 3}
+  _newImplant: {fileID: 1076729413628794959, guid: d5843230159ea5640a19f36660e9cb63, type: 3}

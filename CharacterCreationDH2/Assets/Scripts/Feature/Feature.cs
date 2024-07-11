@@ -1,15 +1,31 @@
 
 public class Feature
 {
-    private string name;
-    private int lvl;
+    private string _name;
+    private int _lvl;
+    private string _description;
 
-    public string Name { get => name; }
-    public int Lvl { get => lvl; set => lvl = value; }
+
+    public string Name  => _name; 
+    public int Lvl { get => _lvl; set => _lvl = value; }
+    public string Description => _description;
 
     public Feature(string name, int lvl)
     {
-        this.name = name;
-        this.lvl = lvl;
+        _name = name;
+        _lvl = lvl;
+    }
+
+    public Feature(string name, string description)
+    {
+        _name = name;
+        _description = description;
+    }
+
+    public Feature(Feature feature)
+    {
+        _name = feature.Name;
+        _description = feature.Description;
+        _lvl = feature.Lvl;
     }
 }

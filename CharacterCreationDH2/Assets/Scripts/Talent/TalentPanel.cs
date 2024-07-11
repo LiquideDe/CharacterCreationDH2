@@ -1,71 +1,42 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
-public class TalentPanel : MonoBehaviour, IPointerDownHandler
-{
-    public delegate void NotificationAboutId(int id, int cost);
-    private NotificationAboutId notificationAboutId;
-    [SerializeField] TextMeshProUGUI textDescr, textName, textCost, textShortDescr;
-    Image image;
+public class TalentPanel : MonoBehaviour, IPointerDownHandler, IItemForList
+{    
+    [SerializeField] TextMeshProUGUI textName, textCost, textShortDescr;    
     [SerializeField] Sprite activeSprite, deactiveSprite;
-    int id;
-    string description;
-    int cost;
-    bool hasAlready, canTraining;
-    public bool HasAlready { get => hasAlready; }
-    public bool CanTraining { get => canTraining; }
-    AudioWork audioWork;
+    public event Action<string> ShowThisTalent;
+    private Image _image;
+    private RectTransform _rectTransform;
+
+    public GameObject GameObject => gameObject;
+
+    public RectTransform RectTransform => _rectTransform;
+
     private void Awake()
     {
-        image = this.GetComponent<Image>();
+        _image = this.GetComponent<Image>();
+        _rectTransform = GetComponent<RectTransform>();
     }
-    public void OnPointerDown(PointerEventData eventData)
-    {
-        textDescr.text = textName.text + "\n" + "\n";
-        textDescr.text += description;
-        audioWork.PlayClick();
-        if (!hasAlready)
-        {
-            notificationAboutId?.Invoke(id, cost);
-        }        
-    }
+    public void OnPointerDown(PointerEventData eventData) => ShowThisTalent?.Invoke(textName.text);
 
-    public void CreatePanel(Talent talent, int id, NotificationAboutId notificationAboutId, bool canTraining, bool alreadyHas, AudioWork audioWork)
+    public void Show() => gameObject.SetActive(true);
+
+    public void Initialize(ISkillTalentEtcForList skillTalentEtcForList, int cost, bool isCanTaken)
     {
-        this.audioWork = audioWork;
+        Talent talent = (Talent)skillTalentEtcForList;
         textName.text = talent.Name;
-        textCost.text = talent.Cost.ToString();
-        cost = talent.Cost;
-        this.id = id;
-        description = talent.Description;
-        this.notificationAboutId = notificationAboutId;
+        textCost.text = $"{cost} нн";
         textShortDescr.text = talent.ShortDescription;
-        hasAlready = alreadyHas;
-        this.canTraining = canTraining;
-        if (!canTraining)
+        if (!isCanTaken)
         {
-            image.sprite = deactiveSprite;
+            _image.sprite = deactiveSprite;
+            //gameObject.SetActive(false);
         }
     }
-
-    public void Deactivate()
-    {
-        hasAlready = true;
-        gameObject.SetActive(false);
-        textDescr.text = "";
-    }
-
-    public void CancelOperation()
-    {
-        hasAlready = false;
-        gameObject.SetActive(true);
-    }
-
-    
 }
 
     

@@ -4,50 +4,43 @@ using UnityEngine;
 
 public class Characteristic 
 {
-    private GameStat.CharacterName name;
-    private GameStat.Inclinations[] inclinations = new GameStat.Inclinations[2];
-    private int lvlLearnedChar;
-    private int futureLvlLearnedChar;
-    private bool isFutureLvl;
-    private int amount = 0;
+    private GameStat.CharacteristicName _name;
+    private GameStat.Inclinations[] _inclinations = new GameStat.Inclinations[2];
+    private int _lvlLearned;
+    private int _amount = 0;
 
-    public string Name { get { return GameStat.characterTranslate[name]; } }
-    public GameStat.CharacterName InternalName { get => name; }
-    public int LvlLearned { get => lvlLearnedChar; set => lvlLearnedChar = value; }
-    public int Amount { get => amount; set => amount = value; }
+    public string Name { get { return GameStat.characterTranslate[_name]; } }
+    public GameStat.CharacteristicName InternalName { get => _name; }
+    public int LvlLearned { get => _lvlLearned; set => _lvlLearned = value; }
+    public int Amount { get => _amount; set => _amount = value; }
 
-    public GameStat.Inclinations[] Inclinations { get { return inclinations; } }
+    public GameStat.Inclinations[] Inclinations { get { return _inclinations; } }
 
-    public Characteristic(GameStat.CharacterName name, GameStat.Inclinations firstInclination, GameStat.Inclinations secondInclination)
+    public Characteristic(GameStat.CharacteristicName name, GameStat.Inclinations firstInclination, GameStat.Inclinations secondInclination)
     {
-        this.name = name;
-        inclinations[0] = firstInclination;
-        inclinations[1] = secondInclination;
+        _name = name;
+        _inclinations[0] = firstInclination;
+        _inclinations[1] = secondInclination;
     }
 
-    public Characteristic(GameStat.CharacterName name, int amount)
+    public Characteristic(GameStat.CharacteristicName name, int amount)
     {
-        this.name = name;
-        this.amount = amount;
+        _name = name;
+        _amount = amount;
     }
 
-    public void SetNewLvl()
+    public Characteristic(Characteristic characteristic)
     {
-        lvlLearnedChar += 1;
-        amount += 5;
+        _name = characteristic.InternalName;
+        _inclinations[0] = characteristic.Inclinations[0];
+        _inclinations[1] = characteristic.Inclinations[1];
+        _lvlLearned = characteristic.LvlLearned;
+        _amount = characteristic.Amount;
     }
 
-    public void SetNewPosibleLvl()
+    public void UpgradeLvl()
     {
-        isFutureLvl = true;
-        futureLvlLearnedChar = lvlLearnedChar + 1;
-        amount += 5;
+        _lvlLearned += 1;
+        _amount += 5;
     }
-
-    public void CancelNewLvl()
-    {
-        isFutureLvl = false;
-        amount -= 5;
-    }
-
 }

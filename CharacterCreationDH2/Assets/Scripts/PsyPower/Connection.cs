@@ -1,7 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public class Connection
 {
     private PsyPower parentPsyPower;
@@ -13,6 +9,6 @@ public class Connection
         this.childPsyPower = childPsyPower;
     }
 
-    public PsyPower ParentPsyPower { get => parentPsyPower; }
-    public PsyPower ChildPsyPower { get => childPsyPower; }
+    public PsyPower ParentPsyPower => parentPsyPower; 
+    public PsyPower ChildPsyPower => childPsyPower; 
 }

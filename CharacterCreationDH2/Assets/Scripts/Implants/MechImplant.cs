@@ -1,46 +1,52 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
-public class MechImplant
+public class MechImplant : IName
 {
     public enum PartsOfBody { Head, RightHand, LeftHand, Body, RightLeg, LeftLeg, All};
-    private string name;
-    private string textDescription;
+    private string _name;
+    private string _textDescription;
     public PartsOfBody Place { get; set; }
     public int Armor { get; set; }
-    public string Name { get { return name; } }
-    public string Description { get { return textDescription; } set => textDescription = value; }
+    public string Name =>_name; 
+    public string Description { get { return _textDescription; } set => _textDescription = value; }
     public int BonusToughness { get; set; }
 
     public MechImplant(string name, string textDescription)
     {
-        this.name = name;
-        this.textDescription = textDescription;
+        this._name = name;
+        this._textDescription = textDescription;
     }
 
     public MechImplant(string name)
     {
-        this.name = name;
+        this._name = name;
     }
 
     public MechImplant(string name, PartsOfBody place, int armor, string description, int bonusToughness)
     {
-        this.name = name;
+        this._name = name;
         Place = place;
         Armor = armor;
-        textDescription = description;
+        _textDescription = description;
         BonusToughness = bonusToughness;
     }
 
-    public MechImplant(ImplantSaveLoad implantSave)
+    public MechImplant(SaveLoadImplant implantSave)
     {
-        name = implantSave.name;
+        _name = implantSave.name;
         Place = (PartsOfBody)Enum.Parse(typeof(PartsOfBody),implantSave.partsOfBody);
         Armor = implantSave.armor;
-        textDescription = implantSave.description;
+        _textDescription = implantSave.description;
         BonusToughness = implantSave.bonusToughness;
+    }
+
+    public MechImplant(MechImplant implant)
+    {
+        _name = implant.Name;
+        Place = implant.Place;
+        Armor = implant.Armor;
+        _textDescription = implant.Description;
+        BonusToughness = implant.BonusToughness;
     }
 
 }

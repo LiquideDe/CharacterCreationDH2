@@ -18,14 +18,14 @@ public class InfoOfButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     ClickOnButton clickOnButton;
     public bool IsActive { get => isActive; }
     public GameStat.Inclinations Inclination { get => inclination; }
-    AudioWork audioWork;
+    AudioManager audioWork;
 
     private void Start()
     {
         image = GetComponent<Image>();
     }
 
-    public void SetAudio(AudioWork audioWork)
+    public void SetAudio(AudioManager audioWork)
     {
         this.audioWork = audioWork;
     }

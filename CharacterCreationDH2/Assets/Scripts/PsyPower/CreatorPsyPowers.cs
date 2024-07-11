@@ -1,9 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
-using System.Text;
-using System;
 
 public class CreatorPsyPowers
 {
@@ -11,7 +8,8 @@ public class CreatorPsyPowers
     private List<string> schoolNames = new List<string>();
     private List<List<Connection>> connections = new List<List<Connection>>();
     private List<JSONSizeSpacing> sizeSpacings = new List<JSONSizeSpacing>();
-    public CreatorPsyPowers(List<PsyPower> psyPowersCharacter)
+
+    public CreatorPsyPowers()
     {
         List<string> dirs = new List<string>();
         dirs.AddRange(Directory.GetDirectories($"{Application.dataPath}/StreamingAssets/PsyPowers"));
@@ -29,7 +27,70 @@ public class CreatorPsyPowers
             }
             index++;
         }
-        SetPsyPowerActive(psyPowersCharacter);
+    }
+
+    public List<PsyPower> GetPowers(int school)
+    {
+        return psyPowers[school];
+    }
+
+    public List<Connection> GetConnections(int school)
+    {
+        return connections[school];
+    }
+
+    public int CountSchools()
+    {
+        return psyPowers.Count;
+    }
+
+    public string GetNameSchool(int school)
+    {
+        return schoolNames[school];
+    }
+
+    public List<string> GetNamesSchool() => schoolNames;
+
+    public JSONSizeSpacing GetSizeSpacing(int school)
+    {
+        return sizeSpacings[school];
+    }
+
+    public PsyPower GetPsyPower(string name, int school)
+    {
+        foreach (PsyPower psy in psyPowers[school])
+        {
+            if (string.Compare(name, psy.Name) == 0)
+            {
+                return psy;
+            }
+        }
+
+        throw new System.Exception($"Не смогли найти пси силу под именем {name}");
+    }
+
+    public PsyPower GetPsyPower(string name)
+    {
+        for(int i = 0; i < schoolNames.Count; i++)        
+            foreach (PsyPower psyPower in psyPowers[i])
+                if (string.Compare(name, psyPower.Name) == 0)
+                    return psyPower;
+
+        throw new System.Exception($"Не смогли найти пси силу под именем {name}");
+    }
+
+    public PsyPower GetPsyPowerById(int school, int id)
+    {
+        foreach (PsyPower psy in psyPowers[school])
+        {
+            if (psy.Id == id)
+            {
+                return psy;
+            }
+        }
+
+        Debug.Log($"!!!! Не смогли найти пси силы школы № {school}, id = {id}");
+        return null;
     }
 
     private List<PsyPower> CreatePowers(string dir)
@@ -71,169 +132,5 @@ public class CreatorPsyPowers
         }
         return con;
     }
-    private bool CheckPowerForPossibleConnect(PsyPower psy, int school)
-    {
-        bool answ = false;
-        
-        foreach (Connection connection in connections[school])
-        {
-            if(connection.ChildPsyPower == psy)
-            {
-                if (connection.ParentPsyPower.IsActive)
-                {
-                    answ = true;
-                }
-            }
-            else if (psy.IsBase)
-            {
-                answ = true;
-            }
-        }
-
-        return answ;
-    }
-
-    public PsyPower GetPsyPowerById(int school, int id)
-    {
-        foreach(PsyPower psy in psyPowers[school])
-        {
-            if(psy.Id == id)
-            {
-                return psy;
-            }
-        }
-
-        Debug.Log($"!!!! Не смогли найти пси силы школы № {school}, id = {id}");
-        return null;
-    }
-
-    public bool CheckPowerForAdding(int school, int id, Character character)
-    {
-        PsyPower psyPower = GetPsyPowerById(school, id);
-        if(psyPower.PsyRateRequire <= character.PsyRating && psyPower.Cost <= character.ExperienceUnspent && CheckPowerForPossibleConnect(psyPower, school) &&
-            CheckCharacteristics(psyPower.RequireCharacteristics, character.Characteristics) && !psyPower.IsActive && CheckSkills(character.Skills, psyPower.RequireSkills) && 
-            CheckCorruption(psyPower.ReqCorruption, character.CorruptionPoints))
-        {
-            return true;
-        }
-        Debug.Log($"False");
-        return false;
-    }
-
-    private bool CheckCharacteristics(List<Characteristic> psyReq, List<Characteristic> characteristics)
-    {
-        if (psyReq != null)
-        {
-            foreach (Characteristic psyReqCharacteristic in psyReq)
-            {
-                foreach (Characteristic characteristic in characteristics)
-                {
-                    if (psyReqCharacteristic.InternalName == characteristic.InternalName)
-                    {
-                        if (characteristic.Amount < psyReqCharacteristic.Amount)
-                        {
-                            return false;
-                        }
-                    }
-                }
-            }
-        }        
-
-        return true;
-        
-    }
-
-    private bool CheckSkills(List<Skill> characterSkills, List<Skill> reqSkills)
-    {
-        if (reqSkills != null)
-        {
-            int sum = 0;
-
-            if (reqSkills.Count > 0)
-            {
-                foreach (Skill reqSkill in reqSkills)
-                {
-                    foreach (Skill charSkill in characterSkills)
-                    {
-                        if (reqSkill.Name == charSkill.Name)
-                        {
-                            if (charSkill.LvlLearned >= reqSkill.LvlLearned)
-                            {
-                                sum++;
-                            }
-                        }
-                    }
-                }
-            }
-            else
-            {
-                return true;
-            }
-
-            if (sum == reqSkills.Count)
-            {
-                Debug.Log($"Сумма навыков такая же, возвращаемт тру");
-                return true;
-            }
-            else
-            {
-                Debug.Log($"Сумма навыков НЕ такая же, возвращаемт false");
-                return false;
-            }
-        }
-        else
-            return true;
-        
-    }
-
-    private bool CheckCorruption(int reqCor, int characterCor)
-    {
-        if(reqCor <= characterCor)
-        {
-            return true;
-        }
-        return false;
-    }
-
-    public List<PsyPower> GetPowers(int school)
-    {
-        return psyPowers[school];
-    }
-
-    public List<Connection> GetConnections(int school)
-    {
-        return connections[school];
-    }
-
-    public int CountSchools()
-    {
-        return psyPowers.Count;
-    }
-
-    public string GetNameSchool(int school)
-    {
-        return schoolNames[school];
-    }
-
-    public JSONSizeSpacing GetSizeSpacing(int school)
-    {
-        return sizeSpacings[school];
-    }
-
-    private void SetPsyPowerActive(List<PsyPower> psyPowersCharacter)
-    {
-        foreach(List<PsyPower> psies in psyPowers)
-        {
-            foreach(PsyPower psyPower in psies)
-            {
-                foreach(PsyPower psyPowerCharacter in psyPowersCharacter)
-                {
-                    if(string.Compare(psyPowerCharacter.NamePower, psyPower.NamePower, true) == 0)
-                    {
-                        psyPower.IsActive = true;
-                    }
-                }
-            }
-        }
-    }
+  
 }

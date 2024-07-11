@@ -14,7 +14,19 @@ public class CreatorFeatures
         dirs.AddRange(Directory.GetDirectories($"{Application.dataPath}/StreamingAssets/Features"));
         foreach(string path in dirs)
         {
-            features.Add(new Feature(GameStat.ReadText(path + "/Название.txt"),0));
+            features.Add(new Feature(GameStat.ReadText(path + "/Название.txt"), GameStat.ReadText(path + "/Описание.txt")));
         }
+    }
+
+    public Feature GetFeature(string name)
+    {
+        foreach(Feature feature in features)
+        {
+            if (string.Compare(name, feature.Name, true) == 0)
+                return feature;
+        }
+
+        Debug.Log($"Не смогли найти feature {name}");
+        return null;
     }
 }
