@@ -6,7 +6,7 @@ using Zenject;
 
 public class UpgradeCharacteristicsPresenter : IPresenter
 {
-    public event Action ReturnToPrev;
+    public event Action<ICharacter> ReturnToPrev;
     public event Action<ICharacter> GoNext;
     private ICharacter _character;
     private UpgradeCharacteristicsView _view;
@@ -33,7 +33,11 @@ public class UpgradeCharacteristicsPresenter : IPresenter
         Subcribe();
     }
 
-    public void SetEdit() => _isEdit = true;
+    public void SetEdit()
+    {
+        _isEdit = true;
+        _view.SetVisibleButtonReturnBack(_isEdit);
+    }
 
     private void UpdatePanelText()
     {
@@ -149,7 +153,7 @@ public class UpgradeCharacteristicsPresenter : IPresenter
     private void TryUpgradeSomeCharacteristic(Characteristic characteristic)
     {
         int cost = CalculateCost(characteristic);
-        if (_character.ExperienceUnspent > cost)
+        if (_character.ExperienceUnspent >= cost)
         {
             _audioManager.PlayClick();
             CharacterWithUpgrade character = new CharacterWithUpgrade(_character);
@@ -199,7 +203,7 @@ public class UpgradeCharacteristicsPresenter : IPresenter
         _audioManager.PlayClick();
         Unscribe();
         _view.DestroyView();
-        ReturnToPrev?.Invoke();
+        ReturnToPrev?.Invoke(_character);
     }
 
     private void GoToNext()

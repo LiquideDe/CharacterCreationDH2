@@ -99,10 +99,10 @@ public class LvlMediatorNewCharacter
     private void CharacterHasRole(ICharacter character)
     {
         _character = character;
-        ShowChoiceBetweenManualAndRandom();
+        ShowChoiceBetweenManualAndRandom(character);
     }
 
-    private void ShowChoiceBetweenManualAndRandom()
+    private void ShowChoiceBetweenManualAndRandom(ICharacter character)
     {
         CanvasChoiceManulaAndRandom manulaAndRandom = _lvlFactory.Get(TypeScene.ChoiceBetweenManualAndRandom).GetComponent<CanvasChoiceManulaAndRandom>();
         manulaAndRandom.ShowChoose();

@@ -27,7 +27,7 @@ public class ThirdCharacterSheet : TakeScreenshot
             _text.text += $"<b>{talent.Name}</b> - {_creatorTalents.GetTalent(talent.Name).Description} \n \n";        
 
         foreach(PsyPower psyPower in character.PsyPowers)        
-            _text.text += $"<b>{psyPower.Name}</b> - {_creatorPsyPowers.GetPsyPower(psyPower.Name).Description} \n \n";        
+            _text.text += $"<b>{psyPower.Name}</b> - Действие:{_creatorPsyPowers.GetPsyPower(psyPower.Name).Action}, {_creatorPsyPowers.GetPsyPower(psyPower.Name).Description} \n \n";        
 
         foreach(MechImplant implant in character.Implants)        
             if (implant.Description.Length > 1)

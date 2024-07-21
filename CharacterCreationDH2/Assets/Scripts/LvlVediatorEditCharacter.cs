@@ -48,6 +48,7 @@ public class LvlVediatorEditCharacter
         UpgradeCharacteristicsView upgradeCharacteristicsView = _lvlFactory.Get(TypeScene.UpgradeCharacteristic).GetComponent<UpgradeCharacteristicsView>();
         UpgradeCharacteristicsPresenter characteristicsPresenter = (UpgradeCharacteristicsPresenter)_presenterFactory.Get(TypeScene.UpgradeCharacteristic);
         characteristicsPresenter.GoNext += ShowUpgradeSkill;
+        characteristicsPresenter.ReturnToPrev += ShowEditCharacters;
         characteristicsPresenter.Initialize(character, upgradeCharacteristicsView, false);
         characteristicsPresenter.SetEdit();
     }
@@ -69,11 +70,10 @@ public class LvlVediatorEditCharacter
     {
         UpgradeTalentView upgradeTalent = _lvlFactory.Get(TypeScene.UpgradeTalent).GetComponent<UpgradeTalentView>();
         UpgradeTalentPresenter talentPresenter = (UpgradeTalentPresenter)_presenterFactory.Get(TypeScene.UpgradeTalent);
-        talentPresenter.ReturnToSkill += ShowUpgradeSkill;
-        talentPresenter.Initialize(upgradeTalent, character);
-        talentPresenter.GoNext += ShowPsycana;
         talentPresenter.SetEdit();
-
+        talentPresenter.ReturnToSkill += ShowUpgradeSkill;        
+        talentPresenter.GoNext += ShowPsycana;
+        talentPresenter.Initialize(upgradeTalent, character);
     }
 
     private void ShowPsycana(ICharacter character)

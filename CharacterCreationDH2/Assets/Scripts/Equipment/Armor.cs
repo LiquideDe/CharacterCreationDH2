@@ -18,6 +18,18 @@ public class Armor : Equipment
         armorPoint = armorReader.armorPoint;
     }
 
+    public Armor(Armor armor) : base (armor.Name, armor.Description, armor.Rarity, armor.Amount, armor.Weight)
+    {
+        typeEquipment = armor.typeEquipment;
+        defHead = armor.DefHead;
+        defHands = armor.DefHands;
+        defBody = armor.DefBody;
+        defLegs = armor.DefLegs;
+        maxAgil = armor.MaxAgil;
+        placeArmor = armor.PlaceArmor;
+        armorPoint = armor.ArmorPoint;
+    }
+
     public int DefHead { get => defHead; }
     public int DefHands { get => defHands; }
     public int DefBody { get => defBody; }

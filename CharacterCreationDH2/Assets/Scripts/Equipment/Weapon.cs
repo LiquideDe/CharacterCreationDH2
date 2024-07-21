@@ -5,16 +5,7 @@ using UnityEngine;
 public class Weapon : Equipment
 {
     private string classWeapon, rof, damage, reload, properties;
-    private int range, penetration, clip;
-
-    public string ClassWeapon { get => classWeapon; }
-    public int Range { get => range; }
-    public string Rof { get => rof; }
-    public string Damage { get => damage; }
-    public int Penetration { get => penetration;  }
-    public int Clip { get => clip; }
-    public string Reload { get => reload;  }
-    public string Properties { get => properties; }
+    private int range, penetration, clip;    
 
     public Weapon(JSONRangeReader rangeReader) :base(rangeReader.name, rangeReader.description, rangeReader.rarity, rangeReader.amount, rangeReader.weight)
     {
@@ -46,5 +37,28 @@ public class Weapon : Equipment
         damage = grenadeReader.damage;
         penetration = grenadeReader.penetration;
         properties = grenadeReader.properties;
+        rof = "";
     }
+
+    public Weapon(Weapon weapon) : base(weapon.Name, weapon.Description, weapon.Rarity, weapon.Amount, weapon.Weight)
+    {
+        typeEquipment = weapon.TypeEq;
+        classWeapon = weapon.ClassWeapon;
+        range = weapon.Range;
+        rof = weapon.Rof;
+        damage = weapon.Damage;
+        penetration = weapon.Penetration;
+        clip = weapon.Clip;
+        reload = weapon.Reload;
+        properties = weapon.Properties;
+    }
+
+    public string ClassWeapon { get => classWeapon; }
+    public int Range { get => range; }
+    public string Rof { get => rof; }
+    public string Damage { get => damage; }
+    public int Penetration { get => penetration; }
+    public int Clip { get => clip; }
+    public string Reload { get => reload; }
+    public string Properties { get => properties; }
 }

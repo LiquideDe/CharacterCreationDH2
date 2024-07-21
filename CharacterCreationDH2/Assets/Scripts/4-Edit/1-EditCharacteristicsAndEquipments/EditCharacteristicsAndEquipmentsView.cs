@@ -204,7 +204,7 @@ public class EditCharacteristicsAndEquipmentsView : MonoBehaviour
         if(_implants.Count > 0)
         {
             foreach (ItemInList item in _implants)
-                Destroy(gameObject);
+                Destroy(item.gameObject);
             _implants.Clear();
         }
 
@@ -218,6 +218,7 @@ public class EditCharacteristicsAndEquipmentsView : MonoBehaviour
     }
 
     public void DestroyView() => Destroy(gameObject);
+    
 
     private void ChangeAmountEquipmentPressed(string name, int amount) => ChangeAmountEquipment?.Invoke(name, amount);
 

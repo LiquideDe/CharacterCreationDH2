@@ -324,7 +324,15 @@ public class EditCharacteristicsAndEquipmentsPresenter : IPresenter
 
     private void RemoveImplant(string name)
     {
-        throw new NotImplementedException();
+        foreach(MechImplant implant in _character.Implants)
+            if(string.Compare(implant.Name, name, true) == 0)
+            {
+                _character.Implants.Remove(implant);
+                break;
+            }
+
+        _view.UpdateImplants(_character.Implants);
+        
     }
 
     private void ShowNewImplants()
@@ -486,7 +494,20 @@ public class EditCharacteristicsAndEquipmentsPresenter : IPresenter
     {
         _audioManager.PlayDone();
         _listWithItems.DestroyView();
-        _character.Equipments.Add(new Equipment(_creatorEquipment.GetEquipment(name)));
+        Equipment equipment = _creatorEquipment.GetEquipment(name);
+        if(equipment is Weapon)
+        {
+            Weapon weapon = (Weapon)equipment;
+            _character.Equipments.Add(new Weapon(weapon));
+        }
+        else if(equipment is Armor)
+        {
+            Armor armor = (Armor)equipment;
+            _character.Equipments.Add(new Armor(armor));
+        }
+        else
+            _character.Equipments.Add(new Equipment(equipment));
+
         _view.UpdateEquipment(_character.Equipments);
     }
 

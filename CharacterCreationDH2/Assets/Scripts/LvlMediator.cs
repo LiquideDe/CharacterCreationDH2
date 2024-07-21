@@ -35,6 +35,7 @@ public class LvlMediator
     {
         _mediatorNewCharacter.ReturnToMenu += MainMenu;
         _mediatorUpgrade.ReturnToMenu += MainMenu;
+        _mediatorEditCharacter.ReturnToMenu += MainMenu;
     }
 
     private void NewCharacterOpen()
