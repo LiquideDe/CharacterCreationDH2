@@ -52,11 +52,25 @@ public class TakeScreenshot : MonoBehaviour
 
     IEnumerator SaveImage()
     {
+        /*
         yield return new WaitForSeconds(0.1f);
         yield return new WaitForEndOfFrame();
         Texture2D screenImage = new Texture2D(Screen.width, Screen.height);
         //Get Image from screen
         screenImage.ReadPixels(new Rect(0, 0, Screen.width, Screen.height), 0, 0);
+        screenImage.Apply();
+        //Convert to png
+        byte[] pngBytes = screenImage.EncodeToPNG();
+        savedImages.Add(pngBytes);
+        yield return new WaitForSeconds(0.1f);*/
+
+        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForEndOfFrame();
+
+        Camera cam = Camera.main;
+        Texture2D screenImage = new Texture2D(cam.pixelWidth, cam.pixelHeight);
+        //Get Image from screen
+        screenImage.ReadPixels(new Rect(0, 0, cam.pixelWidth, cam.pixelHeight), 0, 0);
         screenImage.Apply();
         //Convert to png
         byte[] pngBytes = screenImage.EncodeToPNG();
@@ -74,14 +88,15 @@ public class TakeScreenshot : MonoBehaviour
 
     private void CombineImages()
     {
+        Camera cam = Camera.main;
         List<Bitmap> bitmaps = new List<Bitmap>();
         foreach (byte[] by in savedImages)
         {
             bitmaps.Add(ConvertByteToBitmap(by));
         }
         //Bitmap newImage = new Bitmap(2800, 2160);
-        int w = (int)(Screen.width * 1.458f);
-        int h = Screen.height * 2;
+        int w = (int)(cam.pixelWidth * 1.458f);
+        int h = cam.pixelHeight * 2;
         Bitmap newImage = new Bitmap(w, h);
         newImage.SetResolution(72, 72);
         System.Drawing.Graphics g = System.Drawing.Graphics.FromImage(newImage);

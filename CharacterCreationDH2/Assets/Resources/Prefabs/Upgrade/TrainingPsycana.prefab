@@ -2704,6 +2704,7 @@ GameObject:
   - component: {fileID: 6081453817695499459}
   - component: {fileID: 6081453817695499519}
   - component: {fileID: 6081453817695499469}
+  - component: {fileID: 3853849448836563515}
   m_Layer: 5
   m_Name: TrainingPsycana
   m_TagString: Untagged
@@ -2750,7 +2751,7 @@ Canvas:
   m_GameObject: {fileID: 6081453817695499458}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -2858,6 +2859,18 @@ MonoBehaviour:
   _textDescription: {fileID: 6081453818342539681}
   _buttonSchoolPrefab: {fileID: 1191908417905022602}
   _content: {fileID: 2653046861587863396}
+--- !u!114 &3853849448836563515
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6081453817695499458}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c4783b4493fbb84daf41f9e06899910, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6081453817752531436
 GameObject:
   m_ObjectHideFlags: 0

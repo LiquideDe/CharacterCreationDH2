@@ -6,7 +6,7 @@ using TMPro;
 using UnityEngine.EventSystems;
 using System;
 
-public class EditPropertyCharacterView : MonoBehaviour
+public class EditPropertyCharacterView : CanDestroyView
 {
     [SerializeField]
     private TMP_InputField inputName, inputHome, inputBack, inputRole, inputProph, inputElite, inputGender, inputAge, inputSkeen, inputBody, inputHair, inputPhysFeat, inputEyes,
@@ -156,8 +156,6 @@ public class EditPropertyCharacterView : MonoBehaviour
 
         _mutations.AddRange(CreateItemInList(mutations, RemoveMutationPressed, _mutationContent));
     }
-
-    public void DestroyView() => Destroy(gameObject);
 
     private List<ItemInList> CreateItemInList(List<string> names, RemoveItem methodForRemove, Transform content)
     {

@@ -45,12 +45,12 @@ public class CharacterLoadsPresenter : IPresenter
         _view.DestroyView();
     }
 
-    private void CancelDown()
+    private void CancelDown(CanDestroyView view)
     {
         _audiomanager.PlayCancel();
         Cancel?.Invoke();
         Unscribe();
-        _view.DestroyView();
+        view.DestroyView();
     }
 
     private void Unscribe()

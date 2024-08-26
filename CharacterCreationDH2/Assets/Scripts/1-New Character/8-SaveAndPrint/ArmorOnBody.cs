@@ -12,7 +12,6 @@ public class ArmorOnBody : MonoBehaviour
     List<MechImplant> implants = new List<MechImplant>();
     public void SetArmor(Armor armor, List<MechImplant> mechImplants)
     {
-
         implants = mechImplants;
         SetBigger(armor.DefHead, textArmorHead, textTotalHead, MechImplant.PartsOfBody.Head);
         SetBigger(armor.DefHands, textArmorLeftHand, textTotalLeftHand, MechImplant.PartsOfBody.LeftHand);
@@ -29,14 +28,15 @@ public class ArmorOnBody : MonoBehaviour
 
     private void SetBigger(int armorPoint, TextMeshProUGUI textArmor, TextMeshProUGUI textTotal, MechImplant.PartsOfBody partOfBody)
     {
+        
         int armorFromImplant = CalculateArmorFromImplant(partOfBody);
-        int additionalBonusToughness = CalculateBonusToughnessFromImplant(partOfBody);
-        if(textArmor.text == "" && armorPoint > 0)
+        int additionalBonusToughness = AdditionalBonusToughnessFromImplant(partOfBody);
+        if(textArmor.text.Length == 0 && armorPoint > 0)
         {
             textArmor.text = (armorPoint + armorFromImplant).ToString();
             textTotal.text = (armorPoint + bonusToughness + armorFromImplant + additionalBonusToughness).ToString();
         }
-        else if(textArmor.text == "" && armorPoint == 0)
+        else if(textArmor.text.Length == 0 && armorPoint == 0)
         {
             textTotal.text = (bonusToughness + additionalBonusToughness).ToString();
         }
@@ -50,7 +50,7 @@ public class ArmorOnBody : MonoBehaviour
                 textTotal.text = (armorPoint + bonusToughness + armorFromImplant + additionalBonusToughness).ToString();
             }            
         }
-        if(armorPoint == 0)
+        if(armorPoint == 0 && textArmor.text.Length == 0)
         {
             textArmor.text = armorFromImplant.ToString();
             textTotal.text = (bonusToughness + armorFromImplant + additionalBonusToughness).ToString();
@@ -70,17 +70,16 @@ public class ArmorOnBody : MonoBehaviour
         return addingArmor;
     }
 
-    private int CalculateBonusToughnessFromImplant(MechImplant.PartsOfBody partOfBody)
+    private int AdditionalBonusToughnessFromImplant(MechImplant.PartsOfBody partOfBody)
     {
         int addingToughness = 0;
         foreach (MechImplant implant in implants)
         {
-            if (implant.Place == partOfBody)
+            if (implant.Place == partOfBody || implant.Place == MechImplant.PartsOfBody.All)
             {
                 addingToughness += implant.BonusToughness;
             }
         }
-
         return addingToughness;
     }
 }

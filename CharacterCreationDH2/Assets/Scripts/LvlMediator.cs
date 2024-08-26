@@ -52,7 +52,6 @@ public class LvlMediator
         CharacterLoadsView loadsView = _lvlFactory.Get(TypeScene.Loads).GetComponent<CharacterLoadsView>();
         CharacterLoadsPresenter loadsPresenter = (CharacterLoadsPresenter)_presenterFactory.Get(TypeScene.Loads);
         loadsPresenter.Cancel += MainMenu;
-        Debug.Log($"isUpgrade = {isUpgrade}");
         if (isUpgrade)
             loadsPresenter.ReturnCharacter += ShowUpgradeCharacter;
         else

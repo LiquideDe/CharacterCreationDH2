@@ -4,17 +4,12 @@ using UnityEngine.UI;
 using System;
 using TMPro;
 
-public class CharacterLoadsView : MonoBehaviour
+public class CharacterLoadsView : ViewWithButtonsDoneAndCancel
 {
-    [SerializeField] Button _buttonLoadPrefab, _buttonClose;
+    [SerializeField] Button _buttonLoadPrefab;
     [SerializeField] Transform listWithLoads;
 
-    public event Action Cancel;
     public event Action<string> OpenThisPath;
-
-    private void OnEnable() => _buttonClose.onClick.AddListener(CancelPressed);
-
-    private void OnDisable() => _buttonClose.onClick.RemoveAllListeners();
 
     public void Initialize(string[] loads)
     {
@@ -29,8 +24,6 @@ public class CharacterLoadsView : MonoBehaviour
         }
     }
 
-    public void DestroyView() => Destroy(gameObject);
-
     private void SetListenerToButton(Button button, string value)
     {
         string path = value;
@@ -38,8 +31,5 @@ public class CharacterLoadsView : MonoBehaviour
     }
 
     private void LoadCharacter(string path) => OpenThisPath?.Invoke(path);
-
-    private void CancelPressed() => Cancel?.Invoke();
-
 
 }

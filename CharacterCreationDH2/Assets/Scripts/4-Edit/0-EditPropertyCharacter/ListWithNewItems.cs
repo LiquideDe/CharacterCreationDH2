@@ -11,7 +11,7 @@ public class ListWithNewItems : UniversalList
     [SerializeField] TMP_InputField _inputName;
     [SerializeField] Button _buttonClose;
     public event Action<string> ChooseThis;
-    public event Action CloseList;
+    public event Action<CanDestroyView> CloseList;
     private List<string> _namesTotalList = new List<string>();
     private List<string> _namesListToView = new List<string>();
     private List<ItemInList> _itemsInList = new List<ItemInList>();
@@ -32,8 +32,6 @@ public class ListWithNewItems : UniversalList
         _buttonClose.onClick.AddListener(CloseListPressed);
         base.Initialize(names.Count);
     }
-
-    public void DestroyView() => Destroy(gameObject);
 
     protected override void SetTasksAndAnotherToItem(IItemForList itemForList, int index)
     {
@@ -81,5 +79,5 @@ public class ListWithNewItems : UniversalList
         }
     }
 
-    private void CloseListPressed() => CloseList?.Invoke();
+    private void CloseListPressed() => CloseList?.Invoke(this);
 }

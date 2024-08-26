@@ -60,8 +60,8 @@ public class HomeworldFinalPanelPresenter : IPresenter
         _panelView.PhysEntered += EnterPhys;
         _panelView.ButtonPhysPress += GeneratePhys;
 
-        _panelView.ButtonDonePress += PressDone;
-        _panelView.ButtonCancelPress += PressCancel;
+        _panelView.Done += PressDone;
+        _panelView.Cancel += PressCancel;
     }
 
     private void Unsubscribe()
@@ -96,8 +96,8 @@ public class HomeworldFinalPanelPresenter : IPresenter
         _panelView.PhysEntered -= EnterPhys;
         _panelView.ButtonPhysPress -= GeneratePhys;
 
-        _panelView.ButtonDonePress -= PressDone;
-        _panelView.ButtonCancelPress -= PressCancel;
+        _panelView.Done -= PressDone;
+        _panelView.Cancel -= PressCancel;
     }
 
     private void EnterFate(string value) => SetFate(TryParseStringToInt(value, 10));
@@ -317,11 +317,11 @@ public class HomeworldFinalPanelPresenter : IPresenter
             _audioManager.PlayWarning();
     }
 
-    private void PressCancel()
+    private void PressCancel(CanDestroyView view)
     {
         _audioManager.PlayCancel();
         Unsubscribe();
-        _panelView.DestroyView();
+        view.DestroyView();
         _panelView = null;
         CancelChoice?.Invoke();
     }

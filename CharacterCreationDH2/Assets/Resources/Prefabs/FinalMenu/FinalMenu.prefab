@@ -406,6 +406,7 @@ GameObject:
   - component: {fileID: 7471274959624747849}
   - component: {fileID: 6405685598647124004}
   - component: {fileID: 7487220342502191869}
+  - component: {fileID: 5243339568773753658}
   m_Layer: 5
   m_Name: FinalMenu
   m_TagString: Untagged
@@ -443,7 +444,7 @@ Canvas:
   m_GameObject: {fileID: 5052041870619752007}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -511,6 +512,18 @@ MonoBehaviour:
   _buttonSaveAndExit: {fileID: 582275398935068875}
   _buttonExitToMenu: {fileID: 8428137002359323066}
   _buttonExit: {fileID: 518780856412131837}
+--- !u!114 &5243339568773753658
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5052041870619752007}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c4783b4493fbb84daf41f9e06899910, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6606359959923296137
 GameObject:
   m_ObjectHideFlags: 0

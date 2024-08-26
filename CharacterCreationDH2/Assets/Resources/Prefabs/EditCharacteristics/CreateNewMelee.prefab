@@ -7423,6 +7423,7 @@ GameObject:
   - component: {fileID: 7476109923001524759}
   - component: {fileID: 7476109923001524756}
   - component: {fileID: 8509428929381029455}
+  - component: {fileID: 2648523529835908933}
   m_Layer: 5
   m_Name: CreateNewMelee
   m_TagString: Untagged
@@ -7460,7 +7461,7 @@ Canvas:
   m_GameObject: {fileID: 7476109923001524757}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -7524,11 +7525,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 192a07bbffb922e4e9abdf3810502561, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _buttonDone: {fileID: 6903269053312942662}
+  _buttonCancel: {fileID: 6903269051788725990}
   _inputName: {fileID: 6903269053118426098}
   _inputWeight: {fileID: 6903269052856151469}
   _inputRarity: {fileID: 3293397259375395282}
-  _buttonOk: {fileID: 6903269053312942662}
-  _buttonCancel: {fileID: 6903269051788725990}
   _buttonAddProperty: {fileID: 2922444026890490458}
   inputClass: {fileID: 6903269052104704099}
   inputDamage: {fileID: 6903269051251861100}
@@ -7537,6 +7538,18 @@ MonoBehaviour:
   dropDown: {fileID: 432589960631397580}
   content: {fileID: 4955708889358886390}
   itemPrefab: {fileID: 1515299263661184527}
+--- !u!114 &2648523529835908933
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7476109923001524757}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c4783b4493fbb84daf41f9e06899910, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7521807387772074991
 GameObject:
   m_ObjectHideFlags: 0

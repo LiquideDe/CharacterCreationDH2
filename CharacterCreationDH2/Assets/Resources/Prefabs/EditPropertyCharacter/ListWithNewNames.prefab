@@ -1375,6 +1375,7 @@ GameObject:
   - component: {fileID: 3647008577145916841}
   - component: {fileID: 8330956816109364904}
   - component: {fileID: 7723335461503352039}
+  - component: {fileID: 6048216166885788463}
   m_Layer: 5
   m_Name: ListWithNewNames
   m_TagString: Untagged
@@ -1414,7 +1415,7 @@ Canvas:
   m_GameObject: {fileID: 7671163508091397375}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -1488,6 +1489,18 @@ MonoBehaviour:
   _textName: {fileID: 3176197351061503147}
   _inputName: {fileID: 2663817329279230838}
   _buttonClose: {fileID: 4823036379914751497}
+--- !u!114 &6048216166885788463
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7671163508091397375}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c4783b4493fbb84daf41f9e06899910, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8210038877485408803
 GameObject:
   m_ObjectHideFlags: 0
@@ -1610,7 +1623,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1915579548501120596}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.5
+  m_Size: 0.50000006
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1725,7 +1738,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -185.0046, y: 381.80115}
+  m_AnchoredPosition: {x: -185.0046, y: 381.8011}
   m_SizeDelta: {x: 350, y: 100}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &8503743695523243909

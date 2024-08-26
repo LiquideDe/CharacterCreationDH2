@@ -243,6 +243,7 @@ GameObject:
   - component: {fileID: 7305213186458516313}
   - component: {fileID: 712054526241082182}
   - component: {fileID: 5108223318331335869}
+  - component: {fileID: 2917980796546549482}
   m_Layer: 5
   m_Name: CreateRangeWeapon
   m_TagString: Untagged
@@ -280,7 +281,7 @@ Canvas:
   m_GameObject: {fileID: 648878917856675659}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -344,11 +345,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 437a584b63220f84493676c858c86312, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _buttonDone: {fileID: 7408336681302585783}
+  _buttonCancel: {fileID: 7408336680230084306}
   _inputName: {fileID: 7408336680628314747}
   _inputWeight: {fileID: 7408336679689994802}
   _inputRarity: {fileID: 959218218431818956}
-  _buttonOk: {fileID: 7408336681302585783}
-  _buttonCancel: {fileID: 7408336680230084306}
   _buttonAddProperty: {fileID: 3119543214713058002}
   inputClass: {fileID: 7408336679792739344}
   inputDamage: {fileID: 7408336679770295529}
@@ -363,6 +364,18 @@ MonoBehaviour:
   inputClip: {fileID: 7408336681229011838}
   inputReload: {fileID: 7408336680010137489}
   toggleSingle: {fileID: 2003675410565444062}
+--- !u!114 &2917980796546549482
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 648878917856675659}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c4783b4493fbb84daf41f9e06899910, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &873457128483884313
 GameObject:
   m_ObjectHideFlags: 0
@@ -9378,11 +9391,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 437a584b63220f84493676c858c86312, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _buttonDone: {fileID: 0}
+  _buttonCancel: {fileID: 0}
   _inputName: {fileID: 0}
   _inputWeight: {fileID: 0}
   _inputRarity: {fileID: 0}
-  _buttonOk: {fileID: 0}
-  _buttonCancel: {fileID: 0}
   _buttonAddProperty: {fileID: 0}
   inputClass: {fileID: 7408336679792739344}
   inputDamage: {fileID: 7408336679770295529}

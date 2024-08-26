@@ -4,7 +4,7 @@ using TMPro;
 using Zenject;
 using System;
 
-public class HomeworldBackGroundRoleView : MonoBehaviour
+public class HomeworldBackGroundRoleView : CanDestroyView
 {
     [SerializeField] TextMeshProUGUI _textDescr, _textName, _textBonusDescr, _textCitata;
     [SerializeField] Button _buttonNext, _buttonPrev, _buttonShow, _buttonShowFinal, _buttonReturnToPrevWindow;
@@ -48,11 +48,6 @@ public class HomeworldBackGroundRoleView : MonoBehaviour
         _textName.text = characterHistory.Name;
         _textBonusDescr.text = characterHistory.BonusText;
         _textCitata.text = characterHistory.Citata;
-    }
-
-    public void DestroyView()
-    {
-        Destroy(gameObject);
     }
 
     private void PressNext()

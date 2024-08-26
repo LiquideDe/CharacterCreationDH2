@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using System;
 using TMPro;
 
-public class UpgradeSkillView : MonoBehaviour
+public class UpgradeSkillView : CanDestroyView
 {
     public event Action<Skill, int> UpgradeSkill;
     public event Action NextWindow;
@@ -58,7 +58,6 @@ public class UpgradeSkillView : MonoBehaviour
         _textExperience.text = exp;
     }
 
-    public void DestroyView() => Destroy(gameObject);
     private void UpgradeSkillPressed(Skill skill, int cost) => UpgradeSkill?.Invoke(skill, cost);
 
     private void ShowDescription(string description)

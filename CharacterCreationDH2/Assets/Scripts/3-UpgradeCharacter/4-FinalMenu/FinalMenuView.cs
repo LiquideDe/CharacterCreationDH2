@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using System;
 
 
-public class FinalMenuView : MonoBehaviour
+public class FinalMenuView : CanDestroyView
 {
     [SerializeField] Button _buttonSaveAndExitToMenu, _buttonSaveAndExit, _buttonExitToMenu, _buttonExit;
 
@@ -24,8 +24,6 @@ public class FinalMenuView : MonoBehaviour
         _buttonExitToMenu.onClick.RemoveAllListeners();
         _buttonExit.onClick.RemoveAllListeners();
     }
-
-    public void DestroyView() => Destroy(gameObject);
 
     private void SaveAndExitToMenuPressed() => SaveAndExitToMenu?.Invoke();
 

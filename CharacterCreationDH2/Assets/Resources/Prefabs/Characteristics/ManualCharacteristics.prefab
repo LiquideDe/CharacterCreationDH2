@@ -1526,6 +1526,7 @@ GameObject:
   - component: {fileID: 3347500795818992419}
   - component: {fileID: 840089025109072987}
   - component: {fileID: 8798346037795806336}
+  - component: {fileID: 9094886196248887557}
   m_Layer: 0
   m_Name: Canvas
   m_TagString: Untagged
@@ -1584,7 +1585,7 @@ Canvas:
   m_GameObject: {fileID: 1866316409746128407}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -1636,6 +1637,18 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &9094886196248887557
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1866316409746128407}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c4783b4493fbb84daf41f9e06899910, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1907001978078137356
 GameObject:
   m_ObjectHideFlags: 0
@@ -1904,6 +1917,7 @@ GameObject:
   - component: {fileID: 572723963336896979}
   - component: {fileID: 3857227701188393264}
   - component: {fileID: 8145531560224364567}
+  - component: {fileID: 84254943216882126}
   m_Layer: 0
   m_Name: CanvasNoRaycaster
   m_TagString: Untagged
@@ -1941,7 +1955,7 @@ Canvas:
   m_GameObject: {fileID: 2708501417661654048}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -1993,6 +2007,18 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &84254943216882126
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2708501417661654048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c4783b4493fbb84daf41f9e06899910, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2819823836046822837
 GameObject:
   m_ObjectHideFlags: 0

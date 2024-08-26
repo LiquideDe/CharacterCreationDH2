@@ -325,6 +325,7 @@ GameObject:
   - component: {fileID: 3581127258877520304}
   - component: {fileID: 3581127258877520307}
   - component: {fileID: 3581127258877520306}
+  - component: {fileID: 5630044325655445191}
   m_Layer: 5
   m_Name: CanvasName
   m_TagString: Untagged
@@ -362,7 +363,7 @@ Canvas:
   m_GameObject: {fileID: 3581127258877520317}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -431,6 +432,18 @@ MonoBehaviour:
   toggleFemale: {fileID: 3581127259739347036}
   _buttonGenerate: {fileID: 3581127259174793801}
   _buttonNext: {fileID: 3581127259628537146}
+--- !u!114 &5630044325655445191
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3581127258877520317}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c4783b4493fbb84daf41f9e06899910, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3581127258905959145
 GameObject:
   m_ObjectHideFlags: 0

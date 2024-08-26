@@ -819,6 +819,7 @@ GameObject:
   - component: {fileID: 151980826860593369}
   - component: {fileID: 1863309250836445946}
   - component: {fileID: 8036199215012909402}
+  - component: {fileID: 9060078785586878429}
   m_Layer: 0
   m_Name: Canvas
   m_TagString: Untagged
@@ -862,7 +863,7 @@ Canvas:
   m_GameObject: {fileID: 620803381642536860}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -914,6 +915,18 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &9060078785586878429
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 620803381642536860}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c4783b4493fbb84daf41f9e06899910, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &649832356560651141
 GameObject:
   m_ObjectHideFlags: 0
@@ -4573,6 +4586,7 @@ GameObject:
   - component: {fileID: 7139338193278379086}
   - component: {fileID: 6149295460756367848}
   - component: {fileID: 7398038792375716698}
+  - component: {fileID: 1640952806293037363}
   m_Layer: 0
   m_Name: CanvasNoRaycast
   m_TagString: Untagged
@@ -4622,7 +4636,7 @@ Canvas:
   m_GameObject: {fileID: 2751229630319990982}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -4664,7 +4678,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2751229630319990982}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
   m_Name: 
@@ -4674,6 +4688,18 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &1640952806293037363
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2751229630319990982}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c4783b4493fbb84daf41f9e06899910, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2795421242305598338
 GameObject:
   m_ObjectHideFlags: 0
@@ -5663,7 +5689,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 8897470698119959411}
   m_Direction: 2
   m_Value: 0
-  m_Size: 1
+  m_Size: 0.9638584
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -12835,7 +12861,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 4475977489297167870}
   m_Direction: 2
   m_Value: 0
-  m_Size: 1
+  m_Size: 0.9638584
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

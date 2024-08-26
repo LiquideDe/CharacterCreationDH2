@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using System;
 
-public class UpgradePsycanaView : MonoBehaviour
+public class UpgradePsycanaView : CanDestroyView
 {
     [SerializeField] TextMeshProUGUI _textExperience, _textSchool, _textRequirementForPsyrate, _textPsyrate;
     [SerializeField] Button _buttonNext, _buttonPrev, _buttonClosePanel, _buttonBuyPsyrate, _buttonBuyPsyPower, _buttonCancel;
@@ -78,8 +78,6 @@ public class UpgradePsycanaView : MonoBehaviour
     }
 
     public void ClosePanelWithInformation() => _panelWithInfoAboutPsyPower.SetActive(false);
-
-    public void DestroyView() => Destroy(gameObject);
 
     private void ClosePanelPressed() => ClosePanel?.Invoke();    
 

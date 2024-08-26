@@ -1222,6 +1222,7 @@ GameObject:
   - component: {fileID: 1076729413628794945}
   - component: {fileID: 1076729413628794944}
   - component: {fileID: 2147543023930072817}
+  - component: {fileID: 6489861769698753373}
   m_Layer: 5
   m_Name: CreateNewImplant
   m_TagString: Untagged
@@ -1259,7 +1260,7 @@ Canvas:
   m_GameObject: {fileID: 1076729413628794959}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -1323,6 +1324,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18538b758956dae42b1a866d88f6644e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _buttonDone: {fileID: 1951055586862687374}
+  _buttonCancel: {fileID: 4576017250503327775}
   inputName: {fileID: 5547832094665660288}
   inputDescription: {fileID: 8658546297931729133}
   inputArmor: {fileID: 9205106361094429288}
@@ -1334,8 +1337,18 @@ MonoBehaviour:
   toggleRightLeg: {fileID: 7728882659513735925}
   toggleLeftLeg: {fileID: 7308116403755218477}
   toggleAllBody: {fileID: 1687866307493788178}
-  _buttonOk: {fileID: 1951055586862687374}
-  _buttonCancel: {fileID: 4576017250503327775}
+--- !u!114 &6489861769698753373
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1076729413628794959}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c4783b4493fbb84daf41f9e06899910, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1514493514421759872
 GameObject:
   m_ObjectHideFlags: 0

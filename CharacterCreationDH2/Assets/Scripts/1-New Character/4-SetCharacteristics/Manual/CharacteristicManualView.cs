@@ -6,7 +6,7 @@ using System;
 using Zenject;
 using TMPro;
 
-public class CharacteristicManualView : MonoBehaviour
+public class CharacteristicManualView : CanDestroyView
 {
     [SerializeField]
     Button _buttonPlusWeapon, _buttonPlusBallistic, _buttonPlusStrength, _buttonPlusToughness, _buttonPlusAgility, _buttonPlusIntelligence,
@@ -92,7 +92,6 @@ public class CharacteristicManualView : MonoBehaviour
         _buttonPrev.onClick.RemoveAllListeners();
     }
 
-    public void DestroyView() => Destroy(gameObject);
 
     public void SetTextWeapon(string characteristicPoint, string allPoint)
     {

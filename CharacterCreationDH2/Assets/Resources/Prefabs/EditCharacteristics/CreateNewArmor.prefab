@@ -357,6 +357,7 @@ GameObject:
   - component: {fileID: 5710310061532716976}
   - component: {fileID: 616795803068402035}
   - component: {fileID: 7175652265241975018}
+  - component: {fileID: 4882040351216927690}
   m_Layer: 5
   m_Name: CreateNewArmor
   m_TagString: Untagged
@@ -394,7 +395,7 @@ Canvas:
   m_GameObject: {fileID: 6408959074878856044}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -458,11 +459,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75291b82b8ffb7644b9c1879001db88b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _buttonDone: {fileID: 6425540087488813547}
+  _buttonCancel: {fileID: 6425540087857382374}
   _inputName: {fileID: 6425540087610384451}
   _inputWeight: {fileID: 6425540086208998842}
   _inputRarity: {fileID: 646556791126590460}
-  _buttonOk: {fileID: 6425540087488813547}
-  _buttonCancel: {fileID: 6425540087857382374}
   inputArmorPoint: {fileID: 6425540086321262017}
   inputHeadPoint: {fileID: 6425540086102860243}
   inputHandsPoint: {fileID: 6425540086188344795}
@@ -470,6 +471,18 @@ MonoBehaviour:
   inputLegsPoint: {fileID: 6425540085810745772}
   inputMaxAgility: {fileID: 6425540086285582604}
   inputProp: {fileID: 6425540087301627377}
+--- !u!114 &4882040351216927690
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6408959074878856044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c4783b4493fbb84daf41f9e06899910, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6425540085808955095
 GameObject:
   m_ObjectHideFlags: 0
@@ -560,7 +573,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -53.878, y: -50}
+  m_AnchoredPosition: {x: -53.87799, y: -50}
   m_SizeDelta: {x: 83.3931, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6425540085810745770

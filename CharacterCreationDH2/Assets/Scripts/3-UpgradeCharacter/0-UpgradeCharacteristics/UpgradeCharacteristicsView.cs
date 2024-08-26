@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using System;
 
-public class UpgradeCharacteristicsView : MonoBehaviour
+public class UpgradeCharacteristicsView : CanDestroyView
 {
     [SerializeField]
     Button _buttonIncreaseWeapon, _buttonIncreaseBallistic, _buttonIncreaseStrength, _buttonIncreaseToughness,
@@ -94,8 +94,6 @@ public class UpgradeCharacteristicsView : MonoBehaviour
         _textAmountFellowship, _textCostFellowship, _buttonIncreaseFellowship);
 
     public void SetVisibleButtonReturnBack(bool isActive) => _buttonPrev.gameObject.SetActive(isActive);
-
-    public void DestroyView() => Destroy(gameObject);
 
     private void SetParametersToPanel(List<Image> images, int lvlLearned, int amount, string cost, TextMeshProUGUI textCharacteristic, TextMeshProUGUI textCost, Button buttonIncrease)
     {

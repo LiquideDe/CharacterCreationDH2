@@ -8,7 +8,7 @@ public enum LISTDIRECTION
     VERTICAL = 1
 }
 
-public abstract class UniversalList : MonoBehaviour
+public abstract class UniversalList : CanDestroyView
 {
     [SerializeField] private RectTransform _container;
     [SerializeField] private Mask _mask;

@@ -6,29 +6,16 @@ using TMPro;
 using System.IO;
 using System;
 
-public class NewImplant : MonoBehaviour
+public class NewImplant : ViewWithButtonsDoneAndCancel
 {
     [SerializeField] TMP_InputField inputName, inputDescription, inputArmor, inputToughness;
     [SerializeField] Toggle toggleHead, toggleRightHand, toggleLeftHand, toggleBody, toggleRightLeg, toggleLeftLeg, toggleAllBody;
-    [SerializeField] Button _buttonOk, _buttonCancel;
-    public event Action Cancel, WrongInput;
+    public event Action WrongInput;
     public event Action<MechImplant> ReturnImplant;
-
-    private void OnEnable()
-    {
-        _buttonOk.onClick.AddListener(Done);
-        _buttonCancel.onClick.AddListener(CancelPressed);
-    }
-
-    private void OnDisable()
-    {
-        _buttonOk.onClick.RemoveAllListeners();
-        _buttonCancel.onClick.RemoveAllListeners();
-    }
 
     public void Initialize() { }
 
-    public void Done()
+    protected override void ButtonDonePressed()
     {
         if (inputName.text.Length > 0)
         {
@@ -83,8 +70,4 @@ public class NewImplant : MonoBehaviour
         else
             WrongInput?.Invoke();
     }
-
-    public void DestroyView() => Destroy(gameObject);
-
-    public void CancelPressed() => Cancel?.Invoke();
 }

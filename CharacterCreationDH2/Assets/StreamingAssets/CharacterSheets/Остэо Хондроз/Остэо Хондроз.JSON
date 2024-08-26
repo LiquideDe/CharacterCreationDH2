@@ -16,7 +16,6 @@
     "homeworld": "Феодальный мир",
     "talents": "Выучка с Оружием Твёрдотельное/Выучка с Оружием Цепное/Телохранитель/Амбидекстрия/Чуткая Интуиция",
     "inclinations": "General/Weapon/Tech/Knowledge/Offense/Strength/Toughness/Willpower",
-    "implants": "",
     "mentalDisorders": "",
     "mutation": "",
     "equipments": "",
@@ -38,9 +37,9 @@
     "natisk": 9,
     "run": 18,
     "fatigue": 6,
-    "experienceTotal": 1000,
-    "experienceUnspent": 50,
-    "experienceSpent": 950,
+    "experienceTotal": 1400,
+    "experienceUnspent": 100,
+    "experienceSpent": 1300,
     "amountImplants": 0,
     "carryWeight": 36.0,
     "liftWeight": 72.0,
@@ -58,8 +57,8 @@
 }
 {
     "name": "Сила",
-    "amount": 35,
-    "lvlLearnedChar": 0
+    "amount": 45,
+    "lvlLearnedChar": 2
 }
 {
     "name": "Выносливость",

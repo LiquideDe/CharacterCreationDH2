@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using TMPro;
 using System;
 
-public class ProphecyView : MonoBehaviour
+public class ProphecyView : CanDestroyView
 {
     [SerializeField] private TextMeshProUGUI textDescription;
     [SerializeField] private TMP_InputField inputField;
@@ -33,8 +33,6 @@ public class ProphecyView : MonoBehaviour
         _buttonGenerate.gameObject.SetActive(false);
         inputField.interactable = false;
     }
-
-    public void DestroyView() => Destroy(gameObject);
 
     private void InputNumberPressed(string value) => InputNumber?.Invoke(value);
 

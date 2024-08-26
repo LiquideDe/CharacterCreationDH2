@@ -62,28 +62,29 @@ public class BackgroundFinalPanelPresenter : IPresenter
 
     private void Subscribe()
     {
-        _view.DonePress += DoneDown;
-        _view.CancelPress += CancelDown;
+        _view.Done += DoneDown;
+        _view.Cancel += CancelDown;
     }
 
-    private void Unscribe()
+    private void Unsubscribe()
     {
-        _view.DonePress -= DoneDown;
-        _view.CancelPress -= CancelDown;
+        _view.Done -= DoneDown;
+        _view.Cancel -= CancelDown;
     }
 
-    private void CancelDown()
+    private void CancelDown(CanDestroyView view)
     {
         _audioManager.PlayCancel();
         CancelChoice?.Invoke();
-        Unscribe();
-        _view.DestroyView();
+        Unsubscribe();
+        view.DestroyView();
     }
 
-    private void DoneDown(List<ToggleGroup> toggleGroups)
+    private void DoneDown()
     {
         _audioManager.PlayDone();
-        Unscribe();
+        List<ToggleGroup> toggleGroups = _view.GetToggles();
+        Unsubscribe();
         _view.DestroyView();
         ConfigForCharacterFromBackground config = new ConfigForCharacterFromBackground();
         config.Bonus = _background.BonusText;

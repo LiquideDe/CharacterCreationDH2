@@ -7,17 +7,26 @@ using System.IO;
 
 public class PsycanaCreatorView : MonoBehaviour
 {
-    private List<PsyPanel> psyPanels = new List<PsyPanel>();
+    
     [SerializeField] PsyPanel _psyPanelPrefab;
     [SerializeField] GameObject[] lvls;
     [SerializeField] GameObject connectionsContainer, straightLine, panelDescription;
     [SerializeField] HorizontalLayoutGroup layoutGroupFirst, layoutGroupSecond, layoutGroupThird;
     [SerializeField] UpgradePsycanaView _view;
     private List<GameObject> lines = new List<GameObject>();
+    private List<PsyPanel> psyPanels = new List<PsyPanel>();
 
     public void Initialize(List<PsyPower> psyPowers, List<PsyPower> characterPsyPowers, List<Connection> connections, JSONSizeSpacing sizeSpacing)
     {
         StartCoroutine(CreatePsyPanels(psyPowers, characterPsyPowers, connections, sizeSpacing));
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+          
+        }
     }
 
     IEnumerator CreatePsyPanels(List<PsyPower> psyPowers, List<PsyPower> characterPsyPowers, List<Connection> connections, JSONSizeSpacing sizeSpacing)
@@ -81,11 +90,12 @@ public class PsycanaCreatorView : MonoBehaviour
 
     private void SetPosition(Vector3 firstPoint, Vector3 secondPoint, int angle, string name)
     {
-        float koefH = Screen.height / 1080f;
+        float koefH = 16f/9f;
         lines.Add(Instantiate(straightLine, connectionsContainer.transform));
         lines[^1].SetActive(true);
         lines[^1].name = name;
-        float height = Vector2.Distance(secondPoint, firstPoint)/ koefH;
+        //float height = Vector2.Distance(secondPoint, firstPoint)/ koefH;
+        float height = Vector2.Distance(secondPoint, firstPoint)* 108;
         float width = 1 * koefH;
         lines[^1].GetComponent<RectTransform>().sizeDelta = new Vector2(width, height);
         float newposX = secondPoint.x + (firstPoint.x - secondPoint.x) / 2;

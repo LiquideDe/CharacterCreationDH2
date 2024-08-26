@@ -4,7 +4,7 @@ using TMPro;
 using System;
 using UnityEngine.EventSystems;
 
-public class HomeworldFinalPanelView : MonoBehaviour
+public class HomeworldFinalPanelView : ViewWithButtonsDoneAndCancel
 {
     [SerializeField]
     private TMP_InputField _inputFate, _inputWound, _inputAge, _inputHair, _inputTradition, _inputSkeen,
@@ -12,7 +12,7 @@ public class HomeworldFinalPanelView : MonoBehaviour
 
     [SerializeField]
     private Button _buttonFate, _buttonWound, _buttonAge, _buttonHair, _buttonTradition, _buttonSkeen,
-        _buttonRemember, _buttonBody, _buttonEyes, _buttonPhys, _buttonDone, _buttonCancel;
+        _buttonRemember, _buttonBody, _buttonEyes, _buttonPhys;
 
     public event Action<string> FateEntered;
     public event Action<string> WoundEntered;
@@ -35,9 +35,6 @@ public class HomeworldFinalPanelView : MonoBehaviour
     public event Action ButtonBodyPress;
     public event Action ButtonEyesPress;
     public event Action ButtonPhysPress;
-
-    public event Action ButtonDonePress;
-    public event Action ButtonCancelPress;
 
     private void OnEnable()
     {
@@ -62,9 +59,6 @@ public class HomeworldFinalPanelView : MonoBehaviour
         _buttonBody.onClick.AddListener(ButtonBodyDown);
         _buttonEyes.onClick.AddListener(ButtonEyesDown);
         _buttonPhys.onClick.AddListener(ButtonPhysDown);
-
-        _buttonDone.onClick.AddListener(ButtonDoneDown);
-        _buttonCancel.onClick.AddListener(ButtonCancelDown);
     }
 
     private void OnDisable()
@@ -90,9 +84,6 @@ public class HomeworldFinalPanelView : MonoBehaviour
         _buttonBody.onClick.RemoveAllListeners();
         _buttonEyes.onClick.RemoveAllListeners();
         _buttonPhys.onClick.RemoveAllListeners();
-
-        _buttonDone.onClick.RemoveAllListeners();
-        _buttonCancel.onClick.RemoveAllListeners();
     }
 
     public void SetTextFate(string value)
@@ -175,12 +166,6 @@ public class HomeworldFinalPanelView : MonoBehaviour
         _buttonPhys.interactable = false;
     }
 
-    public void DestroyView()
-    {
-        gameObject.SetActive(false);
-        Destroy(gameObject);
-    }
-
     private void EnterTextFate(string value) 
     {
         CancelSelect();
@@ -242,10 +227,6 @@ public class HomeworldFinalPanelView : MonoBehaviour
     private void ButtonBodyDown() => ButtonBodyPress?.Invoke();
     private void ButtonEyesDown() => ButtonEyesPress?.Invoke();
     private void ButtonPhysDown() => ButtonPhysPress?.Invoke();
-
-    private void ButtonCancelDown() => ButtonCancelPress?.Invoke();
-
-    private void ButtonDoneDown() => ButtonDonePress?.Invoke();
 
     private void CancelSelect()
     {

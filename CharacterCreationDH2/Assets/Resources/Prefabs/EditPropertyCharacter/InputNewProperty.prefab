@@ -992,6 +992,7 @@ GameObject:
   - component: {fileID: 5768798843713315367}
   - component: {fileID: 4974906105864468159}
   - component: {fileID: 1823689157108987124}
+  - component: {fileID: 2901605796446907191}
   m_Layer: 5
   m_Name: InputNewProperty
   m_TagString: Untagged
@@ -1029,7 +1030,7 @@ Canvas:
   m_GameObject: {fileID: 8557356640731411926}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -1113,3 +1114,15 @@ MonoBehaviour:
   _inputName: {fileID: 5020934048904028308}
   _buttonClose: {fileID: 1558320696546499138}
   _buttonDone: {fileID: 6741954922635408703}
+--- !u!114 &2901605796446907191
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8557356640731411926}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c4783b4493fbb84daf41f9e06899910, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

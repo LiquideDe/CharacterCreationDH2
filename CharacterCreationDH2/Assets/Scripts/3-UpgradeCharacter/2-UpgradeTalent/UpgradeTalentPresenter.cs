@@ -280,6 +280,8 @@ public class UpgradeTalentPresenter : IPresenter
         {
             for (int j = 0; j < implantsOfCharacter.Count; j++)
             {
+                if (talent.Name == "Использование Механодендритов Боевые")
+                    Debug.Log($"implantCharacter = {implantsOfCharacter.Count}");
                 if (string.Compare(talent.RequirementImplants[i].Name, implantsOfCharacter[j].Name, true) == 0)
                 {
                     sum += 1;

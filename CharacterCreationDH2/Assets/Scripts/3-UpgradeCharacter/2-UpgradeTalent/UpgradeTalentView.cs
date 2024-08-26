@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using System;
 
-public class UpgradeTalentView : MonoBehaviour
+public class UpgradeTalentView : CanDestroyView
 {
     [SerializeField] TalentList _talentList;
     [SerializeField] Button _buttonPrev, _buttonNext, _buttonStudy, _buttonCancel, _buttonResetButtons;
@@ -92,8 +92,6 @@ public class UpgradeTalentView : MonoBehaviour
 
     public void SetButtonShowAllActive() => _buttonShowUnavailable.SetActive();
     public void SetButtonShowAllDeactive() => _buttonShowUnavailable.SetDeactive();
-
-    public void DestroyView() => Destroy(gameObject);
 
     private void ShowTalentWithCertainInclination(GameStat.Inclinations inclination)
     {

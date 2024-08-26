@@ -152,6 +152,7 @@ GameObject:
   - component: {fileID: 4975995989735464091}
   - component: {fileID: 4975995989735464090}
   - component: {fileID: 4975995989735464093}
+  - component: {fileID: 8274868118886315442}
   m_Layer: 5
   m_Name: Prophecy
   m_TagString: Untagged
@@ -189,7 +190,7 @@ Canvas:
   m_GameObject: {fileID: 4975995989735464092}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -257,6 +258,18 @@ MonoBehaviour:
   inputField: {fileID: 4975995989920924603}
   _buttonDone: {fileID: 4975995990793792851}
   _buttonGenerate: {fileID: 4975995990269032658}
+--- !u!114 &8274868118886315442
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4975995989735464092}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c4783b4493fbb84daf41f9e06899910, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4975995989859794840
 GameObject:
   m_ObjectHideFlags: 0

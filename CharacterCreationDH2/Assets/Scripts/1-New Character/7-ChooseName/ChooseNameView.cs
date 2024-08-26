@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using System;
 
-public class ChooseNameView : MonoBehaviour
+public class ChooseNameView : CanDestroyView
 {
     [SerializeField] TMP_InputField inputName;
     [SerializeField] Toggle toggleMale, toggleFemale;
@@ -33,8 +33,6 @@ public class ChooseNameView : MonoBehaviour
     }
 
     public void SetName(string text) => inputName.text = text;
-
-    public void DestroyView() => Destroy(gameObject);
 
     private void GenerateNamePressed() => GenerateName?.Invoke();
 

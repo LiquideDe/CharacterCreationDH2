@@ -3445,6 +3445,7 @@ GameObject:
   - component: {fileID: 4226158092642322559}
   - component: {fileID: 4226158092642322558}
   - component: {fileID: 4226158092642322545}
+  - component: {fileID: 1090003655419358282}
   m_Layer: 5
   m_Name: HomeworldFinalPanel
   m_TagString: Untagged
@@ -3482,7 +3483,7 @@ Canvas:
   m_GameObject: {fileID: 4226158092642322544}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -3490,7 +3491,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
@@ -3546,6 +3547,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bc861d51bff473468c5915cb0cbb1b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _buttonDone: {fileID: 3151611449134134581}
+  _buttonCancel: {fileID: 3767059228917024246}
   _inputFate: {fileID: 7125519295635563317}
   _inputWound: {fileID: 3457476129333186567}
   _inputAge: {fileID: 5792617066158517964}
@@ -3566,8 +3569,18 @@ MonoBehaviour:
   _buttonBody: {fileID: 6505166288377326280}
   _buttonEyes: {fileID: 2981673848985277639}
   _buttonPhys: {fileID: 1385692276368548853}
-  _buttonDone: {fileID: 3151611449134134581}
-  _buttonCancel: {fileID: 3767059228917024246}
+--- !u!114 &1090003655419358282
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4226158092642322544}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c4783b4493fbb84daf41f9e06899910, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4268385644643268032
 GameObject:
   m_ObjectHideFlags: 0

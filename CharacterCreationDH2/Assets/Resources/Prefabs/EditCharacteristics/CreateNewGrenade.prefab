@@ -6006,6 +6006,7 @@ GameObject:
   - component: {fileID: 4393461766088294896}
   - component: {fileID: 4393461766088294899}
   - component: {fileID: 2362770404967268633}
+  - component: {fileID: 6773214309922029729}
   m_Layer: 5
   m_Name: CreateNewGrenade
   m_TagString: Untagged
@@ -6043,7 +6044,7 @@ Canvas:
   m_GameObject: {fileID: 4393461766088294898}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -6107,11 +6108,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f96c4c9cb03ba5b48b8e50ecac6106e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _buttonDone: {fileID: 357361960437227937}
+  _buttonCancel: {fileID: 357361959821372673}
   _inputName: {fileID: 357361960630700053}
   _inputWeight: {fileID: 357361960901365322}
   _inputRarity: {fileID: 8542399629384458805}
-  _buttonOk: {fileID: 357361960437227937}
-  _buttonCancel: {fileID: 357361959821372673}
   _buttonAddProperty: {fileID: 8337947642742337981}
   inputClass: {fileID: 357361959497458564}
   inputDamage: {fileID: 357361960358233483}
@@ -6120,6 +6121,18 @@ MonoBehaviour:
   dropDown: {fileID: 6717138812656865067}
   content: {fileID: 2305555580402009617}
   itemPrefab: {fileID: 5638402045139285480}
+--- !u!114 &6773214309922029729
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4393461766088294898}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c4783b4493fbb84daf41f9e06899910, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4493541654414992392
 GameObject:
   m_ObjectHideFlags: 0

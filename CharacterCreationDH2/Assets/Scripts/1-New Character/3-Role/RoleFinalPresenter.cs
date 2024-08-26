@@ -51,27 +51,28 @@ public class RoleFinalPresenter : IPresenter
 
     private void Subscribe()
     {
-        _view.DonePress += DoneDown;
-        _view.CancelPress += CancelDown;
+        _view.Done += DoneDown;
+        _view.Cancel += CancelDown;
     }
 
     private void Unscribe()
     {
-        _view.DonePress -= DoneDown;
-        _view.CancelPress -= CancelDown;
+        _view.Done -= DoneDown;
+        _view.Cancel -= CancelDown;
     }
 
-    private void CancelDown()
+    private void CancelDown(CanDestroyView view)
     {
         _audioManager.PlayCancel();
         CancelChoice?.Invoke();
         Unscribe();
-        _view.DestroyView();
+        view.DestroyView();
     }
 
-    private void DoneDown(List<ToggleGroup> toggleGroups)
+    private void DoneDown()
     {
         _audioManager.PlayDone();
+        List<ToggleGroup> toggleGroups = _view.GetToggles();
         Unscribe();
         _view.DestroyView();
         ConfigForCharacterFromRole config = new ConfigForCharacterFromRole();

@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using System;
 using Zenject;
 
-public class CharacteristicRandomView : MonoBehaviour
+public class CharacteristicRandomView : CanDestroyView
 {
     [SerializeField]
     CharacteristicCard _weaponSkill, _ballisticSkill, _strength, _toughness, _agility, _intelligence, _perception, _willpower,
@@ -36,8 +36,6 @@ public class CharacteristicRandomView : MonoBehaviour
     public void SetWillPower(int amount) => _willpower.SetAmount(amount);
     public void SetSocial(int amount) => _social.SetAmount(amount);
     public void SetInfluence(int amount) => _influence.SetAmount(amount);
-
-    public void DestroyView() => Destroy(gameObject);
 
     private void DonePress()
     {

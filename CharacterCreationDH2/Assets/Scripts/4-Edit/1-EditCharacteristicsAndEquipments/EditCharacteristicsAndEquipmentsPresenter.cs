@@ -15,9 +15,8 @@ public class EditCharacteristicsAndEquipmentsPresenter : IPresenter
     private CreatorWeaponProperties _creatorWeaponProperties;
     private ICharacter _characterToReturn;
     private Character _character;
-    private CreatorNewEquipment _newEquipmentForm;
+    private CanDestroyView _newForm;
     private ListWithNewItems _listWithItems;
-    private NewImplant _newImplantForm;
     private delegate void MethodFormEquipment();
 
     [Inject]
@@ -308,6 +307,7 @@ public class EditCharacteristicsAndEquipmentsPresenter : IPresenter
     private void Next()
     {
         _audioManager.PlayClick();
+        CheckAndCloseAllLists();
         Unscribe();
         _view.DestroyView();
         GoNext?.Invoke(_characterToReturn);
@@ -316,6 +316,7 @@ public class EditCharacteristicsAndEquipmentsPresenter : IPresenter
     private void Prev()
     {
         _audioManager.PlayClick();
+        CheckAndCloseAllLists();
         Unscribe();
         _view.DestroyView();
         ReturnBack?.Invoke(_characterToReturn);
@@ -338,7 +339,7 @@ public class EditCharacteristicsAndEquipmentsPresenter : IPresenter
     private void ShowNewImplants()
     {
         _audioManager.PlayClick();
-        CheckAndDestroyAllLists();
+        CheckAndCloseAllLists();
         List<string> implantNames = new List<string>();
         foreach(MechImplant implant in _creatorImplant.Implants)        
             implantNames.Add(implant.Name);     
@@ -358,17 +359,10 @@ public class EditCharacteristicsAndEquipmentsPresenter : IPresenter
         _listWithItems = null;
 
         NewImplant newImplant = _lvlFactory.Get(TypeScene.NewImplant).GetComponent<NewImplant>();
-        newImplant.Cancel += CloseImplantForm;
+        newImplant.Cancel += CloseForm;
         newImplant.ReturnImplant += AddNewImplant;
         newImplant.WrongInput += _audioManager.PlayWarning;
-        _newImplantForm = newImplant;        
-    }
-
-    private void CloseImplantForm()
-    {
-        _audioManager.PlayCancel();
-        _newImplantForm.DestroyView();
-        _newImplantForm = null;
+        _newForm = newImplant;        
     }
 
     private void AddImplant(string name)
@@ -383,8 +377,8 @@ public class EditCharacteristicsAndEquipmentsPresenter : IPresenter
     private void AddNewImplant(MechImplant implant)
     {
         _audioManager.PlayDone();
-        _newImplantForm.DestroyView();
-        _newImplantForm = null;
+        _newForm.DestroyView();
+        _newForm = null;
 
         _character.Implants.Add(implant);
         _view.UpdateImplants(_character.Implants);
@@ -414,7 +408,7 @@ public class EditCharacteristicsAndEquipmentsPresenter : IPresenter
     private void ShowListWithNewEquipments(Equipment.TypeEquipment typeEquipment, string title, MethodFormEquipment method)
     {
         _audioManager.PlayClick();
-        CheckAndDestroyAllLists();
+        CheckAndCloseAllLists();
         ListWithNewItemsAndNewButton listWithNew = _lvlFactory.Get(TypeScene.ListWithNewItemsAndNewButton).GetComponent<ListWithNewItemsAndNewButton>();
         listWithNew.AddNewItem += method.Invoke;
         listWithNew.ChooseThis += AddThisEquipment;
@@ -448,19 +442,15 @@ public class EditCharacteristicsAndEquipmentsPresenter : IPresenter
             _audioManager.PlayWarning();
     }
 
-    private void CheckAndDestroyAllLists()
+    private void CheckAndCloseAllLists()
     {
-        if (_newEquipmentForm != null)
-            _newEquipmentForm.DestroyView();
-        _newEquipmentForm = null;
+        if (_newForm != null)
+            _newForm.DestroyView();
+        _newForm = null;
 
         if (_listWithItems != null)
             _listWithItems.DestroyView();
         _listWithItems = null;
-
-        if (_newImplantForm != null)
-            _newImplantForm.DestroyView();
-        _newImplantForm = null;
     }
 
     private List<string> EquipmentNames(Equipment.TypeEquipment typeEquipment)
@@ -487,7 +477,7 @@ public class EditCharacteristicsAndEquipmentsPresenter : IPresenter
         newEquipmentForm.ReturnNewEquipment += AddNewEquipment;
         newEquipmentForm.WrongInput += _audioManager.PlayWarning;
         newEquipmentForm.Initialize();
-        _newEquipmentForm = newEquipmentForm;
+        _newForm = newEquipmentForm;
     }
 
     private void AddThisEquipment(string name)
@@ -511,25 +501,25 @@ public class EditCharacteristicsAndEquipmentsPresenter : IPresenter
         _view.UpdateEquipment(_character.Equipments);
     }
 
-    private void CloseList()
+    private void CloseList(CanDestroyView view)
     {
         _audioManager.PlayCancel();
-        _listWithItems.DestroyView();
+        view.DestroyView();
         _listWithItems = null;
     }
 
-    private void CloseForm()
+    private void CloseForm(CanDestroyView view)
     {
         _audioManager.PlayCancel();
-        _newEquipmentForm.DestroyView();
-        _newEquipmentForm = null;
+        view.DestroyView();
+        _newForm = null;
     }
 
     private void AddNewEquipment(Equipment equipment)
     {
         _audioManager.PlayDone();
-        _newEquipmentForm.DestroyView();
-        _newEquipmentForm = null;
+        _newForm.DestroyView();
+        _newForm = null;
         _character.Equipments.Add(equipment);
         _view.UpdateEquipment(_character.Equipments);
         _creatorEquipment.AddEquipment(equipment);
@@ -539,7 +529,7 @@ public class EditCharacteristicsAndEquipmentsPresenter : IPresenter
     {
         _audioManager.PlayClick();
         ListWithNewItems list = _lvlFactory.Get(TypeScene.ListWithNewItems).GetComponent<ListWithNewItems>();
-        list.CloseList += _audioManager.PlayCancel;
+        list.CloseList += CloseList;
         list.ChooseThis += AddProperty;
         list.Initialize(_creatorWeaponProperties.GetProperties(), $"Выберите особое качество");
         _listWithItems = list;
@@ -549,7 +539,8 @@ public class EditCharacteristicsAndEquipmentsPresenter : IPresenter
     {
         _audioManager.PlayClick();
         _listWithItems.DestroyView();
-        _newEquipmentForm.AddProperty(name);
+        if(_newForm is CreatorNewEquipment newEquipmentForm)
+            newEquipmentForm.AddProperty(name);
     }
 
     private void ChangeAmountEquipment(string name, int amount)

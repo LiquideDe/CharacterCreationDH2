@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using System;
 
-public class EditCharacteristicsAndEquipmentsView : MonoBehaviour
+public class EditCharacteristicsAndEquipmentsView : CanDestroyView
 {
     [SerializeField]
     private Button _buttonIncreaseWeapon, _buttonIncreaseBallistic, _buttonIncreaseStrength, _buttonIncreaseRun, _buttonIncreaseNatisk, _buttonIncreaseFullmove,
@@ -215,10 +215,7 @@ public class EditCharacteristicsAndEquipmentsView : MonoBehaviour
             item.Initialize(implant.Name);
             _implants.Add(item);
         }
-    }
-
-    public void DestroyView() => Destroy(gameObject);
-    
+    }    
 
     private void ChangeAmountEquipmentPressed(string name, int amount) => ChangeAmountEquipment?.Invoke(name, amount);
 

@@ -104,6 +104,7 @@ public class EditPropertyCharacterPresenter : IPresenter
     {
         _audioManager.PlayClick();
         Unscribe();
+        CloseAllSmallWindows();
         _view.DestroyView();
         GoNext?.Invoke(_characterToReturn);
     }
@@ -262,10 +263,10 @@ public class EditPropertyCharacterPresenter : IPresenter
         _view.RemoveMutation -= RemoveMutation;
     }
 
-    private void CloseList()
+    private void CloseList(CanDestroyView view)
     {
         _audioManager.PlayCancel();
-        _listWithNewItems.DestroyView();
+        view.DestroyView();
         _listWithNewItems = null;
     }
 

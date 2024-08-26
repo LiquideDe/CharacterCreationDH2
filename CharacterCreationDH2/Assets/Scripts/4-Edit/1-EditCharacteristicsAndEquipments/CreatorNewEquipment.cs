@@ -5,19 +5,19 @@ using TMPro;
 using System.IO;
 using System;
 
-public class CreatorNewEquipment : MonoBehaviour
+public class CreatorNewEquipment : ViewWithButtonsDoneAndCancel
 {
 
     [SerializeField] protected TMP_InputField _inputName, _inputWeight, _inputRarity;
-    [SerializeField] protected Button _buttonOk, _buttonCancel;
 
     public event Action<Equipment> ReturnNewEquipment;
-    public event Action Cancel, WrongInput;
+    public event Action WrongInput;
 
     public virtual void Initialize()
     {
+        /*
         _buttonOk.onClick.AddListener(FinishCreating);
-        _buttonCancel.onClick.AddListener(Cancel.Invoke);
+        _buttonCancel.onClick.AddListener(Cancel.Invoke);*/
     }
 
     public virtual void FinishCreating()
@@ -42,8 +42,6 @@ public class CreatorNewEquipment : MonoBehaviour
 
     }
 
-    public void DestroyView() => Destroy(gameObject);
-
     public virtual void AddProperty(string property) { Debug.Log($"Не работает увы"); }
 
     protected void SaveEquipment<T>(string path, T jsonToSave)
@@ -57,5 +55,6 @@ public class CreatorNewEquipment : MonoBehaviour
 
     protected void WrongInputPressed() => WrongInput?.Invoke();
 
+    protected override void ButtonDonePressed() => FinishCreating();
     
 }
