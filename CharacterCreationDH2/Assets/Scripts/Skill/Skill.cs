@@ -5,55 +5,44 @@ using System.IO;
 using System.Text;
 using UnityEngine;
 
-public class Skill : IName
+public class Skill : INameWithDescription
 {
-    protected string _name, _internalName;
+    protected string _name;
     private int _lvlLearned;
     protected bool _isKnowledge;
     private GameStat.Inclinations[] _inclinations = new GameStat.Inclinations[2];
     private string _description, _typeSkill;
-    public string Description { get => _description; }
+    public string Description => _description; 
     public GameStat.Inclinations[] Inclinations { get { return _inclinations; } }
     public string Name => _name;
-    public string InternalName => _internalName; 
     public int LvlLearned { get => _lvlLearned; set => _lvlLearned = value; }
     public bool IsKnowledge  => _isKnowledge; 
     public string TypeSkill => _typeSkill; 
 
-    public override bool Equals(object? obj)
-    {
-        if (obj is Skill skill) return _internalName == skill.InternalName;
-        return false;
-    }
-
-    public override int GetHashCode() => _internalName.GetHashCode();
-
-    public Skill(JSONSkillLoader skillLoader ,string path)
+    public Skill(JSONSkillLoader skillLoader,string typeSkill)
     {
         _name = skillLoader.name;
-        _internalName = skillLoader.internalName;
         _inclinations[0] = (GameStat.Inclinations)Enum.Parse(typeof(GameStat.Inclinations), skillLoader.firstInclination);
         _inclinations[1] = (GameStat.Inclinations)Enum.Parse(typeof(GameStat.Inclinations), skillLoader.secondInclination);
-        _typeSkill = skillLoader.type;
-        _description = GameStat.ReadText(path + "/Описание.txt");
+        _typeSkill = typeSkill;
+        _description = skillLoader.description;
     }
 
     public Skill(Skill skill, int lvlLearned)
     {
         _name = skill.Name;
         _lvlLearned = lvlLearned;
-        _internalName = skill.InternalName;
         _inclinations[0] = skill.Inclinations[0];
         _inclinations[1] = skill.Inclinations[1];
         _typeSkill = skill.TypeSkill;
         _isKnowledge = skill.IsKnowledge;
+        _description = skill.Description;
     }
 
-    public Skill(string name, int lvl, string internalName)
+    public Skill(string name, int lvl)
     {
         _name = name;
         _lvlLearned = lvl;
-        _internalName = internalName;
     }
     public int SetNewLvl()
     {

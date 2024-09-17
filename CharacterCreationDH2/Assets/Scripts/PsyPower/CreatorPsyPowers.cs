@@ -125,7 +125,7 @@ public class CreatorPsyPowers
         List<Connection> con = new List<Connection>();
         foreach(PsyPower psy in psyPowers[school])
         {
-            if(psy.Id != 0 )
+            if(psy.Lvl != 0 )
             {
                 con.Add(new Connection(GetPsyPowerById(school,psy.IdParent), psy));
             }

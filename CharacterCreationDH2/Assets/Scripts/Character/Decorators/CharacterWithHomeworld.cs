@@ -64,8 +64,6 @@ public class CharacterWithHomeworld : CharacterDecorator,ICharacter
 
     public List<string> Mutation => _character.Mutation;    
 
-    public List<Feature> Features => _character.Features;
-
     public string Background => throw new System.NotImplementedException();
 
     public string Role => throw new System.NotImplementedException();

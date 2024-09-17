@@ -1,15 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public class Knowledge : Skill
 {
     private string _nameKnowledge;
-
     public string NameKnowledge { get => _nameKnowledge; }
-    public string InternalNameKnowledge { get => _internalName; }
-    public Knowledge(JSONSkillLoader skillLoader, string path)
-        : base (skillLoader, path)
+    public Knowledge(JSONSkillLoader skillLoader, string type)
+        : base (skillLoader, type)
     {
         _nameKnowledge = _name;
         _isKnowledge = true;

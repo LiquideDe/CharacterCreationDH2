@@ -100,7 +100,7 @@ public class EditPropertyCharacterView : CanDestroyView
         inputRememberHome.text = character.MemoryOfHome;
         inputRememberBack.text = character.MemoryOfBackground;
 
-        UpdateFeatures(character.Features);
+        UpdateTraits(character.Traits);
 
         List<string> nameInclinations = new List<string>();
         foreach(GameStat.Inclinations inclination in character.Inclinations)
@@ -112,7 +112,7 @@ public class EditPropertyCharacterView : CanDestroyView
         UpdateMutation(character.Mutation);
     }    
 
-    public void UpdateFeatures(List<Feature> features)
+    public void UpdateTraits(List<Trait> traits)
     {
         if (_features.Count > 0)
         {
@@ -122,12 +122,12 @@ public class EditPropertyCharacterView : CanDestroyView
         }
             
 
-        foreach (Feature feature in features)
+        foreach (Trait trait in traits)
         {
             ItemWithNumberInList itemFeaturet = Instantiate(_itemFeaturePrefab, _featureContent);
             itemFeaturet.ChangeAmount += ChangeFeatureLvlPressed;
             itemFeaturet.RemoveThisItem += RemoveFeaturePressed;
-            itemFeaturet.Initialize(feature.Name, feature.Lvl);
+            itemFeaturet.Initialize(trait.Name, trait.Lvl);
             _features.Add(itemFeaturet);
         }
     }

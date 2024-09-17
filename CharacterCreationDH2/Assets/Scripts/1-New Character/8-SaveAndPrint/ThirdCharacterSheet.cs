@@ -9,11 +9,11 @@ public class ThirdCharacterSheet : TakeScreenshot
     [SerializeField] private TextMeshProUGUI _text;
     private CreatorTalents _creatorTalents;
     private CreatorPsyPowers _creatorPsyPowers;
-    private CreatorFeatures _creatorFeatures;
+    private CreatorTraits _creatorFeatures;
     private int _page;
 
     [Inject]
-    private void Construct(CreatorTalents creatorTalents, CreatorPsyPowers creatorPsyPowers, CreatorFeatures creatorFeatures)
+    private void Construct(CreatorTalents creatorTalents, CreatorPsyPowers creatorPsyPowers, CreatorTraits creatorFeatures)
     {
         _creatorTalents = creatorTalents;
         _creatorPsyPowers = creatorPsyPowers;
@@ -24,17 +24,17 @@ public class ThirdCharacterSheet : TakeScreenshot
     {
         _character = character;
         foreach(Talent talent in character.Talents)        
-            _text.text += $"<b>{talent.Name}</b> - {_creatorTalents.GetTalent(talent.Name).Description} \n \n";        
+            _text.text += $"<b>{talent.Name}</b> - {_creatorTalents.GetTalent(talent.Name).LongDescription} \n \n";        
 
         foreach(PsyPower psyPower in character.PsyPowers)        
             _text.text += $"<b>{psyPower.Name}</b> - Действие:{_creatorPsyPowers.GetPsyPower(psyPower.Name).Action}, {_creatorPsyPowers.GetPsyPower(psyPower.Name).Description} \n \n";        
 
         foreach(MechImplant implant in character.Implants)        
             if (implant.Description.Length > 1)
-                _text.text += $"<b>{implant.Name}</b> - {implant.Description}";
+                _text.text += $"<b>{implant.Name}</b> - {implant.Description}\n \n";
 
-        foreach (Feature feature in character.Features)
-            _text.text += $"<b>{feature.Name}</b> - {_creatorFeatures.GetFeature(feature.Name).Description}";
+        foreach (Trait feature in character.Traits)
+            _text.text += $"<b>{feature.Name}</b> - {_creatorFeatures.GetTrait(feature.Name).Description}\n \n";
 
         _text.text += $"{character.Tradition} \n \n";
 

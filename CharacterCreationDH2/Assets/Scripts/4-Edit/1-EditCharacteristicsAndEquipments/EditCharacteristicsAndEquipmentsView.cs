@@ -173,7 +173,7 @@ public class EditCharacteristicsAndEquipmentsView : CanDestroyView
         _textInfluence.text = $"{character.Characteristics[9].Amount}";
         _textFellowship.text = $"{character.Characteristics[8].Amount}";
         _textWillpower.text = $"{character.Characteristics[7].Amount}";
-        _textPerception.text = $"{character.Characteristics[7].Amount}";
+        _textPerception.text = $"{character.Characteristics[6].Amount}";
         _textIntelligence.text = $"{character.Characteristics[5].Amount}";
         _textAgility.text = $"{character.Characteristics[4].Amount}";
         _textToughness.text = $"{character.Characteristics[3].Amount}";

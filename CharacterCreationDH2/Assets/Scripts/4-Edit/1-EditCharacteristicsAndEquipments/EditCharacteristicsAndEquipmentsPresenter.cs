@@ -538,9 +538,12 @@ public class EditCharacteristicsAndEquipmentsPresenter : IPresenter
     private void AddProperty(string name)
     {
         _audioManager.PlayClick();
-        _listWithItems.DestroyView();
+        if(_listWithItems != null)
+            _listWithItems.DestroyView();
+        
         if(_newForm is CreatorNewEquipment newEquipmentForm)
             newEquipmentForm.AddProperty(name);
+            
     }
 
     private void ChangeAmountEquipment(string name, int amount)

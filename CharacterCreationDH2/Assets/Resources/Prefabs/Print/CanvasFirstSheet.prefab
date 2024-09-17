@@ -2635,7 +2635,7 @@ MonoBehaviour:
   - {fileID: 4625915920768559132}
   - {fileID: 4625915920676130569}
   - {fileID: 4625915920699751987}
-  skillName: 32
+  skillName: Trade
   textLore: {fileID: 4625915921055998735}
 --- !u!1 &4625915919396516889
 GameObject:
@@ -2720,7 +2720,7 @@ MonoBehaviour:
   - {fileID: 4625915920526124370}
   - {fileID: 4625915919769501512}
   - {fileID: 4625915920096757381}
-  skillName: 15
+  skillName: "\u041D\u0430\u0432\u0438\u0433\u0430\u0446\u0438\u044F \u0417\u0432\u0435\u0437\u0434\u043D\u0430\u044F"
   textLore: {fileID: 0}
 --- !u!1 &4625915919398600111
 GameObject:
@@ -3092,7 +3092,7 @@ MonoBehaviour:
   - {fileID: 4625915921010529290}
   - {fileID: 4625915920912621675}
   - {fileID: 4625915920656651527}
-  skillName: 18
+  skillName: "\u0423\u043F\u0440\u0430\u0432\u043B\u0435\u043D\u0438\u0435 \u041D\u0430\u0437\u0435\u043C\u043D\u0430\u044F"
   textLore: {fileID: 0}
 --- !u!1 &4625915919410475037
 GameObject:
@@ -3253,7 +3253,7 @@ MonoBehaviour:
   - {fileID: 4625915920854212156}
   - {fileID: 4625915920926625420}
   - {fileID: 4625915920834426325}
-  skillName: 20
+  skillName: "\u041F\u0430\u0440\u0438\u0440\u043E\u0432\u0430\u043D\u0438\u0435"
   textLore: {fileID: 0}
 --- !u!1 &4625915919446731251
 GameObject:
@@ -5095,7 +5095,7 @@ MonoBehaviour:
   - {fileID: 4625915921515665462}
   - {fileID: 4625915919753531891}
   - {fileID: 4625915920631491750}
-  skillName: 24
+  skillName: "\u041B\u043E\u0432\u043A\u043E\u0441\u0442\u044C \u0440\u0443\u043A"
   textLore: {fileID: 0}
 --- !u!1 &4625915919582182468
 GameObject:
@@ -5636,7 +5636,7 @@ MonoBehaviour:
   - {fileID: 4625915920898770057}
   - {fileID: 4625915920796314036}
   - {fileID: 4625915921194023431}
-  skillName: 26
+  skillName: "\u0412\u044B\u0436\u0438\u0432\u0430\u043D\u0438\u0435"
   textLore: {fileID: 0}
 --- !u!1 &4625915919628317115
 GameObject:
@@ -6144,7 +6144,7 @@ MonoBehaviour:
   - {fileID: 4625915920294956349}
   - {fileID: 4625915920780857307}
   - {fileID: 4625915920931386276}
-  skillName: 29
+  skillName: ForbiddenLore
   textLore: {fileID: 4625915920615328001}
 --- !u!1 &4625915919658957247
 GameObject:
@@ -6306,7 +6306,7 @@ MonoBehaviour:
   - {fileID: 4625915921473482294}
   - {fileID: 4625915920077128994}
   - {fileID: 4625915920626198686}
-  skillName: 32
+  skillName: Trade
   textLore: {fileID: 4625915920149674928}
 --- !u!1 &4625915919666768626
 GameObject:
@@ -6543,7 +6543,7 @@ MonoBehaviour:
   - {fileID: 4625915919950823441}
   - {fileID: 4625915921109820168}
   - {fileID: 4625915921408495975}
-  skillName: 23
+  skillName: "\u0411\u0435\u0437\u043E\u043F\u0430\u0441\u043D\u043E\u0441\u0442\u044C"
   textLore: {fileID: 0}
 --- !u!1 &4625915919714887235
 GameObject:
@@ -8283,7 +8283,7 @@ MonoBehaviour:
   - {fileID: 4625915921266392143}
   - {fileID: 4625915919566420317}
   - {fileID: 4625915920595023838}
-  skillName: 30
+  skillName: Linguistics
   textLore: {fileID: 4625915920831921382}
 --- !u!1 &4625915919834752923
 GameObject:
@@ -8444,7 +8444,7 @@ MonoBehaviour:
   - {fileID: 4625915919628317115}
   - {fileID: 4625915920401484098}
   - {fileID: 4625915919608182368}
-  skillName: 21
+  skillName: "\u041F\u0441\u0438\u0445\u043E\u043D\u0430\u0443\u043A\u0430"
   textLore: {fileID: 0}
 --- !u!1 &4625915919841232024
 GameObject:
@@ -8847,7 +8847,7 @@ MonoBehaviour:
   - {fileID: 4625915920777220749}
   - {fileID: 4625915920173944724}
   - {fileID: 4625915920760768421}
-  skillName: 2
+  skillName: "\u0410\u0442\u043B\u0435\u0442\u0438\u043A\u0430"
   textLore: {fileID: 0}
 --- !u!1 &4625915919920433269
 GameObject:
@@ -9852,7 +9852,7 @@ MonoBehaviour:
   - {fileID: 4625915920268696835}
   - {fileID: 4625915920523461323}
   - {fileID: 4625915919658957247}
-  skillName: 1
+  skillName: "\u0410\u043A\u0440\u043E\u0431\u0430\u0442\u0438\u043A\u0430"
   textLore: {fileID: 0}
 --- !u!1 &4625915920005246194
 GameObject:
@@ -10166,7 +10166,7 @@ MonoBehaviour:
   - {fileID: 4625915920373571101}
   - {fileID: 4625915920837490485}
   - {fileID: 4625915921445875878}
-  skillName: 28
+  skillName: CommonLore
   textLore: {fileID: 4625915919822449973}
 --- !u!1 &4625915920046041416
 GameObject:
@@ -10673,7 +10673,7 @@ MonoBehaviour:
   - {fileID: 4625915920801572512}
   - {fileID: 4625915920667093827}
   - {fileID: 4625915920268183597}
-  skillName: 3
+  skillName: "\u0411\u0434\u0438\u0442\u0435\u043B\u044C\u043D\u043E\u0441\u0442\u044C"
   textLore: {fileID: 0}
 --- !u!1 &4625915920120015424
 GameObject:
@@ -11219,7 +11219,7 @@ MonoBehaviour:
   - {fileID: 4625915920869617862}
   - {fileID: 4625915919496964453}
   - {fileID: 4625915919554276727}
-  skillName: 29
+  skillName: ForbiddenLore
   textLore: {fileID: 4625915919736154414}
 --- !u!1 &4625915920163907135
 GameObject:
@@ -12154,7 +12154,7 @@ MonoBehaviour:
   - {fileID: 4625915919875661090}
   - {fileID: 4625915920700491356}
   - {fileID: 4625915920819568441}
-  skillName: 32
+  skillName: Trade
   textLore: {fileID: 4625915920301451626}
 --- !u!1 &4625915920216320827
 GameObject:
@@ -12548,7 +12548,7 @@ MonoBehaviour:
   - {fileID: 4625915920637114513}
   - {fileID: 4625915920333604155}
   - {fileID: 4625915919475546440}
-  skillName: 31
+  skillName: ScholasticLore
   textLore: {fileID: 4625915920203674337}
 --- !u!1 &4625915920228596601
 GameObject:
@@ -12785,7 +12785,7 @@ MonoBehaviour:
   - {fileID: 4625915921164358048}
   - {fileID: 4625915920245692307}
   - {fileID: 4625915920197004501}
-  skillName: 25
+  skillName: "\u0421\u043A\u0440\u044B\u0442\u043D\u043E\u0441\u0442\u044C"
   textLore: {fileID: 0}
 --- !u!1 &4625915920245455721
 GameObject:
@@ -14117,7 +14117,7 @@ MonoBehaviour:
   - {fileID: 4625915919630039424}
   - {fileID: 4625915919460244220}
   - {fileID: 4625915920192088240}
-  skillName: 31
+  skillName: ScholasticLore
   textLore: {fileID: 4625915919826681740}
 --- !u!1 &4625915920330494652
 GameObject:
@@ -15198,7 +15198,7 @@ MonoBehaviour:
   - {fileID: 4625915920821584802}
   - {fileID: 4625915921412069795}
   - {fileID: 4625915920832597455}
-  skillName: 7
+  skillName: "\u041E\u0431\u043C\u0430\u043D"
   textLore: {fileID: 0}
 --- !u!1 &4625915920418066473
 GameObject:
@@ -15439,7 +15439,7 @@ MonoBehaviour:
   - {fileID: 4625915921185699679}
   - {fileID: 4625915919410475037}
   - {fileID: 4625915920912207982}
-  skillName: 27
+  skillName: "\u0422\u0435\u0445\u043F\u043E\u043B\u044C\u0437\u043E\u0432\u0430\u043D\u0438\u0435"
   textLore: {fileID: 0}
 --- !u!1 &4625915920422808896
 GameObject:
@@ -16192,7 +16192,7 @@ MonoBehaviour:
   - {fileID: 4625915921062554983}
   - {fileID: 4625915920348844706}
   - {fileID: 4625915921032751114}
-  skillName: 28
+  skillName: CommonLore
   textLore: {fileID: 4625915920220223719}
 --- !u!1 &4625915920465037325
 GameObject:
@@ -16582,7 +16582,7 @@ MonoBehaviour:
   - {fileID: 4625915920046041416}
   - {fileID: 4625915919718943805}
   - {fileID: 4625915921349386504}
-  skillName: 29
+  skillName: ForbiddenLore
   textLore: {fileID: 4625915921351026608}
 --- !u!1 &4625915920492530636
 GameObject:
@@ -18718,7 +18718,7 @@ MonoBehaviour:
   - {fileID: 4625915921073886044}
   - {fileID: 4625915919399379584}
   - {fileID: 4625915921147036549}
-  skillName: 9
+  skillName: "\u0414\u043E\u0437\u043D\u0430\u043D\u0438\u0435"
   textLore: {fileID: 0}
 --- !u!1 &4625915920631491750
 GameObject:
@@ -19031,7 +19031,7 @@ MonoBehaviour:
   - {fileID: 4625915921198438516}
   - {fileID: 4625915920135184041}
   - {fileID: 4625915921264391044}
-  skillName: 17
+  skillName: "\u0423\u043F\u0440\u0430\u0432\u043B\u0435\u043D\u0438\u0435 \u0410\u044D\u0440\u043E\u043D\u0430\u0432\u0442\u0438\u043A\u0430"
   textLore: {fileID: 0}
 --- !u!1 &4625915920656651527
 GameObject:
@@ -19268,7 +19268,7 @@ MonoBehaviour:
   - {fileID: 4625915919478403701}
   - {fileID: 4625915919834752923}
   - {fileID: 4625915920455397825}
-  skillName: 19
+  skillName: "\u0423\u043F\u0440\u0430\u0432\u043B\u0435\u043D\u0438\u0435 \u041A\u043E\u0441\u043C\u0438\u0447\u0435\u0441\u043A\u0438\u0435"
   textLore: {fileID: 0}
 --- !u!1 &4625915920667093827
 GameObject:
@@ -19430,7 +19430,7 @@ MonoBehaviour:
   - {fileID: 4625915919582182468}
   - {fileID: 4625915919800979205}
   - {fileID: 4625915919742000233}
-  skillName: 29
+  skillName: ForbiddenLore
   textLore: {fileID: 4625915920418066470}
 --- !u!1 &4625915920670497230
 GameObject:
@@ -19896,7 +19896,7 @@ MonoBehaviour:
   - {fileID: 4625915919681637519}
   - {fileID: 4625915921383016667}
   - {fileID: 4625915920850255199}
-  skillName: 31
+  skillName: ScholasticLore
   textLore: {fileID: 4625915920524350022}
 --- !u!1 &4625915920696761729
 GameObject:
@@ -20649,7 +20649,7 @@ MonoBehaviour:
   - {fileID: 4625915921006131814}
   - {fileID: 4625915921134966694}
   - {fileID: 4625915920380645098}
-  skillName: 28
+  skillName: CommonLore
   textLore: {fileID: 4625915920961767511}
 --- !u!1 &4625915920743304733
 GameObject:
@@ -20735,7 +20735,7 @@ MonoBehaviour:
   - {fileID: 4625915920761666900}
   - {fileID: 4625915919947915695}
   - {fileID: 4625915921104078714}
-  skillName: 31
+  skillName: ScholasticLore
   textLore: {fileID: 4625915920534054522}
 --- !u!1 &4625915920751252715
 GameObject:
@@ -20821,7 +20821,7 @@ MonoBehaviour:
   - {fileID: 4625915919827181749}
   - {fileID: 4625915921100374454}
   - {fileID: 4625915920450441940}
-  skillName: 28
+  skillName: CommonLore
   textLore: {fileID: 4625915920305868679}
 --- !u!1 &4625915920753486491
 GameObject:
@@ -21650,7 +21650,7 @@ MonoBehaviour:
   - {fileID: 4625915920829287620}
   - {fileID: 4625915920561870330}
   - {fileID: 4625915919778002513}
-  skillName: 30
+  skillName: Linguistics
   textLore: {fileID: 4625915920245455718}
 --- !u!1 &4625915920789918838
 GameObject:
@@ -21736,7 +21736,7 @@ MonoBehaviour:
   - {fileID: 4625915920297737873}
   - {fileID: 4625915920196936333}
   - {fileID: 4625915921244298454}
-  skillName: 32
+  skillName: Trade
   textLore: {fileID: 4625915921414033752}
 --- !u!1 &4625915920796314036
 GameObject:
@@ -23937,7 +23937,7 @@ MonoBehaviour:
   - {fileID: 4625915920222151322}
   - {fileID: 4625915920993268540}
   - {fileID: 4625915921070867409}
-  skillName: 12
+  skillName: "\u041B\u043E\u0433\u0438\u043A\u0430"
   textLore: {fileID: 0}
 --- !u!1 &4625915920875221044
 GameObject:
@@ -24174,7 +24174,7 @@ MonoBehaviour:
   - {fileID: 4625915920875221044}
   - {fileID: 4625915920478623276}
   - {fileID: 4625915921368848676}
-  skillName: 10
+  skillName: "\u0414\u043E\u043F\u0440\u043E\u0441"
   textLore: {fileID: 0}
 --- !u!1 &4625915920892122332
 GameObject:
@@ -24259,7 +24259,7 @@ MonoBehaviour:
   - {fileID: 4625915921480513061}
   - {fileID: 4625915920710819157}
   - {fileID: 4625915920228596601}
-  skillName: 13
+  skillName: "\u041C\u0435\u0434\u0438\u043A\u0430"
   textLore: {fileID: 0}
 --- !u!1 &4625915920893147883
 GameObject:
@@ -24345,7 +24345,7 @@ MonoBehaviour:
   - {fileID: 4625915920688430271}
   - {fileID: 4625915921446158284}
   - {fileID: 4625915920556234880}
-  skillName: 30
+  skillName: Linguistics
   textLore: {fileID: 4625915920362077531}
 --- !u!1 &4625915920898770057
 GameObject:
@@ -24734,7 +24734,7 @@ MonoBehaviour:
   - {fileID: 4625915920235593161}
   - {fileID: 4625915921070218803}
   - {fileID: 4625915920771423866}
-  skillName: 5
+  skillName: "\u041A\u043E\u043C\u0430\u043D\u0434\u043E\u0432\u0430\u043D\u0438\u0435"
   textLore: {fileID: 0}
 --- !u!1 &4625915920927535885
 GameObject:
@@ -24954,7 +24954,7 @@ MonoBehaviour:
   - {fileID: 4625915919617605238}
   - {fileID: 4625915919951410969}
   - {fileID: 4625915921056596318}
-  skillName: 16
+  skillName: "\u041D\u0430\u0432\u0438\u0433\u0430\u0446\u0438\u044F \u0412\u0430\u0440\u043F"
   textLore: {fileID: 0}
 --- !u!1 &4625915920931386276
 GameObject:
@@ -25951,7 +25951,7 @@ MonoBehaviour:
   - {fileID: 4625915920434911466}
   - {fileID: 4625915919560813104}
   - {fileID: 4625915920163907135}
-  skillName: 8
+  skillName: "\u0423\u043A\u043B\u043E\u043D\u0435\u043D\u0438\u0435"
   textLore: {fileID: 0}
 --- !u!1 &4625915920973969925
 GameObject:
@@ -26859,7 +26859,7 @@ MonoBehaviour:
   - {fileID: 4625915920120015424}
   - {fileID: 4625915921191187307}
   - {fileID: 4625915919609323542}
-  skillName: 11
+  skillName: "\u0417\u0430\u043F\u0443\u0433\u0438\u0432\u0430\u043D\u0438\u0435"
   textLore: {fileID: 0}
 --- !u!1 &4625915921055966380
 GameObject:
@@ -27387,7 +27387,7 @@ MonoBehaviour:
   - {fileID: 4625915921195112463}
   - {fileID: 4625915920594690077}
   - {fileID: 4625915921150156495}
-  skillName: 14
+  skillName: "\u041D\u0430\u0432\u0438\u0433\u0430\u0446\u0438\u044F \u041D\u0430\u0437\u0435\u043C\u043D\u0430\u044F"
   textLore: {fileID: 0}
 --- !u!1 &4625915921062554983
 GameObject:
@@ -28367,7 +28367,7 @@ MonoBehaviour:
   - {fileID: 4625915919400109723}
   - {fileID: 4625915921007940214}
   - {fileID: 4625915920538815035}
-  skillName: 4
+  skillName: "\u041E\u0431\u0430\u044F\u043D\u0438\u0435"
   textLore: {fileID: 0}
 --- !u!1 &4625915921134966694
 GameObject:
@@ -28985,7 +28985,7 @@ MonoBehaviour:
   - {fileID: 4625915920498481338}
   - {fileID: 4625915921111529039}
   - {fileID: 4625915921415911508}
-  skillName: 31
+  skillName: ScholasticLore
   textLore: {fileID: 4625915919446731248}
 --- !u!1 &4625915921185699679
 GameObject:
@@ -29147,7 +29147,7 @@ MonoBehaviour:
   - {fileID: 4625915920005246194}
   - {fileID: 4625915920492530636}
   - {fileID: 4625915919666768626}
-  skillName: 31
+  skillName: ScholasticLore
   textLore: {fileID: 4625915920542328276}
 --- !u!1 &4625915921191187307
 GameObject:
@@ -29537,7 +29537,7 @@ MonoBehaviour:
   - {fileID: 4625915920863158626}
   - {fileID: 4625915921503862943}
   - {fileID: 4625915920369885839}
-  skillName: 30
+  skillName: Linguistics
   textLore: {fileID: 4625915920942026687}
 --- !u!1 &4625915921198438516
 GameObject:
@@ -30316,7 +30316,7 @@ MonoBehaviour:
   - {fileID: 4625915920774118518}
   - {fileID: 4625915920180442588}
   - {fileID: 4625915919548801899}
-  skillName: 28
+  skillName: CommonLore
   textLore: {fileID: 4625915919727038093}
 --- !u!1 &4625915921266392143
 GameObject:
@@ -30900,7 +30900,7 @@ MonoBehaviour:
   - {fileID: 4625915919544375273}
   - {fileID: 4625915920661763664}
   - {fileID: 4625915919529479107}
-  skillName: 30
+  skillName: Linguistics
   textLore: {fileID: 4625915920256057738}
 --- !u!1 &4625915921349386504
 GameObject:
@@ -31294,7 +31294,7 @@ MonoBehaviour:
   - {fileID: 4625915920696761729}
   - {fileID: 4625915919920503979}
   - {fileID: 4625915920471944984}
-  skillName: 29
+  skillName: ForbiddenLore
   textLore: {fileID: 4625915921012505731}
 --- !u!1 &4625915921367673840
 GameObject:
@@ -31379,7 +31379,7 @@ MonoBehaviour:
   - {fileID: 4625915920422808896}
   - {fileID: 4625915920720996086}
   - {fileID: 4625915919855962651}
-  skillName: 22
+  skillName: "\u041F\u0440\u043E\u043D\u0438\u0446\u0430\u0442\u0435\u043B\u044C\u043D\u043E\u0441\u0442\u044C"
   textLore: {fileID: 0}
 --- !u!1 &4625915921368848676
 GameObject:
@@ -31827,7 +31827,7 @@ MonoBehaviour:
   - {fileID: 4625915920934032076}
   - {fileID: 4625915921439175730}
   - {fileID: 4625915921193925595}
-  skillName: 6
+  skillName: "\u041A\u043E\u043C\u043C\u0435\u0440\u0446\u0438\u044F"
   textLore: {fileID: 0}
 --- !u!1 &4625915921408495975
 GameObject:
@@ -32753,7 +32753,7 @@ MonoBehaviour:
   - {fileID: 4625915921433899564}
   - {fileID: 4625915919492916492}
   - {fileID: 4625915919779705661}
-  skillName: 32
+  skillName: Trade
   textLore: {fileID: 4625915920345515602}
 --- !u!1 &4625915921473482294
 GameObject:

@@ -38,7 +38,7 @@ public class RoleFinalPresenter : IPresenter
             List<List<Talent>> talentList = new List<List<Talent>>();
             talentList.Add(new List<Talent>());
             talentList[0].AddRange(_role.Talents);
-            _creatorToggles.CreateTogglesTalent(talentList);
+            _creatorToggles.CreateToggles(talentList, "Таланты");
         }
             
 

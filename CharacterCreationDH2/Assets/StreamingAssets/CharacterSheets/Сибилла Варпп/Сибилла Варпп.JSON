@@ -14,33 +14,34 @@
     "gender": "Ж",
     "bonusBack": "Постоянная Угроза : Когда персонаж, или союзник на расстоянии 10 метров, совершает бросок по таблице 6-2: Психические феномены (см. стр. 242) персонаж из Адептус Астра Телепатика может уменьшить или увеличить результат на размер своего бонуса Силы Воли. Проверен Террой : Если персонаж получает элитное улучшение Псайкер во время создания персонажа, он также получает черту Санкционированный (см. стр. 161). ",
     "homeworld": "Пустоторожденный",
-    "talents": "Непреклонный/Выучка с Оружием Лазерное/Псайкер/Выхватить Оружие",
+    "talents": "Неотразимая Атака Стрелковая/Непреклонный/Выучка с Оружием Лазерное/Псайкер/Выхватить Оружие",
     "inclinations": "General/Intelligence/Psyker/Agility/Ballistic/Defense/Fellowship/Finesse",
     "mentalDisorders": "",
     "mutation": "",
     "equipments": "",
-    "psyPowers": "Гадание/Предвиденье/Прекогнитивный Удар",
-    "features": "",
-    "featuresLvl": "",
+    "psyPowers": "Сверхъестественное Чутье/Несчастье/Гадание/Предвиденье/Прекогнитивный Удар",
+    "traits": "",
+    "traitsLvl": "",
     "elite": "",
     "tradition": "Подношения черноте: Что бы избежать дурной удачи, отправляйтесь на нижние палубы и бросьте дневной паек во тьму. Если никакого удара не было слышно удача, несомненно, вернётся.",
     "bonusHomeworld": "Дитя Темноты: Пустоторождённый персонаж начинает игру с талантом Непреклонный и в условиях нулевой гравитации получает бонус +30 к проверкам перемещения.",
     "bonusRole": "Беги и Стреляй: Однажды за раунд, после совершения действия Движения, персонаж-Десперадо может выполнить одну Стандартную Атаку с имеющимся у него оружием типа Пистолет как Свободное действие. ",
     "age": 17,
     "fatePoint": 3,
-    "insanityPoints": 0,
-    "corruptionPoints": 0,
+    "insanityPoints": 7,
+    "corruptionPoints": 6,
     "wounds": 8,
-    "psyRating": 2,
+    "psyRating": 3,
     "halfMove": 3,
     "fullMove": 6,
     "natisk": 9,
     "run": 18,
     "fatigue": 6,
-    "experienceTotal": 1400,
+    "experienceTotal": 3000,
     "experienceUnspent": 50,
-    "experienceSpent": 1350,
+    "experienceSpent": 2950,
     "amountImplants": 0,
+    "amountSkills": 7,
     "carryWeight": 36.0,
     "liftWeight": 54.0,
     "pushWeight": 108.0
@@ -92,428 +93,36 @@
 }
 {
     "name": "Влияние",
-    "amount": 31,
+    "amount": 43,
     "lvlLearnedChar": 0
-}
-{
-    "name": "Акробатика",
-    "lvlLearned": 0
-}
-{
-    "name": "Администратум",
-    "lvlLearned": 0
-}
-{
-    "name": "Агро",
-    "lvlLearned": 0
-}
-{
-    "name": "Адептус Арбитрес",
-    "lvlLearned": 0
-}
-{
-    "name": "Археолог",
-    "lvlLearned": 0
-}
-{
-    "name": "Археотех",
-    "lvlLearned": 0
-}
-{
-    "name": "Сектор Аскеллон",
-    "lvlLearned": 0
-}
-{
-    "name": "Адептус Астартес",
-    "lvlLearned": 0
-}
-{
-    "name": "Космодесантники Хаоса",
-    "lvlLearned": 0
-}
-{
-    "name": "Астра Милитарум",
-    "lvlLearned": 0
 }
 {
     "name": "Адептус Астра Телепатика",
     "lvlLearned": 1
 }
 {
-    "name": "Астромансия",
-    "lvlLearned": 0
+    "name": "Варп",
+    "lvlLearned": 1
 }
 {
-    "name": "Атлетика",
-    "lvlLearned": 0
-}
-{
-    "name": "Астрограф",
-    "lvlLearned": 0
+    "name": "Инквизиция",
+    "lvlLearned": 1
 }
 {
     "name": "Бдительность",
     "lvlLearned": 1
 }
 {
-    "name": "Звери",
-    "lvlLearned": 0
-}
-{
-    "name": "Бюрократия",
-    "lvlLearned": 0
-}
-{
-    "name": "Капитаны-хартисты",
-    "lvlLearned": 0
-}
-{
-    "name": "Обаяние",
-    "lvlLearned": 0
-}
-{
-    "name": "Химия",
-    "lvlLearned": 0
-}
-{
-    "name": "Химик",
-    "lvlLearned": 0
-}
-{
-    "name": "Повар",
-    "lvlLearned": 0
-}
-{
-    "name": "Командование",
-    "lvlLearned": 0
-}
-{
-    "name": "Коммерция",
-    "lvlLearned": 0
-}
-{
-    "name": "Преступность",
-    "lvlLearned": 0
-}
-{
-    "name": "Преступные шифры",
-    "lvlLearned": 0
-}
-{
-    "name": "Криминальные Картели",
-    "lvlLearned": 0
-}
-{
-    "name": "Криптология",
-    "lvlLearned": 0
-}
-{
-    "name": "Криптограф",
-    "lvlLearned": 0
-}
-{
     "name": "Обман",
     "lvlLearned": 1
 }
 {
-    "name": "Демонология",
-    "lvlLearned": 0
+    "name": "Психонаука",
+    "lvlLearned": 2
 }
 {
     "name": "Уклонение",
-    "lvlLearned": 0
-}
-{
-    "name": "Экклезиархия",
-    "lvlLearned": 0
-}
-{
-    "name": "Язык Эльдар",
-    "lvlLearned": 0
-}
-{
-    "name": "Эпистолярий",
-    "lvlLearned": 0
-}
-{
-    "name": "Эксплоратор",
-    "lvlLearned": 0
-}
-{
-    "name": "Геолог",
-    "lvlLearned": 0
-}
-{
-    "name": "Геральдика",
-    "lvlLearned": 0
-}
-{
-    "name": "Оружейник",
-    "lvlLearned": 0
-}
-{
-    "name": "Ересь",
-    "lvlLearned": 0
-}
-{
-    "name": "Высокий Готик",
-    "lvlLearned": 0
-}
-{
-    "name": "Ересь Хоруса и Долгая Война",
-    "lvlLearned": 0
-}
-{
-    "name": "Имперские Коды",
-    "lvlLearned": 0
-}
-{
-    "name": "Имперское Кредо",
-    "lvlLearned": 0
-}
-{
-    "name": "Имперский Флот",
-    "lvlLearned": 0
-}
-{
-    "name": "Имперские Патенты",
-    "lvlLearned": 0
-}
-{
-    "name": "Империум",
-    "lvlLearned": 0
-}
-{
-    "name": "Дознание",
-    "lvlLearned": 0
-}
-{
-    "name": "Инквизиция",
-    "lvlLearned": 0
-}
-{
-    "name": "Допрос",
-    "lvlLearned": 0
-}
-{
-    "name": "Запугивание",
-    "lvlLearned": 0
-}
-{
-    "name": "Исполнитель",
-    "lvlLearned": 0
-}
-{
-    "name": "Жаргон Наёмников",
-    "lvlLearned": 0
-}
-{
-    "name": "Правосудие",
-    "lvlLearned": 0
-}
-{
-    "name": "Коллегия Титаника",
-    "lvlLearned": 0
-}
-{
-    "name": "Корабел",
-    "lvlLearned": 0
-}
-{
-    "name": "Легенды",
-    "lvlLearned": 0
-}
-{
-    "name": "Лингва-Техно",
-    "lvlLearned": 0
-}
-{
-    "name": "Лингвист",
-    "lvlLearned": 0
-}
-{
-    "name": "Логика",
-    "lvlLearned": 0
-}
-{
-    "name": "Знаки Хаоса",
-    "lvlLearned": 0
-}
-{
-    "name": "Метки Ксеносов",
-    "lvlLearned": 0
-}
-{
-    "name": "Адептус Механикус",
-    "lvlLearned": 0
-}
-{
-    "name": "Медика",
-    "lvlLearned": 0
-}
-{
-    "name": "Мортикатор",
-    "lvlLearned": 0
-}
-{
-    "name": "Мутанты",
-    "lvlLearned": 0
-}
-{
-    "name": "Навигация Звездная",
-    "lvlLearned": 0
-}
-{
-    "name": "Навигация Наземная",
-    "lvlLearned": 0
-}
-{
-    "name": "Навигация Варп",
-    "lvlLearned": 0
-}
-{
-    "name": "Навигаторы",
-    "lvlLearned": 0
-}
-{
-    "name": "Некронтир",
-    "lvlLearned": 0
-}
-{
-    "name": "Нумерология",
-    "lvlLearned": 0
-}
-{
-    "name": "Оккультизм",
-    "lvlLearned": 0
-}
-{
-    "name": "Официо Ассасинорум",
-    "lvlLearned": 0
-}
-{
-    "name": "Управление Аэронавтика",
-    "lvlLearned": 0
-}
-{
-    "name": "Управление Наземная",
-    "lvlLearned": 0
-}
-{
-    "name": "Управление Космические",
-    "lvlLearned": 0
-}
-{
-    "name": "Оркский",
-    "lvlLearned": 0
-}
-{
-    "name": "Парирование",
-    "lvlLearned": 0
-}
-{
-    "name": "Философия",
-    "lvlLearned": 0
-}
-{
-    "name": "Пираты",
-    "lvlLearned": 0
-}
-{
-    "name": "Предсказатель",
-    "lvlLearned": 0
-}
-{
-    "name": "Псайкеры",
-    "lvlLearned": 0
-}
-{
-    "name": "Психонаука",
     "lvlLearned": 1
-}
-{
-    "name": "Пустоплаватель",
-    "lvlLearned": 0
-}
-{
-    "name": "Резчик",
-    "lvlLearned": 0
-}
-{
-    "name": "Вольные Торговцы",
-    "lvlLearned": 0
-}
-{
-    "name": "Руны Ордена",
-    "lvlLearned": 0
-}
-{
-    "name": "Схола Прогениум",
-    "lvlLearned": 0
-}
-{
-    "name": "Проницательность",
-    "lvlLearned": 0
-}
-{
-    "name": "Скульптор",
-    "lvlLearned": 0
-}
-{
-    "name": "Безопасность",
-    "lvlLearned": 0
-}
-{
-    "name": "Ловкость рук",
-    "lvlLearned": 0
-}
-{
-    "name": "Адепта Сороритас",
-    "lvlLearned": 0
-}
-{
-    "name": "Скрытность",
-    "lvlLearned": 0
-}
-{
-    "name": "Выживание",
-    "lvlLearned": 0
-}
-{
-    "name": "Тактика Империалис",
-    "lvlLearned": 0
-}
-{
-    "name": "Язык Тау",
-    "lvlLearned": 0
-}
-{
-    "name": "Техно",
-    "lvlLearned": 0
-}
-{
-    "name": "Техномант",
-    "lvlLearned": 0
-}
-{
-    "name": "Техпользование",
-    "lvlLearned": 0
-}
-{
-    "name": "Силы Планетарной Обороны",
-    "lvlLearned": 0
-}
-{
-    "name": "Война",
-    "lvlLearned": 0
-}
-{
-    "name": "Варп",
-    "lvlLearned": 1
-}
-{
-    "name": "Ксеносы",
-    "lvlLearned": 0
 }
 {
     "name": "Лазпистолет",
@@ -566,4 +175,79 @@
     "typeEquipment": "Thing",
     "weight": 0.0,
     "amount": 1
+}
+{
+    "name": "Респиратор",
+    "description": "Простая дыхательная маска, покрывающая нос и рот или все лицо, обеспечивая гораздо лучшую защиту, чем фильтры-затычки. Персонаж, надевающий респиратор, получает +30 бонус к проверке Выносливости на сопротивление воздействию газа, и может перекинуть проваленный результат. ",
+    "rarity": "Средне",
+    "typeEquipment": "Thing",
+    "weight": 0.5,
+    "amount": 1
+}
+{
+    "name": "Флак-жилет",
+    "description": "Флак-броня изготавливается из множества слоев абляционной защиты и взрывопоглощающих материалов и способна отразить большинство попаданий из стрелкового оружия, шрапнель и взрывную волну. Отдельные попадания из мощного оружия могут легко пробить эту броню, но стоит учесть её легкость, низкую стоимость производства и надёжность в бою. Защищает только корпус. Броня 3, Максимальная Ловкость 60.",
+    "descriptionArmor": "Защищает только корпус",
+    "rarity": "",
+    "typeEquipment": "Armor",
+    "head": 0,
+    "hands": 0,
+    "body": 3,
+    "legs": 0,
+    "maxAgility": 60,
+    "armorPoint": 3,
+    "amount": 1,
+    "weight": 5.0
+}
+{
+    "name": "Фраг граната",
+    "description": "",
+    "damage": "2к10В",
+    "rarity": "ОБ",
+    "weaponClass": "Метательное",
+    "properties": "Взрыв(3)",
+    "typeEquipment": "Grenade",
+    "penetration": 0,
+    "amount": 1,
+    "weight": 0.5
+}
+{
+    "name": "Коллиматорный прицел",
+    "description": "",
+    "rarity": "",
+    "typeEquipment": "Thing",
+    "weight": 0.0,
+    "amount": 1
+}
+{
+    "name": "Хамелеолиновый плащ",
+    "description": "",
+    "rarity": "",
+    "typeEquipment": "Thing",
+    "weight": 0.0,
+    "amount": 1
+}
+{
+    "name": "Светопалка",
+    "description": "",
+    "rarity": "",
+    "typeEquipment": "Thing",
+    "weight": 0.0,
+    "amount": 1
+}
+{
+    "name": "Лонглаз",
+    "description": "Широко используемый операторами специального оружия лонглаз является точной снайперской версией лазгана с удлиненным стволом для улучшенной фокусировки и охлаждения. Имеет встроенный Оптический Прицел и Настройку Мощности. ",
+    "weaponClass": "Ручное",
+    "rof": "О/-/-",
+    "damage": "1к10+3Э",
+    "reload": "Полн",
+    "properties": "Точное,Разящее(4),Надёжное,Опт.прицел",
+    "rarity": "-1",
+    "typeEquipment": "Range",
+    "range": 150,
+    "penetration": 1,
+    "clip": 30,
+    "amount": 1,
+    "weight": 4.5
 }

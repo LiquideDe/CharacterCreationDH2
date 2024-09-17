@@ -29,7 +29,7 @@ public interface ICharacter
     public string BonusBack { get; }
     public List<string> Mutation { get; }
     public List<PsyPower> PsyPowers { get; }
-    public List<Feature> Features { get; }
+    public List<Trait> Traits { get; }
     public string Name { get; }
     public string Background { get; }
     public string Role { get; }

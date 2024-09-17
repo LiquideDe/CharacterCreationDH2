@@ -19,7 +19,24 @@ public class Character : ICharacter
     private List<PsyPower> _psyPowers = new List<PsyPower>();
     private List<Equipment> _equipments = new List<Equipment>();
     private List<MechImplant> _implants = new List<MechImplant>();
-    private List<Feature> _features = new List<Feature>();
+    private List<Trait> _features = new List<Trait>();
+
+    public Character(CreatorSkills skills)
+    {
+        //_skills = new List<Skill>(skills.Skills);
+        _skills = new List<Skill>();
+        foreach (Skill skill in skills.Skills)
+        {
+            if(skill is Knowledge knowledge)            
+                _skills.Add(new Knowledge(knowledge, 0));
+            
+            else
+                _skills.Add(new Skill(skill, 0));
+        }
+            
+        _inclinations.Add(GameStat.Inclinations.General);
+        CreateCharacteristics();
+    }
 
     #region Свойства
 
@@ -29,7 +46,7 @@ public class Character : ICharacter
     public int InsanityPoints => _insanityPoints;
     public int Wounds => _wounds;
     public int CorruptionPoints => _corruptionPoints;
-    public int PsyRating => _psyRating; 
+    public int PsyRating => _psyRating;
     public int HalfMove => _halfMove;
     public int FullMove => _fullMove;
     public int Natisk => _natisk;
@@ -41,16 +58,16 @@ public class Character : ICharacter
     public int ExperienceUnspent => _experienceUnspent;
     public int ExperienceSpent => _experienceSpent;
     public List<Characteristic> Characteristics => _characteristics;
-    public List<GameStat.Inclinations> Inclinations => _inclinations; 
-    public List<Skill> Skills => _skills; 
-    public List<Talent> Talents => _talents; 
-    public List<MechImplant> Implants => _implants; 
+    public List<GameStat.Inclinations> Inclinations => _inclinations;
+    public List<Skill> Skills => _skills;
+    public List<Talent> Talents => _talents;
+    public List<MechImplant> Implants => _implants;
     public List<string> MentalDisorders => _mentalDisorders;
-    public int Run => _run; 
+    public int Run => _run;
     public string BonusBack => _bonusBack;
-    public List<string> Mutation => _mutation; 
-    public List<PsyPower> PsyPowers => _psyPowers; 
-    public List<Feature> Features => _features; 
+    public List<string> Mutation => _mutation;
+    public List<PsyPower> PsyPowers => _psyPowers;
+    public List<Trait> Traits => _features;
     public string Name => _name;
     public string Background => _background;
     public string Role => _role;
@@ -65,8 +82,8 @@ public class Character : ICharacter
     public string MemoryOfBackground => _memoryOfBackground;
     public string Gender => _gender;
     public string Homeworld => _homeworld;
-    public string Elite => _elite; 
-    public string Tradition => _tradition; 
+    public string Elite => _elite;
+    public string Tradition => _tradition;
     public int BonusToughness => GetBonusToughness();
     public string BonusHomeworld => _bonusHomeworld;
     public ICharacter GetCharacter => this;
@@ -74,13 +91,6 @@ public class Character : ICharacter
     public string BonusRole => _bonusRole;
 
     #endregion
-
-    public Character(CreatorSkills skills)
-    {
-        _skills = new List<Skill>(skills.Skills);
-        _inclinations.Add(GameStat.Inclinations.General);
-        CreateCharacteristics();
-    }
 
     public void AddInclination(GameStat.Inclinations inclination)
     {
@@ -111,16 +121,19 @@ public class Character : ICharacter
         _bonusHomeworld = loadCharacter.bonusHomeworld;
         _bonusRole = loadCharacter.bonusRole;
 
-        List<string> listFeat = loadCharacter.features.Split(new char[] { '/' }).ToList();
-        if (CheckString(listFeat))
-        {
-            List<string> featureLvl = loadCharacter.featuresLvl.Split(new char[] { '/' }).ToList();
-            for(int i = 0; i < listFeat.Count; i++)
+        Debug.Log($"list = {loadCharacter.traits}");
+            List<string> listTrait = loadCharacter.traits.Split(new char[] { '/' }).ToList();
+            if (CheckString(listTrait))
             {
-                int.TryParse(featureLvl[i], out int lvl);
-                _features.Add(new Feature(listFeat[i], lvl));
+                List<string> traitLvl = loadCharacter.traitsLvl.Split(new char[] { '/' }).ToList();
+                for (int i = 0; i < listTrait.Count; i++)
+                {
+                    int.TryParse(traitLvl[i], out int lvl);
+                    _features.Add(new Trait(listTrait[i], lvl));
+                }
             }
-        }
+        
+        
 
         _experienceSpent = loadCharacter.experienceSpent;
         _experienceTotal = loadCharacter.experienceTotal;
@@ -195,7 +208,7 @@ public class Character : ICharacter
             this._characteristics[i].LvlLearned = characteristics[i].lvlLearnedChar;
         }
 
-        foreach(Skill skill in this._skills)
+        foreach(Skill skill in _skills)
         {
             foreach(SaveLoadSkill loadSkill in skills)
             {
@@ -264,7 +277,7 @@ public class Character : ICharacter
     private int GetBonusToughness()
     {
         int bToughness = _characteristics[3].Amount / 10;
-        foreach(Feature feature in _features)
+        foreach(Trait feature in _features)
         {
             if (string.Compare(feature.Name, "Сверхъестественная Выносливость") == 0 || string.Compare(feature.Name, "Демонический") == 0)
             {

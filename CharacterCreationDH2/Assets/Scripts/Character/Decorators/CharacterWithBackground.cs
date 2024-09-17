@@ -49,8 +49,6 @@ public class CharacterWithBackground : CharacterDecorator,ICharacter
 
     public List<string> Mutation => _character.Mutation;
 
-    public List<Feature> Features => _character.Features;
-
     public string Background => _nameBackground;
 
     public string Role => throw new System.NotImplementedException();
@@ -99,11 +97,10 @@ public class CharacterWithBackground : CharacterDecorator,ICharacter
         _memoryBackground = config.RememberThing;
         _bonusBack = config.Bonus;
 
-        foreach(Skill skill in config.Skills)
-        {
+        foreach(Skill skill in config.Skills)        
             if(!TryFindDoubleSkill(skill))
                 _skills.Add(skill);
-        }
+        
 
         foreach(Talent talent in config.Talents)
         {
@@ -112,17 +109,18 @@ public class CharacterWithBackground : CharacterDecorator,ICharacter
                 _psyRating = 1;
         }
 
-        foreach(Equipment equipment in config.Equipments)
-        {
+        foreach(Equipment equipment in config.Equipments)        
             _equipment.Add(equipment);
-        }
+        
 
         _inclinations.Add(config.Inclination);
 
-        foreach(MechImplant implant in config.MechImplants)
-        {
+        foreach(MechImplant implant in config.MechImplants)        
             _mechImplants.Add(implant);
-        }
+        
+
+        foreach (Trait trait in config.Traits)
+            _traits.Add(trait);
     }
 
     private bool TryFindDoubleSkill(Skill skill)

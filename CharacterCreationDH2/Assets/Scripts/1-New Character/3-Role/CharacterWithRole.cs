@@ -48,8 +48,6 @@ public class CharacterWithRole : CharacterDecorator, ICharacter
 
     public List<string> Mutation => _character.Mutation;
 
-    public List<Feature> Features => _character.Features;
-
     public string Background => _character.Background;
 
     public string Role => _roleName;

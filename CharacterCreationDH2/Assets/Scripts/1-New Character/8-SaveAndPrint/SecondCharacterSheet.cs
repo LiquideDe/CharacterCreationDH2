@@ -40,7 +40,7 @@ public class SecondCharacterSheet : TakeScreenshot
         textBonus.text = character.BonusBack;
         foreach(Equipment equipment in character.Equipments)
         {
-            if(equipment.TypeEq == Equipment.TypeEquipment.Melee || equipment.TypeEq == Equipment.TypeEquipment.Range)
+            if(equipment.TypeEq == Equipment.TypeEquipment.Melee || equipment.TypeEq == Equipment.TypeEquipment.Range || equipment.TypeEq == Equipment.TypeEquipment.Grenade)
             {
                 foreach (WeaponBlock block in weaponBlocks)
                 {

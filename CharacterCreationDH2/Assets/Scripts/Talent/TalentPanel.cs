@@ -30,7 +30,7 @@ public class TalentPanel : MonoBehaviour, IPointerDownHandler, IItemForList
         Talent talent = (Talent)skillTalentEtcForList;
         textName.text = talent.Name;
         textCost.text = $"{cost} нн";
-        textShortDescr.text = talent.ShortDescription;
+        textShortDescr.text = talent.Description;
         if (!isCanTaken)
         {
             _image.sprite = deactiveSprite;

@@ -8,6 +8,7 @@ public class ConfigForCharacterFromBackground
     private List<Talent> _talents = new List<Talent>();
     private List<Equipment> _equipments = new List<Equipment>();
     private List<MechImplant> _mechImplants = new List<MechImplant>();
+    private List<Trait> _traits = new List<Trait>();
 
     public string Name { get; set; }
 
@@ -24,6 +25,7 @@ public class ConfigForCharacterFromBackground
     public string RememberThing { get; set; }
 
     public string Bonus { get; set; }
+    public List<Trait> Traits => _traits;
 
     public void SetSkills(List<Skill> skills)
     {
@@ -48,6 +50,11 @@ public class ConfigForCharacterFromBackground
     public void SetImplants(List<MechImplant> implants)
     {
         _mechImplants = new List<MechImplant>(implants);
+    }
+
+    public void SetTraits(List<Trait> traits)
+    {
+        _traits = new List<Trait>(traits);
     }
 
 }

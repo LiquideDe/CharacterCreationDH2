@@ -1,6 +1,6 @@
 using System;
 using UnityEngine;
-public class MechImplant : IName
+public class MechImplant : INameWithDescription
 {
     public enum PartsOfBody { Head, RightHand, LeftHand, Body, RightLeg, LeftLeg, All};
     private string _name;
@@ -25,7 +25,7 @@ public class MechImplant : IName
 
     public MechImplant(string name, PartsOfBody place, int armor, string description, int bonusToughness)
     {
-        this._name = name;
+        _name = name;
         Place = place;
         Armor = armor;
         _textDescription = description;

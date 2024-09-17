@@ -17,18 +17,25 @@ public class CreatorSkills
         dirs.AddRange(Directory.GetDirectories($"{Application.dataPath}/StreamingAssets/Skills"));
         for (int i = 0; i < dirs.Count; i++)
         {
-            string[] data = File.ReadAllLines(dirs[i] + "/Parameters.JSON");
-            JSONSkillLoader skillLoader = JsonUtility.FromJson<JSONSkillLoader>(data[0]);
-            if (skillLoader.type != "Knowledge")
+            List<string> knowledges = new List<string>();
+            knowledges.AddRange(Directory.GetFiles(dirs[i], "*.JSON"));
+            
+            for (int j = 0; j < knowledges.Count; j++)
             {
-                _skills.Add(new Skill(skillLoader, dirs[i]));
-            }
-            else
-            {
-                _skills.Add(new Knowledge(skillLoader, dirs[i]));
+                string[] data = File.ReadAllLines(knowledges[j]);
+                JSONSkillLoader skillLoader = JsonUtility.FromJson<JSONSkillLoader>(data[0]);
+                string typeName = new DirectoryInfo(System.IO.Path.GetDirectoryName(knowledges[j])).Name;
+                _skills.Add(new Knowledge(skillLoader, typeName));
             }
         }
-
+        List<string> skills = new List<string>();
+        skills.AddRange(Directory.GetFiles($"{Application.dataPath}/StreamingAssets/Skills", "*.JSON"));
+        for (int i = 0; i < skills.Count; i++)
+        {
+            string[] data = File.ReadAllLines(skills[i]);
+            JSONSkillLoader skillLoader = JsonUtility.FromJson<JSONSkillLoader>(data[0]);
+            _skills.Add(new Skill(skillLoader, "Skill"));
+        }
     }   
 
     public Skill GetSkill(string skillName)
@@ -38,12 +45,6 @@ public class CreatorSkills
             if (string.Compare(skill.Name, skillName, true) == 0)            
                 return skill;
             
-        }
-
-        foreach(Skill skill in _skills)
-        {
-            if (string.Compare(skillName, skill.InternalName, true) == 0)
-                return skill;
         }
         Debug.Log($"!!!!!! Не нашли умение!!!! Искали {skillName}");
         return null;

@@ -95,7 +95,7 @@ public class FirstCharacterSheet : TakeScreenshot
             
         }
         
-        foreach (Feature feature in character.Features)
+        foreach (Trait feature in character.Traits)
         {
             if(feature.Lvl > 0)
             {
@@ -153,7 +153,7 @@ public class FirstCharacterSheet : TakeScreenshot
         {
             foreach (SkillList skillList in skillSquares)
             {
-                if (skillList.SkillName == skill.InternalName)
+                if (string.Compare(skillList.SkillName, skill.Name, true) == 0)
                 {
 
                     skillList.SetLvlLearned(skill.LvlLearned);
@@ -165,9 +165,9 @@ public class FirstCharacterSheet : TakeScreenshot
         {
             foreach (SkillList skillList in skillSquares)
             {
-                if (skillList.SkillName == skill.InternalName)
+                if (string.Compare(skillList.SkillName, skill.TypeSkill, true) == 0)
                 {
-                    if (skillList.KnowledgeTextName == "")
+                    if (skillList.KnowledgeTextName.Length == 0)
                     {
                         skillList.KnowledgeTextName = skill.Name;
                         skillList.SetLvlLearned(skill.LvlLearned);

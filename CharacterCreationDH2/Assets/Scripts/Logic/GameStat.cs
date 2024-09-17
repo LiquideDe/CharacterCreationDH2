@@ -74,7 +74,7 @@ public static class GameStat
         {"CommonLore", "Общие знания" },
         {"ForbiddenLore", "Запретные знания" },
         {"ScholasticLore", "Ученые знания" },
-        {"Linquistics", "Лингвистика" }
+        {"Linguistics", "Лингвистика" }
     };
     
     public enum Inclinations {None, Agility, Ballistic, Defense, Fellowship,
@@ -83,16 +83,6 @@ public static class GameStat
     Weapon, Willpower, Elite};
 
     public enum CharacteristicName { None, WeaponSkill, BallisticSkill, Strength, Toughness, Agility, Intelligence, Perception, Willpower, Fellowship, Influence}    
-    
-    public enum SkillName {None, Acrobatics, Athletics, Awareness, Charm, Command,
-    Commerce, Deceive, Dodge, Inquiry, Interrogation, Intimidate, Logic,
-    Medicae, NavigateSurface, NavigateStellar, NavigateWarp, OperateAero,
-    OperateSurf, OperateVoidship, Parry, Psyniscience, Scrutiny, Security,
-    SleightOfHand, Stealth, Survival, TechUse, CommonLore, ForbiddenLore, 
-    Linquistics, ScholasticLore, Trade}
-
-    public enum RoleName {None, Assasin, Hirurgion, Desperado, Ierofant, Mistic, Sage, Seeker, Warrior, 
-    Fanatic, Kaushisa, Crusader, Ass}
 
     public static Dictionary<Inclinations, string> descriptionInclination = new Dictionary<Inclinations, string>()
     {

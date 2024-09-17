@@ -12,6 +12,7 @@ public abstract class CharacterDecorator
     protected List<Equipment> _equipment = new List<Equipment>();
     protected List<MechImplant> _mechImplants = new List<MechImplant>();
     protected List<PsyPower> _psyPowers = new List<PsyPower>();
+    protected List<Trait> _traits = new List<Trait>();
 
     public CharacterDecorator(ICharacter character)
     {
@@ -28,6 +29,8 @@ public abstract class CharacterDecorator
     public List<MechImplant> Implants => GetMechImplants();
 
     public List<Equipment> Equipments => GetEquipments();
+
+    public List<Trait> Traits => GetTraits();
 
     private List<Skill> GetSkills()
     {
@@ -119,6 +122,23 @@ public abstract class CharacterDecorator
         }
 
         return unionPsyPowers;        
+    }
+
+    private List<Trait> GetTraits()
+    {
+        List<Trait> traits = new List<Trait>(_character.Traits);
+
+        List<Trait> unionTraits = new List<Trait>();
+
+        unionTraits.AddRange(_traits);
+
+        foreach (Trait trait in traits)
+        {
+            if (TryNotDouble(_traits, trait.Name))
+                unionTraits.Add(trait);
+        }
+
+        return unionTraits;
     }
 
     private bool TryNotDouble<T>(List<T> listCharacter, string name) where T : IName

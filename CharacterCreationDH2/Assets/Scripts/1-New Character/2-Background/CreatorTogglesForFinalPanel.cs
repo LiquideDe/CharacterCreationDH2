@@ -16,31 +16,14 @@ public class CreatorTogglesForFinalPanel : MonoBehaviour
     [Inject]
     private void Construct(AudioManager audioManager) => _audioManager = audioManager;
 
-    public void CreateTogglesSkill(List<List<Skill>> skillsList)
+    public void CreateToggles<T>(List<List<T>> traitList, string nameChoose) where T : INameWithDescription
     {
-        foreach (List<Skill> skills in skillsList)
+        foreach (List<T> traits in traitList)
         {
-            if (skills[0].IsKnowledge)            
-                CreateToggleGroup("Знания");            
-            else            
-                CreateToggleGroup("Навыки");
-            
-
-            for (int i = 0; i < skills.Count; i++)
+            CreateToggleGroup(nameChoose);
+            for (int i = 0; i < traits.Count; i++)
             {
-                CreateToggle(skills[i].Name, i, skills[i].Description);
-            }
-        }
-    }
-
-    public void CreateTogglesTalent(List<List<Talent>> talentsList)
-    {
-        foreach (List<Talent> talents in talentsList)
-        {
-            CreateToggleGroup("Таланты");
-            for (int i = 0; i < talents.Count; i++)
-            {
-                CreateToggle(talents[i].Name, i, talents[i].ShortDescription);
+                CreateToggle(traits[i].Name, i, traits[i].Description);
             }
         }
     }
@@ -52,7 +35,7 @@ public class CreatorTogglesForFinalPanel : MonoBehaviour
             CreateToggleGroup("Экипировка");
             for (int i = 0; i < equipment.Count; i++)
             {
-                if (equipment[i].TypeEq == Equipment.TypeEquipment.Melee || equipment[i].TypeEq == Equipment.TypeEquipment.Range)
+                if (equipment[i].TypeEq == Equipment.TypeEquipment.Melee || equipment[i].TypeEq == Equipment.TypeEquipment.Range || equipment[i].TypeEq == Equipment.TypeEquipment.Grenade)
                 {
                     Weapon weapon = (Weapon)equipment[i];
                     string dopText = $"\n Урон {weapon.Damage}, БрПроб {weapon.Penetration}, Качества {weapon.Properties}";
@@ -64,17 +47,6 @@ public class CreatorTogglesForFinalPanel : MonoBehaviour
                 }
 
             }
-        }
-    }
-
-    public void CreateToggleImplants(List<MechImplant> implants)
-    {
-        CreateToggleGroup("Импланты");
-        int sc = 0;
-        foreach (MechImplant implant in implants)
-        {
-            CreateToggle(implant.Name, sc, implant.Description);
-            sc++;
         }
     }
 

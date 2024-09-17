@@ -92,18 +92,31 @@ public class Save
         }
         saveLoad.inclinations = DeleteLastChar(saveLoad.inclinations);
 
-        saveLoad.features = "";
-        saveLoad.featuresLvl = "";
-        foreach(Feature feature in character.Features)
+        saveLoad.traits = "";
+        saveLoad.traitsLvl = "";
+        foreach(Trait feature in character.Traits)
         {
-            saveLoad.features += feature.Name;
-            saveLoad.features += "/";
-            saveLoad.featuresLvl += feature.Lvl;
-            saveLoad.featuresLvl += "/";
+            saveLoad.traits += feature.Name;
+            saveLoad.traits += "/";
+            saveLoad.traitsLvl += feature.Lvl;
+            saveLoad.traitsLvl += "/";
         }
-        saveLoad.features = DeleteLastChar(saveLoad.features); 
-        saveLoad.featuresLvl = DeleteLastChar(saveLoad.featuresLvl); 
-
+        saveLoad.traits = DeleteLastChar(saveLoad.traits); 
+        saveLoad.traitsLvl = DeleteLastChar(saveLoad.traitsLvl);
+        int counter = 0;
+        List<string> dataSkills = new List<string>();
+        foreach (Skill skill in character.Skills)
+        {
+            if (skill.LvlLearned > 0)
+            {
+                SaveLoadSkill saveSkill = new SaveLoadSkill();
+                saveSkill.name = skill.Name;
+                saveSkill.lvlLearned = skill.LvlLearned;
+                dataSkills.Add(JsonUtility.ToJson(saveSkill, true));
+                counter++;
+            }
+        }
+        saveLoad.amountSkills = counter;
         data.Add(JsonUtility.ToJson(saveLoad,true));
 
         foreach(Characteristic characteristic in character.Characteristics)
@@ -115,13 +128,7 @@ public class Save
             data.Add(JsonUtility.ToJson(saveCharacteristic,true));
         }
 
-        foreach(Skill skill in character.Skills)
-        {
-            SaveLoadSkill saveSkill = new SaveLoadSkill();
-            saveSkill.name = skill.Name;
-            saveSkill.lvlLearned = skill.LvlLearned;
-            data.Add(JsonUtility.ToJson(saveSkill, true));
-        }
+        data.AddRange(dataSkills);        
 
         foreach(MechImplant implant in character.Implants)
         {

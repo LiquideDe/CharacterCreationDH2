@@ -12,7 +12,7 @@ public class CreatorInstaller : MonoInstaller
         Container.Bind<CreatorSkills>().AsSingle();
         Container.Bind<CreatorTalents>().AsSingle();
         Container.Bind<CreatorEquipment>().AsSingle();
-        Container.Bind<CreatorFeatures>().AsSingle();
+        Container.Bind<CreatorTraits>().AsSingle();
         Container.Bind<CreatorImplant>().AsSingle();
         Container.Bind<CreatorPsyPowers>().AsSingle();
         Container.Bind<HomeBackRoleFactory>().AsSingle();

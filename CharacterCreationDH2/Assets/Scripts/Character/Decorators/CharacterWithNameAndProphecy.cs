@@ -53,8 +53,6 @@ public class CharacterWithNameAndProphecy : CharacterDecorator, ICharacter
 
     public List<string> Mutation => _character.Mutation;
 
-    public List<Feature> Features => _character.Features;
-
     public string Name => _name;
 
     public string Background => _character.Background;

@@ -14,14 +14,14 @@
     "gender": "Ж",
     "bonusBack": "Несокрушимая Преданность: Всякий раз, когда персонаж из Адептус Сороритас получает 1 или больше очков Порчи, она получает вместо этого столько же (но минус 1) очков Безумия. ",
     "homeworld": "Мир Храм",
-    "talents": "Выучка с Оружием Лазерное/Выучка с Оружием Цепное/Отринь Ведьмовство/Быстрая Атака/Флагелант/Чуткая Интуиция/Сопротивление Страх",
+    "talents": "Неистовство/Выучка с Оружием Лазерное/Выучка с Оружием Цепное/Отринь Ведьмовство/Быстрая Атака/Флагелант/Чуткая Интуиция/Сопротивление Страх",
     "inclinations": "General/Willpower/Offense/Leadership/Toughness/Weapon",
     "mentalDisorders": "",
     "mutation": "",
     "equipments": "",
     "psyPowers": "",
-    "features": "",
-    "featuresLvl": "",
+    "traits": "",
+    "traitsLvl": "",
     "elite": "",
     "tradition": "Страдание паломников: Только через боль паломники должным образом оценивают жертву других; всегда разбрасывайте гвозди или острые камни по любым путям, которые они будут проходить.",
     "bonusHomeworld": "Вера в Кредо: Всякий раз когда персонаж с мира-храма тратит очко Судьбы, игрок бросает 1к10. При выпадении 1 общее количество очков Судьбы персонажа не уменьшается.",
@@ -37,10 +37,11 @@
     "natisk": 9,
     "run": 18,
     "fatigue": 7,
-    "experienceTotal": 2100,
-    "experienceUnspent": 50,
-    "experienceSpent": 2050,
+    "experienceTotal": 2500,
+    "experienceUnspent": 200,
+    "experienceSpent": 2300,
     "amountImplants": 1,
+    "amountSkills": 6,
     "carryWeight": 36.0,
     "liftWeight": 72.0,
     "pushWeight": 144.0
@@ -92,428 +93,32 @@
 }
 {
     "name": "Влияние",
-    "amount": 37,
+    "amount": 42,
     "lvlLearnedChar": 0
-}
-{
-    "name": "Акробатика",
-    "lvlLearned": 0
-}
-{
-    "name": "Администратум",
-    "lvlLearned": 0
-}
-{
-    "name": "Агро",
-    "lvlLearned": 0
-}
-{
-    "name": "Адептус Арбитрес",
-    "lvlLearned": 0
-}
-{
-    "name": "Археолог",
-    "lvlLearned": 0
-}
-{
-    "name": "Археотех",
-    "lvlLearned": 0
-}
-{
-    "name": "Сектор Аскеллон",
-    "lvlLearned": 0
-}
-{
-    "name": "Адептус Астартес",
-    "lvlLearned": 0
-}
-{
-    "name": "Космодесантники Хаоса",
-    "lvlLearned": 0
-}
-{
-    "name": "Астра Милитарум",
-    "lvlLearned": 0
-}
-{
-    "name": "Адептус Астра Телепатика",
-    "lvlLearned": 0
-}
-{
-    "name": "Астромансия",
-    "lvlLearned": 0
-}
-{
-    "name": "Атлетика",
-    "lvlLearned": 1
-}
-{
-    "name": "Астрограф",
-    "lvlLearned": 0
-}
-{
-    "name": "Бдительность",
-    "lvlLearned": 0
-}
-{
-    "name": "Звери",
-    "lvlLearned": 0
-}
-{
-    "name": "Бюрократия",
-    "lvlLearned": 0
-}
-{
-    "name": "Капитаны-хартисты",
-    "lvlLearned": 0
-}
-{
-    "name": "Обаяние",
-    "lvlLearned": 0
-}
-{
-    "name": "Химия",
-    "lvlLearned": 0
-}
-{
-    "name": "Химик",
-    "lvlLearned": 0
-}
-{
-    "name": "Повар",
-    "lvlLearned": 0
-}
-{
-    "name": "Командование",
-    "lvlLearned": 0
-}
-{
-    "name": "Коммерция",
-    "lvlLearned": 0
-}
-{
-    "name": "Преступность",
-    "lvlLearned": 0
-}
-{
-    "name": "Преступные шифры",
-    "lvlLearned": 0
-}
-{
-    "name": "Криминальные Картели",
-    "lvlLearned": 0
-}
-{
-    "name": "Криптология",
-    "lvlLearned": 0
-}
-{
-    "name": "Криптограф",
-    "lvlLearned": 0
-}
-{
-    "name": "Обман",
-    "lvlLearned": 0
-}
-{
-    "name": "Демонология",
-    "lvlLearned": 0
-}
-{
-    "name": "Уклонение",
-    "lvlLearned": 1
-}
-{
-    "name": "Экклезиархия",
-    "lvlLearned": 0
-}
-{
-    "name": "Язык Эльдар",
-    "lvlLearned": 0
-}
-{
-    "name": "Эпистолярий",
-    "lvlLearned": 0
-}
-{
-    "name": "Эксплоратор",
-    "lvlLearned": 0
-}
-{
-    "name": "Геолог",
-    "lvlLearned": 0
-}
-{
-    "name": "Геральдика",
-    "lvlLearned": 0
-}
-{
-    "name": "Оружейник",
-    "lvlLearned": 0
-}
-{
-    "name": "Ересь",
-    "lvlLearned": 0
-}
-{
-    "name": "Высокий Готик",
-    "lvlLearned": 1
-}
-{
-    "name": "Ересь Хоруса и Долгая Война",
-    "lvlLearned": 0
-}
-{
-    "name": "Имперские Коды",
-    "lvlLearned": 0
-}
-{
-    "name": "Имперское Кредо",
-    "lvlLearned": 0
-}
-{
-    "name": "Имперский Флот",
-    "lvlLearned": 0
-}
-{
-    "name": "Имперские Патенты",
-    "lvlLearned": 0
-}
-{
-    "name": "Империум",
-    "lvlLearned": 0
-}
-{
-    "name": "Дознание",
-    "lvlLearned": 0
-}
-{
-    "name": "Инквизиция",
-    "lvlLearned": 0
-}
-{
-    "name": "Допрос",
-    "lvlLearned": 0
-}
-{
-    "name": "Запугивание",
-    "lvlLearned": 1
-}
-{
-    "name": "Исполнитель",
-    "lvlLearned": 0
-}
-{
-    "name": "Жаргон Наёмников",
-    "lvlLearned": 0
-}
-{
-    "name": "Правосудие",
-    "lvlLearned": 0
-}
-{
-    "name": "Коллегия Титаника",
-    "lvlLearned": 0
-}
-{
-    "name": "Корабел",
-    "lvlLearned": 0
-}
-{
-    "name": "Легенды",
-    "lvlLearned": 0
-}
-{
-    "name": "Лингва-Техно",
-    "lvlLearned": 0
-}
-{
-    "name": "Лингвист",
-    "lvlLearned": 0
-}
-{
-    "name": "Логика",
-    "lvlLearned": 0
-}
-{
-    "name": "Знаки Хаоса",
-    "lvlLearned": 0
-}
-{
-    "name": "Метки Ксеносов",
-    "lvlLearned": 0
-}
-{
-    "name": "Адептус Механикус",
-    "lvlLearned": 0
-}
-{
-    "name": "Медика",
-    "lvlLearned": 0
-}
-{
-    "name": "Мортикатор",
-    "lvlLearned": 0
-}
-{
-    "name": "Мутанты",
-    "lvlLearned": 0
-}
-{
-    "name": "Навигация Звездная",
-    "lvlLearned": 0
-}
-{
-    "name": "Навигация Наземная",
-    "lvlLearned": 0
-}
-{
-    "name": "Навигация Варп",
-    "lvlLearned": 0
-}
-{
-    "name": "Навигаторы",
-    "lvlLearned": 0
-}
-{
-    "name": "Некронтир",
-    "lvlLearned": 0
-}
-{
-    "name": "Нумерология",
-    "lvlLearned": 0
-}
-{
-    "name": "Оккультизм",
-    "lvlLearned": 0
-}
-{
-    "name": "Официо Ассасинорум",
-    "lvlLearned": 0
-}
-{
-    "name": "Управление Аэронавтика",
-    "lvlLearned": 0
-}
-{
-    "name": "Управление Наземная",
-    "lvlLearned": 0
-}
-{
-    "name": "Управление Космические",
-    "lvlLearned": 0
-}
-{
-    "name": "Оркский",
-    "lvlLearned": 0
-}
-{
-    "name": "Парирование",
-    "lvlLearned": 1
-}
-{
-    "name": "Философия",
-    "lvlLearned": 0
-}
-{
-    "name": "Пираты",
-    "lvlLearned": 0
-}
-{
-    "name": "Предсказатель",
-    "lvlLearned": 0
-}
-{
-    "name": "Псайкеры",
-    "lvlLearned": 0
-}
-{
-    "name": "Психонаука",
-    "lvlLearned": 0
-}
-{
-    "name": "Пустоплаватель",
-    "lvlLearned": 0
-}
-{
-    "name": "Резчик",
-    "lvlLearned": 0
-}
-{
-    "name": "Вольные Торговцы",
-    "lvlLearned": 0
-}
-{
-    "name": "Руны Ордена",
-    "lvlLearned": 0
-}
-{
-    "name": "Схола Прогениум",
-    "lvlLearned": 0
-}
-{
-    "name": "Проницательность",
-    "lvlLearned": 0
-}
-{
-    "name": "Скульптор",
-    "lvlLearned": 0
-}
-{
-    "name": "Безопасность",
-    "lvlLearned": 0
-}
-{
-    "name": "Ловкость рук",
-    "lvlLearned": 0
 }
 {
     "name": "Адепта Сороритас",
     "lvlLearned": 1
 }
 {
-    "name": "Скрытность",
-    "lvlLearned": 0
+    "name": "Высокий Готик",
+    "lvlLearned": 1
 }
 {
-    "name": "Выживание",
-    "lvlLearned": 0
+    "name": "Атлетика",
+    "lvlLearned": 1
 }
 {
-    "name": "Тактика Империалис",
-    "lvlLearned": 0
+    "name": "Запугивание",
+    "lvlLearned": 1
 }
 {
-    "name": "Язык Тау",
-    "lvlLearned": 0
+    "name": "Парирование",
+    "lvlLearned": 1
 }
 {
-    "name": "Техно",
-    "lvlLearned": 0
-}
-{
-    "name": "Техномант",
-    "lvlLearned": 0
-}
-{
-    "name": "Техпользование",
-    "lvlLearned": 0
-}
-{
-    "name": "Силы Планетарной Обороны",
-    "lvlLearned": 0
-}
-{
-    "name": "Война",
-    "lvlLearned": 0
-}
-{
-    "name": "Варп",
-    "lvlLearned": 0
-}
-{
-    "name": "Ксеносы",
-    "lvlLearned": 0
+    "name": "Уклонение",
+    "lvlLearned": 1
 }
 {
     "name": "Отличная бионическая рука. Правая",
@@ -521,19 +126,6 @@
     "description": "Дает дополнительно +10 к проверкам Ловкости при тонких работах. Дает +10 к проверкам Силе при ее использовании.",
     "armor": 0,
     "bonusToughness": 2
-}
-{
-    "name": "Цепной меч",
-    "description": "Наиболее распространенный тип цепного оружия, у этих тяжелых мечей для смертоносной вращающейся цепи обычно открыт наконечник и одна сторона. Несмотря на их варварскую природу, многие искусные школы фехтования Империума посвятили себя артистичному обращению с цепными мечами. Для многих пользователей, однако, любого удара хватает, что б прикончить большинство врагов, оставив только разорванную плоть и кровь. ",
-    "properties": "Разрывное, Сбалансированное",
-    "type": "Melee",
-    "weaponClass": "Рукопашное",
-    "damage": "1к10 + 2Р",
-    "rarity": "Средне",
-    "typeEquipment": "Melee",
-    "penetration": 2,
-    "amount": 1,
-    "weight": 6.0
 }
 {
     "name": "Хроно",
@@ -597,4 +189,17 @@
     "clip": 30,
     "amount": 1,
     "weight": 1.5
+}
+{
+    "name": "Эвисцератор +зубы кракена",
+    "description": "",
+    "properties": "Силовое поле,Разрывное",
+    "type": "Melee",
+    "weaponClass": "Рукопашное",
+    "damage": "2к10+6Р",
+    "rarity": "",
+    "typeEquipment": "Melee",
+    "penetration": 9,
+    "amount": 1,
+    "weight": 6.0
 }

@@ -11,7 +11,7 @@ public class CreatorImplant
     public CreatorImplant()
     {
         string[] implantsJson = Directory.GetFiles($"{Application.dataPath}/StreamingAssets/Implants", "*.JSON");
-
+        
         foreach(string implant in implantsJson)
         {
             string[] data = File.ReadAllLines(implant);

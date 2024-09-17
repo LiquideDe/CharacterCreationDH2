@@ -6,9 +6,9 @@ using TMPro;
 
 public class SkillList : MonoBehaviour
 {
-    [SerializeField] GameObject[] points;
-    [SerializeField] GameStat.SkillName skillName;
-    [SerializeField] TextMeshProUGUI textLore;
+    [SerializeField] private GameObject[] points;
+    [SerializeField] private string skillName;
+    [SerializeField] private TextMeshProUGUI textLore;
 
     public void SetLvlLearned(int lvlLearned)
     {

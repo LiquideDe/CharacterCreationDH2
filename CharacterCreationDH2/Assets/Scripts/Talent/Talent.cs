@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 
-public class Talent : ISkillTalentEtcForList, IName
+public class Talent : ISkillTalentEtcForList, INameWithDescription
 {
     private string _name;
     private string _textDescription, _shortDescription, _listOfRequrements;
@@ -15,16 +15,17 @@ public class Talent : ISkillTalentEtcForList, IName
     private List<Skill> _requirementSkills = new List<Skill>();
     private List<MechImplant> _requirementImplants = new List<MechImplant>();
     private List<Talent> _requirementTalents = new List<Talent>();
+    private List<Trait> _requirementTraits = new List<Trait>();
     private int _requirementPsyRate;
     private int _requirementInsanity = 0, _requirementCorruption = 0;
     private bool _isRepeatable, _isCanTaken;
     private int _rank;
 
     public string Name => _name;
-    public string Description => _textDescription;
+    public string LongDescription => _textDescription;
     public string ListRequirments => _listOfRequrements;
     public GameStat.Inclinations[] Inclinations => _inclinations; 
-    public string ShortDescription => _shortDescription; 
+    public string Description => _shortDescription; 
     public bool IsCanTaken => _isCanTaken;
     public bool IsRepeatable => _isRepeatable;
 
@@ -41,6 +42,8 @@ public class Talent : ISkillTalentEtcForList, IName
     public int RequirementCorruption => _requirementCorruption;
 
     public int Rank => _rank;
+
+    public List<Trait> RequirementTraits => _requirementTraits; 
 
     public Talent(string path, bool fullTalent)
     {
@@ -82,7 +85,7 @@ public class Talent : ISkillTalentEtcForList, IName
                 {
                     string[] jSonData = File.ReadAllLines(file);
                     JSONSmallSkillLoader jSONSmall = JsonUtility.FromJson<JSONSmallSkillLoader>(jSonData[0]);
-                    _requirementSkills.Add(new Skill(jSONSmall.name, jSONSmall.lvl, jSONSmall.internalName));
+                    _requirementSkills.Add(new Skill(jSONSmall.name, jSONSmall.lvl));
                     _listOfRequrements += $" {_requirementSkills[^1].Name} - {_requirementSkills[^1].LvlLearned},";
                 }
             }
@@ -136,6 +139,18 @@ public class Talent : ISkillTalentEtcForList, IName
             {
                 _requirementPsyRate = 0;
             }
+
+            if(File.Exists(path + "/ReqTraits.text"))
+            {
+                string textTrait = GameStat.ReadText(path + "/ReqTraits.txt");
+                var traits = textTrait.Split(new char[] { '/' }).ToList();
+                _listOfRequrements += "Черты:";
+                foreach (string trait in traits)
+                {
+                    _requirementTraits.Add(new Trait(trait,0));
+                    _listOfRequrements += $" {trait},";
+                }
+            }
         }        
     }
 
@@ -158,8 +173,8 @@ public class Talent : ISkillTalentEtcForList, IName
 
     public Talent(Talent talent)
     {
-        _textDescription = talent.Description;
-        _shortDescription = talent.ShortDescription;
+        _textDescription = talent.LongDescription;
+        _shortDescription = talent.Description;
         _name = talent.Name;
         _inclinations[0] = talent.Inclinations[0];
         _inclinations[1] = talent.Inclinations[1];

@@ -52,7 +52,7 @@ public class PsyPower : IName
                 {
                     string[] jSonData = File.ReadAllLines(file);
                     JSONSmallSkillLoader jSONSmall = JsonUtility.FromJson<JSONSmallSkillLoader>(jSonData[0]);
-                    requireSkills.Add(new Skill(jSONSmall.name, jSONSmall.lvl, jSONSmall.internalName));
+                    requireSkills.Add(new Skill(jSONSmall.name, jSONSmall.lvl));
                 }
             }
             if (File.Exists(path + "/Corruption.txt"))

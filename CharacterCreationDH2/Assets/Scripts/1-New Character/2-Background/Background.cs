@@ -12,19 +12,23 @@ public class Background : IHistoryCharacter
     private List<List<Talent>> _talents = new List<List<Talent>>();
     private List<List<Equipment>> _equipments = new List<List<Equipment>>();
     private List<GameStat.Inclinations> _inclinations = new List<GameStat.Inclinations>();
-    private List<MechImplant> _mechImplants = new List<MechImplant>();
+    private List<List<MechImplant>> _mechImplants = new List<List<MechImplant>>();
+    private List<List<Trait>> _traits = new List<List<Trait>>();
     private string _pathBackground;
     private string  _bonus;
     private List<string> _rememberThings = new List<string>();
     private string _description, _citata;
     private CreatorSkills _creatorSkills;
     private CreatorTalents _creatorTalents;
+    private CreatorTraits _creatorTraits;
+    private CreatorImplant _creatorImplant;
 
 
-    public Background(string path, CreatorSkills creatorSkills, CreatorTalents creatorTalents)
+    public Background(string path, CreatorSkills creatorSkills, CreatorTalents creatorTalents, CreatorTraits creatorTraits, CreatorImplant creatorImplant)
     {
         _creatorSkills = creatorSkills;
         _creatorTalents = creatorTalents;
+        _creatorTraits = creatorTraits;
         _pathBackground = path;
         _name = GameStat.ReadText(path + "/Название.txt");
         _description = GameStat.ReadText(path + "/Описание.txt");
@@ -86,6 +90,31 @@ public class Background : IHistoryCharacter
             }
         }
 
+        if (File.Exists(path + "/Get/Implants.txt"))
+        {
+            List<string> files = new List<string>();
+            List<List<string>> implants = new List<List<string>>();
+            files.AddRange(Directory.GetFiles($"{_pathBackground}/Get/Implants", "*.txt"));
+            foreach (string file in files)
+            {
+                implants.Add(new List<string>());
+                implants[^1].AddRange(GameStat.ReadText(file).Split(new char[] { '/' }).ToList());
+            }
+
+            foreach (List<string> implantList in implants)
+            {
+                _mechImplants.Add(new List<MechImplant>());
+                for (int i = 0; i < implantList.Count; i++)
+                {
+                    MechImplant implant = _creatorImplant.GetImplant(implantList[i]);
+                    if (implant == null)
+                        implant = new MechImplant(implantList[i]);
+
+                    _mechImplants[^1].Add(implant);
+                }
+            }
+        }
+
         if (Directory.Exists(path + "/Get/Equipments"))
         {
             List<string> dirs = new List<string>();
@@ -134,25 +163,40 @@ public class Background : IHistoryCharacter
             }
         }
 
-        if(File.Exists(path + "/Get/Implants.txt"))
+        
+
+        if (Directory.Exists(path + "/Get/Traits"))
         {
-            _mechImplants = new List<MechImplant>();
-            List<string> implants = new List<string>();
-            implants.AddRange(GameStat.ReadText(path + "/Get/Implants.txt").Split(new char[] { '/' }).ToList());
-            foreach(string implant in implants)
+
+            List<string> files = new List<string>();
+            List<List<string>> traits = new List<List<string>>();
+            files.AddRange(Directory.GetFiles($"{_pathBackground}/Get/Traits", "*.txt"));
+            foreach (string file in files)
             {
-                _mechImplants.Add(new MechImplant(implant));
+                traits.Add(new List<string>());
+                traits[^1].AddRange(GameStat.ReadText(file).Split(new char[] { '/' }).ToList());
+            }
+
+            foreach (List<string> traitList in traits)
+            {
+                _traits.Add(new List<Trait>());
+                for (int i = 0; i < traitList.Count; i++)
+                {
+                    Trait trait = _creatorTraits.GetTrait(traitList[i]);
+                    if (trait == null)
+                        trait = new Trait(traitList[i], 0);
+
+                    _traits[^1].Add(trait);
+                }
             }
         }
-
-        
     }
 
     public List<List<Talent>> Talents => _talents; 
     public List<List<Skill>> Skills => _skills;
     public List<List<Equipment>> Equipments => _equipments;
     public List<GameStat.Inclinations> Inclinations => _inclinations;
-    public List<MechImplant> MechImplants => _mechImplants; 
+    public List<List<MechImplant>> MechImplants => _mechImplants; 
     public string Name => _name; 
     public List<string> RememberThings => _rememberThings; 
     public string BonusText => _bonus;
@@ -162,4 +206,6 @@ public class Background : IHistoryCharacter
     public string Citata => _citata;
 
     public string Path => _pathBackground;
+
+    public List<List<Trait>> Traits => _traits;
 }

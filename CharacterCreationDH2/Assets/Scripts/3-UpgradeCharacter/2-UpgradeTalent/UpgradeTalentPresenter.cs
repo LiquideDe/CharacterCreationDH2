@@ -210,9 +210,10 @@ public class UpgradeTalentPresenter : IPresenter
 
     private bool IsCanTaken(Talent talent)
     {
-        if (TryFindRequireCharacteristic(_character.Characteristics, talent) && TryFindRequireSkill(_character.Skills, talent) && TryFindRequireImplant(_character.Implants, talent) && 
-            TryFindRequireTalents(_character.Talents, talent) && _character.InsanityPoints >= talent.RequirementInsanity && 
-            _character.CorruptionPoints >= talent.RequirementCorruption && _character.PsyRating >= talent.RequirementPsyRate)
+        if (TryFindRequireCharacteristic(_character.Characteristics, talent) && TryFindRequireSkill(_character.Skills, talent) &&
+            TryFindRequireSome(_character.Implants, talent.RequirementImplants) && TryFindRequireSome(_character.Talents, talent.RequirementTalents) && 
+            _character.InsanityPoints >= talent.RequirementInsanity && _character.CorruptionPoints >= talent.RequirementCorruption && 
+            _character.PsyRating >= talent.RequirementPsyRate && TryFindRequireSome(_character.Traits, talent.RequirementTraits)) 
         {
             return true;
         }
@@ -267,60 +268,29 @@ public class UpgradeTalentPresenter : IPresenter
         return true;
     }
 
-    private bool TryFindRequireImplant(List<MechImplant> implantsOfCharacter, Talent talent)
+    private bool TryFindRequireSome<T>(List<T> traitsOfCharacter, List<T> requireSome) where T : IName
     {
-
-        int amountReq = talent.RequirementImplants.Count;
-        if (amountReq == 0)        
-            return true;
-        
-
-        int sum = 0;
-        for (int i = 0; i < amountReq; i++)
-        {
-            for (int j = 0; j < implantsOfCharacter.Count; j++)
-            {
-                if (talent.Name == "Использование Механодендритов Боевые")
-                    Debug.Log($"implantCharacter = {implantsOfCharacter.Count}");
-                if (string.Compare(talent.RequirementImplants[i].Name, implantsOfCharacter[j].Name, true) == 0)
-                {
-                    sum += 1;
-                    break;
-                }
-            }
-        }
-
-        if (sum == amountReq)        
-            return true;
-        
-        return false;
-        
-    }
-
-    private bool TryFindRequireTalents(List<Talent> talentsOfCharacter, Talent talent)
-    {
-        int amountReq = talent.RequirementTalents.Count;
-        if (amountReq == 0)
+        int amountRequired = requireSome.Count;
+        if (amountRequired == 0)
         {
             return true;
         }
         int sum = 0;
-        for (int i = 0; i < amountReq; i++)
+        for (int i = 0; i < amountRequired; i++)
         {
-            for (int j = 0; j < talentsOfCharacter.Count; j++)
+            for (int j = 0; j < traitsOfCharacter.Count; j++)
             {
-                if (string.Compare(talent.RequirementTalents[i].Name, talentsOfCharacter[j].Name, true) == 0)
+                if (string.Compare(requireSome[i].Name, traitsOfCharacter[j].Name, true) == 0)
                 {
                     sum += 1;
                 }
             }
         }
 
-        if (sum == amountReq)        
+        if (sum == amountRequired)
             return true;
-        
+
         return false;
-        
     }
 
     private bool TryTalentForInclination(Talent talent, GameStat.Inclinations inclination)

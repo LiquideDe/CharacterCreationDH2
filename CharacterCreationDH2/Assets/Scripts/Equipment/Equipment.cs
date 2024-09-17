@@ -1,4 +1,4 @@
-public class Equipment : IName
+public class Equipment : INameWithDescription
 {
     private string nameEquipment, description, rarity;
     private float weight;

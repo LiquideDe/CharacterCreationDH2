@@ -34,11 +34,16 @@ public class BackgroundFinalPanelPresenter : IPresenter
     private void CreateToggles()
     {
         if(_background.Skills.Count > 0)
-            _creatorToggles.CreateTogglesSkill(_background.Skills);
+        {
+            if (_background.Skills[0][0].IsKnowledge)
+                    _creatorToggles.CreateToggles(_background.Skills, "Знания");
+            else
+                _creatorToggles.CreateToggles(_background.Skills, "Навыки");
+        }           
         
 
         if(_background.Talents.Count > 0)       
-            _creatorToggles.CreateTogglesTalent(_background.Talents);
+            _creatorToggles.CreateToggles(_background.Talents, "Таланты");       
         
 
         if(_background.Equipments.Count > 0)
@@ -46,7 +51,10 @@ public class BackgroundFinalPanelPresenter : IPresenter
         
 
         if (_background.MechImplants.Count > 0)
-            _creatorToggles.CreateToggleImplants(_background.MechImplants);
+            _creatorToggles.CreateToggles(_background.MechImplants, "Импланты");
+
+        if (_background.Traits.Count > 0)
+            _creatorToggles.CreateToggles(_background.Traits, "Черты");
 
         if(_background.Inclinations.Count > 0)
         {
@@ -94,49 +102,49 @@ public class BackgroundFinalPanelPresenter : IPresenter
         List<Skill> skills = new List<Skill>();
         foreach (List<Skill> sk in _background.Skills)
         {
-            if (sk.Count > 1)
-            {
-                skills.Add(sk[toggleGroups[sch].ActiveToggles().FirstOrDefault().GetComponent<MyToggle>().Id]);
-            }
-            else
-            {
-                skills.Add(sk[0]);
-            }
+            if (sk.Count > 1)            
+                skills.Add(sk[toggleGroups[sch].ActiveToggles().FirstOrDefault().GetComponent<MyToggle>().Id]);            
+            else            
+                skills.Add(sk[0]);            
             sch++;
         }
 
         List<Talent> talents = new List<Talent>();
         foreach (List<Talent> tal in _background.Talents)
         {
-            if (tal.Count > 1)
-            {
-                talents.Add(tal[toggleGroups[sch].ActiveToggles().FirstOrDefault().GetComponent<MyToggle>().Id]);
-            }
-            else
-            {
-                talents.Add(tal[0]);
-            }
+            if (tal.Count > 1)            
+                talents.Add(tal[toggleGroups[sch].ActiveToggles().FirstOrDefault().GetComponent<MyToggle>().Id]);            
+            else            
+                talents.Add(tal[0]);            
             sch++;
         }
 
         List<Equipment> equipment = new List<Equipment>();
         foreach (List<Equipment> eq in _background.Equipments)
         {
-            if (eq.Count > 1)
-            {
-                equipment.Add(eq[toggleGroups[sch].ActiveToggles().FirstOrDefault().GetComponent<MyToggle>().Id]);
-            }
-            else
-            {
-                equipment.Add(eq[0]);
-            }
+            if (eq.Count > 1)            
+                equipment.Add(eq[toggleGroups[sch].ActiveToggles().FirstOrDefault().GetComponent<MyToggle>().Id]);            
+            else            
+                equipment.Add(eq[0]);            
             sch++;
         }
 
         List<MechImplant> implants = new List<MechImplant>();
-        foreach(MechImplant implant in _background.MechImplants)
+        foreach(List<MechImplant> implant in _background.MechImplants)
         {
-            implants.Add(implant);
+            if (implant.Count > 1)
+                implants.Add(implant[toggleGroups[sch].ActiveToggles().FirstOrDefault().GetComponent<MyToggle>().Id]);
+            else
+                implants.Add(implant[0]);
+            sch++;
+        }
+        List<Trait> traits = new List<Trait>();
+        foreach (List<Trait> trait in _background.Traits)
+        {
+            if (trait.Count > 1)
+                traits.Add(trait[toggleGroups[sch].ActiveToggles().FirstOrDefault().GetComponent<MyToggle>().Id]);
+            else
+                traits.Add(trait[0]);
             sch++;
         }
 
@@ -148,6 +156,7 @@ public class BackgroundFinalPanelPresenter : IPresenter
         config.SetTalents(talents);
         config.SetEquipment(equipment);
         config.SetImplants(implants);
+        config.SetTraits(traits);
 
         CharacterWithBackground character = new CharacterWithBackground(_character);
         character.SetBackground(config);

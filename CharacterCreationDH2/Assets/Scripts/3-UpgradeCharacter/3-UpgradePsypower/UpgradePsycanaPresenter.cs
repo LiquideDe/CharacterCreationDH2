@@ -89,7 +89,7 @@ public class UpgradePsycanaPresenter : IPresenter
 
     private bool TryPsyPowerForReqPsyPowers(PsyPower psyPower)
     {
-        if (psyPower.IsBase)
+        if (psyPower.Lvl == 0)
             return true;
 
         PsyPower parentPsyPower = _creatorPsyPowers.GetPsyPowerById(_school, psyPower.IdParent);

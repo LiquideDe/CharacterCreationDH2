@@ -77,7 +77,7 @@ public class UpgradeTalentView : CanDestroyView
     public void ShowTalent(Talent talent, bool isCanTaken, int cost)
     {
         _buttonStudy.gameObject.SetActive(true);
-        _textDescription.text = $"{talent.Name} \n Стоимость {cost} ОО \n {talent.Description} \n {talent.ListRequirments}";
+        _textDescription.text = $"{talent.Name} \n Стоимость {cost} ОО \n {talent.LongDescription} \n {talent.ListRequirments}";
         if (isCanTaken == false)
             _buttonStudy.gameObject.SetActive(false);
     }

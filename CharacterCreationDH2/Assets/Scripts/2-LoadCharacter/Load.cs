@@ -35,7 +35,7 @@ public class Load
 
         List<SaveLoadSkill> skills = new List<SaveLoadSkill>();
         min = character.Characteristics.Count + 1;
-        max = min + character.Skills.Count;
+        max = min + loadCharacter.amountSkills;
         for (int i = min; i < max; i++)
         {
             SaveLoadSkill skill = JsonUtility.FromJson<SaveLoadSkill>(data[i]);

@@ -14,11 +14,13 @@ public class ParamInfo : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     public void OnPointerEnter(PointerEventData eventData)
     {
         textDescription.text = _description;
-        float x = (Screen.width  - 0.5f) - panelWithText.GetComponent<RectTransform>().sizeDelta.x/2;
-        float y = Screen.height - panelWithText.GetComponent<RectTransform>().sizeDelta.y/2;
-        float newY = Mathf.Clamp(transform.position.y, -y, y);
-        float newX = Mathf.Clamp(transform.position.x + 500, -x, x);
-        panelWithText.transform.position = new Vector3(newX, newY);
+        Vector2 screenPosition = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+        Vector2 worldPosition = Camera.main.ScreenToWorldPoint(screenPosition);
+        float x = (Camera.main.pixelWidth - 0.5f) - panelWithText.GetComponent<RectTransform>().sizeDelta.x/2;
+        float y = Camera.main.pixelHeight - panelWithText.GetComponent<RectTransform>().sizeDelta.y/2;
+        float newY = Mathf.Clamp(worldPosition.y, -y, y);
+        float newX = Mathf.Clamp(worldPosition.x, -7, 7);
+        panelWithText.transform.position = new Vector2(newX, newY);
         panelWithText.SetActive(true);        
     }
 

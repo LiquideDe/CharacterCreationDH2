@@ -14,7 +14,7 @@ public class UpgradeSkillPresenter : IPresenter
     private ICharacter _character;
     private AudioManager _audioManager;
     private bool _isEdit = false;
-    private enum TypeSkill {Skill, CommonLore, ForbiddenLore, Linquistics, ScholasticLore, Trade }
+    private enum TypeSkill {Skill, CommonLore, ForbiddenLore, Linguistics, ScholasticLore, Trade }
     private TypeSkill _currentScene = TypeSkill.Skill;
 
     [Inject]
@@ -133,7 +133,7 @@ public class UpgradeSkillPresenter : IPresenter
     private void ShowLingvaDown() 
     {
         _audioManager.PlayClick();
-        _currentScene = TypeSkill.Linquistics;
+        _currentScene = TypeSkill.Linguistics;
         ShowSkills();
     }
 
@@ -190,7 +190,7 @@ public class UpgradeSkillPresenter : IPresenter
             if (skill is Knowledge)
             {
                 Knowledge knowledge = (Knowledge)skill;
-                if (knowledge.InternalNameKnowledge == internalKnowledgeName)
+                if (knowledge.TypeSkill == internalKnowledgeName)
                     skills.Add(skill);
             }
 

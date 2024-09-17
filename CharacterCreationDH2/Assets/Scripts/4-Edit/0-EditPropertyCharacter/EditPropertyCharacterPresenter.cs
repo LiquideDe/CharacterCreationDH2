@@ -15,10 +15,10 @@ public class EditPropertyCharacterPresenter : IPresenter
     private ListWithNewItems _listWithNewItems;
     private InputNewPropertyView _inputNewProperty;
     private LvlFactory _lvlFactory;
-    private CreatorFeatures _creatorFeatures;
+    private CreatorTraits _creatorFeatures;
 
     [Inject]
-    private void Construct(AudioManager audioManager, CreatorFeatures creatorFeatures)
+    private void Construct(AudioManager audioManager, CreatorTraits creatorFeatures)
     {
         _audioManager = audioManager;
         _creatorFeatures = creatorFeatures;
@@ -88,16 +88,16 @@ public class EditPropertyCharacterPresenter : IPresenter
     private void RemoveFeature(string featureName)
     {
         _audioManager.PlayCancel();
-        foreach(Feature feature in _character.Features)
+        foreach(Trait feature in _character.Traits)
         {
             if (string.Compare(featureName, feature.Name) == 0)
             {
-                _character.Features.Remove(feature);
+                _character.Traits.Remove(feature);
                 break;
             }
         }
 
-        _view.UpdateFeatures(_character.Features);
+        _view.UpdateTraits(_character.Traits);
     }
 
     private void Next()
@@ -118,7 +118,7 @@ public class EditPropertyCharacterPresenter : IPresenter
     private void ChangeFeatureLvl(string nameFeature, int lvl)
     {
         _audioManager.PlayClick();
-        foreach (Feature feature in _character.Features)
+        foreach (Trait feature in _character.Traits)
         {
             if (string.Compare(nameFeature, feature.Name) == 0)
             {
@@ -127,7 +127,7 @@ public class EditPropertyCharacterPresenter : IPresenter
             }
         }
 
-        _view.UpdateFeatures(_character.Features);
+        _view.UpdateTraits(_character.Traits);
     }
 
     private void ShowInputMutation()
@@ -217,7 +217,7 @@ public class EditPropertyCharacterPresenter : IPresenter
 
         _listWithNewItems = _lvlFactory.Get(TypeScene.ListWithNewItems).GetComponent<ListWithNewItems>();
         List<string> namesFeatures = new List<string>();
-        foreach(Feature feature in _creatorFeatures.Features)
+        foreach(Trait feature in _creatorFeatures.Traits)
         {
             if (TryNotDoubleFeature(feature))
                 namesFeatures.Add(feature.Name);
@@ -229,11 +229,11 @@ public class EditPropertyCharacterPresenter : IPresenter
         _listWithNewItems.Initialize(namesFeatures, "Выберите новую черту");
     }
 
-    private bool TryNotDoubleFeature(Feature feature)
+    private bool TryNotDoubleFeature(Trait trait)
     {
-        foreach(Feature feat in _character.Features)
+        foreach(Trait feat in _character.Traits)
         {
-            if (string.Compare(feat.Name, feature.Name, true) == 0)
+            if (string.Compare(feat.Name, trait.Name, true) == 0)
                 return false;
         }
 
@@ -243,9 +243,9 @@ public class EditPropertyCharacterPresenter : IPresenter
     private void AddFeature(string name)
     {
         _audioManager.PlayDone();
-        _character.Features.Add(new Feature(_creatorFeatures.GetFeature(name)));
+        _character.Traits.Add(new Trait(_creatorFeatures.GetTrait(name)));
         CloseAllSmallWindows();
-        _view.UpdateFeatures(_character.Features);
+        _view.UpdateTraits(_character.Traits);
     }
 
     private void Unscribe()
