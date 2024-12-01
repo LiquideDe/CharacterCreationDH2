@@ -1,1 +1,1 @@
-{"name":"Болт-пистолет","description":"","weaponClass":"Пистолет","rof":"О/2/-","damage":"1к10+5В","reload":"Полн","properties":"Разрывное","rarity":"ОР","range":30,"penetration":4,"clip":8,"weight":3.5,"amount" : 1, "typeEquipment" : "Range"}
+{"name":"Болт-пистолет","description":"","weaponClass":"Пистолет","rof":"О/2/-","damage":"1к10+5В","reload":"Полн","properties":"Разрывное","rarity":"ОР","range":30,"penetration":4,"clip":8,"weight":3.5,"amount" : 1, "typeEquipment" : "Range", "typeSound":4}

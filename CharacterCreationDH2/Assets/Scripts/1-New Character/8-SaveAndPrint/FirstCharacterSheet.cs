@@ -4,111 +4,31 @@ using UnityEngine;
 using TMPro;
 
 
-public class FirstCharacterSheet : TakeScreenshot
+public class FirstCharacterSheet : CharacterSheetWithCharacteristics
 {
     [SerializeField] private SkillList[] skillSquares;
     [SerializeField]
-    private TextMeshProUGUI textName, textHomeworld, textBackstory, textRole, textProphecy, textGender, textAge, textSkeen, textPhys, textEyes,
-        textTraditions, textMemories, textWeapon, textBallistic, textStrength, textToughness, textAgility, textIntelligence, textPerception, textWillpower,
-        textFelloweship, textInfluence, textFate, textTalents, textBody, textHair, textCorruptionPoints, textMutationText, textInsanityPoints, textMentalText, textElite;
-    [SerializeField] private GameObject[] circlesWeapon;
-    [SerializeField] private GameObject[] circlesBallistic;
-    [SerializeField] private GameObject[] circlesStrength;
-    [SerializeField] private GameObject[] circlesToughness;
-    [SerializeField] private GameObject[] circlesAgility;
-    [SerializeField] private GameObject[] circlesIntelligence;
-    [SerializeField] private GameObject[] circlesPerception;
-    [SerializeField] private GameObject[] circlesWillpower;
-    [SerializeField] private GameObject[] circlesFellowship;    
-    private List<GameObject[]> circlesGroups = new List<GameObject[]>();
-    
-    private void Awake()
+    private TextMeshProUGUI textName, _textDescription, _textMutationText, _textCorruptionPoints, _textMentalText, _textInsanityPoints, _textFatePoint,
+        _textSpentExperience, _textUnspentExperience, _textTotalExperience;  
+
+    public override void Initialize(ICharacter character)
     {
-        circlesGroups.Add(circlesWeapon);
-        circlesGroups.Add(circlesBallistic);
-        circlesGroups.Add(circlesStrength);
-        circlesGroups.Add(circlesToughness);
-        circlesGroups.Add(circlesAgility);
-        circlesGroups.Add(circlesIntelligence);
-        circlesGroups.Add(circlesPerception);
-        circlesGroups.Add(circlesWillpower);
-        circlesGroups.Add(circlesFellowship);
-    }
-    public void Initialize(ICharacter character)
-    {
+        base.Initialize(character);
         gameObject.SetActive(true);
         _character = character;
         textName.text = character.Name;
-        textHomeworld.text = character.Homeworld;
-        textBackstory.text = character.Background;
-        textRole.text = character.Role;
-        textProphecy.text = character.Prophecy;
-        textGender.text = character.Gender;
-        textAge.text = character.Age.ToString();
-        textSkeen.text = character.Skeen;
-        textPhys.text = character.PhysFeatures;
-        textEyes.text = character.Eyes;
 
         string trad = character.Tradition.Trim();
-        textTraditions.text = trad.Substring(0, trad.IndexOf(':'));
+        _textDescription.text = $"Родной Мир: <b>{character.Homeworld}</b>. Предыстория: <b>{character.Background}</b>. Роль: <b>{character.Role}</b>. " +
+            $"Пророчество: <b>{character.Prophecy}</b>. Пол: <b>{character.Gender}</b>. Лет: <b>{character.Age}</b>. Кожа: <b>{character.Skeen}</b>. " +
+            $"Комплекция: <b>{character.Constitution}</b>. Волосы: <b>{character.Hair}</b>. Особенности: <b>{character.PhysFeatures}</b>. " +
+            $"Глаза: <b>{character.Eyes}</b>. Предрассудки: <b>{trad.Substring(0, trad.IndexOf(':'))}</b>. Памятная вещь с родного мира: <b>{character.MemoryOfHome}</b>. " +
+            $"Памятная вещь из предыстории: <b>{character.MemoryOfBackground}</b>.";
 
-        textMemories.text = $"{character.MemoryOfHome}, {character.MemoryOfBackground}";
-        textWeapon.text = character.Characteristics[0].Amount.ToString();
-        textBallistic.text = character.Characteristics[1].Amount.ToString();
-        textStrength.text = character.Characteristics[2].Amount.ToString();
-        textToughness.text = character.Characteristics[3].Amount.ToString();
-        textAgility.text = character.Characteristics[4].Amount.ToString();
-        textIntelligence.text = character.Characteristics[5].Amount.ToString();
-        textPerception.text = character.Characteristics[6].Amount.ToString();
-        textWillpower.text = character.Characteristics[7].Amount.ToString();
-        textFelloweship.text = character.Characteristics[8].Amount.ToString();
-        textInfluence.text = character.Characteristics[9].Amount.ToString();
-        textElite.text = character.Elite;
-
-        textFate.text = character.FatePoint.ToString();
-        textBody.text = character.Constitution;
-        textHair.text = character.Hair;
-        for (int i = 0; i < circlesGroups.Count; i++)
-        {
-            for(int j = 0; j < character.Characteristics[i].LvlLearned; j++)
-            {
-                circlesGroups[i][j].SetActive(true);
-            }
-        }
-        foreach (Talent talent in character.Talents)
-        {
-            if(string.Compare(talent.Name, "Псайкер", true) == 0)
-            {
-                if (string.Compare("Адептус Астра Телепатика", character.Background) == 0)
-                {
-                    textTalents.text += ", Санкционированный Псайкер";
-                }
-                else
-                {
-                    textTalents.text += ", Несанкционированный Псайкер";
-                }
-            }
-            else
-            {
-                textTalents.text += $", {talent.Name}";
-            }
-            
-        }
-        
-        foreach (Trait feature in character.Traits)
-        {
-            if(feature.Lvl > 0)
-            {
-                textTalents.text += $", {feature.Name}({feature.Lvl})";
-            }
-            else
-            {
-                textTalents.text += $", {feature.Name}";
-            }
-            
-        }
-        char[] myChar = { ' ', ',' };
-        textTalents.text = textTalents.text.TrimStart(myChar);
+        _textFatePoint.text = character.FatePoint.ToString();
+        _textSpentExperience.text = character.ExperienceSpent.ToString();
+        _textUnspentExperience.text = character.ExperienceUnspent.ToString();
+        _textTotalExperience.text = character.ExperienceTotal.ToString();
 
         foreach (Skill skill in character.Skills)
         {
@@ -120,29 +40,29 @@ public class FirstCharacterSheet : TakeScreenshot
 
         foreach(string mut in character.Mutation)
         {
-            textMutationText.text += mut + '\n';
+            _textMutationText.text += mut + '\n';
         }
 
         foreach(string ins in character.MentalDisorders)
         {
-            textMentalText.text += ins + '\n';
+            _textMentalText.text += ins + '\n';
         }
         if(character.CorruptionPoints > 0)
         {
-            textCorruptionPoints.text = character.CorruptionPoints.ToString();
+            _textCorruptionPoints.text = character.CorruptionPoints.ToString();
         }
         else
         {
-            textCorruptionPoints.text = "";
+            _textCorruptionPoints.text = "";
         }
 
         if (character.InsanityPoints > 0)
         {
-            textInsanityPoints.text = character.InsanityPoints.ToString();
+            _textInsanityPoints.text = character.InsanityPoints.ToString();
         }
         else
         {
-            textInsanityPoints.text = "";
+            _textInsanityPoints.text = "";
         }
         StartScreenshot(PageName.First.ToString());
     }

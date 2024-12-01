@@ -6,29 +6,22 @@ using TMPro;
 using System.IO;
 using System.Linq;
 
-public class SecondCharacterSheet : TakeScreenshot
+public class SecondCharacterSheet : CharacterSheetWithCharacteristics
 {
-    [SerializeField] TextMeshProUGUI textWound, textEquipments, textExpTotal, textExpUnspent, textExpSpent, textMoveHalf, textMoveFull, textNatisk, textRun, 
-        textFatigue, textWeight, textWeightUp, textWeightPush, textBonus, textPsyRate, textPsyPowers, textEquipmentWeight;
-    [SerializeField] WeaponBlock[] weaponBlocks;
-    [SerializeField] ArmorBlock[] armorBlocks;
-    [SerializeField] ArmorOnBody onBody;
-    [SerializeField] Image characterImage;
+    [SerializeField] private TextMeshProUGUI textWound, textMoveHalf, textMoveFull, textNatisk, textRun, 
+        textFatigue, textWeight, textWeightUp, textWeightPush, _textNameCharacter;
+    [SerializeField] private WeaponBlock[] weaponBlocks;
+    [SerializeField] private ArmorBlock[] armorBlocks;
+    [SerializeField] private ArmorOnBody onBody;
+    [SerializeField] private Image characterImage;
 
-    public void Initialize(ICharacter character)
+    public override void Initialize(ICharacter character)
     {
+        base.Initialize(character);
         gameObject.SetActive(true);
         _character = character;
-        onBody.SetToughness(character.BonusToughness);
+        onBody.SetToughness(character.BonusToughness, character.Characteristics[GameStat.CharacteristicToInt["Сила Воли"]].Amount/10);
         textWound.text = character.Wounds.ToString();
-        foreach(Equipment eq in character.Equipments)
-        {
-            textEquipments.text += eq.NameWithAmount + "\n";
-            textEquipmentWeight.text += eq.Weight + "\n";
-        }
-        textExpTotal.text = character.ExperienceTotal.ToString();
-        textExpSpent.text = character.ExperienceSpent.ToString();
-        textExpUnspent.text = character.ExperienceUnspent.ToString();
         textMoveHalf.text = character.HalfMove.ToString();
         textMoveFull.text = character.FullMove.ToString();
         textNatisk.text = character.Natisk.ToString();
@@ -37,7 +30,7 @@ public class SecondCharacterSheet : TakeScreenshot
         textWeight.text = character.CarryWeight.ToString();
         textWeightPush.text = character.PushWeight.ToString();
         textWeightUp.text = character.LiftWeight.ToString();
-        textBonus.text = character.BonusBack;
+        _textNameCharacter.text = $"Имя персонажа: <u>{character.Name}</u>";
         foreach(Equipment equipment in character.Equipments)
         {
             if(equipment.TypeEq == Equipment.TypeEquipment.Melee || equipment.TypeEq == Equipment.TypeEquipment.Range || equipment.TypeEq == Equipment.TypeEquipment.Grenade)
@@ -66,25 +59,7 @@ public class SecondCharacterSheet : TakeScreenshot
             }
         }
 
-        foreach(MechImplant implant in character.Implants)
-        {
-            textEquipments.text += implant.Name + "\n";
-        }
-
-        if(character.PsyRating > 0)
-        {
-            textPsyRate.text = character.PsyRating.ToString();
-
-            foreach(PsyPower psyPower in character.PsyPowers)
-            {
-                textPsyPowers.text += psyPower.Name + "\n";
-            }
-        }
-        else
-        {
-            textPsyRate.text = "";
-        }
-
+        onBody.GenerateQr();
         StartCoroutine(ReadyToStart(character));
     }
 

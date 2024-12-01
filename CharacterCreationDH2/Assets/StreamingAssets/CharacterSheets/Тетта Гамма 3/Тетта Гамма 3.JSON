@@ -171,6 +171,7 @@
     "penetration": 7,
     "clip": 20,
     "amount": 1,
+    "typeSound": 3,
     "weight": 2.0
 }
 {
@@ -186,6 +187,7 @@
     "maxAgility": 100,
     "armorPoint": 3,
     "amount": 1,
+    "bonusStrength": 0,
     "weight": 0.5
 }
 {
@@ -201,5 +203,6 @@
     "maxAgility": 60,
     "armorPoint": 4,
     "amount": 1,
+    "bonusStrength": 0,
     "weight": 3.0
 }

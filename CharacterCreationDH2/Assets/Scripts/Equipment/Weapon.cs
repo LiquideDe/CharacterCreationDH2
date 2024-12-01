@@ -5,7 +5,7 @@ using UnityEngine;
 public class Weapon : Equipment
 {
     private string classWeapon, rof, damage, reload, properties;
-    private int range, penetration, clip;    
+    private int range, penetration, clip, typeSound;    
 
     public Weapon(JSONRangeReader rangeReader) :base(rangeReader.name, rangeReader.description, rangeReader.rarity, rangeReader.amount, rangeReader.weight)
     {
@@ -18,6 +18,7 @@ public class Weapon : Equipment
         clip = rangeReader.clip;
         reload = rangeReader.reload;
         properties = rangeReader.properties;
+        typeSound = rangeReader.typeSound;
     }
 
     public Weapon(JSONMeleeReader meleeReader) : base(meleeReader.name, meleeReader.description, meleeReader.rarity, meleeReader.amount, meleeReader.weight)
@@ -51,6 +52,7 @@ public class Weapon : Equipment
         clip = weapon.Clip;
         reload = weapon.Reload;
         properties = weapon.Properties;
+        typeSound = weapon.TypeSound;
     }
 
     public string ClassWeapon { get => classWeapon; }
@@ -61,4 +63,5 @@ public class Weapon : Equipment
     public int Clip { get => clip; }
     public string Reload { get => reload; }
     public string Properties { get => properties; }
+    public int TypeSound => typeSound;
 }

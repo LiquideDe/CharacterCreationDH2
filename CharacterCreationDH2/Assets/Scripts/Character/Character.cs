@@ -121,7 +121,6 @@ public class Character : ICharacter
         _bonusHomeworld = loadCharacter.bonusHomeworld;
         _bonusRole = loadCharacter.bonusRole;
 
-        Debug.Log($"list = {loadCharacter.traits}");
             List<string> listTrait = loadCharacter.traits.Split(new char[] { '/' }).ToList();
             if (CheckString(listTrait))
             {

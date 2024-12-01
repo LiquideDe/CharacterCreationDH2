@@ -82,6 +82,20 @@ public static class GameStat
     Offense, Perception, Psyker, Social, Strength, Tech, Toughness,
     Weapon, Willpower, Elite};
 
+    public static Dictionary<string, int> CharacteristicToInt = new Dictionary<string, int>()
+    {
+        { "Навык Рукопашной", 0 },
+        { "Навык Стрельбы", 1 },
+        { "Сила" , 2},
+        { "Выносливость", 3 },
+        { "Ловкость", 4 },
+        { "Интеллект",5 },
+        { "Восприятие" , 6 },
+        { "Сила Воли", 7 },
+        { "Общительность", 8 }
+
+    };
+
     public enum CharacteristicName { None, WeaponSkill, BallisticSkill, Strength, Toughness, Agility, Intelligence, Perception, Willpower, Fellowship, Influence}    
 
     public static Dictionary<Inclinations, string> descriptionInclination = new Dictionary<Inclinations, string>()

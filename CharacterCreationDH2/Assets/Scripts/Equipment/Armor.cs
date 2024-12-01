@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Armor : Equipment
 {
-    private int defHead, defHands, defBody, defLegs, maxAgil, armorPoint;
+    private int defHead, defHands, defBody, defLegs, maxAgil, armorPoint, bonusStrength;
     private string placeArmor;
     public Armor(JSONArmorReader armorReader) : base (armorReader.name, armorReader.description, armorReader.rarity, armorReader.amount, armorReader.weight)
     {
@@ -16,6 +16,7 @@ public class Armor : Equipment
         maxAgil = armorReader.maxAgility;
         placeArmor = armorReader.descriptionArmor;
         armorPoint = armorReader.armorPoint;
+        bonusStrength = armorReader.bonusStrength;
     }
 
     public Armor(Armor armor) : base (armor.Name, armor.Description, armor.Rarity, armor.Amount, armor.Weight)
@@ -28,13 +29,16 @@ public class Armor : Equipment
         maxAgil = armor.MaxAgil;
         placeArmor = armor.PlaceArmor;
         armorPoint = armor.ArmorPoint;
+        bonusStrength = armor.BonusStrength;
     }
 
-    public int DefHead { get => defHead; }
-    public int DefHands { get => defHands; }
-    public int DefBody { get => defBody; }
-    public int DefLegs { get => defLegs; }
-    public int MaxAgil { get => maxAgil;  }
-    public string PlaceArmor { get => placeArmor; }
-    public int ArmorPoint { get => armorPoint; }
+    public int DefHead => defHead; 
+    public int DefHands => defHands; 
+    public int DefBody => defBody;
+    public int DefLegs => defLegs;
+    public int MaxAgil => maxAgil;
+    public string PlaceArmor => placeArmor; 
+    public int ArmorPoint => armorPoint;
+
+    public int BonusStrength => bonusStrength;
 }

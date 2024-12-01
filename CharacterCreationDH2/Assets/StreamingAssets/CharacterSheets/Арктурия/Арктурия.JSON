@@ -172,6 +172,7 @@
     "maxAgility": 100,
     "armorPoint": 4,
     "amount": 1,
+    "bonusStrength": 0,
     "weight": 1.5
 }
 {

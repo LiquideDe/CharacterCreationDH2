@@ -1,1 +1,1 @@
-{"name":"Сварочная горелка","description":"","weaponClass":"Пистолет","rof":"О/-/-","damage":"1к10+3Э","reload":"2 Полн","properties":"","rarity":"ОБ","range":3,"penetration":1,"clip":8,"weight":10.0,"amount" : 1, "typeEquipment" : "Range"}
+{"name":"Сварочная горелка","description":"","weaponClass":"Пистолет","rof":"О/-/-","damage":"1к10+3Э","reload":"2 Полн","properties":"","rarity":"ОБ","range":3,"penetration":1,"clip":8,"weight":10.0,"amount" : 1, "typeEquipment" : "Range", "typeSound":5}

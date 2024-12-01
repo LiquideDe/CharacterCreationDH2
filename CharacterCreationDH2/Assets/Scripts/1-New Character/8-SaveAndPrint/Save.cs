@@ -159,6 +159,7 @@ public class Save
                 armorReader.name = armor.Name;
                 armorReader.typeEquipment = armor.TypeEq.ToString(); ;
                 armorReader.weight = armor.Weight;
+                armorReader.bonusStrength = armor.BonusStrength;
                 data.Add(JsonUtility.ToJson(armorReader, true));
             }
             else if(equipment.TypeEq == Equipment.TypeEquipment.Grenade)
@@ -212,6 +213,7 @@ public class Save
                 rangeReader.range = range.Range;
                 rangeReader.reload = range.Reload;
                 rangeReader.rof = range.Rof;
+                rangeReader.typeSound = range.TypeSound;
                 data.Add(JsonUtility.ToJson(rangeReader, true));
             }
             else if (equipment.TypeEq == Equipment.TypeEquipment.Thing)

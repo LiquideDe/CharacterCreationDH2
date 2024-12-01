@@ -18,7 +18,7 @@ public class CardWithGenerater : MonoBehaviour
     private int GenerateValue(int max)
     {
         System.Random random = new System.Random();
-        return random.Next(3, max);
+        return random.Next(3, max+1);
     }
 
     public void GenerateFromButton()
