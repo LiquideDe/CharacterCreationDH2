@@ -34,20 +34,6 @@ public class CharacterWithHomeworld : CharacterDecorator,ICharacter
 
     public int PsyRating => _character.PsyRating;
 
-    public int HalfMove => _character.HalfMove;
-
-    public int FullMove => _character.FullMove;
-
-    public int Natisk => _character.Natisk;
-
-    public int Fatigue => _character.Fatigue;
-
-    public float CarryWeight => _character.CarryWeight;
-
-    public float LiftWeight => _character.LiftWeight;
-
-    public float PushWeight => _character.PushWeight;
-
     public int ExperienceTotal => _character.ExperienceTotal;
 
     public int ExperienceUnspent => _character.ExperienceUnspent;
@@ -57,8 +43,6 @@ public class CharacterWithHomeworld : CharacterDecorator,ICharacter
     public List<Characteristic> Characteristics => _character.Characteristics;    
 
     public List<string> MentalDisorders => _character.MentalDisorders;
-
-    public int Run => _character.Run;
 
     public string BonusBack => _character.BonusBack;
 
@@ -91,8 +75,6 @@ public class CharacterWithHomeworld : CharacterDecorator,ICharacter
     public string Elite => throw new System.NotImplementedException();
 
     public string Tradition => _tradition;
-
-    public int BonusToughness => _character.BonusToughness;
 
     public ICharacter GetCharacter => _character;
 

@@ -31,20 +31,6 @@ public class CharacterWithUpgrade : CharacterDecorator, ICharacter
 
     public int PsyRating => _psyrate;
 
-    public int HalfMove => _character.HalfMove;
-
-    public int FullMove => _character.FullMove;
-
-    public int Natisk => _character.Natisk;
-
-    public int Fatigue => _character.Fatigue;
-
-    public float CarryWeight => _character.CarryWeight;
-
-    public float LiftWeight => _character.LiftWeight;
-
-    public float PushWeight => _character.PushWeight;
-
     public int ExperienceTotal => _experienceTotal;
 
     public int ExperienceUnspent => _experienceUnspent;
@@ -54,8 +40,6 @@ public class CharacterWithUpgrade : CharacterDecorator, ICharacter
     public List<Characteristic> Characteristics => _characteristics;
 
     public List<string> MentalDisorders => _character.MentalDisorders;
-
-    public int Run => _character.Run;
 
     public string BonusBack => _character.BonusBack;
 
@@ -88,8 +72,6 @@ public class CharacterWithUpgrade : CharacterDecorator, ICharacter
     public string Elite => _character.Elite;
 
     public string Tradition => _character.Tradition;
-
-    public int BonusToughness => _characteristics[3].Amount/10;
 
     public ICharacter GetCharacter => _character;
 

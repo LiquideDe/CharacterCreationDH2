@@ -7,9 +7,8 @@ public class Character : ICharacter
 {
     private string _name, _background, _role, _ageText, _prophecy, _constitution, _hair, _eyes, _skeen, _physFeatures, _memoryOfHome, 
         _memoryOfBackground, _gender, _bonusBack, _homeworld, _elite, _tradition, _bonusHomeworld, _bonusRole;
-    private int _age, _fatePoint, _insanityPoints, _corruptionPoints, _wounds, _psyRating, _halfMove, _fullMove, _natisk, _run, _fatigue,
+    private int _age, _fatePoint, _insanityPoints, _corruptionPoints, _wounds, _psyRating,
         _experienceTotal, _experienceUnspent, _experienceSpent;
-    private float _carryWeight, _liftWeight, _pushWeight;
     private List<Characteristic> _characteristics = new List<Characteristic>();
     private List<GameStat.Inclinations> _inclinations = new List<GameStat.Inclinations>();
     private List<Talent> _talents = new List<Talent>();
@@ -47,13 +46,6 @@ public class Character : ICharacter
     public int Wounds => _wounds;
     public int CorruptionPoints => _corruptionPoints;
     public int PsyRating => _psyRating;
-    public int HalfMove => _halfMove;
-    public int FullMove => _fullMove;
-    public int Natisk => _natisk;
-    public int Fatigue => _fatigue;
-    public float CarryWeight => _carryWeight;
-    public float LiftWeight => _liftWeight;
-    public float PushWeight => _pushWeight;
     public int ExperienceTotal => _experienceTotal;
     public int ExperienceUnspent => _experienceUnspent;
     public int ExperienceSpent => _experienceSpent;
@@ -63,7 +55,6 @@ public class Character : ICharacter
     public List<Talent> Talents => _talents;
     public List<MechImplant> Implants => _implants;
     public List<string> MentalDisorders => _mentalDisorders;
-    public int Run => _run;
     public string BonusBack => _bonusBack;
     public List<string> Mutation => _mutation;
     public List<PsyPower> PsyPowers => _psyPowers;
@@ -84,7 +75,6 @@ public class Character : ICharacter
     public string Homeworld => _homeworld;
     public string Elite => _elite;
     public string Tradition => _tradition;
-    public int BonusToughness => GetBonusToughness();
     public string BonusHomeworld => _bonusHomeworld;
     public ICharacter GetCharacter => this;
 
@@ -114,7 +104,6 @@ public class Character : ICharacter
         _ageText = loadCharacter.ageText;
         _background = loadCharacter.background;
         _bonusBack = loadCharacter.bonusBack;
-        _carryWeight = loadCharacter.carryWeight;
         _constitution = loadCharacter.constitution;
         _corruptionPoints = loadCharacter.corruptionPoints;
         _elite = loadCharacter.elite;
@@ -139,11 +128,8 @@ public class Character : ICharacter
         _experienceUnspent = loadCharacter.experienceUnspent;
         _eyes = loadCharacter.eyes;
         _fatePoint = loadCharacter.fatePoint;
-        _fatigue = loadCharacter.fatigue;
-        _fullMove = loadCharacter.fullMove;
         _gender = loadCharacter.gender;
         _hair = loadCharacter.hair;
-        _halfMove = loadCharacter.halfMove;
         _homeworld = loadCharacter.homeworld;
 
         _implants.AddRange(implants);
@@ -160,7 +146,6 @@ public class Character : ICharacter
         
 
         _insanityPoints = loadCharacter.insanityPoints;
-        _liftWeight = loadCharacter.liftWeight;
         _memoryOfBackground = loadCharacter.memoryOfBackground;
         _memoryOfHome = loadCharacter.memoryOfHome;
 
@@ -175,13 +160,9 @@ public class Character : ICharacter
         }
         
         _name = loadCharacter.name;
-        _natisk = loadCharacter.natisk;
         _physFeatures = loadCharacter.physFeatures;
         _prophecy = loadCharacter.prophecy;
-        
-        _pushWeight = loadCharacter.pushWeight;
         _role = loadCharacter.role;
-        _run = loadCharacter.run;
         _skeen = loadCharacter.skeen;
         _wounds = loadCharacter.wounds;
 
@@ -248,15 +229,7 @@ public class Character : ICharacter
 
     public void ChangeFatepoints(int amount) => _fatePoint += amount;
 
-    public void ChangeFullmove(int amount) => _fullMove += amount;
-
-    public void ChangeHalfmove(int amount) => _halfMove += amount;
-
     public void ChangeMadness(int amount) => _insanityPoints += amount;
-
-    public void ChangeNatisk(int amount) => _natisk += amount;
-
-    public void ChangeRun(int amount) => _run += amount;
 
     public void ChangeWounds(int amount) => _wounds += amount;
 
@@ -271,20 +244,6 @@ public class Character : ICharacter
         }
 
         return false;
-    }
-
-    private int GetBonusToughness()
-    {
-        int bToughness = _characteristics[3].Amount / 10;
-        foreach(Trait feature in _features)
-        {
-            if (string.Compare(feature.Name, "Сверхъестественная Выносливость") == 0 || string.Compare(feature.Name, "Демонический") == 0)
-            {
-                bToughness += feature.Lvl;
-            }
-        }
-
-        return bToughness;
     }
 
     private void CreateCharacteristics()

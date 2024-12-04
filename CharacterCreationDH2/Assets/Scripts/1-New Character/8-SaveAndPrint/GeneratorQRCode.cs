@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using ZXing;
 using ZXing.QrCode;
+using ZXing.Common;
+using System.Drawing;
 
 public class GeneratorQRCode
 {
@@ -18,16 +20,19 @@ public class GeneratorQRCode
 
     private Color32[] Encode(string textForEncode, int width, int height)
     {
-        BarcodeWriter writer = new BarcodeWriter
-        {
-            Format = BarcodeFormat.QR_CODE,
-            Options = new QrCodeEncodingOptions
-            {
-                Height = height,
-                Width = width
-            }
-        };
+        QRCodeWriter qrEncode = new QRCodeWriter(); //создание QR кода
 
-        return writer.Write(textForEncode);
+        Dictionary<EncodeHintType, object> hints = new Dictionary<EncodeHintType, object>();    //для колекции поведений
+        hints.Add(EncodeHintType.CHARACTER_SET, "utf-8");   //добавление в коллекцию кодировки utf-8
+        BitMatrix qrMatrix = qrEncode.encode(   //создание матрицы QR
+            textForEncode,                 //кодируемая строка
+            BarcodeFormat.QR_CODE,  //формат кода, т.к. используется QRCodeWriter применяется QR_CODE
+            width,                    //ширина
+            height,                    //высота
+            hints);                 //применение колекции поведений
+
+        BarcodeWriter qrWrite = new BarcodeWriter();    //класс для кодирования QR в растровом файле
+        return qrWrite.Write(qrMatrix);
+
     }
 }

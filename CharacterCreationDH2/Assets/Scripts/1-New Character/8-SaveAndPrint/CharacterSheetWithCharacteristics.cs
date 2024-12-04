@@ -21,6 +21,12 @@ public class CharacterSheetWithCharacteristics : TakeScreenshot
     [SerializeField] private GameObject[] circlesFellowship;
     private List<GameObject[]> circlesGroups;
 
+    public string BonusStrength => textStrengthBonus.text;
+    public string BonusToughness => textToughnessBonus.text;
+    public string BonusAgility => textAgilityBonus.text;
+    public string Strength => textStrength.text;
+    public string BonusWillpower => textWillpowerBonus.text;
+
     public virtual void Initialize(ICharacter character)
     {
         _character = character;
@@ -70,7 +76,6 @@ public class CharacterSheetWithCharacteristics : TakeScreenshot
         int superPerception = 0;
         int superWillpower = 0;
         int superFelloweship = 0;
-        Debug.Log($"Count = {_character.Traits.Count}");
 
         foreach(Trait trait in _character.Traits)
         {

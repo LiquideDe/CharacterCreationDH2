@@ -20,8 +20,7 @@ public class EditCharacteristicsAndEquipmentsView : CanDestroyView
         _buttonDecreaseFatepoint;
 
     [SerializeField]
-    private TextMeshProUGUI _textWeapon, _textBallistic, _textStrength, _textRun, _textNatisk, _textFullmove,
-        _textHalfmove, _textWounds, _textCorruption, _textMadness, _textInfluence, _textFellowship, 
+    private TextMeshProUGUI _textWeapon, _textBallistic, _textStrength, _textWounds, _textCorruption, _textMadness, _textInfluence, _textFellowship, 
         _textWillpower, _textPerception, _textIntelligence, _textAgility, _textToughness, _textFatepoint;
 
     [SerializeField] private Button _buttonAddEquipment, _buttonAddArmor, _buttonAddWeapon, _buttonAddBallistic, _buttonAddGrenade, _buttonAddImplant, _buttonNext, _buttonPrev;
@@ -163,10 +162,6 @@ public class EditCharacteristicsAndEquipmentsView : CanDestroyView
         _textWeapon.text = $"{character.Characteristics[0].Amount}";
         _textBallistic.text = $"{character.Characteristics[1].Amount}";
         _textStrength.text = $"{character.Characteristics[2].Amount}";
-        _textRun.text = $"{character.Run}";
-        _textNatisk.text = $"{character.Natisk}";
-        _textFullmove.text = $"{character.FullMove}";
-        _textHalfmove.text = $"{character.HalfMove}";
         _textWounds.text = $"{character.Wounds}";
         _textCorruption.text = $"{character.CorruptionPoints}";
         _textMadness.text = $"{character.InsanityPoints}";

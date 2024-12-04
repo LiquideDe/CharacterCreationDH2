@@ -32,19 +32,11 @@
     "corruptionPoints": 0,
     "wounds": 10,
     "psyRating": 0,
-    "halfMove": 3,
-    "fullMove": 6,
-    "natisk": 9,
-    "run": 18,
-    "fatigue": 7,
     "experienceTotal": 1400,
     "experienceUnspent": 50,
     "experienceSpent": 1350,
     "amountImplants": 3,
-    "amountSkills": 6,
-    "carryWeight": 45.0,
-    "liftWeight": 90.0,
-    "pushWeight": 180.0
+    "amountSkills": 6
 }
 {
     "name": "Навык Рукопашной",

@@ -60,14 +60,10 @@ public class EditCharacteristicsAndEquipmentsPresenter : IPresenter
         _view.DecreaseCorruption += DecreaseCorruption;
         _view.DecreaseFatepoint += DecreaseFatepoint;
         _view.DecreaseFellowship += DecreaseFellowship;
-        _view.DecreaseFullmove += DecreaseFullmove;
-        _view.DecreaseHalfmove += DecreaseHalfmove;
         _view.DecreaseInfluence += DecreaseInfluence;
         _view.DecreaseIntelligence += DecreaseIntelligence;
         _view.DecreaseMadness += DecreaseMadness;
-        _view.DecreaseNatisk += DecreaseNatisk;
         _view.DecreasePerception += DecreasePerception;
-        _view.DecreaseRun += DecreaseRun;
         _view.DecreaseStrength += DecreaseStrength;
         _view.DecreaseToughness += DecreaseToughness;
         _view.DecreaseWeapon += DecreaseWeapon;
@@ -79,14 +75,10 @@ public class EditCharacteristicsAndEquipmentsPresenter : IPresenter
         _view.IncreaseCorruption += IncreaseCorruption;
         _view.IncreaseFatepoint += IncreaseFatepoint;
         _view.IncreaseFellowship += IncreaseFellowship;
-        _view.IncreaseFullmove += IncreaseFullmove;
-        _view.IncreaseHalfmove += IncreaseHalfmove;
         _view.IncreaseInfluence += IncreaseInfluence;
         _view.IncreaseIntelligence += IncreaseIntelligence;
         _view.IncreaseMadness += IncreaseMadness;
-        _view.IncreaseNatisk += IncreaseNatisk;
         _view.IncreasePerception += IncreasePerception;
-        _view.IncreaseRun += IncreaseRun;
         _view.IncreaseStrength += IncreaseStrength;
         _view.IncreaseToughness += IncreaseToughness;
         _view.IncreaseWeapon += IncreaseWeapon;
@@ -114,14 +106,10 @@ public class EditCharacteristicsAndEquipmentsPresenter : IPresenter
         _view.DecreaseCorruption -= DecreaseCorruption;
         _view.DecreaseFatepoint -= DecreaseFatepoint;
         _view.DecreaseFellowship -= DecreaseFellowship;
-        _view.DecreaseFullmove -= DecreaseFullmove;
-        _view.DecreaseHalfmove -= DecreaseHalfmove;
         _view.DecreaseInfluence -= DecreaseInfluence;
         _view.DecreaseIntelligence -= DecreaseIntelligence;
         _view.DecreaseMadness -= DecreaseMadness;
-        _view.DecreaseNatisk -= DecreaseNatisk;
         _view.DecreasePerception -= DecreasePerception;
-        _view.DecreaseRun -= DecreaseRun;
         _view.DecreaseStrength -= DecreaseStrength;
         _view.DecreaseToughness -= DecreaseToughness;
         _view.DecreaseWeapon -= DecreaseWeapon;
@@ -133,14 +121,10 @@ public class EditCharacteristicsAndEquipmentsPresenter : IPresenter
         _view.IncreaseCorruption -= IncreaseCorruption;
         _view.IncreaseFatepoint -= IncreaseFatepoint;
         _view.IncreaseFellowship -= IncreaseFellowship;
-        _view.IncreaseFullmove -= IncreaseFullmove;
-        _view.IncreaseHalfmove -= IncreaseHalfmove;
         _view.IncreaseInfluence -= IncreaseInfluence;
         _view.IncreaseIntelligence -= IncreaseIntelligence;
         _view.IncreaseMadness -= IncreaseMadness;
-        _view.IncreaseNatisk -= IncreaseNatisk;
         _view.IncreasePerception -= IncreasePerception;
-        _view.IncreaseRun -= IncreaseRun;
         _view.IncreaseStrength -= IncreaseStrength;
         _view.IncreaseToughness -= IncreaseToughness;
         _view.IncreaseWeapon -= IncreaseWeapon;
@@ -200,34 +184,6 @@ public class EditCharacteristicsAndEquipmentsPresenter : IPresenter
         _view.UpdateTextFields(_character);
     }
 
-    private void DecreaseNatisk()
-    {
-        _audioManager.PlayClick();
-        _character.ChangeNatisk(-1);
-        _view.UpdateTextFields(_character);
-    }
-
-    private void DecreaseFullmove()
-    {
-        _audioManager.PlayClick();
-        _character.ChangeFullmove(-1);
-        _view.UpdateTextFields(_character);
-    }
-
-    private void DecreaseHalfmove()
-    {
-        _audioManager.PlayClick();
-        _character.ChangeHalfmove(-1);
-        _view.UpdateTextFields(_character);
-    }
-
-    private void DecreaseRun()
-    {
-        _audioManager.PlayClick();
-        _character.ChangeRun(-1);
-        _view.UpdateTextFields(_character);
-    }
-
     private void IncreaseAgility() => IncreaseCharacteristic(4);
 
     private void IncreaseBallistic() => IncreaseCharacteristic(1);    
@@ -273,34 +229,6 @@ public class EditCharacteristicsAndEquipmentsPresenter : IPresenter
     {
         _audioManager.PlayClick();
         _character.ChangeMadness(1);
-        _view.UpdateTextFields(_character);
-    }
-
-    private void IncreaseNatisk()
-    {
-        _audioManager.PlayClick();
-        _character.ChangeNatisk(1);
-        _view.UpdateTextFields(_character);
-    }
-
-    private void IncreaseRun()
-    {
-        _audioManager.PlayClick();
-        _character.ChangeRun(1);
-        _view.UpdateTextFields(_character);
-    }
-
-    private void IncreaseFullmove()
-    {
-        _audioManager.PlayClick();
-        _character.ChangeFullmove(1);
-        _view.UpdateTextFields(_character);
-    }
-
-    private void IncreaseHalfmove()
-    {
-        _audioManager.PlayClick();
-        _character.ChangeHalfmove(1);
         _view.UpdateTextFields(_character);
     }
 

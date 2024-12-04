@@ -18,20 +18,6 @@ public class CharacterWithRole : CharacterDecorator, ICharacter
 
     public int PsyRating => _psyRating;
 
-    public int HalfMove => throw new System.NotImplementedException();
-
-    public int FullMove => throw new System.NotImplementedException();
-
-    public int Natisk => throw new System.NotImplementedException();
-
-    public int Fatigue => _character.Fatigue;
-
-    public float CarryWeight => throw new System.NotImplementedException();
-
-    public float LiftWeight => throw new System.NotImplementedException();
-
-    public float PushWeight => throw new System.NotImplementedException();
-
     public int ExperienceTotal => _character.ExperienceTotal;
 
     public int ExperienceUnspent => _character.ExperienceUnspent;
@@ -41,8 +27,6 @@ public class CharacterWithRole : CharacterDecorator, ICharacter
     public List<Characteristic> Characteristics => _character.Characteristics;
 
     public List<string> MentalDisorders => _character.MentalDisorders;
-
-    public int Run => throw new System.NotImplementedException();
 
     public string BonusBack => _character.BonusBack;
 
@@ -75,8 +59,6 @@ public class CharacterWithRole : CharacterDecorator, ICharacter
     public string Elite => _character.Elite;
 
     public string Tradition => _character.Tradition;
-
-    public int BonusToughness => _character.BonusToughness;
 
     public ICharacter GetCharacter => _character;
 
