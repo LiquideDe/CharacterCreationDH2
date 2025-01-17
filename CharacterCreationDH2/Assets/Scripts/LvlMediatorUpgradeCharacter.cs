@@ -110,6 +110,7 @@ public class LvlMediatorUpgradeCharacter
         menuPresenter.ReturnToMenu += ReturnToMenuPressed;
         menuPresenter.SaveAndExit += TakePicturesAndExit;
         menuPresenter.SaveAndReturn += TakePictureAndReturnToMenu;
+        menuView.Show();
     }
 
     private void TakePictureAndReturnToMenu(ICharacter character) => TakePictureAndSomething(SaveAndReturnToMenu, character);

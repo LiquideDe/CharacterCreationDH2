@@ -46,5 +46,5 @@ MonoBehaviour:
   _newArmor: {fileID: 6408959074878856044, guid: 200800e4c62c2b74c89822d315900ef8, type: 3}
   _listWithNewItemsAndNewButton: {fileID: 3325932088576600271, guid: e9ee30b5d5698fd478382c48bd943bd4, type: 3}
   _newImplant: {fileID: 1076729413628794959, guid: d5843230159ea5640a19f36660e9cb63, type: 3}
-  _loading: {fileID: 5144999465309352450, guid: 8a0747cc715af78449e28d9a733e512b, type: 3}
+  _loading: {fileID: 5621377613331039072, guid: b5166934b487c4f4b921b347cb941390, type: 3}
   _canvasWithInfoForSkill: {fileID: 5520556549759321786, guid: 5f032971e971b8345af99a5d332b0360, type: 3}

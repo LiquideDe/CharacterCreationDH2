@@ -13,13 +13,15 @@ public class LvlMediatorNewCharacter
     private CreatorSkills _creatorSkills;
     private CreatorTraits _creatorTraits;
     private CreatorImplant _creatorImplant;
+    private CreatorEquipment _creatorEquipment;
 
     private CreatorWorlds _creatorWorlds;
     private CreatorBackgrounds _creatorBackgrounds;
     private CreatorRole _creatorRole;
 
     public LvlMediatorNewCharacter(LvlFactory lvlFactory, CharacterFactory characterFactory, AudioManager audioManager,
-        CreatorTalents creatorTalents, CreatorPsyPowers creatorPsyPowers, CreatorTraits creatorTraits, CreatorImplant creatorImplant, CreatorSkills creatorSkills)
+        CreatorTalents creatorTalents, CreatorPsyPowers creatorPsyPowers, CreatorTraits creatorTraits, CreatorImplant creatorImplant, CreatorSkills creatorSkills,
+        CreatorEquipment creatorEquipment)
     {
         _lvlFactory = lvlFactory;
         _characterFactory = characterFactory;
@@ -29,6 +31,7 @@ public class LvlMediatorNewCharacter
         _creatorTraits = creatorTraits;
         _creatorImplant = creatorImplant;
         _creatorSkills = creatorSkills;
+        _creatorEquipment = creatorEquipment;
     }
 
     public void LoadNewCharacter()
@@ -103,7 +106,7 @@ public class LvlMediatorNewCharacter
     private HomeworldBackGroundRoleView OpenBackgroundPanel()
     {
         HomeworldBackGroundRoleView homeworldView = _lvlFactory.Get(TypeScene.Background).GetComponent<HomeworldBackGroundRoleView>();
-        BackgroundPresenter backgroundPresenter = new BackgroundPresenter(homeworldView, _lvlFactory, _creatorBackgrounds, _audioManager, _character);
+        BackgroundPresenter backgroundPresenter = new BackgroundPresenter(homeworldView, _lvlFactory, _creatorBackgrounds, _audioManager, _character, _creatorEquipment);
         backgroundPresenter.ChooseIsDone += CharacterHasBackground;
         backgroundPresenter.ReturnToPrevWindow += OpenHomeworldPanelFromLeft;
         return homeworldView;
@@ -159,6 +162,7 @@ public class LvlMediatorNewCharacter
         CharacteristicManualPresenter characteristicPresenter = new CharacteristicManualPresenter(_character, characteristicView, startCharacteristic, _audioManager);
         characteristicPresenter.ReturnToRole += OpenRoleCanvasFromLeft;
         characteristicPresenter.ReturnCharacterWithCharacteristics += CharacterHasCharacteristics;
+        characteristicView.Show();
     }
 
     private void ShowRandom(int startCharacteristic)
@@ -168,6 +172,7 @@ public class LvlMediatorNewCharacter
             new CharacteristicRandomPresenter(_character, characteristicRandomView, startCharacteristic, _audioManager);
         characteristicRandomPresenter.ReturnToRole += OpenRoleCanvasFromLeft;
         characteristicRandomPresenter.ReturnCharacterWithCharacteristics += CharacterHasCharacteristics;
+        characteristicRandomView.Show();
     }
 
     private void CharacterHasCharacteristics(ICharacter character)

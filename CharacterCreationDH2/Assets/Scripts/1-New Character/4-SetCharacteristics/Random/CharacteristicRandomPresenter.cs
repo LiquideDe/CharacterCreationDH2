@@ -94,7 +94,6 @@ public class CharacteristicRandomPresenter : IPresenter
 
     private void ReturnCharacteristics(List<int> characteristics)
     {
-        Debug.Log($"Получили характеристики, их {characteristics.Count}");
         //_audioManager.PlayDone();
         CharacterWithCharacteristics character = new CharacterWithCharacteristics(_character);
         character.SetCharacteristics(characteristics);

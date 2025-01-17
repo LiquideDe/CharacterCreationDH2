@@ -37,7 +37,13 @@ public class ChooseNameView : AnimateShowAndHideView
 
     private void GenerateNamePressed() => GenerateName?.Invoke();
 
-    private void GoNextPressed() => Hide(GoNext);//GoNext?.Invoke();
+    private void GoNextPressed() 
+    {
+        if(inputName.text.Length > 1)
+            Hide(GoNext);
+        else
+            GoNext?.Invoke();
+    }
 
     private void ChooseSexPressed(bool isOn)
     {

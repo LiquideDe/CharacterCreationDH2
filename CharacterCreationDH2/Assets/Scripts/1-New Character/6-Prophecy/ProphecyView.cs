@@ -39,5 +39,11 @@ public class ProphecyView : AnimateShowAndHideView
 
     private void GenerateNumberPressed() => GenerateNumber?.Invoke();
 
-    private void DonePressed() => Hide(Done);//Done?.Invoke();
+    private void DonePressed() 
+    {
+        if (inputField.text.Length < 1)
+            Done?.Invoke();
+        else
+            Hide(Done); 
+    }
 }

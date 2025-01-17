@@ -13,14 +13,16 @@ public class BackgroundFinalPanelPresenter : IPresenter
     private AudioManager _audioManager;
     private ICharacter _character;
     private Background _background;
+    private CreatorEquipment _creatorEquipment;
 
-    public BackgroundFinalPanelPresenter(BackgroundFinalPanelView view, AudioManager audioManager, ICharacter character, Background background)
+    public BackgroundFinalPanelPresenter(BackgroundFinalPanelView view, AudioManager audioManager, ICharacter character, Background background, CreatorEquipment creatorEquipment)
     {
         _view = view;
         _audioManager = audioManager;
         _character = character;
         _background = background;
         _creatorToggles = view.gameObject.GetComponent<CreatorTogglesForFinalPanel>();
+        _creatorEquipment = creatorEquipment;
         Subscribe();
         CreateToggles();
     }
@@ -113,13 +115,27 @@ public class BackgroundFinalPanelPresenter : IPresenter
             sch++;
         }
 
-        List<Equipment> equipment = new List<Equipment>();
+        List<Equipment> equipments = new List<Equipment>();
         foreach (List<Equipment> eq in _background.Equipments)
         {
-            if (eq.Count > 1)            
-                equipment.Add(eq[toggleGroups[sch].ActiveToggles().FirstOrDefault().GetComponent<MyToggle>().Id]);            
+            if (eq.Count > 1) 
+            {
+                if(eq[toggleGroups[sch].ActiveToggles().FirstOrDefault().GetComponent<MyToggle>().Id].TypeEq == Equipment.TypeEquipment.Special)
+                {
+                    Equipment equipment = eq[toggleGroups[sch].ActiveToggles().FirstOrDefault().GetComponent<MyToggle>().Id];
+                    Special special = (Special) equipment;
+                    equipments.Add(_creatorEquipment.GetEquipment(special.FirstName));
+                    equipments[^1].Amount = special.AmountFirst;
+                    equipments.Add(_creatorEquipment.GetEquipment(special.SecondName));
+                    equipments[^1].Amount = special.AmountSecond;
+                }
+                else
+                {
+                    equipments.Add(eq[toggleGroups[sch].ActiveToggles().FirstOrDefault().GetComponent<MyToggle>().Id]);
+                }
+            }                                    
             else            
-                equipment.Add(eq[0]);            
+                equipments.Add(eq[0]);            
             sch++;
         }
 
@@ -148,7 +164,7 @@ public class BackgroundFinalPanelPresenter : IPresenter
 
         config.SetSkills(skills);
         config.SetTalents(talents);
-        config.SetEquipment(equipment);
+        config.SetEquipment(equipments);
         config.SetImplants(implants);
         config.SetTraits(traits);
 
