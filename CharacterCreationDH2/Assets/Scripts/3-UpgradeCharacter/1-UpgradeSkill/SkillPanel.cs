@@ -7,7 +7,7 @@ using System;
 
 public class SkillPanel : MonoBehaviour
 {
-    public event Action<string> ShowDescription;
+    public event Action<Skill> ShowDescription;
     public event Action<Skill, int> UpgradeSkill;
     [SerializeField] TextMeshProUGUI _textName, _textCost;
     [SerializeField] Button _buttonUpgrade, _buttonDescription;
@@ -57,5 +57,5 @@ public class SkillPanel : MonoBehaviour
 
     private void UpgradeSkillPress() => UpgradeSkill?.Invoke(_skill, _cost);
 
-    private void ShowDescriptionPress() => ShowDescription?.Invoke(_skill.Description);
+    private void ShowDescriptionPress() => ShowDescription?.Invoke(_skill);
 }

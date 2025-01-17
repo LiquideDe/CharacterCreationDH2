@@ -4,7 +4,7 @@ using TMPro;
 using Zenject;
 using System;
 
-public class HomeworldBackGroundRoleView : CanDestroyView
+public class HomeworldBackGroundRoleView : AnimateShowAndHideView
 {
     [SerializeField] TextMeshProUGUI _textDescr, _textName, _textBonusDescr, _textCitata;
     [SerializeField] Button _buttonNext, _buttonPrev, _buttonShow, _buttonShowFinal, _buttonReturnToPrevWindow;

@@ -34,5 +34,7 @@ public enum TypeScene
     NewGrenade,
     NewEquipment,
     NewImplant,
-    NewArmor
+    NewArmor,
+    Loading,
+    SkillInformationPanel
 }

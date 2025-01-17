@@ -1,6 +1,4 @@
 using System;
-using UnityEngine;
-using Zenject;
 
 public class MainMenuPresenter : IPresenter
 {
@@ -8,16 +6,9 @@ public class MainMenuPresenter : IPresenter
     public event Action EditCharacter;
     public event Action UpgradeCharacter;
 
-    private AudioManager _audioManager;
     private MainMenuView _mainMenuView;
 
-    [Inject]
-    public void Construct(AudioManager audioManager)
-    {
-        _audioManager = audioManager;
-    }
-
-    public void Initialize(MainMenuView mainMenuView)
+    public MainMenuPresenter(MainMenuView mainMenuView)
     {
         _mainMenuView = mainMenuView;
         Subscribe();
@@ -39,7 +30,6 @@ public class MainMenuPresenter : IPresenter
 
     private void PressNewCharacter()
     {
-        _audioManager.PlayClick();
         Unscribe();
         _mainMenuView.DestroyView();
         NewCharacter?.Invoke();
@@ -48,7 +38,6 @@ public class MainMenuPresenter : IPresenter
 
     private void PressEditCharacter()
     {
-        _audioManager.PlayClick();
         Unscribe();
         _mainMenuView.DestroyView();
         EditCharacter?.Invoke();
@@ -57,7 +46,6 @@ public class MainMenuPresenter : IPresenter
 
     private void PressUpgradeCharacter()
     {
-        _audioManager.PlayClick();
         Unscribe();
         _mainMenuView.DestroyView();
         UpgradeCharacter?.Invoke();

@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using System;
 
-public class UpgradePsycanaView : CanDestroyView
+public class UpgradePsycanaView : AnimateShowAndHideView
 {
     [SerializeField] TextMeshProUGUI _textExperience, _textSchool, _textRequirementForPsyrate, _textPsyrate;
     [SerializeField] Button _buttonNext, _buttonPrev, _buttonClosePanel, _buttonBuyPsyrate, _buttonBuyPsyPower, _buttonCancel;
@@ -20,7 +20,9 @@ public class UpgradePsycanaView : CanDestroyView
     private void OnEnable()
     {
         _buttonNext.onClick.AddListener(NextPressed);
+        _buttonNext.onClick.AddListener(_audio.PlayClick);
         _buttonPrev.onClick.AddListener(PrevPressed);
+        _buttonPrev.onClick.AddListener(_audio.PlayClick);
         _buttonClosePanel.onClick.AddListener(ClosePanelPressed);
         _buttonBuyPsyrate.onClick.AddListener(BuyPsyratePressed);
         _buttonBuyPsyPower.onClick.AddListener(BuyPsyPowerPressed);
@@ -83,8 +85,8 @@ public class UpgradePsycanaView : CanDestroyView
 
     private void ShowThisPsyPowerPressed(string name) => ShowThisPsyPower?.Invoke(name);
 
-    private void NextPressed() => Next?.Invoke();
-    private void PrevPressed() => Prev?.Invoke();    
+    private void NextPressed() => Hide(Next);
+    private void PrevPressed() => HideRight(Prev);
 
     private void CancelPressed() => Cancel?.Invoke();
 

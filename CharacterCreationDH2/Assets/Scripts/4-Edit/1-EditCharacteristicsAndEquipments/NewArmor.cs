@@ -1,9 +1,11 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class NewArmor : CreatorNewEquipment
 {
     [SerializeField] private TMP_InputField inputArmorPoint, inputHeadPoint, inputHandsPoint, inputBodyPoint, inputLegsPoint, inputMaxAgility, inputProp;
+    [SerializeField] private Toggle _toogleShield;
 
     public override void FinishCreating()
     {
@@ -67,8 +69,11 @@ public class NewArmor : CreatorNewEquipment
                 armorReader.description += $"Покрывает только голову.";
                 armorReader.descriptionArmor = $"Покрывает только голову.";
             }
+            if (_toogleShield) 
+                armorReader.typeEquipment = Equipment.TypeEquipment.Shield.ToString();
+            else
+                armorReader.typeEquipment = Equipment.TypeEquipment.Armor.ToString();
 
-            armorReader.typeEquipment = Equipment.TypeEquipment.Armor.ToString();
             armorReader.description += $"Броня {armor}, максимальная ловкость {maxAgility}.";
             armorReader.amount = 1;
             Armor armorEq = new Armor(armorReader);

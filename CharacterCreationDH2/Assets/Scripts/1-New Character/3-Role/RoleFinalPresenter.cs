@@ -1,10 +1,7 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 using UnityEngine.UI;
-using Zenject;
 
 public class RoleFinalPresenter : IPresenter
 {
@@ -17,14 +14,11 @@ public class RoleFinalPresenter : IPresenter
     private ICharacter _character;
     private Role _role;
 
-    [Inject]
-    private void Construct(AudioManager audioManager) => _audioManager = audioManager;
-
-
-    public void Initialize(GameObject finalPanelView, ICharacter character, Role role)
+    public RoleFinalPresenter(BackgroundFinalPanelView view, AudioManager audioManager, ICharacter character, Role role)
     {
-        _creatorToggles = finalPanelView.GetComponent<CreatorTogglesForFinalPanel>();
-        _view = finalPanelView.GetComponent<BackgroundFinalPanelView>();
+        _view = view;
+        _creatorToggles = view.gameObject.GetComponent<CreatorTogglesForFinalPanel>();
+        _audioManager = audioManager;
         _character = character;
         _role = role;
         Subscribe();

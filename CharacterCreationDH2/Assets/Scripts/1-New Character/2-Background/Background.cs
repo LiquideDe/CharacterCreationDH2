@@ -1,11 +1,8 @@
-using Microsoft.Cci;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.Windows;
-using static UnityEditor.Progress;
 using Directory = System.IO.Directory;
 using File = System.IO.File;
 
@@ -44,8 +41,6 @@ public class Background : IHistoryCharacter
 
         DirectoryInfo directoryInfo = new DirectoryInfo(path);
 
-        Debug.Log($"{Directory.Exists(path + "/Get")}");
-        Debug.Log($"{System.IO.Path.Combine(path, "Get")}");
         if(Directory.Exists(path + "/Get"))
         {
             DirectoryInfo[] tempdirs = new DirectoryInfo(path + "/Get").GetDirectories();

@@ -1,5 +1,4 @@
 using System;
-using Zenject;
 
 public class FinalMenuPresenter : IPresenter
 {
@@ -10,11 +9,9 @@ public class FinalMenuPresenter : IPresenter
     private FinalMenuView _view;
     private ICharacter _character;
 
-    [Inject]
-    private void Construct(AudioManager audioManager) => _audioManager = audioManager;
-
-    public void Initialize(FinalMenuView view, ICharacter character)
+    public FinalMenuPresenter(AudioManager audioManager, FinalMenuView view, ICharacter character)
     {
+        _audioManager = audioManager;
         _view = view;
         _character = character;
         Subscribe();

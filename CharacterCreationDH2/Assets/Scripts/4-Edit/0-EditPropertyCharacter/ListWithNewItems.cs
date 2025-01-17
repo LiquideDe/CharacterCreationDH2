@@ -30,6 +30,7 @@ public class ListWithNewItems : UniversalList
         _textName.text = nameForList;
         _inputName.onValueChanged.AddListener(SearchByInput);
         _buttonClose.onClick.AddListener(CloseListPressed);
+        _buttonClose.onClick.AddListener(_audio.PlayCancel);
         base.Initialize(names.Count);
     }
 
@@ -79,5 +80,5 @@ public class ListWithNewItems : UniversalList
         }
     }
 
-    private void CloseListPressed() => CloseList?.Invoke(this);
+    private void CloseListPressed() => HideRight(CloseList, this);//CloseList?.Invoke(this);
 }

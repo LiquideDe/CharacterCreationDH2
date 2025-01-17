@@ -14,6 +14,9 @@ public class SecondCharacterSheet : CharacterSheetWithCharacteristics
     [SerializeField] private ArmorBlock[] armorBlocks;
     [SerializeField] private ArmorOnBody onBody;
     [SerializeField] private Image characterImage;
+    [SerializeField] private Sprite _ispritePsyRateAstraTelepatica, _spritePsyRateInquisition;
+    [SerializeField] private TextMeshProUGUI _textPsyRate, _textPsyRateMax;
+    [SerializeField] private Image _imagePsyRate;
 
     public override void Initialize(ICharacter character)
     {
@@ -62,14 +65,14 @@ public class SecondCharacterSheet : CharacterSheetWithCharacteristics
                     }
                 }
             }
-            else if (equipment.TypeEq == Equipment.TypeEquipment.Armor)
+            else if (equipment.TypeEq == Equipment.TypeEquipment.Armor || equipment.TypeEq == Equipment.TypeEquipment.Shield)
             {
                 foreach (ArmorBlock armorBlock in armorBlocks)
                 {
                     if (armorBlock.IsEmpty)
                     {
                         Armor armor = (Armor)equipment;
-                        armorBlock.FillBlock(armor, character.Implants);
+                        armorBlock.FillBlock(armor, character.Implants, character.Traits);
                         break;
                     }
                 }
@@ -85,7 +88,21 @@ public class SecondCharacterSheet : CharacterSheetWithCharacteristics
         textWeightPush.text = $"{_parametrsForWeight[strength + toughness] * 4}";
         textWeightUp.text = $"{_parametrsForWeight[strength + toughness] * 2}";
 
-
+        if(character.PsyRating > 0)
+        {
+            _imagePsyRate.gameObject.SetActive(true);
+            if (string.Compare(character.Background, "Адептус Астра Телепатика", true) == 0)
+            {
+                _imagePsyRate.sprite = _ispritePsyRateAstraTelepatica;
+                _textPsyRateMax.text = (character.PsyRating + 2).ToString();
+            }                
+            else
+            {
+                _imagePsyRate.sprite = _spritePsyRateInquisition;
+                _textPsyRateMax.text = (character.PsyRating + 4).ToString();
+            }               
+            _textPsyRate.text = character.PsyRating.ToString();
+        }
 
         onBody.GenerateQr();
         StartCoroutine(ReadyToStart(character));

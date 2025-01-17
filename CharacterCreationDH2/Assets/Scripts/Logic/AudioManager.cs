@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
-    [SerializeField] AudioSource clickSound, doneSound, cancelSound, warningSound;
+    [SerializeField] AudioSource clickSound, doneSound, cancelSound, warningSound, popUpSound, popDownSound;
 
     public void PlayClick()
     {
@@ -28,11 +28,14 @@ public class AudioManager : MonoBehaviour
             warningSound.Play();
     }
 
-    private bool TryPlaySound()
+    public void PlayPopUp()
     {
-        if (clickSound.isPlaying || doneSound.isPlaying || cancelSound.isPlaying || warningSound.isPlaying)
-            return false;
-
-        return true;
+        popUpSound.Play();
     }
+
+    public void PlayPopDown()
+    {
+        popDownSound.Play();
+    }
+
 }

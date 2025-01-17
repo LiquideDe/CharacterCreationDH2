@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using System;
 
 public class TakePicturesPresenter : IPresenter
@@ -11,7 +8,7 @@ public class TakePicturesPresenter : IPresenter
     private ThirdCharacterSheet _third;
     private ICharacter _character;
 
-    public void Initialize(FirstCharacterSheet first, SecondCharacterSheet second, ThirdCharacterSheet third, ICharacter character)
+    public TakePicturesPresenter(FirstCharacterSheet first, SecondCharacterSheet second, ThirdCharacterSheet third, ICharacter character)
     {
         _first = first;
         _second = second;
@@ -23,7 +20,6 @@ public class TakePicturesPresenter : IPresenter
         _first.gameObject.SetActive(true);
         _first.Initialize(_character);
     }
-
     private void FirstIsFinished()
     {
         _second.gameObject.SetActive(true);

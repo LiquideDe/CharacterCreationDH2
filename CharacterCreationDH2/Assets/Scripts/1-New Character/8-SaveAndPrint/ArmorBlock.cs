@@ -10,7 +10,7 @@ public class ArmorBlock : MonoBehaviour
     bool isEmpty = true;
     public bool IsEmpty { get => isEmpty; }
 
-    public void FillBlock(Armor armor, List<MechImplant> mechImplants)
+    public void FillBlock(Armor armor, List<MechImplant> mechImplants, List<Trait> traits)
     {
         textName.text = armor.NameWithAmount;
         textPlace.text = armor.PlaceArmor;
@@ -18,7 +18,7 @@ public class ArmorBlock : MonoBehaviour
         textMaxAg.text = armor.MaxAgil.ToString();
         textWeight.text = armor.Weight.ToString();
         
-        onBody.SetArmor(armor, mechImplants);
+        onBody.SetArmor(armor, mechImplants, traits);
         isEmpty = false;
     }
 }

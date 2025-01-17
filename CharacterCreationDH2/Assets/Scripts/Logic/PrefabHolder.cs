@@ -11,6 +11,7 @@ public class PrefabHolder : ScriptableObject
     [SerializeField] private GameObject _loads, _inputExperience, _finalMenu, _listWithNewItems, _inputNewProperty, _editProperties;
     [SerializeField] private GameObject _editCharacteristicsAndEquipments;
     [SerializeField] private GameObject _newEquipment, _newMelee, _newRange, _newGrenade, _newArmor, _listWithNewItemsAndNewButton, _newImplant;
+    [SerializeField] private GameObject _loading, _canvasWithInfoForSkill;
 
     public GameObject Get(TypeScene typeScene)
     {
@@ -117,6 +118,12 @@ public class PrefabHolder : ScriptableObject
 
             case TypeScene.NewImplant:
                 return _newImplant;
+
+            case TypeScene.Loading:
+                return _loading;
+
+            case TypeScene.SkillInformationPanel:
+                return _canvasWithInfoForSkill;
 
             default:
                 throw new ArgumentException(nameof(TypeScene));

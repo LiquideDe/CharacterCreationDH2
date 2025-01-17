@@ -135,7 +135,7 @@ public class Save
 
         foreach(Equipment equipment in character.Equipments)
         {
-            if(equipment.TypeEq == Equipment.TypeEquipment.Armor)
+            if(equipment.TypeEq == Equipment.TypeEquipment.Armor || equipment.TypeEq == Equipment.TypeEquipment.Shield)
             {
                 JSONArmorReader armorReader = new JSONArmorReader();
                 Armor armor = (Armor)equipment;

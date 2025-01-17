@@ -1,13 +1,11 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using Zenject;
 using System;
 
 public class UpgradeSkillPresenter : IPresenter
 {
     public event Action<ICharacter> GoToTalent;
     public event Action<ICharacter> ReturnToCharacteristics;
+    public event Action<Skill> ShowInformationPanel;
 
     private UpgradeSkillCreatorView _creatorView;
     private UpgradeSkillView _view;
@@ -17,20 +15,22 @@ public class UpgradeSkillPresenter : IPresenter
     private enum TypeSkill {Skill, CommonLore, ForbiddenLore, Linguistics, ScholasticLore, Trade }
     private TypeSkill _currentScene = TypeSkill.Skill;
 
-    [Inject]
-    private void Construct(AudioManager audioManager) => _audioManager = audioManager;
-
-    public void Initialize(UpgradeSkillView view, UpgradeSkillCreatorView creatorView, ICharacter character)
+    public UpgradeSkillPresenter(UpgradeSkillCreatorView creatorView, UpgradeSkillView view, ICharacter character, AudioManager audioManager)
     {
-        _character = character;
-        _view = view;
         _creatorView = creatorView;
+        _view = view;
+        _character = character;
+        _audioManager = audioManager;
         Subscribe();
         ShowSkills();
         _view.UpgradeExpireinceText($"{_character.ExperienceUnspent} нн");
     }
 
-    public void SetEdit() => _isEdit = true;
+    public void SetEdit() 
+    {
+        _isEdit = true;
+        _view.UpgradeExpireinceText($" нн");
+    }
 
     private void Subscribe()
     {
@@ -44,6 +44,7 @@ public class UpgradeSkillPresenter : IPresenter
         _view.ShowLuingva += ShowLingvaDown;
         _view.ShowSciense += ShowScienseDown;
         _view.ShowTrade += ShowTradeDown;
+        _view.ShowThisSkillInfo += ShowInformationSkillPanel;
     }
 
     private void Unscribe()
@@ -58,11 +59,18 @@ public class UpgradeSkillPresenter : IPresenter
         _view.ShowLuingva -= ShowLingvaDown;
         _view.ShowSciense -= ShowScienseDown;
         _view.ShowTrade -= ShowTradeDown;
+        _view.ShowThisSkillInfo -= ShowInformationSkillPanel;
+    }
+
+    private void ShowInformationSkillPanel(Skill skill) 
+    {
+        _audioManager.PlayClick();
+        ShowInformationPanel?.Invoke(skill); 
     }
 
     private void NextWindowPressed()
     {
-        _audioManager.PlayClick();
+        //_audioManager.PlayClick();
         Unscribe();
         _view.DestroyView();
         GoToTalent?.Invoke(_character);
@@ -70,7 +78,7 @@ public class UpgradeSkillPresenter : IPresenter
 
     private void PrevWindowPressed()
     {
-        _audioManager.PlayClick();
+        //_audioManager.PlayClick();
         Unscribe();
         _view.DestroyView();
         ReturnToCharacteristics?.Invoke(_character);

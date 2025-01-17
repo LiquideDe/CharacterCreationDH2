@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using Zenject;
+using UnityEngine;
 
 public class CharacteristicRandomPresenter : IPresenter
 {
@@ -12,17 +12,15 @@ public class CharacteristicRandomPresenter : IPresenter
     private int _baseAmount;
     private AudioManager _audioManager;
 
-    [Inject]
-    private void Construct(AudioManager audioManager) => _audioManager = audioManager;
-
-    public void Initialize(ICharacter character, CharacteristicRandomView view, int baseAmount)
+    public CharacteristicRandomPresenter(ICharacter character, CharacteristicRandomView view, int baseAmount, AudioManager audioManager)
     {
         _character = character;
         _view = view;
+        _baseAmount = baseAmount;
+        _audioManager = audioManager;
         Subscribe();
         SearchCharacter(_character);
         SearchChracteristics(_character);
-        _baseAmount = baseAmount;
         SetAmountCharacteristics();
     }
 
@@ -88,7 +86,7 @@ public class CharacteristicRandomPresenter : IPresenter
 
     private void ReturnToRolePressed()
     {
-        _audioManager.PlayCancel();
+        //_audioManager.PlayCancel();
         Unscribe();
         _view.DestroyView();
         ReturnToRole?.Invoke();
@@ -96,7 +94,8 @@ public class CharacteristicRandomPresenter : IPresenter
 
     private void ReturnCharacteristics(List<int> characteristics)
     {
-        _audioManager.PlayDone();
+        Debug.Log($"Получили характеристики, их {characteristics.Count}");
+        //_audioManager.PlayDone();
         CharacterWithCharacteristics character = new CharacterWithCharacteristics(_character);
         character.SetCharacteristics(characteristics);
         ReturnCharacterWithCharacteristics?.Invoke(character);

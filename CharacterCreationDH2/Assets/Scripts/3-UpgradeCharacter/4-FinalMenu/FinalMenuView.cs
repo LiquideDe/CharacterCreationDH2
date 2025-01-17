@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using System;
 
 
-public class FinalMenuView : CanDestroyView
+public class FinalMenuView : AnimateShowAndHideView
 {
     [SerializeField] Button _buttonSaveAndExitToMenu, _buttonSaveAndExit, _buttonExitToMenu, _buttonExit;
 
@@ -12,9 +12,13 @@ public class FinalMenuView : CanDestroyView
     private void OnEnable()
     {
         _buttonSaveAndExitToMenu.onClick.AddListener(SaveAndExitToMenuPressed);
+        _buttonSaveAndExitToMenu.onClick.AddListener(_audio.PlayClick);
         _buttonSaveAndExit.onClick.AddListener(SaveAndExitPressed);
+        _buttonSaveAndExit.onClick.AddListener(_audio.PlayClick);
         _buttonExitToMenu.onClick.AddListener(ExitToMenuPressed);
+        _buttonExitToMenu.onClick.AddListener(_audio.PlayClick);
         _buttonExit.onClick.AddListener(ExitPressed);
+        _buttonExit.onClick.AddListener(_audio.PlayClick);
     }
 
     private void OnDisable()
@@ -25,11 +29,11 @@ public class FinalMenuView : CanDestroyView
         _buttonExit.onClick.RemoveAllListeners();
     }
 
-    private void SaveAndExitToMenuPressed() => SaveAndExitToMenu?.Invoke();
+    private void SaveAndExitToMenuPressed() => Hide(SaveAndExitToMenu);
 
-    private void SaveAndExitPressed() => SaveAndExit?.Invoke();
+    private void SaveAndExitPressed() => Hide(SaveAndExit);
 
-    private void ExitToMenuPressed() => ExitToMenu?.Invoke();
+    private void ExitToMenuPressed() => Hide(ExitToMenu);
 
-    private void ExitPressed() => Exit?.Invoke();
+    private void ExitPressed() => Hide(Exit);
 }

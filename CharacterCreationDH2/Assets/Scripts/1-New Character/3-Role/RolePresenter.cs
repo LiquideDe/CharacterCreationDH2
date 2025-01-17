@@ -1,26 +1,24 @@
-using Zenject;
-
 public class RolePresenter : PresenterForHomeBackRole, IPresenter
 {
     private RoleFinalPresenter _finalPanelPresenter;
     private LvlFactory _lvlFatcory;
-    private PresenterFactory _presenterFactory;
+    private AudioManager _audioManager;
 
-    [Inject]
-    private void Construct(HomeBackRoleFactory homeBackRoleFactory, LvlFactory lvlFatcory, PresenterFactory presenterFactory)
+    public RolePresenter(LvlFactory lvlFatcory,HomeworldBackGroundRoleView view, CreatorRole creatorRole, ICharacter character, AudioManager audioManager) : 
+        base(view, character, creatorRole)
     {
-        SetConstruct(homeBackRoleFactory);
         _lvlFatcory = lvlFatcory;
-        _presenterFactory = presenterFactory;
+        _audioManager = audioManager;
+        _creator = creatorRole;
     }
 
     protected override void PressShowFinal()
     {
         _view.gameObject.SetActive(false);
-        _finalPanelPresenter = (RoleFinalPresenter)_presenterFactory.Get(TypeScene.RoleFinal);
+        BackgroundFinalPanelView view = _lvlFatcory.Get(TypeScene.RoleFinal).GetComponent<BackgroundFinalPanelView>();
+        _finalPanelPresenter = new RoleFinalPresenter(view, _audioManager, _character, (Role)_creator.Get(_id));
         _finalPanelPresenter.CancelChoice += CancelChoose;
         _finalPanelPresenter.CharacterIsChosen += ChooseDone;
-        _finalPanelPresenter.Initialize(_lvlFatcory.Get(TypeScene.RoleFinal), _character, (Role)_creator.Get(_id));
     }
 
     protected override void SearchCharacter(ICharacter character)
@@ -30,11 +28,6 @@ public class RolePresenter : PresenterForHomeBackRole, IPresenter
 
         else
             SearchCharacter(character.GetCharacter);
-    }
-
-    protected override void SetCreator()
-    {
-        _creator = _homeBackRoleFactory.Get(TypeCreator.Role);
     }
 
     private void CancelChoose()

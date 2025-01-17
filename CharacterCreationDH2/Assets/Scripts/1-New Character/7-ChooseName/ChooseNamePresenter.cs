@@ -154,13 +154,11 @@ public class ChooseNamePresenter : IPresenter
     private string _name;
     private string _sex = "Æ";
 
-    [Inject]
-    private void Construct(AudioManager audioManager) => _audioManager = audioManager;
-
-    public void Initialize(ChooseNameView view, ICharacter character)
+    public ChooseNamePresenter(ChooseNameView view, ICharacter character, AudioManager audioManager)
     {
         _view = view;
-        _character = (CharacterWithNameAndProphecy)character;
+        _character = (CharacterWithNameAndProphecy)character;        
+        _audioManager = audioManager;
         Subscribe();
     }
 
@@ -176,7 +174,7 @@ public class ChooseNamePresenter : IPresenter
     {
         if (_name.Length > 1)
         {
-            _audioManager.PlayDone();
+            //_audioManager.PlayDone();
             Unscribe();
             _character.SetName(_name);
             _character.SetGender(_sex);

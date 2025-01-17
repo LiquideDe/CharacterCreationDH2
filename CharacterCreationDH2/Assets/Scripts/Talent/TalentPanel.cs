@@ -31,11 +31,10 @@ public class TalentPanel : MonoBehaviour, IPointerDownHandler, IItemForList
         textName.text = talent.Name;
         textCost.text = $"{cost} нн";
         textShortDescr.text = talent.Description;
-        if (!isCanTaken)
-        {
+        if (isCanTaken)        
+            _image.sprite = activeSprite;
+        else
             _image.sprite = deactiveSprite;
-            //gameObject.SetActive(false);
-        }
     }
 }
 

@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using System;
 
-public class UpgradeCharacteristicsView : CanDestroyView
+public class UpgradeCharacteristicsView : AnimateShowAndHideView
 {
     [SerializeField]
     Button _buttonIncreaseWeapon, _buttonIncreaseBallistic, _buttonIncreaseStrength, _buttonIncreaseToughness,
@@ -52,7 +52,9 @@ public class UpgradeCharacteristicsView : CanDestroyView
         _buttonIncreaseFellowship.onClick.AddListener(IncreaseFellowship);
 
         _buttonNext.onClick.AddListener(DoneDown);
+        _buttonNext.onClick.AddListener(_audio.PlayClick);
         _buttonPrev.onClick.AddListener(ReturnToPrevDown);
+        _buttonPrev.onClick.AddListener(_audio.PlayClick);
         _buttonCancelUpgrade.onClick.AddListener(CancelUpgradeDown);
     }
 
@@ -132,7 +134,7 @@ public class UpgradeCharacteristicsView : CanDestroyView
     private void IncreasePerception() => UpgradePerception?.Invoke();
     private void IncreaseWillpower() => UpgradeWillpower?.Invoke();
     private void IncreaseFellowship() => UpgradeFellowship?.Invoke();
-    private void ReturnToPrevDown() => ReturnToPrev?.Invoke();
-    private void DoneDown() => Next?.Invoke();
+    private void ReturnToPrevDown() => HideRight(ReturnToPrev);//ReturnToPrev?.Invoke();
+    private void DoneDown() => Hide(Next);//Next?.Invoke();
     private void CancelUpgradeDown() => CancelUpgrade?.Invoke();
 }

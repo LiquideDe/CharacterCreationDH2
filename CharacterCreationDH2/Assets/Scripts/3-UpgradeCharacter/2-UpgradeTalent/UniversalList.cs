@@ -8,7 +8,7 @@ public enum LISTDIRECTION
     VERTICAL = 1
 }
 
-public abstract class UniversalList : CanDestroyView
+public abstract class UniversalList : AnimateShowAndHideView
 {
     [SerializeField] private RectTransform _container;
     [SerializeField] private Mask _mask;
@@ -77,6 +77,7 @@ public abstract class UniversalList : CanDestroyView
         }
         _prefab.SetActive(false);
         _container.anchoredPosition3D += _offsetVec * (_containerHalfSize - ((Direction == LISTDIRECTION.HORIZONTAL ? _maskRT.rect.size.x : _maskRT.rect.size.y) * 0.5f));
+        Show();
     }
 
     public void ReorderItemsByPos(float normPos)

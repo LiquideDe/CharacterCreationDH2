@@ -6,7 +6,7 @@ using TMPro;
 using UnityEngine.EventSystems;
 using System;
 
-public class EditPropertyCharacterView : CanDestroyView
+public class EditPropertyCharacterView : AnimateShowAndHideView
 {
     [SerializeField]
     private TMP_InputField inputName, inputHome, inputBack, inputRole, inputProph, inputElite, inputGender, inputAge, inputSkeen, inputBody, inputHair, inputPhysFeat, inputEyes,
@@ -49,6 +49,7 @@ public class EditPropertyCharacterView : CanDestroyView
         inputRememberBack.onDeselect.AddListener(ChangeProperty);
 
         _buttonNext.onClick.AddListener(NextPressed);
+        _buttonNext.onClick.AddListener(_audio.PlayClick);
         _buttonAddInclination.onClick.AddListener(AddInclinationPressed);
         _buttonAddFeature.onClick.AddListener(AddFeaturePressed);
         _buttonAddMental.onClick.AddListener(AddMentalPressed);
@@ -232,5 +233,5 @@ public class EditPropertyCharacterView : CanDestroyView
 
     private void ChangeFeatureLvlPressed(string name, int lvl) => ChangeFeatureLvl?.Invoke(name, lvl);
 
-    private void NextPressed() => Next?.Invoke();
+    private void NextPressed() => Hide(Next);
 }

@@ -1,0 +1,1 @@
+{"name":"Болтер","description":"Болтер или болтган – могучее оружие, дающее немалый статус среди смертных, но в рядах Космодесантников это их стандартная винтовка. ","weaponClass":"Ручное","rof":"О/3/-","damage":"1к10+5В","reload":"Полн","properties":"Разрывное","rarity":"2","typeEquipment":"Range","range":100,"penetration":4,"clip":24,"amount":1,"weight":7.0, "typeSound":4}

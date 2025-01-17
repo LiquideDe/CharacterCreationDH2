@@ -5,24 +5,26 @@ using UnityEngine.UI;
 using System;
 using TMPro;
 
-public class UpgradeSkillView : CanDestroyView
+public class UpgradeSkillView : AnimateShowAndHideView
 {
+    [SerializeField] TextMeshProUGUI _textExperience;
+    [SerializeField] Button _buttonNext, _buttonPrev, _buttonCancel;
+    [SerializeField] Button _buttonSkill, _buttonCommonLore, _buttonForbiddenLore, _buttonLuingva, _buttonSciense, _buttonTrade;
     public event Action<Skill, int> UpgradeSkill;
     public event Action NextWindow;
     public event Action PrevWindow;
     public event Action CancelUpgrade;
     public event Action ShowSkill, ShowCommonLore, ShowForbiddenlore, ShowLuingva, ShowSciense, ShowTrade;
-    [SerializeField] GameObject _panelWithText;
-    [SerializeField] TextMeshProUGUI _textDescription, _textExperience;
-    [SerializeField] Button _buttonClosePanelWithText, _buttonNext, _buttonPrev, _buttonCancel;
-    [SerializeField] Button _buttonSkill, _buttonCommonLore, _buttonForbiddenLore, _buttonLuingva, _buttonSciense, _buttonTrade;
+    public event Action<Skill> ShowThisSkillInfo;
+    
 
     private void OnEnable()
     {
-        _buttonClosePanelWithText.onClick.AddListener(ClosePanelWithtext);
         _buttonCancel.onClick.AddListener(CancelUpgradePress);
         _buttonNext.onClick.AddListener(NextPress);
+        _buttonNext.onClick.AddListener(_audio.PlayClick);
         _buttonPrev.onClick.AddListener(PrevPress);
+        _buttonPrev.onClick.AddListener(_audio.PlayClick);
         _buttonSkill.onClick.AddListener(ShowSkillPressed);
         _buttonCommonLore.onClick.AddListener(ShowCommonLorePressed);
         _buttonForbiddenLore.onClick.AddListener(ShowForbiddenLorePressed);
@@ -33,7 +35,6 @@ public class UpgradeSkillView : CanDestroyView
 
     private void OnDisable()
     {
-        _buttonClosePanelWithText.onClick.RemoveAllListeners();
         _buttonCancel.onClick.RemoveAllListeners();
         _buttonNext.onClick.RemoveAllListeners();
         _buttonPrev.onClick.RemoveAllListeners();
@@ -60,19 +61,13 @@ public class UpgradeSkillView : CanDestroyView
 
     private void UpgradeSkillPressed(Skill skill, int cost) => UpgradeSkill?.Invoke(skill, cost);
 
-    private void ShowDescription(string description)
-    {
-        _panelWithText.SetActive(true);
-        _textDescription.text = description;
-    }
-
-    private void ClosePanelWithtext() => _panelWithText.SetActive(false);
+    private void ShowDescription(Skill skill) => ShowThisSkillInfo?.Invoke(skill);
 
     private void CancelUpgradePress() => CancelUpgrade?.Invoke();
 
-    private void NextPress() => NextWindow?.Invoke();
+    private void NextPress() => Hide(NextWindow);//NextWindow?.Invoke();
 
-    private void PrevPress() => PrevWindow?.Invoke();
+    private void PrevPress() => HideRight(PrevWindow);
 
     private void ShowSkillPressed() => ShowSkill.Invoke();
 

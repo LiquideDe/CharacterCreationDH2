@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-using Zenject;
 
 public class EditPropertyCharacterPresenter : IPresenter
 {
@@ -11,24 +10,17 @@ public class EditPropertyCharacterPresenter : IPresenter
     private EditPropertyCharacterView _view;
     private AudioManager _audioManager;
     private Character _character;
-    private ICharacter _characterToReturn;
     private ListWithNewItems _listWithNewItems;
     private InputNewPropertyView _inputNewProperty;
     private LvlFactory _lvlFactory;
-    private CreatorTraits _creatorFeatures;
+    private CreatorTraits _creatorTraits;
 
-    [Inject]
-    private void Construct(AudioManager audioManager, CreatorTraits creatorFeatures)
-    {
-        _audioManager = audioManager;
-        _creatorFeatures = creatorFeatures;
-    }
-
-    public void Initialize(EditPropertyCharacterView view, ICharacter character, LvlFactory lvlFactory)
+    public EditPropertyCharacterPresenter(EditPropertyCharacterView view, AudioManager audioManager, ICharacter character, LvlFactory lvlFactory, CreatorTraits creatorTraits)
     {
         _view = view;
-        _characterToReturn = character;
+        _audioManager = audioManager;
         _lvlFactory = lvlFactory;
+        _creatorTraits = creatorTraits;
         SearchCharacter(character);
         Subscribe();
         _view.Initialize(_character);
@@ -106,7 +98,7 @@ public class EditPropertyCharacterPresenter : IPresenter
         Unscribe();
         CloseAllSmallWindows();
         _view.DestroyView();
-        GoNext?.Invoke(_characterToReturn);
+        GoNext?.Invoke(_character);
     }
 
     private void ChangePropertyCharacter(SaveLoadCharacter saveLoadCharacter)
@@ -217,7 +209,7 @@ public class EditPropertyCharacterPresenter : IPresenter
 
         _listWithNewItems = _lvlFactory.Get(TypeScene.ListWithNewItems).GetComponent<ListWithNewItems>();
         List<string> namesFeatures = new List<string>();
-        foreach(Trait feature in _creatorFeatures.Traits)
+        foreach(Trait feature in _creatorTraits.Traits)
         {
             if (TryNotDoubleFeature(feature))
                 namesFeatures.Add(feature.Name);
@@ -243,7 +235,7 @@ public class EditPropertyCharacterPresenter : IPresenter
     private void AddFeature(string name)
     {
         _audioManager.PlayDone();
-        _character.Traits.Add(new Trait(_creatorFeatures.GetTrait(name)));
+        _character.Traits.Add(new Trait(_creatorTraits.GetTrait(name)));
         CloseAllSmallWindows();
         _view.UpdateTraits(_character.Traits);
     }
@@ -265,14 +257,14 @@ public class EditPropertyCharacterPresenter : IPresenter
 
     private void CloseList(CanDestroyView view)
     {
-        _audioManager.PlayCancel();
+        //_audioManager.PlayCancel();
         view.DestroyView();
         _listWithNewItems = null;
     }
 
     private void CloseInput()
     {
-        _audioManager.PlayCancel();
+        //_audioManager.PlayCancel();
         _inputNewProperty.DestroyView();
         _inputNewProperty = null;
     }

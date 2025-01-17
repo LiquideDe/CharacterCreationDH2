@@ -15,7 +15,6 @@ public class CreatorInstaller : MonoInstaller
         Container.Bind<CreatorTraits>().AsSingle();
         Container.Bind<CreatorImplant>().AsSingle();
         Container.Bind<CreatorPsyPowers>().AsSingle();
-        Container.Bind<HomeBackRoleFactory>().AsSingle();
         Container.Bind<CreatorWeaponProperties>().AsSingle();
     }
 }

@@ -1,54 +1,48 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using System;
-using Zenject;
 
 public class ProphecyPresenter : IPresenter
 {
     public event Action<ICharacter> GoNext;
-    private List<string> prophecies = new List<string>();
+    private List<string> prophecies;
     private AudioManager _audioManager;
     private ProphecyView _view;
     private ICharacter _character;
     private bool isProphecied;
 
-    public ProphecyPresenter()
+    public ProphecyPresenter(ProphecyView view, ICharacter character, AudioManager audioManager)
     {
-        prophecies.Add("Мутация снаружи, порча внутри.");
-        prophecies.Add("Верь своему страху.");
-        prophecies.Add("Для выживания Человечества люди должны умирать.");
-        prophecies.Add("В сравнении с проклятьем боль есть экстаз.");
-        prophecies.Add("Будь благом друзей и бичом врагов.");
-        prophecies.Add("Мудрые учатся на чужих смертях.");
-        prophecies.Add("Убей чужака прежде чем он солжёт.");
-        prophecies.Add("Истина субъективна.");
-        prophecies.Add("Раздумья порождают ересь.");
-        prophecies.Add("Ересь порождает возмездие.");
-        prophecies.Add("Разум без цели блуждает во тьме.");
-        prophecies.Add("Если работа важна за неё можно умереть.");
-        prophecies.Add("Тёмные мечты лежат на сердце.");
-        prophecies.Add("Насилию подвластно всё.");
-        prophecies.Add("Невежество суть лучшая мудрость.");
-        prophecies.Add("Лишь безумцы достаточно сильны для процветания.");
-        prophecies.Add("Подозрительный разум — здоровый разум.");
-        prophecies.Add("Страдание — безжалостный учитель.");
-        prophecies.Add("Есть лишь один истинный страх — умереть не исполнив долг.");
-        prophecies.Add("Лишь со смертью завершается долг.");
-        prophecies.Add("Невинность есть иллюзия.");
-        prophecies.Add("Человек рождён для войны.");
-        prophecies.Add("Нет замены рвению.");
-        prophecies.Add("Даже не имеющий ничего может отдать свою жизнь.");
-        prophecies.Add("Не спрашивай почему ты служишь. Спрашивай, как.");
-    }
-
-    [Inject]
-    private void Construct(AudioManager audioManager) => _audioManager = audioManager;
-
-    public void Initialize(ProphecyView view, ICharacter character)
-    {
+        prophecies = new List<string>
+        {
+            "Мутация снаружи, порча внутри.",
+            "Верь своему страху.",
+            "Для выживания Человечества люди должны умирать.",
+            "В сравнении с проклятьем боль есть экстаз.",
+            "Будь благом друзей и бичом врагов.",
+            "Мудрые учатся на чужих смертях.",
+            "Убей чужака прежде чем он солжёт.",
+            "Истина субъективна.",
+            "Раздумья порождают ересь.",
+            "Ересь порождает возмездие.",
+            "Разум без цели блуждает во тьме.",
+            "Если работа важна за неё можно умереть.",
+            "Тёмные мечты лежат на сердце.",
+            "Насилию подвластно всё.",
+            "Невежество суть лучшая мудрость.",
+            "Лишь безумцы достаточно сильны для процветания.",
+            "Подозрительный разум — здоровый разум.",
+            "Страдание — безжалостный учитель.",
+            "Есть лишь один истинный страх — умереть не исполнив долг.",
+            "Лишь со смертью завершается долг.",
+            "Невинность есть иллюзия.",
+            "Человек рождён для войны.",
+            "Нет замены рвению.",
+            "Даже не имеющий ничего может отдать свою жизнь.",
+            "Не спрашивай почему ты служишь. Спрашивай, как."
+        };
         _view = view;
         _character = character;
+        _audioManager = audioManager;
         Subscribe();
     }
 
@@ -259,7 +253,7 @@ public class ProphecyPresenter : IPresenter
     {
         if (isProphecied)
         {
-            _audioManager.PlayDone();
+            //_audioManager.PlayDone();
             GoNext?.Invoke(_character);
             Unscribe();
             _view.DestroyView();

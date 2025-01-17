@@ -1,11 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System;
 
-public class InputNewPropertyView : MonoBehaviour
+public class InputNewPropertyView : AnimateShowAndHideView
 {
     [SerializeField] private TextMeshProUGUI _textNameView;
     [SerializeField] private TMP_InputField _inputName;
@@ -17,7 +15,9 @@ public class InputNewPropertyView : MonoBehaviour
     private void OnEnable()
     {
         _buttonClose.onClick.AddListener(CloseInputPressed);
+        _buttonClose.onClick.AddListener(_audio.PlayClick);
         _buttonDone.onClick.AddListener(InputDone);
+        _buttonDone.onClick.AddListener(_audio.PlayCancel);
     }
 
     private void OnDisable()
@@ -26,11 +26,13 @@ public class InputNewPropertyView : MonoBehaviour
         _buttonDone.onClick.RemoveAllListeners();
     }
 
-    public void Initialize(string name) => _textNameView.text = name;
+    public void Initialize(string name) 
+    {
+        _textNameView.text = name;
+        Show();
+    }
 
-    public void DestroyView() => Destroy(gameObject);
+    private void CloseInputPressed() => HideRight(CloseInput);//CloseInput?.Invoke();
 
-    private void CloseInputPressed() => CloseInput?.Invoke();
-
-    private void InputDone() => ReturnThisString?.Invoke(_inputName.text);
+    private void InputDone() => HideRight(ReturnThisString, _inputName.text);//ReturnThisString?.Invoke(_inputName.text);
 }

@@ -1,12 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
-using Zenject;
 using TMPro;
 
-public class CharacteristicManualView : CanDestroyView
+public class CharacteristicManualView : AnimateShowAndHideView
 {
     [SerializeField]
     Button _buttonPlusWeapon, _buttonPlusBallistic, _buttonPlusStrength, _buttonPlusToughness, _buttonPlusAgility, _buttonPlusIntelligence,
@@ -61,7 +58,9 @@ public class CharacteristicManualView : CanDestroyView
         _buttonMinusInfluence.onClick.AddListener(MinusInfluence);
 
         _buttonDone.onClick.AddListener(DonePress);
+        _buttonDone.onClick.AddListener(_audio.PlayDone);
         _buttonPrev.onClick.AddListener(PrevPress);
+        _buttonPrev.onClick.AddListener(_audio.PlayCancel);
     }
 
     private void OnDisable()
@@ -193,7 +192,7 @@ public class CharacteristicManualView : CanDestroyView
 
     private void MinusInfluence() => ChangeInfluence?.Invoke(-1);
 
-    private void DonePress() => Done?.Invoke();
+    private void DonePress() => Hide(Done);//Done?.Invoke();
 
-    private void PrevPress() => GoToPrev?.Invoke();
+    private void PrevPress() => Hide(GoToPrev);
 }

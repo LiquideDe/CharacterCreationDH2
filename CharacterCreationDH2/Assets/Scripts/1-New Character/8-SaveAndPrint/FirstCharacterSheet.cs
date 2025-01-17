@@ -19,11 +19,11 @@ public class FirstCharacterSheet : CharacterSheetWithCharacteristics
         textName.text = character.Name;
 
         string trad = character.Tradition.Trim();
-        _textDescription.text = $"Родной Мир: <b>{character.Homeworld}</b>. Предыстория: <b>{character.Background}</b>. Роль: <b>{character.Role}</b>. " +
-            $"Пророчество: <b>{character.Prophecy}</b>. Пол: <b>{character.Gender}</b>. Лет: <b>{character.Age}</b>. Кожа: <b>{character.Skeen}</b>. " +
-            $"Комплекция: <b>{character.Constitution}</b>. Волосы: <b>{character.Hair}</b>. Особенности: <b>{character.PhysFeatures}</b>. " +
-            $"Глаза: <b>{character.Eyes}</b>. Предрассудки: <b>{trad.Substring(0, trad.IndexOf(':'))}</b>. Памятная вещь с родного мира: <b>{character.MemoryOfHome}</b>. " +
-            $"Памятная вещь из предыстории: <b>{character.MemoryOfBackground}</b>.";
+        _textDescription.text = $"<b>Родной Мир:</b> <u>{character.Homeworld}</u>. <b>Предыстория:</b> <u>{character.Background}</u>. <b>Роль:</b> <u>{character.Role}</u>. " +
+            $"<b>Пророчество:</b> <u>{character.Prophecy}</u>. <b>Пол:</b> <u>{character.Gender}</u>. <b>Лет:</b> <u>{character.Age}</u>. <b>Кожа:</b> <u>{character.Skeen}</u>. " +
+            $"<b>Комплекция:</b> <u>{character.Constitution}</u>. <b>Волосы:</b> <u>{character.Hair}</u>. <b>Особенности:</b> <u>{character.PhysFeatures}</u>. " +
+            $"<b>Глаза:</b> <u>{character.Eyes}</u>. <b>Предрассудки:</b> <u>{trad.Substring(0, trad.IndexOf(':'))}</u>. <b>Памятная вещь с родного мира:</b> <u>{character.MemoryOfHome}</u>. " +
+            $"<b>Памятная вещь из предыстории:</b> <u>{character.MemoryOfBackground}</u>.";
 
         _textFatePoint.text = character.FatePoint.ToString();
         _textSpentExperience.text = character.ExperienceSpent.ToString();

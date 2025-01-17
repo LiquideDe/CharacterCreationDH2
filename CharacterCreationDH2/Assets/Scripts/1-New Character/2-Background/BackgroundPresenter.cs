@@ -1,28 +1,25 @@
-using System;
-using UnityEngine;
-using Zenject;
-
 public class BackgroundPresenter : PresenterForHomeBackRole,IPresenter
 {
     private BackgroundFinalPanelPresenter _finalPanelPresenter;
-    private LvlFactory _lvlFatcory;
-    private PresenterFactory _presenterFactory;
+    private LvlFactory _lvlFactory;
+    private AudioManager _audioManager;
 
-    [Inject]
-    private void Construct(HomeBackRoleFactory homeBackRoleFactory, LvlFactory lvlFatcory, PresenterFactory presenterFactory)
+    public BackgroundPresenter(HomeworldBackGroundRoleView view, LvlFactory lvlFatcory, CreatorBackgrounds creatorBackgrounds, 
+        AudioManager audioManager, ICharacter character) : 
+        base ( view, character, creatorBackgrounds)
     {
-        SetConstruct(homeBackRoleFactory);
-        _lvlFatcory = lvlFatcory;
-        _presenterFactory = presenterFactory;
+        _lvlFactory = lvlFatcory;
+        _audioManager = audioManager;
+        _creator = creatorBackgrounds;
     }
 
     protected override void PressShowFinal()
     {
+        BackgroundFinalPanelView view = _lvlFactory.Get(TypeScene.BackgroundFinal).GetComponent<BackgroundFinalPanelView>();
         _view.gameObject.SetActive(false);
-        _finalPanelPresenter = (BackgroundFinalPanelPresenter)_presenterFactory.Get(TypeScene.BackgroundFinal);
+        _finalPanelPresenter = new BackgroundFinalPanelPresenter(view,_audioManager, _character, (Background)_creator.Get(_id));
         _finalPanelPresenter.CancelChoice += CancelChoose;
         _finalPanelPresenter.CharacterIsChosen += ChooseDone;
-        _finalPanelPresenter.Initialize(_lvlFatcory.Get(TypeScene.BackgroundFinal), _character, (Background)_creator.Get(_id));
     }
 
     protected override void SearchCharacter(ICharacter character)
@@ -32,11 +29,6 @@ public class BackgroundPresenter : PresenterForHomeBackRole,IPresenter
 
         else
             SearchCharacter(character.GetCharacter);
-    }
-
-    protected override void SetCreator()
-    {
-        _creator = _homeBackRoleFactory.Get(TypeCreator.Background);
     }
 
     private void CancelChoose()

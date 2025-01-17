@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using System;
 
-public class ChooseNameView : CanDestroyView
+public class ChooseNameView : AnimateShowAndHideView
 {
     [SerializeField] TMP_InputField inputName;
     [SerializeField] Toggle toggleMale, toggleFemale;
@@ -20,6 +20,7 @@ public class ChooseNameView : CanDestroyView
     {
         _buttonGenerate.onClick.AddListener(GenerateNamePressed);
         _buttonNext.onClick.AddListener(GoNextPressed);
+        _buttonNext.onClick.AddListener(_audio.PlayDone);
         toggleMale.onValueChanged.AddListener(ChooseSexPressed);
         inputName.onDeselect.AddListener(ChooseNameInputed);
     }
@@ -36,7 +37,7 @@ public class ChooseNameView : CanDestroyView
 
     private void GenerateNamePressed() => GenerateName?.Invoke();
 
-    private void GoNextPressed() => GoNext?.Invoke();
+    private void GoNextPressed() => Hide(GoNext);//GoNext?.Invoke();
 
     private void ChooseSexPressed(bool isOn)
     {

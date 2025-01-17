@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using System;
 
-public class UpgradeTalentView : CanDestroyView
+public class UpgradeTalentView : AnimateShowAndHideView
 {
     [SerializeField] TalentList _talentList;
     [SerializeField] Button _buttonPrev, _buttonNext, _buttonStudy, _buttonCancel, _buttonResetButtons;
@@ -39,7 +39,9 @@ public class UpgradeTalentView : CanDestroyView
 
         _buttonCancel.onClick.AddListener(CancelPressed);
         _buttonNext.onClick.AddListener(NextPressed);
+        _buttonNext.onClick.AddListener(_audio.PlayClick);
         _buttonPrev.onClick.AddListener(PrevPressed);
+        _buttonPrev.onClick.AddListener(_audio.PlayClick);
         _buttonResetButtons.onClick.AddListener(ShowAsDefaultPressed);
         _buttonResetButtons.onClick.AddListener(SetAllActive);
         _buttonShowUnavailable.onClick.AddListener(ShowAllTalentsPressed);
@@ -119,9 +121,9 @@ public class UpgradeTalentView : CanDestroyView
 
     private void HidePanel() => _panelWithDescriptionButton.SetActive(false);
 
-    private void NextPressed() => Next?.Invoke();
+    private void NextPressed() => Hide(Next);//Next?.Invoke();
 
-    private void PrevPressed() => Prev?.Invoke();
+    private void PrevPressed() => HideRight(Prev);
 
     private void CancelPressed() => Cancel?.Invoke();
 

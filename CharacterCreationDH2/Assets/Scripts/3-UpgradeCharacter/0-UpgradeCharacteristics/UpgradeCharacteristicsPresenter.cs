@@ -1,8 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using System;
-using Zenject;
 
 public class UpgradeCharacteristicsPresenter : IPresenter
 {
@@ -18,16 +15,14 @@ public class UpgradeCharacteristicsPresenter : IPresenter
     private List<List<float>> _listWithMultsForCost = new List<List<float>>();
     private bool _isEdit = false;
 
-    [Inject]
-    private void Construct(AudioManager audioManager) => _audioManager = audioManager;
-
-    public void Initialize(ICharacter character, UpgradeCharacteristicsView view, bool isNewCharacter)
+    public UpgradeCharacteristicsPresenter(ICharacter character, UpgradeCharacteristicsView view, AudioManager audioManager, bool isNewCharacter = false)
     {
+        _character = character;
+        _view = view;
+        _audioManager = audioManager;
         _listWithMultsForCost.Add(_multCostWithZeroInclinations);
         _listWithMultsForCost.Add(_multCostWithOneInclinations);
         _listWithMultsForCost.Add(_multCostWithTwoInclinations);
-        _character = character;
-        _view = view;
         _view.SetVisibleButtonReturnBack(isNewCharacter);
         UpdatePanelText();
         Subcribe();
@@ -200,7 +195,7 @@ public class UpgradeCharacteristicsPresenter : IPresenter
 
     private void ReturnPrev()
     {
-        _audioManager.PlayClick();
+        //_audioManager.PlayClick();
         Unscribe();
         _view.DestroyView();
         ReturnToPrev?.Invoke(_character);
@@ -208,7 +203,7 @@ public class UpgradeCharacteristicsPresenter : IPresenter
 
     private void GoToNext()
     {
-        _audioManager.PlayClick();
+        //_audioManager.PlayClick();
         Unscribe();
         _view.DestroyView();
         GoNext?.Invoke(_character);

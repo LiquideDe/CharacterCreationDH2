@@ -1,33 +1,23 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System;
 using UnityEngine;
 
 public class CreatorPsyPowers
 {
+    public event Action PsyPowersIsCreated;
     private List<List<PsyPower>> psyPowers = new List<List<PsyPower>>();
     private List<string> schoolNames = new List<string>();
     private List<List<Connection>> connections = new List<List<Connection>>();
     private List<JSONSizeSpacing> sizeSpacings = new List<JSONSizeSpacing>();
+    private AudioManager _audioManager;
 
-    public CreatorPsyPowers()
-    {
-        List<string> dirs = new List<string>();
-        dirs.AddRange(Directory.GetDirectories($"{Application.dataPath}/StreamingAssets/PsyPowers"));
-        int index = 0;
-        foreach(string dir in dirs)
-        {
-            psyPowers.Add(CreatePowers(dir));
-            schoolNames.Add(GameStat.ReadText(dir + "/Название.txt"));
-            connections.Add(CreateConnection(index));
-            if (File.Exists(dir + "/sizeSpacing.JSON"))
-            {
-                string[] jSonData = File.ReadAllLines(dir + "/sizeSpacing.JSON");
-                JSONSizeSpacing jSONSize = JsonUtility.FromJson<JSONSizeSpacing>(jSonData[0]);
-                sizeSpacings.Add(jSONSize);
-            }
-            index++;
-        }
-    }
+    public CreatorPsyPowers(AudioManager audioManager) => _audioManager = audioManager;
+    
+
+    public void StartCreating() => _audioManager.StartCoroutine(CreatePsyPowersCoroutine());
+    
 
     public List<PsyPower> GetPowers(int school)
     {
@@ -89,8 +79,30 @@ public class CreatorPsyPowers
             }
         }
 
-        Debug.Log($"!!!! Не смогли найти пси силы школы № {school}, id = {id}");
+        Debug.LogError($"!!!! Не смогли найти пси силы школы № {school}, id = {id}");
         return null;
+    }
+
+    private IEnumerator CreatePsyPowersCoroutine()
+    {
+        List<string> dirs = new List<string>();
+        dirs.AddRange(Directory.GetDirectories($"{Application.dataPath}/StreamingAssets/PsyPowers"));
+        int index = 0;
+        foreach (string dir in dirs)
+        {
+            psyPowers.Add(CreatePowers(dir));
+            schoolNames.Add(GameStat.ReadText(dir + "/Название.txt"));
+            connections.Add(CreateConnection(index));
+            if (File.Exists(dir + "/sizeSpacing.JSON"))
+            {
+                string[] jSonData = File.ReadAllLines(dir + "/sizeSpacing.JSON");
+                JSONSizeSpacing jSONSize = JsonUtility.FromJson<JSONSizeSpacing>(jSonData[0]);
+                sizeSpacings.Add(jSONSize);
+            }
+            index++;
+            yield return null;
+        }
+        PsyPowersIsCreated?.Invoke();
     }
 
     private List<PsyPower> CreatePowers(string dir)
@@ -131,6 +143,5 @@ public class CreatorPsyPowers
             }
         }
         return con;
-    }
-  
+    }  
 }

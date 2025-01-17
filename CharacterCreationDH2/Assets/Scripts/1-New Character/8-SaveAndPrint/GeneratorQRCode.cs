@@ -9,10 +9,11 @@ using System.Drawing;
 
 public class GeneratorQRCode
 {
-    private Texture2D _textureForCode = new Texture2D(256, 256);
+    
     public Texture2D EncodeTextToQrCode(string text)
     {
-        Color32[] convertPixelToTexture = Encode(text, _textureForCode.width, _textureForCode.height);
+        Texture2D _textureForCode = new Texture2D(256, 256);
+    Color32[] convertPixelToTexture = Encode(text, _textureForCode.width, _textureForCode.height);
         _textureForCode.SetPixels32(convertPixelToTexture);
         _textureForCode.Apply();
         return _textureForCode;

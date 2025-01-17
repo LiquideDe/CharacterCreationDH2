@@ -1,35 +1,32 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public class LvlMediator
 {
     private LvlFactory _lvlFactory;
-    private PresenterFactory _presenterFactory;
     private LvlMediatorNewCharacter _mediatorNewCharacter;
     private LvlMediatorUpgradeCharacter _mediatorUpgrade;
-    private LvlVediatorEditCharacter _mediatorEditCharacter;
+    private LvlMediatorEditCharacter _mediatorEditCharacter;
+    private AudioManager _audioManager;
+    private CharacterFactory _characterFactory;
 
-    public LvlMediator(LvlFactory lvlFactory, PresenterFactory presenterFactory, LvlMediatorNewCharacter mediatorNewCharacter, 
-        LvlMediatorUpgradeCharacter mediatorUpgrade, LvlVediatorEditCharacter mediatorEditCharacter)
+    public LvlMediator(LvlFactory lvlFactory, LvlMediatorNewCharacter mediatorNewCharacter, AudioManager audioManager,
+        LvlMediatorUpgradeCharacter mediatorUpgrade, LvlMediatorEditCharacter mediatorEditCharacter, CharacterFactory characterFactory)
     {
         _lvlFactory = lvlFactory;
-        _presenterFactory = presenterFactory;
+        _audioManager = audioManager;
         _mediatorNewCharacter = mediatorNewCharacter;
         _mediatorUpgrade = mediatorUpgrade;
         _mediatorEditCharacter = mediatorEditCharacter;
+        _characterFactory = characterFactory;
         Subscribe();
     }
 
     public void MainMenu()
     {
         MainMenuView mainMenuView = _lvlFactory.Get(TypeScene.MainMenu).GetComponent<MainMenuView>();
-        MainMenuPresenter mainMenuPresenter = (MainMenuPresenter)_presenterFactory.Get(TypeScene.MainMenu);
+        mainMenuView.Show();
+        MainMenuPresenter mainMenuPresenter = new MainMenuPresenter(mainMenuView);
         mainMenuPresenter.NewCharacter += NewCharacterOpen;
         mainMenuPresenter.UpgradeCharacter += UpgradeCharacterOpen;
         mainMenuPresenter.EditCharacter += EditCharacterOpen;
-        mainMenuPresenter.Initialize(mainMenuView);
     }
     private void Subscribe()
     {
@@ -40,7 +37,7 @@ public class LvlMediator
 
     private void NewCharacterOpen()
     {
-        _mediatorNewCharacter.NewCharacter();
+        _mediatorNewCharacter.LoadNewCharacter();
     }
 
     private void UpgradeCharacterOpen() => ShowLoads(true);
@@ -50,17 +47,16 @@ public class LvlMediator
     private void ShowLoads(bool isUpgrade)
     {
         CharacterLoadsView loadsView = _lvlFactory.Get(TypeScene.Loads).GetComponent<CharacterLoadsView>();
-        CharacterLoadsPresenter loadsPresenter = (CharacterLoadsPresenter)_presenterFactory.Get(TypeScene.Loads);
+        CharacterLoadsPresenter loadsPresenter = new CharacterLoadsPresenter(_audioManager, loadsView, _characterFactory);
         loadsPresenter.Cancel += MainMenu;
         if (isUpgrade)
             loadsPresenter.ReturnCharacter += ShowUpgradeCharacter;
         else
-            loadsPresenter.ReturnCharacter += ShowEcitCharacter;
+            loadsPresenter.ReturnCharacter += ShowEditCharacter;
 
-        loadsPresenter.Initialize(loadsView);
     }
 
-    private void ShowEcitCharacter(ICharacter character) => _mediatorEditCharacter.Initialize(character);
+    private void ShowEditCharacter(ICharacter character) => _mediatorEditCharacter.Initialize(character);
 
     private void ShowUpgradeCharacter(ICharacter character) => _mediatorUpgrade.Initialize(character);
     

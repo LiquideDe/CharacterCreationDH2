@@ -1,10 +1,7 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 using UnityEngine.UI;
-using Zenject;
 
 public class BackgroundFinalPanelPresenter : IPresenter
 {
@@ -17,16 +14,13 @@ public class BackgroundFinalPanelPresenter : IPresenter
     private ICharacter _character;
     private Background _background;
 
-    [Inject]
-    private void Construct(AudioManager audioManager) => _audioManager = audioManager;
-    
-
-    public void Initialize(GameObject finalPanelView, ICharacter character, Background background)
+    public BackgroundFinalPanelPresenter(BackgroundFinalPanelView view, AudioManager audioManager, ICharacter character, Background background)
     {
-        _creatorToggles = finalPanelView.GetComponent<CreatorTogglesForFinalPanel>();
-        _view = finalPanelView.GetComponent<BackgroundFinalPanelView>();
+        _view = view;
+        _audioManager = audioManager;
         _character = character;
         _background = background;
+        _creatorToggles = view.gameObject.GetComponent<CreatorTogglesForFinalPanel>();
         Subscribe();
         CreateToggles();
     }

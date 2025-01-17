@@ -1,0 +1,1 @@
+{"name":"Стаб винтовка","description":"Старая добрая длинная винтовка со скользящим затвором, распространенная как среди военных, так и среди гражданских. ","weaponClass":"Ручное","rof":"О/-/-","damage":"1к10+3У","reload":"Полу","properties":"Точное","rarity":"-2","typeEquipment":"Range","range":120,"penetration":1,"clip":5,"amount":1,"weight":4.0, "typeSound":1}

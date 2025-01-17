@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using System;
 using Zenject;
 
-public class CharacteristicRandomView : CanDestroyView
+public class CharacteristicRandomView : AnimateShowAndHideView
 {
     [SerializeField]
     CharacteristicCard _weaponSkill, _ballisticSkill, _strength, _toughness, _agility, _intelligence, _perception, _willpower,
@@ -15,16 +15,14 @@ public class CharacteristicRandomView : CanDestroyView
 
     public event Action ReturnToRole;
     public event Action<List<int>> ReturnCharacteristics;
-    private AudioManager _audioManager;
 
     private void OnEnable()
     {
         _buttonDone.onClick.AddListener(DonePress);
+        _buttonDone.onClick.AddListener(_audio.PlayDone);
         _buttonPrev.onClick.AddListener(PrevPress);
+        _buttonPrev.onClick.AddListener(_audio.PlayCancel);
     }
-
-    [Inject]
-    private void Construct(AudioManager audioManager) => _audioManager = audioManager;
 
     public void SetWeapon(int amount) => _weaponSkill.SetAmount(amount);
     public void SetBallistic(int amount) => _ballisticSkill.SetAmount(amount);
@@ -43,24 +41,24 @@ public class CharacteristicRandomView : CanDestroyView
             _toughness.IsSetAmountFromRandomCard && _agility.IsSetAmountFromRandomCard && _intelligence.IsSetAmountFromRandomCard &&
             _perception.IsSetAmountFromRandomCard && _willpower.IsSetAmountFromRandomCard && _social.IsSetAmountFromRandomCard && _influence.IsSetAmountFromRandomCard)
         {
-            List<int> characteristics = new List<int>();
-            characteristics.Add(_weaponSkill.Amount);
-            characteristics.Add(_ballisticSkill.Amount);
-            characteristics.Add(_strength.Amount);
-            characteristics.Add(_toughness.Amount);
-            characteristics.Add(_agility.Amount);
-            characteristics.Add(_intelligence.Amount);
-            characteristics.Add(_perception.Amount);
-            characteristics.Add(_willpower.Amount);
-            characteristics.Add(_social.Amount);
-            characteristics.Add(_influence.Amount);
-            ReturnCharacteristics?.Invoke(characteristics);
+            List<int> characteristics = new List<int>
+            {
+                _weaponSkill.Amount,
+                _ballisticSkill.Amount,
+                _strength.Amount,
+                _toughness.Amount,
+                _agility.Amount,
+                _intelligence.Amount,
+                _perception.Amount,
+                _willpower.Amount,
+                _social.Amount,
+                _influence.Amount
+            };
+            Hide(ReturnCharacteristics, characteristics);
         }
         else
-            _audioManager.PlayWarning();
+            _audio.PlayWarning();
     }
 
     private void PrevPress() => ReturnToRole?.Invoke();
-
-
 }

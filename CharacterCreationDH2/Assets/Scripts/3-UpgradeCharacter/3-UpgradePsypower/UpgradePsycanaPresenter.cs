@@ -1,8 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using System;
-using Zenject;
 
 public class UpgradePsycanaPresenter : IPresenter
 {
@@ -18,24 +15,23 @@ public class UpgradePsycanaPresenter : IPresenter
     private CreatorPsyPowers _creatorPsyPowers;
     private bool _isEdit;
 
-    [Inject]
-    private void Construct(AudioManager audioManager, CreatorPsyPowers creatorPsyPowers)
-    {
-        _audioManager = audioManager;
-        _creatorPsyPowers = creatorPsyPowers;
-    }
-
-    public void Initialize(ICharacter character, PsycanaCreatorView creatorView, UpgradePsycanaView view)
+    public UpgradePsycanaPresenter(ICharacter character, AudioManager audioManager, PsycanaCreatorView creatorView, UpgradePsycanaView view, CreatorPsyPowers creatorPsyPowers)
     {
         _character = character;
+        _audioManager = audioManager;
         _creatorView = creatorView;
         _view = view;
+        _creatorPsyPowers = creatorPsyPowers;
         SendListWithSchoolNames();
         Subscribe();
         ShowSchool(_school);
     }
 
-    public void SetEdit() => _isEdit = true;
+    public void SetEdit()
+    {
+        _isEdit = true;
+        ShowSchool(_school);
+    }
 
     private void Subscribe()
     {
@@ -157,7 +153,7 @@ public class UpgradePsycanaPresenter : IPresenter
 
     private void ReturnToTalentDown()
     {
-        _audioManager.PlayClick();
+        //_audioManager.PlayClick();
         ReturnToTalent?.Invoke(_character);
         Unscribe();
         _view.DestroyView();
@@ -165,7 +161,7 @@ public class UpgradePsycanaPresenter : IPresenter
 
     private void GoToNext()
     {
-        _audioManager.PlayDone();
+        //_audioManager.PlayDone();
         GoNext?.Invoke(_character);
         Unscribe();
         _view.DestroyView();

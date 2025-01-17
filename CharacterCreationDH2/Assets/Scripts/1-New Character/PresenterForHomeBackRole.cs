@@ -1,35 +1,26 @@
 using System;
-using UnityEngine;
-using Zenject;
 
 public abstract class PresenterForHomeBackRole : IPresenter
 {
     public event Action<ICharacter> ChooseIsDone;
     public event Action ReturnToPrevWindow;
     protected HomeworldBackGroundRoleView _view;
-    protected HomeBackRoleFactory _homeBackRoleFactory;
     protected ICharacter _character;
     protected ICreator _creator;
 
     protected int _id = 0;
 
-    protected void SetConstruct(HomeBackRoleFactory homeBackRoleFactory)
+    protected PresenterForHomeBackRole(HomeworldBackGroundRoleView view, ICharacter character, ICreator creator)
     {
-        _homeBackRoleFactory = homeBackRoleFactory;
-    }
-
-    public void Initialize(ICharacter character, HomeworldBackGroundRoleView homeworldView)
-    {
+        _view = view;
+        _character = character;
+        _creator = creator;
         SearchCharacter(character);
-        SetCreator();
-        _view = homeworldView;
         Subscribe();
         _view.Initialize(GetNext());
     }
 
     protected abstract void SearchCharacter(ICharacter character);
-
-    protected abstract void SetCreator();
 
     private void Subscribe()
     {

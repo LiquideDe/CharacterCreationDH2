@@ -1,8 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using System;
-using Zenject;
+using UnityEngine;
 
 public class EditCharacteristicsAndEquipmentsPresenter : IPresenter
 {
@@ -13,30 +11,25 @@ public class EditCharacteristicsAndEquipmentsPresenter : IPresenter
     private CreatorEquipment _creatorEquipment;
     private CreatorImplant _creatorImplant;
     private CreatorWeaponProperties _creatorWeaponProperties;
-    private ICharacter _characterToReturn;
     private Character _character;
     private CanDestroyView _newForm;
     private ListWithNewItems _listWithItems;
+
     private delegate void MethodFormEquipment();
 
-    [Inject]
-    private void Construct(AudioManager audioManager, CreatorEquipment creatorEquipment, CreatorImplant creatorImplant, CreatorWeaponProperties creatorWeaponProperties)
-    {
-        _audioManager = audioManager;
-        _creatorEquipment = creatorEquipment;
-        _creatorImplant = creatorImplant;
-        _creatorWeaponProperties = creatorWeaponProperties;
-    }
-
-    public void Initialize(EditCharacteristicsAndEquipmentsView view, ICharacter character, LvlFactory lvlFactory)
+    public EditCharacteristicsAndEquipmentsPresenter(EditCharacteristicsAndEquipmentsView view, AudioManager audioManager, 
+        LvlFactory lvlFactory, CreatorEquipment creatorEquipment, CreatorImplant creatorImplant, CreatorWeaponProperties creatorWeaponProperties, ICharacter character)
     {
         _view = view;
-        _characterToReturn = character;
+        _audioManager = audioManager;
         _lvlFactory = lvlFactory;
+        _creatorEquipment = creatorEquipment;
+        _creatorImplant = creatorImplant;
+        _creatorWeaponProperties = creatorWeaponProperties;        
         SearchCharacter(character);
         Subscribe();
         _view.Initialize(_character);
-    }    
+    } 
 
     private void SearchCharacter(ICharacter character)
     {
@@ -234,20 +227,21 @@ public class EditCharacteristicsAndEquipmentsPresenter : IPresenter
 
     private void Next()
     {
-        _audioManager.PlayClick();
+        //_audioManager.PlayClick();
         CheckAndCloseAllLists();
         Unscribe();
         _view.DestroyView();
-        GoNext?.Invoke(_characterToReturn);
+        GoNext?.Invoke(_character);
     }
 
     private void Prev()
     {
-        _audioManager.PlayClick();
+        //_audioManager.PlayClick();
+        Debug.Log($"Закрываем едит");
         CheckAndCloseAllLists();
         Unscribe();
         _view.DestroyView();
-        ReturnBack?.Invoke(_characterToReturn);
+        ReturnBack?.Invoke(_character);
     }
     
 

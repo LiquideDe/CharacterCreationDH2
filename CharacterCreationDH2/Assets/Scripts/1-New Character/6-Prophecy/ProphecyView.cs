@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using TMPro;
 using System;
 
-public class ProphecyView : CanDestroyView
+public class ProphecyView : AnimateShowAndHideView
 {
     [SerializeField] private TextMeshProUGUI textDescription;
     [SerializeField] private TMP_InputField inputField;
@@ -17,6 +17,7 @@ public class ProphecyView : CanDestroyView
     {
         inputField.onDeselect.AddListener(InputNumberPressed);
         _buttonDone.onClick.AddListener(DonePressed);
+        _buttonDone.onClick.AddListener(_audio.PlayDone);
         _buttonGenerate.onClick.AddListener(GenerateNumberPressed);
     }
 
@@ -38,5 +39,5 @@ public class ProphecyView : CanDestroyView
 
     private void GenerateNumberPressed() => GenerateNumber?.Invoke();
 
-    private void DonePressed() => Done?.Invoke();
+    private void DonePressed() => Hide(Done);//Done?.Invoke();
 }

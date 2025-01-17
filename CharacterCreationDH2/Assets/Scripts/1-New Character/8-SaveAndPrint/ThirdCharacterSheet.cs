@@ -52,7 +52,7 @@ public class ThirdCharacterSheet : TakeScreenshot
 
         _text.text += $"<indent=15%><size=150%>Экипировка:</indent> \n<size=100%>";
         foreach (Equipment equipment in character.Equipments)
-            _text.text += $"<b>{equipment.Name}</b>. Описание: {equipment.Description}. Вес: {equipment.Weight} \n \n";
+            _text.text += $"<b>{equipment.Name}</b>. {equipment.Amount}шт. \nОписание: {equipment.Description}. Вес: {equipment.Weight} \n \n";
 
         _text.text += $"{character.Tradition} \n \n";
 

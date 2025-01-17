@@ -1,8 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using System;
-using Zenject;
 using System.IO;
 
 public class CharacterLoadsPresenter : IPresenter
@@ -13,16 +10,11 @@ public class CharacterLoadsPresenter : IPresenter
     private CharacterLoadsView _view;
     private CharacterFactory _characterFactory;
 
-    [Inject]
-    private void Construct(AudioManager audiomanager, CharacterFactory characterFactory) 
+    public CharacterLoadsPresenter(AudioManager audiomanager, CharacterLoadsView view, CharacterFactory characterFactory)
     {
         _audiomanager = audiomanager;
-        _characterFactory = characterFactory;
-    } 
-
-    public void Initialize(CharacterLoadsView view)
-    {
         _view = view;
+        _characterFactory = characterFactory;
         Subscribe();
         string[] loads = Directory.GetDirectories($"{Application.dataPath}/StreamingAssets/CharacterSheets");
         _view.Initialize(loads);
@@ -36,7 +28,7 @@ public class CharacterLoadsPresenter : IPresenter
 
     private void ReadSaveAndCreateCharacter(string path)
     {
-        _audiomanager.PlayDone();
+        //_audiomanager.PlayDone();
         Load load = new Load();
         Character character = _characterFactory.Get();
         load.LoadCharacter(character, path);
@@ -47,7 +39,7 @@ public class CharacterLoadsPresenter : IPresenter
 
     private void CancelDown(CanDestroyView view)
     {
-        _audiomanager.PlayCancel();
+        //_audiomanager.PlayCancel();
         Cancel?.Invoke();
         Unscribe();
         view.DestroyView();

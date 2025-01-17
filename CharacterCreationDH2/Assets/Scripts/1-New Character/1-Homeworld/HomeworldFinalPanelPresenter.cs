@@ -1,8 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using System;
-using Zenject;
 
 public class HomeworldFinalPanelPresenter : IPresenter
 {
@@ -14,14 +10,11 @@ public class HomeworldFinalPanelPresenter : IPresenter
     private ConfigForCharacterFromHomeworld _configs;
     private Homeworld _homeworld;
     private bool isFate, isWound, isAge, isHair, isTraditioan, isSkeen, isRemember, isBody, isEyes, isPhys;
-    
 
-    [Inject]
-    private void Construct(AudioManager audioManager) => _audioManager = audioManager;
-
-    public void Initialize(HomeworldFinalPanelView panelView, ICharacter character, Homeworld homeworld)
+    public HomeworldFinalPanelPresenter(HomeworldFinalPanelView panelView, AudioManager audioManager, ICharacter character, Homeworld homeworld)
     {
         _panelView = panelView;
+        _audioManager = audioManager;
         _character = character;
         _configs = new ConfigForCharacterFromHomeworld();
         _homeworld = homeworld;
@@ -293,7 +286,7 @@ public class HomeworldFinalPanelPresenter : IPresenter
     {
         if (isAge && isBody && isEyes && isFate && isHair && isPhys && isRemember && isSkeen && isTraditioan && isWound)
         {
-            _audioManager.PlayDone();
+            //_audioManager.PlayDone();
             _configs.HomeworldName = _homeworld.Name;
             _configs.Inclination = _homeworld.Inclination;
             _configs.AdvantageCharacteristicFirst = _homeworld.AdvantageCharacteristics[0];
@@ -319,7 +312,7 @@ public class HomeworldFinalPanelPresenter : IPresenter
 
     private void PressCancel(CanDestroyView view)
     {
-        _audioManager.PlayCancel();
+        //_audioManager.PlayCancel();
         Unsubscribe();
         view.DestroyView();
         _panelView = null;

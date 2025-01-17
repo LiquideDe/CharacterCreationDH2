@@ -1,29 +1,25 @@
-using System;
 using UnityEngine;
-using Zenject;
 
 public class HomeworldPresenter : PresenterForHomeBackRole,IPresenter
 {
     private HomeworldFinalPanelPresenter _finalPanelPresenter;
-    private LvlFactory _lvlFatcory;
-    private PresenterFactory _presenterFactory;
+    private LvlFactory _lvlFactory;
+    private AudioManager _audioManager;
 
-    [Inject]
-    private void Construct(HomeBackRoleFactory homeBackRoleFactory, LvlFactory lvlFatcory, PresenterFactory presenterFactory)
+    public HomeworldPresenter(HomeworldBackGroundRoleView view, LvlFactory lvlFactory, CreatorWorlds creatorWorld, AudioManager audioManager, 
+        ICharacter character) : base (view, character, creatorWorld)
     {
-        SetConstruct(homeBackRoleFactory);
-        _lvlFatcory = lvlFatcory;
-        _presenterFactory = presenterFactory;
+        _lvlFactory = lvlFactory;
+        _audioManager = audioManager;
     }
 
     protected override void PressShowFinal()
     {
         _view.gameObject.SetActive(false);
-        HomeworldFinalPanelView finalPanelView = _lvlFatcory.Get(TypeScene.HomeworldFinal).GetComponent<HomeworldFinalPanelView>();
-        _finalPanelPresenter = (HomeworldFinalPanelPresenter)_presenterFactory.Get(TypeScene.HomeworldFinal);
+        HomeworldFinalPanelView finalPanelView = _lvlFactory.Get(TypeScene.HomeworldFinal).GetComponent<HomeworldFinalPanelView>();
+        _finalPanelPresenter = new HomeworldFinalPanelPresenter( finalPanelView, _audioManager, _character, (Homeworld)_creator.Get(_id));
         _finalPanelPresenter.CancelChoice += CancelChoose;
         _finalPanelPresenter.CharacterIsChosen += ChooseDone;
-        _finalPanelPresenter.Initialize(finalPanelView, _character, (Homeworld)_creator.Get(_id));
     }
 
     protected override void SearchCharacter(ICharacter character)
@@ -33,10 +29,6 @@ public class HomeworldPresenter : PresenterForHomeBackRole,IPresenter
 
         else
             SearchCharacter(character.GetCharacter);
-    }
-    protected override void SetCreator()
-    {
-        _creator = _homeBackRoleFactory.Get(TypeCreator.Homeworld);
     }
 
     private void CancelChoose()

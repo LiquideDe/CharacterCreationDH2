@@ -1,5 +1,4 @@
 using System;
-using Zenject;
 
 public class SetExperiencePresenter : IPresenter
 {
@@ -9,11 +8,9 @@ public class SetExperiencePresenter : IPresenter
     private ICharacter _character;
     private SetExperienceView _view;
 
-    [Inject]
-    private void Construct(AudioManager audioManager) => _audioManager = audioManager;
-
-    public void Initialize(ICharacter character, SetExperienceView view)
+    public SetExperiencePresenter(AudioManager audioManager, ICharacter character, SetExperienceView view)
     {
+        _audioManager = audioManager;
         _character = character;
         _view = view;
         Subscribe();

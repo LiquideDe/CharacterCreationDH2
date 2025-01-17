@@ -1,8 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using System;
-using Zenject;
 
 public class UpgradeTalentPresenter : IPresenter
 {
@@ -18,23 +15,22 @@ public class UpgradeTalentPresenter : IPresenter
     private int _cost;
     private GameStat.Inclinations _inclination;
 
-    [Inject]
-    private void Construct(AudioManager audioManager, CreatorTalents creatorTalents)
+    public UpgradeTalentPresenter(ICharacter character, UpgradeTalentView view, AudioManager audioManager, CreatorTalents creatorTalents)
     {
+        _character = character;
+        _view = view;
         _audioManager = audioManager;
         _creatorTalents = creatorTalents;
-    }
-
-    public void Initialize(UpgradeTalentView view, ICharacter character)
-    {
-        _view = view;
-        _character = character;
         Subscribe();
         ShowTalents();
         _view.UpdateExperience($"{_character.ExperienceUnspent} нн");
     }
 
-    public void SetEdit() => _isEdit = true;
+    public void SetEdit() 
+    { 
+        _isEdit = true;
+        ShowTalents(); 
+    }
 
     private void Subscribe()
     {
@@ -90,7 +86,7 @@ public class UpgradeTalentPresenter : IPresenter
 
     private void NextDown()
     {
-        _audioManager.PlayClick();
+        //_audioManager.PlayClick();
         GoNext?.Invoke(_character);
         Unscribe();
         _view.DestroyView();
@@ -98,7 +94,7 @@ public class UpgradeTalentPresenter : IPresenter
 
     private void PrevDown()
     {
-        _audioManager.PlayClick();
+        //_audioManager.PlayClick();
         ReturnToSkill?.Invoke(_character);
         Unscribe();
         _view.DestroyView();

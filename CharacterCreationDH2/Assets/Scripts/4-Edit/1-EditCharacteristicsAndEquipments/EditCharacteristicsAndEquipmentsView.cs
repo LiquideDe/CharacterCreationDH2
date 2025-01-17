@@ -5,17 +5,15 @@ using UnityEngine.UI;
 using TMPro;
 using System;
 
-public class EditCharacteristicsAndEquipmentsView : CanDestroyView
+public class EditCharacteristicsAndEquipmentsView : AnimateShowAndHideView
 {
     [SerializeField]
-    private Button _buttonIncreaseWeapon, _buttonIncreaseBallistic, _buttonIncreaseStrength, _buttonIncreaseRun, _buttonIncreaseNatisk, _buttonIncreaseFullmove,
-        _buttonIncreaseHalfmove, _buttonIncreaseWounds, _buttonIncreaseCorruption, _buttonIncreaseMadness, _buttonIncreaseInfluence,
+    private Button _buttonIncreaseWeapon, _buttonIncreaseBallistic, _buttonIncreaseStrength, _buttonIncreaseWounds, _buttonIncreaseCorruption, _buttonIncreaseMadness, _buttonIncreaseInfluence,
         _buttonIncreaseFellowship, _buttonIncreaseWillpower, _buttonIncreasePerception, _buttonIncreaseIntelligence, _buttonIncreaseAgility, _buttonIncreaseToughness,
         _buttonIncreaseFatepoint;
 
     [SerializeField]
-    private Button _buttonDecreaseWeapon, _buttonDecreaseBallistic, _buttonDecreaseStrength, _buttonDecreaseRun, _buttonDecreaseNatisk, _buttonDecreaseFullmove,
-        _buttonDecreaseHalfmove, _buttonDecreaseWounds, _buttonDecreaseCorruption, _buttonDecreaseMadness, _buttonDecreaseInfluence,
+    private Button _buttonDecreaseWeapon, _buttonDecreaseBallistic, _buttonDecreaseStrength, _buttonDecreaseWounds, _buttonDecreaseCorruption, _buttonDecreaseMadness, _buttonDecreaseInfluence,
         _buttonDecreaseFellowship, _buttonDecreaseWillpower, _buttonDecreasePerception, _buttonDecreaseIntelligence, _buttonDecreaseAgility, _buttonDecreaseToughness,
         _buttonDecreaseFatepoint;
 
@@ -29,13 +27,11 @@ public class EditCharacteristicsAndEquipmentsView : CanDestroyView
     [SerializeField] private ItemInList _implantPrefab;
     [SerializeField] private ItemWithNumberInList _equipmentPrefab;
 
-    public event Action IncreaseWeapon, IncreaseBallistic, IncreaseStrength, IncreaseRun, IncreaseNatisk, IncreaseFullmove,
-        IncreaseHalfmove, IncreaseWounds, IncreaseCorruption, IncreaseMadness, IncreaseInfluence,
+    public event Action IncreaseWeapon, IncreaseBallistic, IncreaseStrength, IncreaseWounds, IncreaseCorruption, IncreaseMadness, IncreaseInfluence,
         IncreaseFellowship, IncreaseWillpower, IncreasePerception, IncreaseIntelligence, IncreaseAgility, IncreaseToughness,
         IncreaseFatepoint;
 
-    public event Action DecreaseWeapon, DecreaseBallistic, DecreaseStrength, DecreaseRun, DecreaseNatisk, DecreaseFullmove,
-        DecreaseHalfmove, DecreaseWounds, DecreaseCorruption, DecreaseMadness, DecreaseInfluence,
+    public event Action DecreaseWeapon, DecreaseBallistic, DecreaseStrength, DecreaseWounds, DecreaseCorruption, DecreaseMadness, DecreaseInfluence,
         DecreaseFellowship, DecreaseWillpower, DecreasePerception, DecreaseIntelligence, DecreaseAgility, DecreaseToughness,
         DecreaseFatepoint;
 
@@ -53,10 +49,6 @@ public class EditCharacteristicsAndEquipmentsView : CanDestroyView
         _buttonIncreaseWeapon.onClick.AddListener(IncreaseWeaponPressed);
         _buttonIncreaseBallistic.onClick.AddListener(IncreaseBallisticPressed);
         _buttonIncreaseStrength.onClick.AddListener(IncreaseStrengthPressed);
-        _buttonIncreaseRun.onClick.AddListener(IncreaseRunPressed);
-        _buttonIncreaseNatisk.onClick.AddListener(IncreaseNatiskPressed);
-        _buttonIncreaseFullmove.onClick.AddListener(IncreaseFullmovePressed);
-        _buttonIncreaseHalfmove.onClick.AddListener(IncreaseHalfmovePressed);
         _buttonIncreaseWounds.onClick.AddListener(IncreaseWoundsPressed);
         _buttonIncreaseCorruption.onClick.AddListener(IncreaseCorruptionPressed);
         _buttonIncreaseMadness.onClick.AddListener(IncreaseMadnessPressed);
@@ -72,10 +64,6 @@ public class EditCharacteristicsAndEquipmentsView : CanDestroyView
         _buttonDecreaseWeapon.onClick.AddListener(DecreaseWeaponPressed);
         _buttonDecreaseBallistic.onClick.AddListener(DecreaseBallisticPressed);
         _buttonDecreaseStrength.onClick.AddListener(DecreaseStrengthPressed);
-        _buttonDecreaseRun.onClick.AddListener(DecreaseRunPressed);
-        _buttonDecreaseNatisk.onClick.AddListener(DecreaseNatiskPressed);
-        _buttonDecreaseFullmove.onClick.AddListener(DecreaseFullmovePressed);
-        _buttonDecreaseHalfmove.onClick.AddListener(DecreaseHalfmovePressed);
         _buttonDecreaseWounds.onClick.AddListener(DecreaseWoundsPressed);
         _buttonDecreaseCorruption.onClick.AddListener(DecreaseCorruptionPressed);
         _buttonDecreaseMadness.onClick.AddListener(DecreaseMadnessPressed);
@@ -95,7 +83,9 @@ public class EditCharacteristicsAndEquipmentsView : CanDestroyView
         _buttonAddGrenade.onClick.AddListener(AddGrenadePressed);
         _buttonAddImplant.onClick.AddListener(AddImplantPressed);
         _buttonNext.onClick.AddListener(NextPressed);
+        _buttonNext.onClick.AddListener(_audio.PlayClick);
         _buttonPrev.onClick.AddListener(PrevPressed);
+        _buttonPrev.onClick.AddListener(_audio.PlayClick);
 
 
     }    
@@ -105,10 +95,6 @@ public class EditCharacteristicsAndEquipmentsView : CanDestroyView
         _buttonIncreaseWeapon.onClick.RemoveAllListeners();
         _buttonIncreaseBallistic.onClick.RemoveAllListeners();
         _buttonIncreaseStrength.onClick.RemoveAllListeners();
-        _buttonIncreaseRun.onClick.RemoveAllListeners();
-        _buttonIncreaseNatisk.onClick.RemoveAllListeners();
-        _buttonIncreaseFullmove.onClick.RemoveAllListeners();
-        _buttonIncreaseHalfmove.onClick.RemoveAllListeners();
         _buttonIncreaseWounds.onClick.RemoveAllListeners();
         _buttonIncreaseCorruption.onClick.RemoveAllListeners();
         _buttonIncreaseMadness.onClick.RemoveAllListeners();
@@ -124,10 +110,6 @@ public class EditCharacteristicsAndEquipmentsView : CanDestroyView
         _buttonDecreaseWeapon.onClick.RemoveAllListeners();
         _buttonDecreaseBallistic.onClick.RemoveAllListeners();
         _buttonDecreaseStrength.onClick.RemoveAllListeners();
-        _buttonDecreaseRun.onClick.RemoveAllListeners();
-        _buttonDecreaseNatisk.onClick.RemoveAllListeners();
-        _buttonDecreaseFullmove.onClick.RemoveAllListeners();
-        _buttonDecreaseHalfmove.onClick.RemoveAllListeners();
         _buttonDecreaseWounds.onClick.RemoveAllListeners();
         _buttonDecreaseCorruption.onClick.RemoveAllListeners();
         _buttonDecreaseMadness.onClick.RemoveAllListeners();
@@ -216,9 +198,9 @@ public class EditCharacteristicsAndEquipmentsView : CanDestroyView
 
     private void RemoveEquipmentPressed(string name) => RemoveEquipment?.Invoke(name);
 
-    private void PrevPressed() => Prev?.Invoke();
+    private void PrevPressed() => HideRight(Prev);
 
-    private void NextPressed() => Next?.Invoke();
+    private void NextPressed() => Hide(Next);
 
     private void AddImplantPressed() => AddImplant?.Invoke();
 
@@ -254,14 +236,6 @@ public class EditCharacteristicsAndEquipmentsView : CanDestroyView
 
     private void DecreaseWoundsPressed() => DecreaseWounds?.Invoke();
 
-    private void DecreaseHalfmovePressed() => DecreaseHalfmove?.Invoke();
-
-    private void DecreaseFullmovePressed() => DecreaseFullmove?.Invoke();
-
-    private void DecreaseNatiskPressed() => DecreaseNatisk?.Invoke();
-
-    private void DecreaseRunPressed() => DecreaseRun?.Invoke();
-
     private void DecreaseStrengthPressed() => DecreaseStrength?.Invoke();
 
     private void DecreaseBallisticPressed() => DecreaseBallistic?.Invoke();
@@ -289,14 +263,6 @@ public class EditCharacteristicsAndEquipmentsView : CanDestroyView
     private void IncreaseCorruptionPressed() => IncreaseCorruption?.Invoke();
 
     private void IncreaseWoundsPressed() => IncreaseWounds?.Invoke();
-
-    private void IncreaseHalfmovePressed() => IncreaseHalfmove?.Invoke();
-
-    private void IncreaseFullmovePressed() => IncreaseFullmove?.Invoke();
-
-    private void IncreaseNatiskPressed() => IncreaseNatisk?.Invoke();
-
-    private void IncreaseRunPressed() => IncreaseRun?.Invoke();
 
     private void IncreaseStrengthPressed() => IncreaseStrength?.Invoke();
 

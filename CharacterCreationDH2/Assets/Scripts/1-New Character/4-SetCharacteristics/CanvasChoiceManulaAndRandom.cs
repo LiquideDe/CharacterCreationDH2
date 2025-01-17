@@ -4,7 +4,7 @@ using Zenject;
 using UnityEngine.UI;
 using System;
 
-public class CanvasChoiceManulaAndRandom : MonoBehaviour
+public class CanvasChoiceManulaAndRandom : AnimateShowAndHideView
 {
     public event Action<int> ChooseManual;
     public event Action<int> ChoseRandom;
@@ -19,26 +19,37 @@ public class CanvasChoiceManulaAndRandom : MonoBehaviour
     private void OnEnable()
     {
         _slider.onValueChanged.AddListener(ChangedSlider);
-        _buttonManual.onClick.AddListener(ChoosedManual);
-        _buttonRandom.onClick.AddListener(ChoosedRandom);
+        _buttonManual.onClick.AddListener(ShowFinalAnimationAndChooseManual);
+        _buttonRandom.onClick.AddListener(ShowFinalAnimationAndChooseRandom);
     }
 
     public void ShowChoose()
     {
         gameObject.SetActive(true);
     }
-    private void ChoosedRandom()
+
+    private void ShowFinalAnimationAndChooseRandom()
     {
         _audioManager.PlayDone();
+        Hide(ChoosedRandom);
+    }
+
+    private void ShowFinalAnimationAndChooseManual()
+    {
+        _audioManager.PlayDone();
+        Hide(ChoosedManual);
+    }
+
+    private void ChoosedRandom()
+    {        
         ChoseRandom?.Invoke((int)_slider.value);
-        Destroy(gameObject);
+        DestroyView();
     }
 
     private void ChoosedManual()
-    {
-        _audioManager.PlayDone();
+    {        
         ChooseManual?.Invoke((int)_slider.value);
-        Destroy(gameObject);
+        DestroyView();
     }
 
     private void ChangedSlider(float value)

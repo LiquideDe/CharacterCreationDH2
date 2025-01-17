@@ -5,7 +5,7 @@ public class Equipment : INameWithDescription
     private int amount;
     public enum TypeEquipment
     {
-        Thing, Melee, Range, Armor, Special, Grenade
+        Thing, Melee, Range, Armor, Special, Grenade, Shield
     }
     protected TypeEquipment typeEquipment;
     public Equipment(string nameEquipment, string description, string rarity, int amount=1, float weight = 0)

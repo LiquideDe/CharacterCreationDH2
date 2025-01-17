@@ -1,8 +1,5 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using Zenject;
 
 public class CharacteristicManualPresenter : IPresenter
 {
@@ -16,19 +13,18 @@ public class CharacteristicManualPresenter : IPresenter
     private int _weapon, _ballistic, _strength, _toughness, _agility, _intelligence, _perception, _willpower, _fellowship, _influence;
     private const int _maxCharacteristic = 45;
 
-    [Inject]
-    private void Construct(AudioManager audioManager) => _audioManager = audioManager;
-
-    public void Initialize(ICharacter character, CharacteristicManualView view, int baseAmount)
+    public CharacteristicManualPresenter(ICharacter character, CharacteristicManualView view, int baseAmount, AudioManager audioManager)
     {
         _character = character;
         _view = view;
+        _baseAmount = baseAmount;
+        _audioManager = audioManager;
         Subscribe();
         SearchCharacter(_character);
-        SearchChracteristics(_character);        
-        _baseAmount = baseAmount;
+        SearchChracteristics(_character);
         SetAmountCharacteristics();
     }
+
     private void SearchChracteristics(ICharacter character)
     {
         if (character is CharacterWithHomeworld)
@@ -170,7 +166,7 @@ public class CharacteristicManualPresenter : IPresenter
     {
         if (_allPoints == 0)
         {
-            _audioManager.PlayDone();
+            //_audioManager.PlayDone();
             CharacterWithCharacteristics character = new CharacterWithCharacteristics(_character);
             List<int> characteristics = new List<int>() { _weapon, _ballistic, _strength, _toughness, _agility, _intelligence, _perception, _willpower, _fellowship, _influence };
             character.SetCharacteristics(characteristics);
@@ -184,7 +180,7 @@ public class CharacteristicManualPresenter : IPresenter
 
     private void ReturnToPrevDown()
     {
-        _audioManager.PlayCancel();
+        //_audioManager.PlayCancel();
         Unscribe();
         _view.DestroyView();
         ReturnToRole?.Invoke();
