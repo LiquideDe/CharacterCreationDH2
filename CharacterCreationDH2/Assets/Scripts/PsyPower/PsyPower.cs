@@ -1,4 +1,4 @@
-using System;
+Ôªøusing System;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
@@ -14,7 +14,7 @@ public class PsyPower : IName
     
     public PsyPower(JSONPsyReader psyReader, string path)
     {
-        description = GameStat.ReadText(path + "/ŒÔËÒ‡ÌËÂ.txt");        
+        description = GameStat.ReadText(path + "/–û–ø–∏—Å–∞–Ω–∏–µ.txt");        
         namePower = psyReader.name;
         cost = psyReader.cost;
         psyRateRequire = psyReader.psyRate;
@@ -22,7 +22,7 @@ public class PsyPower : IName
         action = psyReader.action;
         lvl = psyReader.lvl;
         idParent = psyReader.parentId;
-        shortDescription = GameStat.ReadText(path + "/ ‡ÚÍÓ.txt");
+        shortDescription = GameStat.ReadText(path + "/–ö—Ä–∞—Ç–∫–æ.txt");
         
         if (id == 0)
         {
@@ -87,7 +87,7 @@ public class PsyPower : IName
 
     private void SetTextCost()
     {
-        textCost = $"ŒŒ {cost}, œ–{psyRateRequire}";
+        textCost = $"–û–û {cost}, –ü–†{psyRateRequire}";
         if(requireCharacteristics != null)
         {
             foreach (Characteristic characteristic in requireCharacteristics)

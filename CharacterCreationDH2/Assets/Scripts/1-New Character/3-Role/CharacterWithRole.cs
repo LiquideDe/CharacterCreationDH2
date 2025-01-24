@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+Ôªøusing System.Collections.Generic;
 
 public class CharacterWithRole : CharacterDecorator, ICharacter
 {
@@ -85,7 +85,7 @@ public class CharacterWithRole : CharacterDecorator, ICharacter
         foreach(Talent talent in config.Talents)
         {
             _talents.Add(talent);
-            if (string.Compare(talent.Name, "œÒ‡ÈÍÂ") == 0)
+            if (string.Compare(talent.Name, "–ü—Å–∞–π–∫–µ—Ä") == 0)
                 _psyRating = 1;
         }
 

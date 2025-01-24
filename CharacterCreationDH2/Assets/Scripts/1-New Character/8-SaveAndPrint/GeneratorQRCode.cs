@@ -1,4 +1,4 @@
-using System.Collections;
+п»їusing System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -21,18 +21,18 @@ public class GeneratorQRCode
 
     private Color32[] Encode(string textForEncode, int width, int height)
     {
-        QRCodeWriter qrEncode = new QRCodeWriter(); //создание QR кода
+        QRCodeWriter qrEncode = new QRCodeWriter(); //СЃРѕР·РґР°РЅРёРµ QR РєРѕРґР°
 
-        Dictionary<EncodeHintType, object> hints = new Dictionary<EncodeHintType, object>();    //для колекции поведений
-        hints.Add(EncodeHintType.CHARACTER_SET, "utf-8");   //добавление в коллекцию кодировки utf-8
-        BitMatrix qrMatrix = qrEncode.encode(   //создание матрицы QR
-            textForEncode,                 //кодируемая строка
-            BarcodeFormat.QR_CODE,  //формат кода, т.к. используется QRCodeWriter применяется QR_CODE
-            width,                    //ширина
-            height,                    //высота
-            hints);                 //применение колекции поведений
+        Dictionary<EncodeHintType, object> hints = new Dictionary<EncodeHintType, object>();    //РґР»СЏ РєРѕР»РµРєС†РёРё РїРѕРІРµРґРµРЅРёР№
+        hints.Add(EncodeHintType.CHARACTER_SET, "utf-8");   //РґРѕР±Р°РІР»РµРЅРёРµ РІ РєРѕР»Р»РµРєС†РёСЋ РєРѕРґРёСЂРѕРІРєРё utf-8
+        BitMatrix qrMatrix = qrEncode.encode(   //СЃРѕР·РґР°РЅРёРµ РјР°С‚СЂРёС†С‹ QR
+            textForEncode,                 //РєРѕРґРёСЂСѓРµРјР°СЏ СЃС‚СЂРѕРєР°
+            BarcodeFormat.QR_CODE,  //С„РѕСЂРјР°С‚ РєРѕРґР°, С‚.Рє. РёСЃРїРѕР»СЊР·СѓРµС‚СЃСЏ QRCodeWriter РїСЂРёРјРµРЅСЏРµС‚СЃСЏ QR_CODE
+            width,                    //С€РёСЂРёРЅР°
+            height,                    //РІС‹СЃРѕС‚Р°
+            hints);                 //РїСЂРёРјРµРЅРµРЅРёРµ РєРѕР»РµРєС†РёРё РїРѕРІРµРґРµРЅРёР№
 
-        BarcodeWriter qrWrite = new BarcodeWriter();    //класс для кодирования QR в растровом файле
+        BarcodeWriter qrWrite = new BarcodeWriter();    //РєР»Р°СЃСЃ РґР»СЏ РєРѕРґРёСЂРѕРІР°РЅРёСЏ QR РІ СЂР°СЃС‚СЂРѕРІРѕРј С„Р°Р№Р»Рµ
         return qrWrite.Write(qrMatrix);
 
     }

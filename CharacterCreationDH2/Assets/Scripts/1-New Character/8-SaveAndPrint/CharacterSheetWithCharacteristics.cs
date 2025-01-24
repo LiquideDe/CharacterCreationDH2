@@ -1,4 +1,4 @@
-using System.Collections;
+п»їusing System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -79,57 +79,57 @@ public class CharacterSheetWithCharacteristics : TakeScreenshot
 
         foreach(Trait trait in _character.Traits)
         {
-            if (string.Compare(trait.Name, "Сверхъестественная Сила") == 0)            
+            if (string.Compare(trait.Name, "РЎРІРµСЂС…СЉРµСЃС‚РµСЃС‚РІРµРЅРЅР°СЏ РЎРёР»Р°") == 0)            
                 superStrength = trait.Lvl;
             
-            else if (string.Compare(trait.Name, "Сверхъестественная Выносливость") == 0)
+            else if (string.Compare(trait.Name, "РЎРІРµСЂС…СЉРµСЃС‚РµСЃС‚РІРµРЅРЅР°СЏ Р’С‹РЅРѕСЃР»РёРІРѕСЃС‚СЊ") == 0)
                 superToughness += trait.Lvl;
 
-            else if(string.Compare(trait.Name, "Сверхъестественная Ловкость") == 0)
+            else if(string.Compare(trait.Name, "РЎРІРµСЂС…СЉРµСЃС‚РµСЃС‚РІРµРЅРЅР°СЏ Р›РѕРІРєРѕСЃС‚СЊ") == 0)
                 superAgility += trait.Lvl;
 
-            else if(string.Compare(trait.Name, "Сверхъестественный Интеллект") == 0)
+            else if(string.Compare(trait.Name, "РЎРІРµСЂС…СЉРµСЃС‚РµСЃС‚РІРµРЅРЅС‹Р№ РРЅС‚РµР»Р»РµРєС‚") == 0)
                 superIntelligence += trait.Lvl;
 
-            else if(string.Compare(trait.Name, "Сверхъестественное Восприятие") == 0)
+            else if(string.Compare(trait.Name, "РЎРІРµСЂС…СЉРµСЃС‚РµСЃС‚РІРµРЅРЅРѕРµ Р’РѕСЃРїСЂРёСЏС‚РёРµ") == 0)
                 superPerception += trait.Lvl;
 
-            else if(string.Compare(trait.Name, "Сверхъестественная Сила Воли") == 0)
+            else if(string.Compare(trait.Name, "РЎРІРµСЂС…СЉРµСЃС‚РµСЃС‚РІРµРЅРЅР°СЏ РЎРёР»Р° Р’РѕР»Рё") == 0)
                 superWillpower += trait.Lvl;
 
-            else if(string.Compare(trait.Name, "Сверхъестественная Общительность") ==0)
+            else if(string.Compare(trait.Name, "РЎРІРµСЂС…СЉРµСЃС‚РµСЃС‚РІРµРЅРЅР°СЏ РћР±С‰РёС‚РµР»СЊРЅРѕСЃС‚СЊ") ==0)
                 superFelloweship += trait.Lvl;
 
-            else if(string.Compare(trait.Name, "Демонический") == 0)
+            else if(string.Compare(trait.Name, "Р”РµРјРѕРЅРёС‡РµСЃРєРёР№") == 0)
                 superToughness += trait.Lvl;
         }
 
         if (superStrength > 0)
-            textStrengthBonus.text = $"{superStrength + (int)(_character.Characteristics[GameStat.CharacteristicToInt["Сила"]].Amount + bonusStrenthFromArmor )/ 10}";
+            textStrengthBonus.text = $"{superStrength + (int)(_character.Characteristics[GameStat.CharacteristicToInt["РЎРёР»Р°"]].Amount + bonusStrenthFromArmor )/ 10}";
         else textStrengthBonus.text = "";
 
         if (superToughness > 0)
-            textToughnessBonus.text = $"{superToughness + (int)_character.Characteristics[GameStat.CharacteristicToInt["Выносливость"]].Amount / 10}";
+            textToughnessBonus.text = $"{superToughness + (int)_character.Characteristics[GameStat.CharacteristicToInt["Р’С‹РЅРѕСЃР»РёРІРѕСЃС‚СЊ"]].Amount / 10}";
         else textToughnessBonus.text = "";
 
         if (superAgility > 0)
-            textAgilityBonus.text = $"{superAgility + (int)_character.Characteristics[GameStat.CharacteristicToInt["Ловкость"]].Amount / 10}";
+            textAgilityBonus.text = $"{superAgility + (int)_character.Characteristics[GameStat.CharacteristicToInt["Р›РѕРІРєРѕСЃС‚СЊ"]].Amount / 10}";
         else textAgilityBonus.text = "";
 
         if (superIntelligence > 0)
-            textIntelligenceBonus.text = $"{superIntelligence + (int)_character.Characteristics[GameStat.CharacteristicToInt["Интеллект"]].Amount / 10}";
+            textIntelligenceBonus.text = $"{superIntelligence + (int)_character.Characteristics[GameStat.CharacteristicToInt["РРЅС‚РµР»Р»РµРєС‚"]].Amount / 10}";
         else textIntelligenceBonus.text = "";
 
         if (superPerception > 0)
-            textPerceptionBonus.text = $"{superPerception + (int)_character.Characteristics[GameStat.CharacteristicToInt["Восприятие"]].Amount / 10}";
+            textPerceptionBonus.text = $"{superPerception + (int)_character.Characteristics[GameStat.CharacteristicToInt["Р’РѕСЃРїСЂРёСЏС‚РёРµ"]].Amount / 10}";
         else textPerceptionBonus.text = "";
 
         if (superWillpower > 0)
-            textWillpowerBonus.text = $"{superWillpower + (int)_character.Characteristics[GameStat.CharacteristicToInt["Сила Воли"]].Amount / 10}";
+            textWillpowerBonus.text = $"{superWillpower + (int)_character.Characteristics[GameStat.CharacteristicToInt["РЎРёР»Р° Р’РѕР»Рё"]].Amount / 10}";
         else textWillpowerBonus.text = "";
 
         if (superFelloweship > 0)
-            textFelloweshipBonus.text = $"{superFelloweship + (int)_character.Characteristics[GameStat.CharacteristicToInt["Общительность"]].Amount / 10}";
+            textFelloweshipBonus.text = $"{superFelloweship + (int)_character.Characteristics[GameStat.CharacteristicToInt["РћР±С‰РёС‚РµР»СЊРЅРѕСЃС‚СЊ"]].Amount / 10}";
         else textFelloweshipBonus.text = "";
 
     }

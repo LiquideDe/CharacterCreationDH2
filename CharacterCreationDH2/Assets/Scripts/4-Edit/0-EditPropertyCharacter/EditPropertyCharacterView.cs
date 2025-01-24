@@ -1,4 +1,4 @@
-using System.Collections;
+п»їusing System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -174,14 +174,14 @@ public class EditPropertyCharacterView : AnimateShowAndHideView
 
     private void ClearListWithItems(List<ItemInList> itemInLists)
     {
-        Debug.Log($"Удаляем окна. Было до удаления {itemInLists.Count}");
+        Debug.Log($"РЈРґР°Р»СЏРµРј РѕРєРЅР°. Р‘С‹Р»Рѕ РґРѕ СѓРґР°Р»РµРЅРёСЏ {itemInLists.Count}");
         foreach(ItemInList itemInList in itemInLists)
         {
             Destroy(itemInList.gameObject);
         }
 
         itemInLists.Clear();
-        Debug.Log($"Стало после {itemInLists.Count}");
+        Debug.Log($"РЎС‚Р°Р»Рѕ РїРѕСЃР»Рµ {itemInLists.Count}");
     }
 
     private void ChangeProperty(string value)

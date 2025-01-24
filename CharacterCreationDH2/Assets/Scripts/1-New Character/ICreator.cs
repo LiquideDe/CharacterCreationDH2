@@ -1,4 +1,4 @@
-public interface ICreator
+﻿public interface ICreator
 {
     int Count { get; }
 

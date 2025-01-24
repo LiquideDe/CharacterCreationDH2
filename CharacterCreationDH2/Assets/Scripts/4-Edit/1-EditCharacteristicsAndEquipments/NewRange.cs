@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -38,7 +38,7 @@ public class NewRange : NewMelee
 
             if (toggleSingle.isOn)
             {
-                rSingle = "�";
+                rSingle = "О";
             }
             else
             {

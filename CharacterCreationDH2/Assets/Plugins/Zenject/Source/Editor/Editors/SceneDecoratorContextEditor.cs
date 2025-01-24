@@ -1,4 +1,4 @@
-#if !ODIN_INSPECTOR
+﻿#if !ODIN_INSPECTOR
 
 using System.Collections.Generic;
 using System.IO;

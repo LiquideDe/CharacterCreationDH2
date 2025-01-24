@@ -1,4 +1,4 @@
-namespace Zenject.Tests.Bindings.FromSubContainerPrefabResource
+﻿namespace Zenject.Tests.Bindings.FromSubContainerPrefabResource
 {
     public class Gorp
     {

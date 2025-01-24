@@ -1,4 +1,4 @@
-using System.Collections;
+п»їusing System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -18,24 +18,24 @@ public class ButtonWithAdditionalInformation : Button, IPointerEnterHandler, IPo
     private string _textDescription;
     private Dictionary<GameStat.Inclinations, string> _inclinationToShort = new Dictionary<GameStat.Inclinations, string>() 
     {
-        {GameStat.Inclinations.Agility, "Л" },
-        {GameStat.Inclinations.Ballistic, "НС" },
-        {GameStat.Inclinations.Defense, "З" },
-        {GameStat.Inclinations.Fellowship, "О" },
-        {GameStat.Inclinations.Fieldcraft, "Пол" },
-        {GameStat.Inclinations.Finesse, "Изо" },
-        {GameStat.Inclinations.Intelligence, "Инт" },
-        {GameStat.Inclinations.Knowledge, "Поз" },
-        {GameStat.Inclinations.Leadership, "Лид" },
-        {GameStat.Inclinations.Offense, "Нап" },
-        {GameStat.Inclinations.Perception, "Вос" },
-        {GameStat.Inclinations.Psyker, "Пса" },
-        {GameStat.Inclinations.Social, "Общ" },
-        {GameStat.Inclinations.Strength, "С" },
-        {GameStat.Inclinations.Tech, "Тех" },
-        {GameStat.Inclinations.Toughness, "Вын" },
-        {GameStat.Inclinations.Weapon, "НР" },
-        {GameStat.Inclinations.Willpower, "СВ" }
+        {GameStat.Inclinations.Agility, "Р›" },
+        {GameStat.Inclinations.Ballistic, "РќРЎ" },
+        {GameStat.Inclinations.Defense, "Р—" },
+        {GameStat.Inclinations.Fellowship, "Рћ" },
+        {GameStat.Inclinations.Fieldcraft, "РџРѕР»" },
+        {GameStat.Inclinations.Finesse, "РР·Рѕ" },
+        {GameStat.Inclinations.Intelligence, "РРЅС‚" },
+        {GameStat.Inclinations.Knowledge, "РџРѕР·" },
+        {GameStat.Inclinations.Leadership, "Р›РёРґ" },
+        {GameStat.Inclinations.Offense, "РќР°Рї" },
+        {GameStat.Inclinations.Perception, "Р’РѕСЃ" },
+        {GameStat.Inclinations.Psyker, "РџСЃР°" },
+        {GameStat.Inclinations.Social, "РћР±С‰" },
+        {GameStat.Inclinations.Strength, "РЎ" },
+        {GameStat.Inclinations.Tech, "РўРµС…" },
+        {GameStat.Inclinations.Toughness, "Р’С‹РЅ" },
+        {GameStat.Inclinations.Weapon, "РќР " },
+        {GameStat.Inclinations.Willpower, "РЎР’" }
     };
 
     public GameStat.Inclinations Inclinations => _inclination;
@@ -61,7 +61,7 @@ public class ButtonWithAdditionalInformation : Button, IPointerEnterHandler, IPo
     public void Initialize(GameStat.Inclinations inclination)
     {
         _inclination = inclination;
-        _textDescription = $"Показать таланты связанные с {GameStat.inclinationTranslate[_inclination]}";
+        _textDescription = $"РџРѕРєР°Р·Р°С‚СЊ С‚Р°Р»Р°РЅС‚С‹ СЃРІСЏР·Р°РЅРЅС‹Рµ СЃ {GameStat.inclinationTranslate[_inclination]}";
         textName.text = _inclinationToShort[inclination];
     }
 

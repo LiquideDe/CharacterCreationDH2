@@ -1,4 +1,4 @@
-using System.Collections;
+п»їusing System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System;
@@ -56,7 +56,7 @@ public class CreatorPsyPowers
             }
         }
 
-        throw new System.Exception($"Не смогли найти пси силу под именем {name}");
+        throw new System.Exception($"РќРµ СЃРјРѕРіР»Рё РЅР°Р№С‚Рё РїСЃРё СЃРёР»Сѓ РїРѕРґ РёРјРµРЅРµРј {name}");
     }
 
     public PsyPower GetPsyPower(string name)
@@ -66,7 +66,7 @@ public class CreatorPsyPowers
                 if (string.Compare(name, psyPower.Name) == 0)
                     return psyPower;
 
-        throw new System.Exception($"Не смогли найти пси силу под именем {name}");
+        throw new System.Exception($"РќРµ СЃРјРѕРіР»Рё РЅР°Р№С‚Рё РїСЃРё СЃРёР»Сѓ РїРѕРґ РёРјРµРЅРµРј {name}");
     }
 
     public PsyPower GetPsyPowerById(int school, int id)
@@ -79,7 +79,7 @@ public class CreatorPsyPowers
             }
         }
 
-        Debug.LogError($"!!!! Не смогли найти пси силы школы № {school}, id = {id}");
+        Debug.LogError($"!!!! РќРµ СЃРјРѕРіР»Рё РЅР°Р№С‚Рё РїСЃРё СЃРёР»С‹ С€РєРѕР»С‹ в„– {school}, id = {id}");
         return null;
     }
 
@@ -91,7 +91,7 @@ public class CreatorPsyPowers
         foreach (string dir in dirs)
         {
             psyPowers.Add(CreatePowers(dir));
-            schoolNames.Add(GameStat.ReadText(dir + "/Название.txt"));
+            schoolNames.Add(GameStat.ReadText(dir + "/РќР°Р·РІР°РЅРёРµ.txt"));
             connections.Add(CreateConnection(index));
             if (File.Exists(dir + "/sizeSpacing.JSON"))
             {

@@ -1,4 +1,4 @@
-using System;
+п»їusing System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -37,7 +37,7 @@ public class Role : IHistoryCharacter
             _talents.Add(_creatorTalents.GetTalent(talent));
         }
 
-        _name = GameStat.ReadText(path + "/Название.txt");
+        _name = GameStat.ReadText(path + "/РќР°Р·РІР°РЅРёРµ.txt");
         if(File.Exists(path + "/Get/psyker.txt"))
         {
             _bonusTalent = GameStat.ReadText(path + "/Get/psyker.txt");
@@ -47,10 +47,10 @@ public class Role : IHistoryCharacter
             _bonusTalent = "";
         }
 
-        _textBonusDescr = GameStat.ReadText(path + "/Бонус.txt");
-        _textDescription = GameStat.ReadText(path + "/Описание.txt");
-        _textCitata = "\nСклонности: ";
-        _textCitata += GameStat.ReadText(path + "/Склонности.txt");
+        _textBonusDescr = GameStat.ReadText(path + "/Р‘РѕРЅСѓСЃ.txt");
+        _textDescription = GameStat.ReadText(path + "/РћРїРёСЃР°РЅРёРµ.txt");
+        _textCitata = "\nРЎРєР»РѕРЅРЅРѕСЃС‚Рё: ";
+        _textCitata += GameStat.ReadText(path + "/РЎРєР»РѕРЅРЅРѕСЃС‚Рё.txt");
     }
     public List<Talent> Talents { get => _talents; }
     public List<List<GameStat.Inclinations>> Inclinations { get => inclinations; }

@@ -1,4 +1,4 @@
-using UnityEngine;
+Ôªøusing UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using TMPro;
@@ -29,7 +29,7 @@ public class TalentPanel : MonoBehaviour, IPointerDownHandler, IItemForList
     {
         Talent talent = (Talent)skillTalentEtcForList;
         textName.text = talent.Name;
-        textCost.text = $"{cost} ŒŒ";
+        textCost.text = $"{cost} –û–û";
         textShortDescr.text = talent.Description;
         if (isCanTaken)        
             _image.sprite = activeSprite;

@@ -1,4 +1,4 @@
-public class RolePresenter : PresenterForHomeBackRole, IPresenter
+﻿public class RolePresenter : PresenterForHomeBackRole, IPresenter
 {
     private RoleFinalPresenter _finalPanelPresenter;
     private LvlFactory _lvlFatcory;

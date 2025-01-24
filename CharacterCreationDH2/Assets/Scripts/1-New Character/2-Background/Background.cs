@@ -1,4 +1,4 @@
-using System;
+п»їusing System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -33,10 +33,10 @@ public class Background : IHistoryCharacter
         _creatorTalents = creatorTalents;
 
         _pathBackground = path;
-        _name = GameStat.ReadText(path + "/Название.txt");
-        _description = GameStat.ReadText(path + "/Описание.txt");
-        _citata = GameStat.ReadText(path + "/Цитата.txt");
-        _bonus = GameStat.ReadText(path + "/Бонус.txt");
+        _name = GameStat.ReadText(path + "/РќР°Р·РІР°РЅРёРµ.txt");
+        _description = GameStat.ReadText(path + "/РћРїРёСЃР°РЅРёРµ.txt");
+        _citata = GameStat.ReadText(path + "/Р¦РёС‚Р°С‚Р°.txt");
+        _bonus = GameStat.ReadText(path + "/Р‘РѕРЅСѓСЃ.txt");
         _rememberThings = GameStat.ReadText(path + "/Remember.txt").Split(new char[] { '/' }).ToList();
 
         DirectoryInfo directoryInfo = new DirectoryInfo(path);

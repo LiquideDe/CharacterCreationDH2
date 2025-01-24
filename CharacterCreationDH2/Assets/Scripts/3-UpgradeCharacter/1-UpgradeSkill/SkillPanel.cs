@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -40,9 +40,9 @@ public class SkillPanel : MonoBehaviour
         _textName.text = skill.Name;
 
         if (skill.LvlLearned < 4)
-            _textCost.text = $"Óëó÷øåíèå áóäåò ñòîèòü {cost} ÎÎ";
+            _textCost.text = $"Ð£Ð»ÑƒÑ‡ÑˆÐµÐ½Ð¸Ðµ Ð±ÑƒÐ´ÐµÑ‚ ÑÑ‚Ð¾Ð¸Ñ‚ÑŒ {cost} ÐžÐž";
         else
-            _textCost.text = "Ìàêñèìàëüíûé";
+            _textCost.text = "ÐœÐ°ÐºÑÐ¸Ð¼Ð°Ð»ÑŒÐ½Ñ‹Ð¹";
 
         for (int i = 0; i < skill.LvlLearned; i++)
         {

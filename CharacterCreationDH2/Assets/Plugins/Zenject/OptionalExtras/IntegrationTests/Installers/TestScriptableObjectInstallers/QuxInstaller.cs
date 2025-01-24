@@ -1,4 +1,4 @@
-namespace Zenject.Tests.Installers.ScriptableObjectInstallers
+﻿namespace Zenject.Tests.Installers.ScriptableObjectInstallers
 {
     //[CreateAssetMenu(fileName = "QuxInstaller", menuName = "Installers/QuxInstaller")]
     public class QuxInstaller : ScriptableObjectInstaller<string, float, int, QuxInstaller>

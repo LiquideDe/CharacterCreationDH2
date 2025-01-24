@@ -1,4 +1,4 @@
-
+﻿
 // In order to run this, install dotMemoryPeek through nuget and then change this to 1
 #if false
 

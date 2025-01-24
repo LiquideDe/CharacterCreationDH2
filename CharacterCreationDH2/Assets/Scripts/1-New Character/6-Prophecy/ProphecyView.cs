@@ -1,4 +1,4 @@
-using UnityEngine;
+п»їusing UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System;
@@ -30,7 +30,7 @@ public class ProphecyView : AnimateShowAndHideView
 
     public void SetText(string text)
     {
-        textDescription.text = $"Ваше пророчество: {text}";
+        textDescription.text = $"Р’Р°С€Рµ РїСЂРѕСЂРѕС‡РµСЃС‚РІРѕ: {text}";
         _buttonGenerate.gameObject.SetActive(false);
         inputField.interactable = false;
     }

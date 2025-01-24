@@ -1,4 +1,4 @@
-public class Equipment : INameWithDescription
+ï»¿public class Equipment : INameWithDescription
 {
     private string nameEquipment, description, rarity;
     private float weight;
@@ -44,6 +44,6 @@ public class Equipment : INameWithDescription
             return nameEquipment;
         }
 
-        return $"{nameEquipment}-{amount} øò.";
+        return $"{nameEquipment}-{amount} ÑˆÑ‚.";
     }
 }

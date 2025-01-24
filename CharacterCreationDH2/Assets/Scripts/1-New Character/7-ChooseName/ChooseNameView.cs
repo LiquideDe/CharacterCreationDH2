@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -50,11 +50,11 @@ public class ChooseNameView : AnimateShowAndHideView
         string gender;
         if (isOn)
         {
-            gender = "Ì";
+            gender = "Ðœ";
         }
         else
         {
-            gender = "Æ";
+            gender = "Ð–";
         }
         ChooseSex?.Invoke(gender);
     }

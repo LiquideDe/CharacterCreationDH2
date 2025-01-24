@@ -1,4 +1,4 @@
-using System;
+п»їusing System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -23,7 +23,7 @@ public class CreatorSkills
                 return skill;
             
         }
-        Debug.Log($"!!!!!! Не нашли умение!!!! Искали {skillName}");
+        Debug.Log($"!!!!!! РќРµ РЅР°С€Р»Рё СѓРјРµРЅРёРµ!!!! РСЃРєР°Р»Рё {skillName}");
         return null;
     }
 

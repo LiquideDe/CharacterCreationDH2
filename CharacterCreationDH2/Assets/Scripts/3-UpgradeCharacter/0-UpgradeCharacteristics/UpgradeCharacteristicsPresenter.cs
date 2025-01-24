@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+п»їusing System.Collections.Generic;
 using System;
 
 public class UpgradeCharacteristicsPresenter : IPresenter
@@ -36,7 +36,7 @@ public class UpgradeCharacteristicsPresenter : IPresenter
 
     private void UpdatePanelText()
     {
-        _view.SetExperience($"Очков опыта: {_character.ExperienceUnspent}");
+        _view.SetExperience($"РћС‡РєРѕРІ РѕРїС‹С‚Р°: {_character.ExperienceUnspent}");
 
         _view.SetWeapon(_character.Characteristics[0].Amount, _character.Characteristics[0].LvlLearned,
             ChooseTextByLvlLearned(_character.Characteristics[0]));
@@ -69,9 +69,9 @@ public class UpgradeCharacteristicsPresenter : IPresenter
     private string ChooseTextByLvlLearned(Characteristic characteristic)
     {
         if (characteristic.LvlLearned < 5)
-            return $"Следующий уровень будет стоить в {CalculateCost(characteristic)} ОО";
+            return $"РЎР»РµРґСѓСЋС‰РёР№ СѓСЂРѕРІРµРЅСЊ Р±СѓРґРµС‚ СЃС‚РѕРёС‚СЊ РІ {CalculateCost(characteristic)} РћРћ";
 
-        return $"Достигнут максимум";
+        return $"Р”РѕСЃС‚РёРіРЅСѓС‚ РјР°РєСЃРёРјСѓРј";
     }
 
     private int CalculateCost(Characteristic characteristic)
@@ -184,7 +184,7 @@ public class UpgradeCharacteristicsPresenter : IPresenter
                     break;
 
                 default:
-                    throw new Exception($"Нет такого типа {characteristic.InternalName}");
+                    throw new Exception($"РќРµС‚ С‚Р°РєРѕРіРѕ С‚РёРїР° {characteristic.InternalName}");
             }            
             _character = character;
             UpdatePanelText();

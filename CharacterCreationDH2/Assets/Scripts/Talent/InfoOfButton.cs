@@ -1,4 +1,4 @@
-using System.Collections;
+п»їusing System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
@@ -51,33 +51,33 @@ public class InfoOfButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         {
             if (isActive)
             {
-                text = "Скрыть таланты связанные с " + description;
+                text = "РЎРєСЂС‹С‚СЊ С‚Р°Р»Р°РЅС‚С‹ СЃРІСЏР·Р°РЅРЅС‹Рµ СЃ " + description;
             }
             else
             {
-                text = "Показать таланты связанные с " + description;
+                text = "РџРѕРєР°Р·Р°С‚СЊ С‚Р°Р»Р°РЅС‚С‹ СЃРІСЏР·Р°РЅРЅС‹Рµ СЃ " + description;
             }
         }
         else if(isHideUnavailable)
         {
             if (isActive)
             {
-                text = "Скрыть недоступные таланты";
+                text = "РЎРєСЂС‹С‚СЊ РЅРµРґРѕСЃС‚СѓРїРЅС‹Рµ С‚Р°Р»Р°РЅС‚С‹";
             }
             else
             {
-                text = "Показать недоступные таланты";
+                text = "РџРѕРєР°Р·Р°С‚СЊ РЅРµРґРѕСЃС‚СѓРїРЅС‹Рµ С‚Р°Р»Р°РЅС‚С‹";
             }
         }
         else
         {
             if (isActive)
             {
-                text = "Показать все таланты";
+                text = "РџРѕРєР°Р·Р°С‚СЊ РІСЃРµ С‚Р°Р»Р°РЅС‚С‹";
             }
             else
             {
-                text = "Скрыть все таланты";
+                text = "РЎРєСЂС‹С‚СЊ РІСЃРµ С‚Р°Р»Р°РЅС‚С‹";
             }
         }
         return text;

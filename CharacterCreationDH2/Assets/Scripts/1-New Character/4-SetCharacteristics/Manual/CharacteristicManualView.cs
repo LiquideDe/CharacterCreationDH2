@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using UnityEngine.UI;
 using System;
 using TMPro;
@@ -95,61 +95,61 @@ public class CharacteristicManualView : AnimateShowAndHideView
     public void SetTextWeapon(string characteristicPoint, string allPoint)
     {
         _textWeapon.text = characteristicPoint;
-        _textAmountPoints.text = $"Îñòàëîñü î÷êîâ: {allPoint}";
+        _textAmountPoints.text = $"ÐžÑÑ‚Ð°Ð»Ð¾ÑÑŒ Ð¾Ñ‡ÐºÐ¾Ð²: {allPoint}";
     }
 
     public void SetTextBallistic(string characteristicPoint, string allPoint)
     {
         _textBallistic.text = characteristicPoint;
-        _textAmountPoints.text = $"Îñòàëîñü î÷êîâ: {allPoint}";
+        _textAmountPoints.text = $"ÐžÑÑ‚Ð°Ð»Ð¾ÑÑŒ Ð¾Ñ‡ÐºÐ¾Ð²: {allPoint}";
     }
 
     public void SetTextStrength(string characteristicPoint, string allPoint)
     {
         _textStrength.text = characteristicPoint;
-        _textAmountPoints.text = $"Îñòàëîñü î÷êîâ: {allPoint}";
+        _textAmountPoints.text = $"ÐžÑÑ‚Ð°Ð»Ð¾ÑÑŒ Ð¾Ñ‡ÐºÐ¾Ð²: {allPoint}";
     }
 
     public void SetTextToughness(string characteristicPoint, string allPoint)
     {
         _textToughness.text = characteristicPoint;
-        _textAmountPoints.text = $"Îñòàëîñü î÷êîâ: {allPoint}";
+        _textAmountPoints.text = $"ÐžÑÑ‚Ð°Ð»Ð¾ÑÑŒ Ð¾Ñ‡ÐºÐ¾Ð²: {allPoint}";
     }
 
     public void SetTextAgility(string characteristicPoint, string allPoint)
     {
         _textAgility.text = characteristicPoint;
-        _textAmountPoints.text = $"Îñòàëîñü î÷êîâ: {allPoint}";
+        _textAmountPoints.text = $"ÐžÑÑ‚Ð°Ð»Ð¾ÑÑŒ Ð¾Ñ‡ÐºÐ¾Ð²: {allPoint}";
     }
 
     public void SetTextIntelligence(string characteristicPoint, string allPoint)
     {
         _textIntelligence.text = characteristicPoint;
-        _textAmountPoints.text = $"Îñòàëîñü î÷êîâ: {allPoint}";
+        _textAmountPoints.text = $"ÐžÑÑ‚Ð°Ð»Ð¾ÑÑŒ Ð¾Ñ‡ÐºÐ¾Ð²: {allPoint}";
     }
 
     public void SetTextPerception(string characteristicPoint, string allPoint)
     {
         _textPerception.text = characteristicPoint;
-        _textAmountPoints.text = $"Îñòàëîñü î÷êîâ: {allPoint}";
+        _textAmountPoints.text = $"ÐžÑÑ‚Ð°Ð»Ð¾ÑÑŒ Ð¾Ñ‡ÐºÐ¾Ð²: {allPoint}";
     }
 
     public void SetTextWillpower(string characteristicPoint, string allPoint)
     {
         _textWillpower.text = characteristicPoint;
-        _textAmountPoints.text = $"Îñòàëîñü î÷êîâ: {allPoint}";
+        _textAmountPoints.text = $"ÐžÑÑ‚Ð°Ð»Ð¾ÑÑŒ Ð¾Ñ‡ÐºÐ¾Ð²: {allPoint}";
     }
 
     public void SetTextFellowship(string characteristicPoint, string allPoint)
     {
         _textFellowship.text = characteristicPoint;
-        _textAmountPoints.text = $"Îñòàëîñü î÷êîâ: {allPoint}";
+        _textAmountPoints.text = $"ÐžÑÑ‚Ð°Ð»Ð¾ÑÑŒ Ð¾Ñ‡ÐºÐ¾Ð²: {allPoint}";
     }
 
     public void SetTextInfluence(string characteristicPoint, string allPoint)
     {
         _textInfluence.text = characteristicPoint;
-        _textAmountPoints.text = $"Îñòàëîñü î÷êîâ: {allPoint}";
+        _textAmountPoints.text = $"ÐžÑÑ‚Ð°Ð»Ð¾ÑÑŒ Ð¾Ñ‡ÐºÐ¾Ð²: {allPoint}";
     }
 
     private void PlusWeapon() => ChangeWeapon?.Invoke(1);    

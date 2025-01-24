@@ -1,4 +1,4 @@
-using System;
+п»їusing System;
 using UnityEngine;
 
 public class LvlMediatorEditCharacter
@@ -39,7 +39,7 @@ public class LvlMediatorEditCharacter
 
     private EditPropertyCharacterView ShowEditProperties(ICharacter character)
     {
-        Debug.Log($"Запускает едит");
+        Debug.Log($"Р—Р°РїСѓСЃРєР°РµС‚ РµРґРёС‚");
         EditPropertyCharacterView propertyCharacterView = _lvlFactory.Get(TypeScene.EditProperties).GetComponent<EditPropertyCharacterView>();
 
         EditPropertyCharacterPresenter propertyCharacterPresenter = new EditPropertyCharacterPresenter

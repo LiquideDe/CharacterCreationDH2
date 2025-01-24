@@ -1,3 +1,3 @@
-public interface IItemForList 
+﻿public interface IItemForList 
 {
 }

@@ -1,4 +1,4 @@
-#if !(UNITY_WSA && ENABLE_DOTNET)
+﻿#if !(UNITY_WSA && ENABLE_DOTNET)
 
 namespace Zenject
 {

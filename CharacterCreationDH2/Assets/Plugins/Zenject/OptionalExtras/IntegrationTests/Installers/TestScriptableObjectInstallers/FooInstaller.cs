@@ -1,4 +1,4 @@
-namespace Zenject.Tests.Installers.ScriptableObjectInstallers
+﻿namespace Zenject.Tests.Installers.ScriptableObjectInstallers
 {
     public class Foo
     {

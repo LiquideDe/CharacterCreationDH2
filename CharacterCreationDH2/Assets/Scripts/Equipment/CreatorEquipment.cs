@@ -1,4 +1,4 @@
-using System.Collections;
+п»їusing System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
@@ -39,7 +39,7 @@ public class CreatorEquipment
                 return equipment;
             }
         }
-        Debug.Log($"!!!!ВНИМАНИЕ!!!! Не нашли экипировку {nameEq}");
+        Debug.Log($"!!!!Р’РќРРњРђРќРР•!!!! РќРµ РЅР°С€Р»Рё СЌРєРёРїРёСЂРѕРІРєСѓ {nameEq}");
         return null;
     }
 

@@ -1,4 +1,4 @@
-public interface ISkillTalentEtcForList
+﻿public interface ISkillTalentEtcForList
 {
     
 }

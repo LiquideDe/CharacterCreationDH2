@@ -1,4 +1,4 @@
-//#define ZEN_DO_NOT_USE_COMPILED_EXPRESSIONS
+﻿//#define ZEN_DO_NOT_USE_COMPILED_EXPRESSIONS
 
 using System;
 using System.Collections.Generic;

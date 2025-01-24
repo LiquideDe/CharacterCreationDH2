@@ -1,4 +1,4 @@
-using UnityEngine;
+п»їusing UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 
@@ -31,50 +31,50 @@ public class NewArmor : CreatorNewEquipment
             armorReader.description = "";
             if (head > 0 && hands > 0 && body > 0 && legs > 0)
             {
-                armorReader.description += $"Покрывает все тело.";
-                armorReader.descriptionArmor = $"Покрывает все тело.";
+                armorReader.description += $"РџРѕРєСЂС‹РІР°РµС‚ РІСЃРµ С‚РµР»Рѕ.";
+                armorReader.descriptionArmor = $"РџРѕРєСЂС‹РІР°РµС‚ РІСЃРµ С‚РµР»Рѕ.";
             }
             else if (head == 0 && hands > 0 && body > 0 && legs > 0)
             {
-                armorReader.description += $"Покрывает все тело кроме головы.";
-                armorReader.descriptionArmor = $"Покрывает все тело кроме головы.";
+                armorReader.description += $"РџРѕРєСЂС‹РІР°РµС‚ РІСЃРµ С‚РµР»Рѕ РєСЂРѕРјРµ РіРѕР»РѕРІС‹.";
+                armorReader.descriptionArmor = $"РџРѕРєСЂС‹РІР°РµС‚ РІСЃРµ С‚РµР»Рѕ РєСЂРѕРјРµ РіРѕР»РѕРІС‹.";
             }
             else if (head == 0 && hands == 0 && body > 0 && legs > 0)
             {
-                armorReader.description += $"Покрывает только тело и ноги.";
-                armorReader.descriptionArmor = $"Покрывает только тело и ноги.";
+                armorReader.description += $"РџРѕРєСЂС‹РІР°РµС‚ С‚РѕР»СЊРєРѕ С‚РµР»Рѕ Рё РЅРѕРіРё.";
+                armorReader.descriptionArmor = $"РџРѕРєСЂС‹РІР°РµС‚ С‚РѕР»СЊРєРѕ С‚РµР»Рѕ Рё РЅРѕРіРё.";
             }
             else if (head == 0 && hands == 0 && body > 0 && legs == 0)
             {
-                armorReader.description += $"Покрывает только тело.";
-                armorReader.descriptionArmor = $"Покрывает только тело.";
+                armorReader.description += $"РџРѕРєСЂС‹РІР°РµС‚ С‚РѕР»СЊРєРѕ С‚РµР»Рѕ.";
+                armorReader.descriptionArmor = $"РџРѕРєСЂС‹РІР°РµС‚ С‚РѕР»СЊРєРѕ С‚РµР»Рѕ.";
             }
             else if (head == 0 && hands > 0 && body > 0 && legs == 0)
             {
-                armorReader.description += $"Покрывает только тело и руки.";
-                armorReader.descriptionArmor = $"Покрывает только тело и руки.";
+                armorReader.description += $"РџРѕРєСЂС‹РІР°РµС‚ С‚РѕР»СЊРєРѕ С‚РµР»Рѕ Рё СЂСѓРєРё.";
+                armorReader.descriptionArmor = $"РџРѕРєСЂС‹РІР°РµС‚ С‚РѕР»СЊРєРѕ С‚РµР»Рѕ Рё СЂСѓРєРё.";
             }
             else if (head == 0 && hands > 0 && body == 0 && legs == 0)
             {
-                armorReader.description += $"Покрывает только руки.";
-                armorReader.descriptionArmor = $"Покрывает только руки.";
+                armorReader.description += $"РџРѕРєСЂС‹РІР°РµС‚ С‚РѕР»СЊРєРѕ СЂСѓРєРё.";
+                armorReader.descriptionArmor = $"РџРѕРєСЂС‹РІР°РµС‚ С‚РѕР»СЊРєРѕ СЂСѓРєРё.";
             }
             else if (head == 0 && hands == 0 && body == 0 && legs > 0)
             {
-                armorReader.description += $"Покрывает только ноги.";
-                armorReader.descriptionArmor = $"Покрывает только ноги.";
+                armorReader.description += $"РџРѕРєСЂС‹РІР°РµС‚ С‚РѕР»СЊРєРѕ РЅРѕРіРё.";
+                armorReader.descriptionArmor = $"РџРѕРєСЂС‹РІР°РµС‚ С‚РѕР»СЊРєРѕ РЅРѕРіРё.";
             }
             else if (head > 0 && hands == 0 && body == 0 && legs == 0)
             {
-                armorReader.description += $"Покрывает только голову.";
-                armorReader.descriptionArmor = $"Покрывает только голову.";
+                armorReader.description += $"РџРѕРєСЂС‹РІР°РµС‚ С‚РѕР»СЊРєРѕ РіРѕР»РѕРІСѓ.";
+                armorReader.descriptionArmor = $"РџРѕРєСЂС‹РІР°РµС‚ С‚РѕР»СЊРєРѕ РіРѕР»РѕРІСѓ.";
             }
             if (_toogleShield) 
                 armorReader.typeEquipment = Equipment.TypeEquipment.Shield.ToString();
             else
                 armorReader.typeEquipment = Equipment.TypeEquipment.Armor.ToString();
 
-            armorReader.description += $"Броня {armor}, максимальная ловкость {maxAgility}.";
+            armorReader.description += $"Р‘СЂРѕРЅСЏ {armor}, РјР°РєСЃРёРјР°Р»СЊРЅР°СЏ Р»РѕРІРєРѕСЃС‚СЊ {maxAgility}.";
             armorReader.amount = 1;
             Armor armorEq = new Armor(armorReader);
             SaveEquipment($"{Application.dataPath}/StreamingAssets/Equipments/Armor/{armorReader.name}.JSON", armorReader);

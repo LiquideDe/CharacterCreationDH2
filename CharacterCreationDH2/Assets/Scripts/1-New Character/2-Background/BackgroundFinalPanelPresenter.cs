@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine.UI;
@@ -32,14 +32,14 @@ public class BackgroundFinalPanelPresenter : IPresenter
         if(_background.Skills.Count > 0)
         {
             if (_background.Skills[0][0].IsKnowledge)
-                    _creatorToggles.CreateToggles(_background.Skills, "Çíàíèÿ");
+                    _creatorToggles.CreateToggles(_background.Skills, "Ð—Ð½Ð°Ð½Ð¸Ñ");
             else
-                _creatorToggles.CreateToggles(_background.Skills, "Íàâûêè");
+                _creatorToggles.CreateToggles(_background.Skills, "ÐÐ°Ð²Ñ‹ÐºÐ¸");
         }           
         
 
         if(_background.Talents.Count > 0)       
-            _creatorToggles.CreateToggles(_background.Talents, "Òàëàíòû");       
+            _creatorToggles.CreateToggles(_background.Talents, "Ð¢Ð°Ð»Ð°Ð½Ñ‚Ñ‹");       
         
 
         if(_background.Equipments.Count > 0)
@@ -47,10 +47,10 @@ public class BackgroundFinalPanelPresenter : IPresenter
         
 
         if (_background.MechImplants.Count > 0)
-            _creatorToggles.CreateToggles(_background.MechImplants, "Èìïëàíòû");
+            _creatorToggles.CreateToggles(_background.MechImplants, "Ð˜Ð¼Ð¿Ð»Ð°Ð½Ñ‚Ñ‹");
 
         if (_background.Traits.Count > 0)
-            _creatorToggles.CreateToggles(_background.Traits, "×åðòû");
+            _creatorToggles.CreateToggles(_background.Traits, "Ð§ÐµÑ€Ñ‚Ñ‹");
 
         if(_background.Inclinations.Count > 0)
         {

@@ -1,4 +1,4 @@
-namespace Zenject.Tests.Factories.BindFactoryFive
+﻿namespace Zenject.Tests.Factories.BindFactoryFive
 {
     public class FooInstaller : MonoInstaller
     {

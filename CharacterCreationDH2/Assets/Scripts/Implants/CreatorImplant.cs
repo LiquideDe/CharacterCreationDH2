@@ -1,4 +1,4 @@
-using System.Collections;
+п»їusing System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System;
@@ -30,7 +30,7 @@ public class CreatorImplant
             }
         }
 
-        Debug.Log($"!!!!ВНИМАНИЕ!!!! Не нашли имплант {name}");
+        Debug.Log($"!!!!Р’РќРРњРђРќРР•!!!! РќРµ РЅР°С€Р»Рё РёРјРїР»Р°РЅС‚ {name}");
         return null;
     }
 

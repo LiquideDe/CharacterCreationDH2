@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -54,16 +54,16 @@ public class NewMelee : CreatorNewEquipment
         switch (dropDown.value)
         {
             case 0:
-                typeDamage = "Â";
+                typeDamage = "Ð’";
                 break;
             case 1:
-                typeDamage = "Ð";
+                typeDamage = "Ð ";
                 break;
             case 2:
-                typeDamage = "Ó";
+                typeDamage = "Ð£";
                 break;
             case 3:
-                typeDamage = "Ý";
+                typeDamage = "Ð­";
                 break;
         }
         int.TryParse(inputDamage.text, out int damage);
@@ -72,7 +72,7 @@ public class NewMelee : CreatorNewEquipment
         {
             damage = 1;
         }
-        string textdamage = $"{damage}ê10+{bonusDamage}{typeDamage}";
+        string textdamage = $"{damage}Ðº10+{bonusDamage}{typeDamage}";
         return textdamage;
     }
 

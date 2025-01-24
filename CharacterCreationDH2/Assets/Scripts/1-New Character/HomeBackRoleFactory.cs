@@ -1,4 +1,4 @@
-using UnityEngine;
+п»їusing UnityEngine;
 using Zenject;
 
 public class HomeBackRoleFactory
@@ -21,7 +21,7 @@ public class HomeBackRoleFactory
                 return _diContainer.Instantiate<CreatorRole>();
 
             default:
-                throw new System.Exception("Нет такого типа TypeCreator");
+                throw new System.Exception("РќРµС‚ С‚Р°РєРѕРіРѕ С‚РёРїР° TypeCreator");
         }
     }
 }
