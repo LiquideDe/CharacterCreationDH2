@@ -9,7 +9,7 @@ public class TakeScreenshot: MonoBehaviour {
     public event Action WorkIsFinished;
     public event Action PageSaved;
     protected ICharacter _character;
-    List<byte[]> savedImages = new List<byte[]>();
+    List<Texture2D> savedImages = new List<Texture2D>();
     [SerializeField] RectTransform rectImage;
     public enum PageName { First, Second, Third }
     private string _pageName;
@@ -55,7 +55,7 @@ public class TakeScreenshot: MonoBehaviour {
         screenImage.Apply();
         //Convert to png
         byte[] pngBytes = screenImage.EncodeToPNG();
-        savedImages.Add(pngBytes);
+        savedImages.Add(screenImage);
         yield return new WaitForSeconds(0.1f);
     }
 
@@ -67,36 +67,28 @@ public class TakeScreenshot: MonoBehaviour {
     }
 
     private void CombineImages() {
-        Camera cam = Camera.main;
-        List<Bitmap> bitmaps = new List<Bitmap>();
-        foreach (byte[] by in savedImages) {
-            bitmaps.Add(ConvertByteToBitmap(by));
-        }
-        //Bitmap newImage = new Bitmap(2800, 2160);
-        int w = (int)(cam.pixelWidth * 1.458f);
-        int h = cam.pixelHeight * 2;
-        Bitmap newImage = new Bitmap(w, h);
-        newImage.SetResolution(72, 72);
-        System.Drawing.Graphics g = System.Drawing.Graphics.FromImage(newImage);
-        g.DrawImageUnscaled(bitmaps[0], newImage.Width - bitmaps[0].Width, newImage.Height - bitmaps[0].Height);
-        g.DrawImageUnscaled(bitmaps[1], newImage.Width - bitmaps[1].Width, 0);
-        g.DrawImageUnscaled(bitmaps[2], 0, 0);
-        g.DrawImageUnscaled(bitmaps[3], 0, newImage.Height - bitmaps[3].Height);
+        var cached = RenderTexture.active;
+        var renderTexture = RenderTexture.GetTemporary(savedImages[0].width, savedImages[0].height);
+        var finalTexture = new Texture2D(renderTexture.width * 2, renderTexture.height * 2);
+        RenderTexture.active = renderTexture;
+        UnityEngine.Graphics.Blit(savedImages[0], renderTexture);
+        finalTexture.ReadPixels(new Rect(0, 0, renderTexture.width, renderTexture.height), savedImages[0].width, 0);
+        UnityEngine.Graphics.Blit(savedImages[1], renderTexture);
+        finalTexture.ReadPixels(new Rect(0, 0, renderTexture.width, renderTexture.height), savedImages[0].width, savedImages[0].height);
+        UnityEngine.Graphics.Blit(savedImages[2], renderTexture);
+        finalTexture.ReadPixels(new Rect(0, 0, renderTexture.width, renderTexture.height), 0, savedImages[0].height);
+        UnityEngine.Graphics.Blit(savedImages[3], renderTexture);
+        finalTexture.ReadPixels(new Rect(0, 0, renderTexture.width, renderTexture.height), 0, 0);
+
         if (!Directory.Exists($"{Application.dataPath}/StreamingAssets/CharacterSheets/{_character.Name}"))
             Directory.CreateDirectory($"{Application.dataPath}/StreamingAssets/CharacterSheets/{_character.Name}");
-        newImage.Save($"{Application.dataPath}/StreamingAssets/CharacterSheets/{_character.Name}/CharacterSheet{_pageName}.png", System.Drawing.Imaging.ImageFormat.Png);
+        File.WriteAllBytes($"{Application.dataPath}/StreamingAssets/CharacterSheets/{_character.Name}/CharacterSheet{_pageName}.png", finalTexture.EncodeToPNG());
         if (_isManyPages == false) {
             WorkIsFinished?.Invoke();
             Destroy(gameObject);
         } else {
             savedImages.Clear();
             PageSaved?.Invoke();
-        }
-    }
-
-    private Bitmap ConvertByteToBitmap(byte[] source) {
-        using (var ms = new MemoryStream(source)) {
-            return new Bitmap(ms);
         }
     }
 
