@@ -1,4 +1,4 @@
-public class Connection
+﻿public class Connection
 {
     private PsyPower parentPsyPower;
     private PsyPower childPsyPower;

@@ -1,4 +1,4 @@
-public class Knowledge : Skill
+﻿public class Knowledge : Skill
 {
     private string _nameKnowledge;
     public string NameKnowledge { get => _nameKnowledge; }

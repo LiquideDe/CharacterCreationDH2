@@ -1,4 +1,4 @@
-using System;
+п»їusing System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -33,7 +33,7 @@ public class Load
             SaveLoadCharacteristic characteristic = JsonUtility.FromJson<SaveLoadCharacteristic>(data[i]);
             characteristics.Add(characteristic);
         }
-        //Debug.Log($"Первый объект Характеристика {data[min]}, последний объект {data[max-1]}, min = {min}, max = {max}");
+        //Debug.Log($"РџРµСЂРІС‹Р№ РѕР±СЉРµРєС‚ РҐР°СЂР°РєС‚РµСЂРёСЃС‚РёРєР° {data[min]}, РїРѕСЃР»РµРґРЅРёР№ РѕР±СЉРµРєС‚ {data[max-1]}, min = {min}, max = {max}");
 
         List<SaveLoadSkill> skills = new List<SaveLoadSkill>();
         min = character.Characteristics.Count + 1;
@@ -43,7 +43,7 @@ public class Load
             SaveLoadSkill skill = JsonUtility.FromJson<SaveLoadSkill>(data[i]);
             skills.Add(skill);
         }
-        //Debug.Log($"Первый объект Навык {data[min]}, последний объект {data[max-1]}, min = {min}, max = {max}");
+        //Debug.Log($"РџРµСЂРІС‹Р№ РѕР±СЉРµРєС‚ РќР°РІС‹Рє {data[min]}, РїРѕСЃР»РµРґРЅРёР№ РѕР±СЉРµРєС‚ {data[max-1]}, min = {min}, max = {max}");
 
         List<MechImplant> implants = new List<MechImplant>();
         if (loadCharacter.amountImplants > 0)
@@ -51,7 +51,7 @@ public class Load
             
             min = max;
             max = min + loadCharacter.amountImplants;
-            //Debug.Log($"Первый Имплант {data[min]}, последний объект {data[max - 1]}, min = {min}, max = {max}");
+            //Debug.Log($"РџРµСЂРІС‹Р№ РРјРїР»Р°РЅС‚ {data[min]}, РїРѕСЃР»РµРґРЅРёР№ РѕР±СЉРµРєС‚ {data[max - 1]}, min = {min}, max = {max}");
             for (int i = min; i < max; i++)
             {
                 SaveLoadImplant implant = JsonUtility.FromJson<SaveLoadImplant>(data[i]);

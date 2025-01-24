@@ -1,4 +1,4 @@
-using System;
+п»їusing System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -32,13 +32,13 @@ public class CreatorTogglesForFinalPanel : MonoBehaviour
     {
         foreach (List<Equipment> equipment in equipmentsList)
         {
-            CreateToggleGroup("Экипировка");
+            CreateToggleGroup("Р­РєРёРїРёСЂРѕРІРєР°");
             for (int i = 0; i < equipment.Count; i++)
             {
                 if (equipment[i].TypeEq == Equipment.TypeEquipment.Melee || equipment[i].TypeEq == Equipment.TypeEquipment.Range || equipment[i].TypeEq == Equipment.TypeEquipment.Grenade)
                 {
                     Weapon weapon = (Weapon)equipment[i];
-                    string dopText = $"\n Урон {weapon.Damage}, БрПроб {weapon.Penetration}, Качества {weapon.Properties}";
+                    string dopText = $"\n РЈСЂРѕРЅ {weapon.Damage}, Р‘СЂРџСЂРѕР± {weapon.Penetration}, РљР°С‡РµСЃС‚РІР° {weapon.Properties}";
                     CreateToggle(equipment[i].NameWithAmount, i, equipment[i].Description + dopText);
                 }
                 else
@@ -54,7 +54,7 @@ public class CreatorTogglesForFinalPanel : MonoBehaviour
     {
         foreach(List<GameStat.Inclinations> inclinationList in inclinations)
         {
-            CreateToggleGroup("Склонности");
+            CreateToggleGroup("РЎРєР»РѕРЅРЅРѕСЃС‚Рё");
             int sc = 0;
             for(int i = 0; i < inclinationList.Count; i++)
             {

@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+Ôªøusing System.Collections.Generic;
 using System;
 
 public class UpgradePsycanaPresenter : IPresenter
@@ -197,6 +197,6 @@ public class UpgradePsycanaPresenter : IPresenter
             _audioManager.PlayWarning();
     }
 
-    private void UpdateTextInView() => _view.SetExperience($"{_character.ExperienceUnspent} ŒŒ", $"œ– {_character.PsyRating}", 
-        $"ƒÎˇ ÔÓ‚˚¯ÂÌËˇ œ– ÚÛ·ÂÚÒˇ {200 * (_character.PsyRating + 1)} ŒŒ", _creatorPsyPowers.GetNameSchool(_school));
+    private void UpdateTextInView() => _view.SetExperience($"{_character.ExperienceUnspent} –û–û", $"–ü–† {_character.PsyRating}", 
+        $"–î–ª—è –ø–æ–≤—ã—à–µ–Ω–∏—è –ü–† —Ç—Ä—É–±–µ—Ç—Å—è {200 * (_character.PsyRating + 1)} –û–û", _creatorPsyPowers.GetNameSchool(_school));
 }

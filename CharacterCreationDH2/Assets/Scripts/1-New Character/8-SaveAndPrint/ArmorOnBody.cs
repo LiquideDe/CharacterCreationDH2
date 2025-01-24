@@ -1,4 +1,4 @@
-using System.Collections;
+п»їusing System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
@@ -45,9 +45,9 @@ public class ArmorOnBody : MonoBehaviour
 
     public void GenerateQr()
     {
-        //Пример бонус вынослоивости = 4, бонус СВ = 3, броня Легкий панцирь.
+        //РџСЂРёРјРµСЂ Р±РѕРЅСѓСЃ РІС‹РЅРѕСЃР»РѕРёРІРѕСЃС‚Рё = 4, Р±РѕРЅСѓСЃ РЎР’ = 3, Р±СЂРѕРЅСЏ Р›РµРіРєРёР№ РїР°РЅС†РёСЂСЊ.
         //A/3/0/4/6/10/4/8/4/8/4/8/4/8
-        //A - Armor/3 - бонус СВ/Броня голова/Общая броня головы/Броня тела/Общая броня тела/Броня правой руки/Общая броня правой руки/Броня левой руки/Общая броня левой руки/Броня правой ноги/Общая броня правой ноги/Броня левой ноги/Общая броня левой ноги
+        //A - Armor/3 - Р±РѕРЅСѓСЃ РЎР’/Р‘СЂРѕРЅСЏ РіРѕР»РѕРІР°/РћР±С‰Р°СЏ Р±СЂРѕРЅСЏ РіРѕР»РѕРІС‹/Р‘СЂРѕРЅСЏ С‚РµР»Р°/РћР±С‰Р°СЏ Р±СЂРѕРЅСЏ С‚РµР»Р°/Р‘СЂРѕРЅСЏ РїСЂР°РІРѕР№ СЂСѓРєРё/РћР±С‰Р°СЏ Р±СЂРѕРЅСЏ РїСЂР°РІРѕР№ СЂСѓРєРё/Р‘СЂРѕРЅСЏ Р»РµРІРѕР№ СЂСѓРєРё/РћР±С‰Р°СЏ Р±СЂРѕРЅСЏ Р»РµРІРѕР№ СЂСѓРєРё/Р‘СЂРѕРЅСЏ РїСЂР°РІРѕР№ РЅРѕРіРё/РћР±С‰Р°СЏ Р±СЂРѕРЅСЏ РїСЂР°РІРѕР№ РЅРѕРіРё/Р‘СЂРѕРЅСЏ Р»РµРІРѕР№ РЅРѕРіРё/РћР±С‰Р°СЏ Р±СЂРѕРЅСЏ Р»РµРІРѕР№ РЅРѕРіРё
         string textToCode = $"A/{_bonusWillpower}/{textArmorHead.text}/{textTotalHead.text}/" +
             $"{textArmorBody.text}/{textTotalBody.text}/" +
             $"{textArmorRightHand.text}/{textTotalRightHand.text}/" +
@@ -153,9 +153,9 @@ public class ArmorOnBody : MonoBehaviour
     {
         foreach (var item in traits)
         {
-            if (string.Compare(item.Name, "Машина", true) == 0)
+            if (string.Compare(item.Name, "РњР°С€РёРЅР°", true) == 0)
                 _bonusArmorFromTrait += item.Lvl;
-            else if (string.Compare(item.Name, "Природная броня", true) == 0)
+            else if (string.Compare(item.Name, "РџСЂРёСЂРѕРґРЅР°СЏ Р±СЂРѕРЅСЏ", true) == 0)
                 _bonusArmorFromTrait += item.Lvl;
         }
     }

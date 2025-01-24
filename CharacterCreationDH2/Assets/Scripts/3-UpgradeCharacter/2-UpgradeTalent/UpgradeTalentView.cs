@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -79,7 +79,7 @@ public class UpgradeTalentView : AnimateShowAndHideView
     public void ShowTalent(Talent talent, bool isCanTaken, int cost)
     {
         _buttonStudy.gameObject.SetActive(true);
-        _textDescription.text = $"{talent.Name} \n Ñòîèìîñòü {cost} ÎÎ \n {talent.LongDescription} \n {talent.ListRequirments}";
+        _textDescription.text = $"{talent.Name} \n Ð¡Ñ‚Ð¾Ð¸Ð¼Ð¾ÑÑ‚ÑŒ {cost} ÐžÐž \n {talent.LongDescription} \n {talent.ListRequirments}";
         if (isCanTaken == false)
             _buttonStudy.gameObject.SetActive(false);
     }
@@ -116,7 +116,7 @@ public class UpgradeTalentView : AnimateShowAndHideView
     private void ShowInfoForAllButton(string text)
     {
         _panelWithDescriptionButton.SetActive(true);
-        _textDescriptionButton.text = $"Ïîêàçàòü/ñêðûòü íåäîñòóïíûå òàëàíòû.";
+        _textDescriptionButton.text = $"ÐŸÐ¾ÐºÐ°Ð·Ð°Ñ‚ÑŒ/ÑÐºÑ€Ñ‹Ñ‚ÑŒ Ð½ÐµÐ´Ð¾ÑÑ‚ÑƒÐ¿Ð½Ñ‹Ðµ Ñ‚Ð°Ð»Ð°Ð½Ñ‚Ñ‹.";
     }
 
     private void HidePanel() => _panelWithDescriptionButton.SetActive(false);

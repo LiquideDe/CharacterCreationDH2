@@ -1,4 +1,4 @@
-#if !NET_4_6
+﻿#if !NET_4_6
 
 namespace ModestTree.Util
 {

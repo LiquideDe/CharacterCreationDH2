@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+п»їusing System.Collections.Generic;
 using System;
 using UnityEngine;
 
@@ -237,7 +237,7 @@ public class EditCharacteristicsAndEquipmentsPresenter : IPresenter
     private void Prev()
     {
         //_audioManager.PlayClick();
-        Debug.Log($"Закрываем едит");
+        Debug.Log($"Р—Р°РєСЂС‹РІР°РµРј РµРґРёС‚");
         CheckAndCloseAllLists();
         Unscribe();
         _view.DestroyView();
@@ -270,7 +270,7 @@ public class EditCharacteristicsAndEquipmentsPresenter : IPresenter
         listWithNew.AddNewItem += ShowNewImplant;
         listWithNew.ChooseThis += AddImplant;
         listWithNew.CloseList += CloseList;
-        listWithNew.Initialize(implantNames, "Выберите имплант");
+        listWithNew.Initialize(implantNames, "Р’С‹Р±РµСЂРёС‚Рµ РёРјРїР»Р°РЅС‚");
         _listWithItems = listWithNew;
     }
 
@@ -307,23 +307,23 @@ public class EditCharacteristicsAndEquipmentsPresenter : IPresenter
         _creatorImplant.AddImplant(implant);
     }
 
-    private void ShowNewWeapons() => ShowListWithNewEquipments(Equipment.TypeEquipment.Melee, $"Выберите оружие ближнего боя", ShowNewMeleeForm);
+    private void ShowNewWeapons() => ShowListWithNewEquipments(Equipment.TypeEquipment.Melee, $"Р’С‹Р±РµСЂРёС‚Рµ РѕСЂСѓР¶РёРµ Р±Р»РёР¶РЅРµРіРѕ Р±РѕСЏ", ShowNewMeleeForm);
 
     private void ShowNewMeleeForm() => ShowFormWithProperties(_lvlFactory.Get(TypeScene.NewMelee).GetComponent<NewMelee>());
 
-    private void ShowNewGrenade() => ShowListWithNewEquipments( Equipment.TypeEquipment.Grenade, "Выберите гранату", ShowNewGrenadeForm);
+    private void ShowNewGrenade() => ShowListWithNewEquipments( Equipment.TypeEquipment.Grenade, "Р’С‹Р±РµСЂРёС‚Рµ РіСЂР°РЅР°С‚Сѓ", ShowNewGrenadeForm);
 
     private void ShowNewGrenadeForm() => ShowFormWithProperties(_lvlFactory.Get(TypeScene.NewGrenade).GetComponent<NewGrenade>());
 
-    private void ShowNewEquipment() => ShowListWithNewEquipments(Equipment.TypeEquipment.Thing, "Выберите снаряжение", ShowEquipmentForm);
+    private void ShowNewEquipment() => ShowListWithNewEquipments(Equipment.TypeEquipment.Thing, "Р’С‹Р±РµСЂРёС‚Рµ СЃРЅР°СЂСЏР¶РµРЅРёРµ", ShowEquipmentForm);
 
     private void ShowEquipmentForm() => ShowForm(_lvlFactory.Get(TypeScene.NewEquipment).GetComponent<CreatorNewEquipment>());
 
-    private void ShowBallistic() => ShowListWithNewEquipments(Equipment.TypeEquipment.Range, "Выберите стрелковое оружие", ShowNewBallistic);
+    private void ShowBallistic() => ShowListWithNewEquipments(Equipment.TypeEquipment.Range, "Р’С‹Р±РµСЂРёС‚Рµ СЃС‚СЂРµР»РєРѕРІРѕРµ РѕСЂСѓР¶РёРµ", ShowNewBallistic);
 
     private void ShowNewBallistic() => ShowFormWithProperties(_lvlFactory.Get(TypeScene.NewRange).GetComponent<NewRange>());
 
-    private void ShowArmor() => ShowListWithNewEquipments(Equipment.TypeEquipment.Armor, "Выберите броню", ShowNewArmor);
+    private void ShowArmor() => ShowListWithNewEquipments(Equipment.TypeEquipment.Armor, "Р’С‹Р±РµСЂРёС‚Рµ Р±СЂРѕРЅСЋ", ShowNewArmor);
 
     private void ShowNewArmor() => ShowForm(_lvlFactory.Get(TypeScene.NewArmor).GetComponent<NewArmor>());
 
@@ -453,7 +453,7 @@ public class EditCharacteristicsAndEquipmentsPresenter : IPresenter
         ListWithNewItems list = _lvlFactory.Get(TypeScene.ListWithNewItems).GetComponent<ListWithNewItems>();
         list.CloseList += CloseList;
         list.ChooseThis += AddProperty;
-        list.Initialize(_creatorWeaponProperties.GetProperties(), $"Выберите особое качество");
+        list.Initialize(_creatorWeaponProperties.GetProperties(), $"Р’С‹Р±РµСЂРёС‚Рµ РѕСЃРѕР±РѕРµ РєР°С‡РµСЃС‚РІРѕ");
         _listWithItems = list;
     }
 

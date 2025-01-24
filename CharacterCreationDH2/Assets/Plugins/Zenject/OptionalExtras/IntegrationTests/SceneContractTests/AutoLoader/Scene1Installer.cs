@@ -1,4 +1,4 @@
-namespace Zenject.Tests.AutoLoadSceneTests
+﻿namespace Zenject.Tests.AutoLoadSceneTests
 {
     public class Scene1Installer : MonoInstaller<Scene1Installer>
     {

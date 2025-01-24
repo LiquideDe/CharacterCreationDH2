@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+Ôªøusing System.Collections.Generic;
 using System;
 
 public class UpgradeTalentPresenter : IPresenter
@@ -23,7 +23,7 @@ public class UpgradeTalentPresenter : IPresenter
         _creatorTalents = creatorTalents;
         Subscribe();
         ShowTalents();
-        _view.UpdateExperience($"{_character.ExperienceUnspent} ŒŒ");
+        _view.UpdateExperience($"{_character.ExperienceUnspent} –û–û");
     }
 
     public void SetEdit() 
@@ -62,7 +62,7 @@ public class UpgradeTalentPresenter : IPresenter
         {
             _audioManager.PlayCancel();
             _character = _character.GetCharacter;
-            _view.UpdateExperience($"{_character.ExperienceUnspent} ŒŒ");
+            _view.UpdateExperience($"{_character.ExperienceUnspent} –û–û");
         }
         else
             _audioManager.PlayWarning();
@@ -77,7 +77,7 @@ public class UpgradeTalentPresenter : IPresenter
             character.UpgradeTalent(_talent, _cost);
             _view.CleanTalent();
             _character = character;
-            _view.UpdateExperience($"{_character.ExperienceUnspent} ŒŒ");
+            _view.UpdateExperience($"{_character.ExperienceUnspent} –û–û");
             ShowTalents(_inclination);
         }
         else

@@ -1,4 +1,4 @@
-namespace Zenject
+﻿namespace Zenject
 {
     [NoReflectionBaking]
     public class FactoryToChoiceIdBinder<TParam1, TParam2, TParam3, TParam4, TContract> : FactoryArgumentsToChoiceBinder<TParam1, TParam2, TParam3, TParam4, TContract>

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using ModestTree.Util;
 using NUnit.Framework;
 using Assert = ModestTree.Assert;

@@ -1,4 +1,4 @@
-using System;
+п»їusing System;
 
 public class HomeworldFinalPanelPresenter : IPresenter
 {
@@ -109,7 +109,7 @@ public class HomeworldFinalPanelPresenter : IPresenter
 
         _configs.Fate = fate;
 
-        _panelView.SetTextFate($"Ваши очки судьбы равны {fate}");
+        _panelView.SetTextFate($"Р’Р°С€Рё РѕС‡РєРё СЃСѓРґСЊР±С‹ СЂР°РІРЅС‹ {fate}");
         isFate = true;
     }
 
@@ -127,7 +127,7 @@ public class HomeworldFinalPanelPresenter : IPresenter
         wounds += addingWound;
 
         _configs.Wound = wounds;
-        _panelView.SetTextWound($"Ваше здоровье равно {wounds}");
+        _panelView.SetTextWound($"Р’Р°С€Рµ Р·РґРѕСЂРѕРІСЊРµ СЂР°РІРЅРѕ {wounds}");
         isWound = true;
     }
 
@@ -147,7 +147,7 @@ public class HomeworldFinalPanelPresenter : IPresenter
         _configs.Age = ageInt;
         _configs.AgeText = age;
 
-        _panelView.SetTextAge($"В вашем возрасте вас называют как {age}");
+        _panelView.SetTextAge($"Р’ РІР°С€РµРј РІРѕР·СЂР°СЃС‚Рµ РІР°СЃ РЅР°Р·С‹РІР°СЋС‚ РєР°Рє {age}");
         isAge = true;
     }
 
@@ -164,7 +164,7 @@ public class HomeworldFinalPanelPresenter : IPresenter
         string hair = PoleChudes.GetVariantFrom(_homeworld.HairOptions, d100);
 
         _configs.Hair = hair;
-        _panelView.SetTextHair($"Ваши волосы {hair}");
+        _panelView.SetTextHair($"Р’Р°С€Рё РІРѕР»РѕСЃС‹ {hair}");
         isHair = true;
     }
 
@@ -182,7 +182,7 @@ public class HomeworldFinalPanelPresenter : IPresenter
 
         _configs.Tradition = tradition;
         string shortTradition = tradition.Substring(0, tradition.LastIndexOf(':') + 1);
-        _panelView.SetTextTradition($"Вы придерживаетесь традиции: {shortTradition}");
+        _panelView.SetTextTradition($"Р’С‹ РїСЂРёРґРµСЂР¶РёРІР°РµС‚РµСЃСЊ С‚СЂР°РґРёС†РёРё: {shortTradition}");
         isTraditioan = true;
     }
 
@@ -199,7 +199,7 @@ public class HomeworldFinalPanelPresenter : IPresenter
         string skeen = PoleChudes.GetVariantFrom(_homeworld.SkeensOptions, d100);
 
         _configs.Skeen = skeen;
-        _panelView.SetTextSkeen($"Ваша кожа {skeen}");
+        _panelView.SetTextSkeen($"Р’Р°С€Р° РєРѕР¶Р° {skeen}");
         isSkeen = true;
     }
 
@@ -216,7 +216,7 @@ public class HomeworldFinalPanelPresenter : IPresenter
         string remember = PoleChudes.GetVariantFrom(_homeworld.RememberThingOptions, d100);
 
         _configs.Remember = remember;
-        _panelView.SetTextRemember($"С вашего родного мира вы забрали с собой {remember}");
+        _panelView.SetTextRemember($"РЎ РІР°С€РµРіРѕ СЂРѕРґРЅРѕРіРѕ РјРёСЂР° РІС‹ Р·Р°Р±СЂР°Р»Рё СЃ СЃРѕР±РѕР№ {remember}");
         isRemember = true;
     }
 
@@ -233,7 +233,7 @@ public class HomeworldFinalPanelPresenter : IPresenter
         string body = PoleChudes.GetVariantFrom(_homeworld.BodyOptions, d100);
 
         _configs.Body = body;
-        _panelView.SetTextBody($"По вашему телосложению вас называют {body}");
+        _panelView.SetTextBody($"РџРѕ РІР°С€РµРјСѓ С‚РµР»РѕСЃР»РѕР¶РµРЅРёСЋ РІР°СЃ РЅР°Р·С‹РІР°СЋС‚ {body}");
         isBody = true;
     }
 
@@ -250,7 +250,7 @@ public class HomeworldFinalPanelPresenter : IPresenter
         string eyes = PoleChudes.GetVariantFrom(_homeworld.EyesOptions, d100);
 
         _configs.Eyes = eyes;
-        _panelView.SetTextEyes($"Ваши глаза {eyes}");
+        _panelView.SetTextEyes($"Р’Р°С€Рё РіР»Р°Р·Р° {eyes}");
         isEyes = true;
     }
 

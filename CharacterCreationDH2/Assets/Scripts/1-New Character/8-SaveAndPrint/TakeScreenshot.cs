@@ -1,57 +1,50 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Drawing;
 using System.IO;
 using System;
 
-public class TakeScreenshot : MonoBehaviour
-{
+public class TakeScreenshot: MonoBehaviour {
     public event Action WorkIsFinished;
     public event Action PageSaved;
     protected ICharacter _character;
     List<byte[]> savedImages = new List<byte[]>();
     [SerializeField] RectTransform rectImage;
-    public enum PageName { First, Second, Third}
+    public enum PageName { First, Second, Third }
     private string _pageName;
     bool _isManyPages;
 
-    protected void StartScreenshot(string pageName, bool isManyPages = false)
-    {
+    protected void StartScreenshot(string pageName, bool isManyPages = false) {
         _pageName = pageName;
         _isManyPages = isManyPages;
         StartCoroutine(StartSaveImages());
     }
 
-    IEnumerator TakeScreenFirst()
-    {
+    IEnumerator TakeScreenFirst() {
         yield return TakeScreenSecond();
         SetAnchor(0, 0);
         yield return SaveImage();
     }
 
-    IEnumerator TakeScreenSecond()
-    {
+    IEnumerator TakeScreenSecond() {
         yield return TakeScreenThird();
         SetAnchor(0, 1);
         yield return SaveImage();
     }
 
-    IEnumerator TakeScreenThird()
-    {
+    IEnumerator TakeScreenThird() {
         yield return TakeScreenFourth();
         SetAnchor(1, 1);
         yield return SaveImage();
     }
 
-    IEnumerator TakeScreenFourth()
-    {
+    IEnumerator TakeScreenFourth() {
         SetAnchor(1, 0);
         yield return SaveImage();
     }
 
-    IEnumerator SaveImage()
-    {
+    IEnumerator SaveImage() {
         yield return new WaitForSeconds(0.1f);
         yield return new WaitForEndOfFrame();
 
@@ -66,20 +59,17 @@ public class TakeScreenshot : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
     }
 
-    IEnumerator StartSaveImages()
-    {
+    IEnumerator StartSaveImages() {
         Coroutine cor = StartCoroutine(TakeScreenFirst());
         yield return cor;
         CombineImages();
 
     }
 
-    private void CombineImages()
-    {
+    private void CombineImages() {
         Camera cam = Camera.main;
         List<Bitmap> bitmaps = new List<Bitmap>();
-        foreach (byte[] by in savedImages)
-        {
+        foreach (byte[] by in savedImages) {
             bitmaps.Add(ConvertByteToBitmap(by));
         }
         //Bitmap newImage = new Bitmap(2800, 2160);
@@ -92,31 +82,25 @@ public class TakeScreenshot : MonoBehaviour
         g.DrawImageUnscaled(bitmaps[1], newImage.Width - bitmaps[1].Width, 0);
         g.DrawImageUnscaled(bitmaps[2], 0, 0);
         g.DrawImageUnscaled(bitmaps[3], 0, newImage.Height - bitmaps[3].Height);
-        if(!Directory.Exists($"{Application.dataPath}/StreamingAssets/CharacterSheets/{_character.Name}"))
+        if (!Directory.Exists($"{Application.dataPath}/StreamingAssets/CharacterSheets/{_character.Name}"))
             Directory.CreateDirectory($"{Application.dataPath}/StreamingAssets/CharacterSheets/{_character.Name}");
         newImage.Save($"{Application.dataPath}/StreamingAssets/CharacterSheets/{_character.Name}/CharacterSheet{_pageName}.png", System.Drawing.Imaging.ImageFormat.Png);
-        if(_isManyPages == false)
-        {
+        if (_isManyPages == false) {
             WorkIsFinished?.Invoke();
             Destroy(gameObject);
-        }        
-        else
-        {
+        } else {
             savedImages.Clear();
             PageSaved?.Invoke();
         }
     }
 
-    private Bitmap ConvertByteToBitmap(byte[] source)
-    {
-        using (var ms = new MemoryStream(source))
-        {
+    private Bitmap ConvertByteToBitmap(byte[] source) {
+        using (var ms = new MemoryStream(source)) {
             return new Bitmap(ms);
         }
     }
 
-    private void SetAnchor(int x, int y)
-    {
+    private void SetAnchor(int x, int y) {
         rectImage.anchorMin = new Vector2(x, y);
         rectImage.anchorMax = new Vector2(x, y);
         rectImage.pivot = new Vector2(x, y);

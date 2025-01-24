@@ -1,4 +1,4 @@
-public class LvlMediator
+﻿public class LvlMediator
 {
     private LvlFactory _lvlFactory;
     private LvlMediatorNewCharacter _mediatorNewCharacter;

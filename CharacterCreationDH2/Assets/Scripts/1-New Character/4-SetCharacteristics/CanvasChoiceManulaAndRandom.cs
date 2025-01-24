@@ -1,4 +1,4 @@
-using UnityEngine;
+п»їusing UnityEngine;
 using TMPro;
 using Zenject;
 using UnityEngine.UI;
@@ -54,7 +54,7 @@ public class CanvasChoiceManulaAndRandom : AnimateShowAndHideView
 
     private void ChangedSlider(float value)
     {
-        _textSliderValue.text = $"Стартовый уровень характеристик = {(int)value}";
+        _textSliderValue.text = $"РЎС‚Р°СЂС‚РѕРІС‹Р№ СѓСЂРѕРІРµРЅСЊ С…Р°СЂР°РєС‚РµСЂРёСЃС‚РёРє = {(int)value}";
     }
 
 

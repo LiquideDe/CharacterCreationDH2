@@ -1,4 +1,4 @@
-namespace Zenject.Tests.Installers.Installers
+﻿namespace Zenject.Tests.Installers.Installers
 {
     public class QuxInstaller : Installer<string, float, int, QuxInstaller>
     {

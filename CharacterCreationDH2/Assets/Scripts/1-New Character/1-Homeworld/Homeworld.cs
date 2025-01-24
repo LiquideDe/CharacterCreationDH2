@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+п»їusing System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using System.Linq;
@@ -32,10 +32,10 @@ public class Homeworld : IHistoryCharacter
         _pathHomeworld = path;
         string[] data = File.ReadAllLines(path + "/Parameters.JSON");
         HomeworldLoader worldReader = JsonUtility.FromJson<HomeworldLoader>(data[0]);
-        _nameWorld = GameStat.ReadText(_pathHomeworld + "/Название.txt");
-        _bonusFromHomeworld = GameStat.ReadText(_pathHomeworld + "/Бонус.txt");
-        _descriptionText = GameStat.ReadText(path + "/Описание.txt");
-        _citataText = GameStat.ReadText(path + "/Цитата.txt");
+        _nameWorld = GameStat.ReadText(_pathHomeworld + "/РќР°Р·РІР°РЅРёРµ.txt");
+        _bonusFromHomeworld = GameStat.ReadText(_pathHomeworld + "/Р‘РѕРЅСѓСЃ.txt");
+        _descriptionText = GameStat.ReadText(path + "/РћРїРёСЃР°РЅРёРµ.txt");
+        _citataText = GameStat.ReadText(path + "/Р¦РёС‚Р°С‚Р°.txt");
         _advantageCharacteristics[0] = (GameStat.CharacteristicName)Enum.Parse(typeof(GameStat.CharacteristicName), worldReader.advantageCharacteristicsFirst);
         _advantageCharacteristics[1] = (GameStat.CharacteristicName)Enum.Parse(typeof(GameStat.CharacteristicName), worldReader.advantageCharacteristicsSecond);
         _disadvantageCharacteristic = (GameStat.CharacteristicName)Enum.Parse(typeof(GameStat.CharacteristicName), worldReader.disadvantageCharacteristic);
@@ -57,14 +57,14 @@ public class Homeworld : IHistoryCharacter
             _talentsName = GameStat.ReadText(_pathHomeworld + "/Talents.txt").Split(new char[] { '/' }).ToList();
         }
 
-        _skeensOptions = GameStat.ReadText(path + "/Кожа.txt").Split(new char[] { '/' }).ToList();
-        _eyesOptions = GameStat.ReadText(path + "/Глаза.txt").Split(new char[] { '/' }).ToList();
-        _hairOptions = GameStat.ReadText(path + "/Волосы.txt").Split(new char[] { '/' }).ToList();
-        _ageOptions = GameStat.ReadText(path + "/Возраст.txt").Split(new char[] { '/' }).ToList();
-        _bodyOptions = GameStat.ReadText(path + "/Телосложение.txt").Split(new char[] { '/' }).ToList();
-        _rememberThingOptions = GameStat.ReadText(path + "/Памятные вещи.txt").Split(new char[] { '/' }).ToList();
-        _traditionsOptions = GameStat.ReadText(path + "/Традиции.txt").Split(new char[] { '/' }).ToList();
-        _physOptions = GameStat.ReadText(path + "/Физические особенности.txt").Split(new char[] { '/' }).ToList();
+        _skeensOptions = GameStat.ReadText(path + "/РљРѕР¶Р°.txt").Split(new char[] { '/' }).ToList();
+        _eyesOptions = GameStat.ReadText(path + "/Р“Р»Р°Р·Р°.txt").Split(new char[] { '/' }).ToList();
+        _hairOptions = GameStat.ReadText(path + "/Р’РѕР»РѕСЃС‹.txt").Split(new char[] { '/' }).ToList();
+        _ageOptions = GameStat.ReadText(path + "/Р’РѕР·СЂР°СЃС‚.txt").Split(new char[] { '/' }).ToList();
+        _bodyOptions = GameStat.ReadText(path + "/РўРµР»РѕСЃР»РѕР¶РµРЅРёРµ.txt").Split(new char[] { '/' }).ToList();
+        _rememberThingOptions = GameStat.ReadText(path + "/РџР°РјСЏС‚РЅС‹Рµ РІРµС‰Рё.txt").Split(new char[] { '/' }).ToList();
+        _traditionsOptions = GameStat.ReadText(path + "/РўСЂР°РґРёС†РёРё.txt").Split(new char[] { '/' }).ToList();
+        _physOptions = GameStat.ReadText(path + "/Р¤РёР·РёС‡РµСЃРєРёРµ РѕСЃРѕР±РµРЅРЅРѕСЃС‚Рё.txt").Split(new char[] { '/' }).ToList();
         _agesIntOptions = GameStat.ReadText(path + "/Age.txt").Split(new char[] { '/' }).ToList();
 
         _bonusesText += $"\n \n +{GameStat.characterTranslate[AdvantageCharacteristics[0]]},\n +{GameStat.characterTranslate[AdvantageCharacteristics[1]]},\n " +

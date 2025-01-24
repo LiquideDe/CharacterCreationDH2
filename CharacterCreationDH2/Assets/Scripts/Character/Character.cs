@@ -1,4 +1,4 @@
-using System;
+Ôªøusing System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -37,7 +37,7 @@ public class Character : ICharacter
         CreateCharacteristics();
     }
 
-    #region —‚ÓÈÒÚ‚‡
+    #region –°–≤–æ–π—Å—Ç–≤–∞
 
     public List<Equipment> Equipments => _equipments;
     public int Age => _age;

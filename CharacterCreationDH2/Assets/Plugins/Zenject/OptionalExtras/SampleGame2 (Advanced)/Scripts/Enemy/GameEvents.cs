@@ -1,4 +1,4 @@
-namespace Zenject.SpaceFighter
+﻿namespace Zenject.SpaceFighter
 {
     public struct PlayerDiedSignal
     {

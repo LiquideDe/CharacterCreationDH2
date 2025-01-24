@@ -1,4 +1,4 @@
-
+﻿
 using System;
 using NUnit.Framework;
 using Zenject.Internal;

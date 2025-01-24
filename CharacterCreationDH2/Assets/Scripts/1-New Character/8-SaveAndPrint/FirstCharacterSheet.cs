@@ -1,4 +1,4 @@
-using System.Collections;
+п»їusing System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
@@ -19,11 +19,11 @@ public class FirstCharacterSheet : CharacterSheetWithCharacteristics
         textName.text = character.Name;
 
         string trad = character.Tradition.Trim();
-        _textDescription.text = $"<b>Родной Мир:</b> <u>{character.Homeworld}</u>. <b>Предыстория:</b> <u>{character.Background}</u>. <b>Роль:</b> <u>{character.Role}</u>. " +
-            $"<b>Пророчество:</b> <u>{character.Prophecy}</u>. <b>Пол:</b> <u>{character.Gender}</u>. <b>Лет:</b> <u>{character.Age}</u>. <b>Кожа:</b> <u>{character.Skeen}</u>. " +
-            $"<b>Комплекция:</b> <u>{character.Constitution}</u>. <b>Волосы:</b> <u>{character.Hair}</u>. <b>Особенности:</b> <u>{character.PhysFeatures}</u>. " +
-            $"<b>Глаза:</b> <u>{character.Eyes}</u>. <b>Предрассудки:</b> <u>{trad.Substring(0, trad.IndexOf(':'))}</u>. <b>Памятная вещь с родного мира:</b> <u>{character.MemoryOfHome}</u>. " +
-            $"<b>Памятная вещь из предыстории:</b> <u>{character.MemoryOfBackground}</u>.";
+        _textDescription.text = $"<b>Р РѕРґРЅРѕР№ РњРёСЂ:</b> <u>{character.Homeworld}</u>. <b>РџСЂРµРґС‹СЃС‚РѕСЂРёСЏ:</b> <u>{character.Background}</u>. <b>Р РѕР»СЊ:</b> <u>{character.Role}</u>. " +
+            $"<b>РџСЂРѕСЂРѕС‡РµСЃС‚РІРѕ:</b> <u>{character.Prophecy}</u>. <b>РџРѕР»:</b> <u>{character.Gender}</u>. <b>Р›РµС‚:</b> <u>{character.Age}</u>. <b>РљРѕР¶Р°:</b> <u>{character.Skeen}</u>. " +
+            $"<b>РљРѕРјРїР»РµРєС†РёСЏ:</b> <u>{character.Constitution}</u>. <b>Р’РѕР»РѕСЃС‹:</b> <u>{character.Hair}</u>. <b>РћСЃРѕР±РµРЅРЅРѕСЃС‚Рё:</b> <u>{character.PhysFeatures}</u>. " +
+            $"<b>Р“Р»Р°Р·Р°:</b> <u>{character.Eyes}</u>. <b>РџСЂРµРґСЂР°СЃСЃСѓРґРєРё:</b> <u>{trad.Substring(0, trad.IndexOf(':'))}</u>. <b>РџР°РјСЏС‚РЅР°СЏ РІРµС‰СЊ СЃ СЂРѕРґРЅРѕРіРѕ РјРёСЂР°:</b> <u>{character.MemoryOfHome}</u>. " +
+            $"<b>РџР°РјСЏС‚РЅР°СЏ РІРµС‰СЊ РёР· РїСЂРµРґС‹СЃС‚РѕСЂРёРё:</b> <u>{character.MemoryOfBackground}</u>.";
 
         _textFatePoint.text = character.FatePoint.ToString();
         _textSpentExperience.text = character.ExperienceSpent.ToString();

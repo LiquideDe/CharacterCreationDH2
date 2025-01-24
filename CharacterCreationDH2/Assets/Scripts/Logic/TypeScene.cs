@@ -1,4 +1,4 @@
-public enum TypeScene
+﻿public enum TypeScene
 {
     MainMenu,
     Homeworld,

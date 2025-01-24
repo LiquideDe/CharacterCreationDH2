@@ -1,4 +1,4 @@
-namespace Zenject.Tests.Installers.MonoInstallers
+﻿namespace Zenject.Tests.Installers.MonoInstallers
 {
     public class Foo
     {

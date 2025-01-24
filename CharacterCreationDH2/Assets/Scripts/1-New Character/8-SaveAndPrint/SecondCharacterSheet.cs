@@ -1,4 +1,4 @@
-using System.Collections;
+п»їusing System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -35,22 +35,22 @@ public class SecondCharacterSheet : CharacterSheetWithCharacteristics
             strength = strengthBonus;
 
         if (toughness == 0)
-            toughness = character.Characteristics[GameStat.CharacteristicToInt["Выносливость"]].Amount / 10;
+            toughness = character.Characteristics[GameStat.CharacteristicToInt["Р’С‹РЅРѕСЃР»РёРІРѕСЃС‚СЊ"]].Amount / 10;
 
         if (agility == 0)
-            agility = character.Characteristics[GameStat.CharacteristicToInt["Ловкость"]].Amount / 10;
+            agility = character.Characteristics[GameStat.CharacteristicToInt["Р›РѕРІРєРѕСЃС‚СЊ"]].Amount / 10;
 
         if (willpower == 0)
-            willpower = character.Characteristics[GameStat.CharacteristicToInt["Сила Воли"]].Amount / 10;
+            willpower = character.Characteristics[GameStat.CharacteristicToInt["РЎРёР»Р° Р’РѕР»Рё"]].Amount / 10;
 
         List<float> _parametrsForWeight = new List<float>() { 0.9f, 2.25f, 4.5f, 9f, 18f, 27f, 36f, 45f, 56f, 67f, 78f, 90f,
             112f, 225f, 337f, 450f, 675f, 900f, 1350f, 1800f, 2250f, 2900f, 3550f, 4200f, 4850f, 5500f, 6300f, 7250f, 8300f, 9550f, 11000,
         13000, 15000, 17000, 20000, 23000, 26000, 30000, 35000, 40000, 46000, 53000, 70000, 80000, 92000, 106000};
 
-        onBody.SetToughness(toughness, character.Characteristics[GameStat.CharacteristicToInt["Сила Воли"]].Amount/10);
+        onBody.SetToughness(toughness, character.Characteristics[GameStat.CharacteristicToInt["РЎРёР»Р° Р’РѕР»Рё"]].Amount/10);
         textWound.text = character.Wounds.ToString();
         
-        _textNameCharacter.text = $"Имя персонажа: <u>{character.Name}</u>";
+        _textNameCharacter.text = $"РРјСЏ РїРµСЂСЃРѕРЅР°Р¶Р°: <u>{character.Name}</u>";
         foreach(Equipment equipment in character.Equipments)
         {
             if(equipment.TypeEq == Equipment.TypeEquipment.Melee || equipment.TypeEq == Equipment.TypeEquipment.Range || equipment.TypeEq == Equipment.TypeEquipment.Grenade)
@@ -91,7 +91,7 @@ public class SecondCharacterSheet : CharacterSheetWithCharacteristics
         if(character.PsyRating > 0)
         {
             _imagePsyRate.gameObject.SetActive(true);
-            if (string.Compare(character.Background, "Адептус Астра Телепатика", true) == 0)
+            if (string.Compare(character.Background, "РђРґРµРїС‚СѓСЃ РђСЃС‚СЂР° РўРµР»РµРїР°С‚РёРєР°", true) == 0)
             {
                 _imagePsyRate.sprite = _ispritePsyRateAstraTelepatica;
                 _textPsyRateMax.text = (character.PsyRating + 2).ToString();
@@ -137,7 +137,7 @@ public class SecondCharacterSheet : CharacterSheetWithCharacteristics
             dirs.AddRange(Directory.GetDirectories($"{Application.dataPath}/StreamingAssets/Backgrounds"));
             foreach (string dir in dirs)
             {
-                nameBackgrounds.Add(GameStat.ReadText($"{dir}/Название.txt"));
+                nameBackgrounds.Add(GameStat.ReadText($"{dir}/РќР°Р·РІР°РЅРёРµ.txt"));
             }
 
             for (int i = 0; i < nameBackgrounds.Count; i++)
@@ -149,7 +149,7 @@ public class SecondCharacterSheet : CharacterSheetWithCharacteristics
                 }
             }
 
-            if (character.Gender == "М")
+            if (character.Gender == "Рњ")
             {
                 string[] imagesF = Directory.GetFiles($"{dirs[backId]}/CharacterImage/Male", "*.jpg");
                 string[] imagesS = Directory.GetFiles($"{dirs[backId]}/CharacterImage/Male", "*.jpeg");

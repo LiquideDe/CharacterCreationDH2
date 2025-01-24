@@ -1,4 +1,4 @@
-using System.Collections;
+Ôªøusing System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -87,7 +87,7 @@ public class CharacterWithBackground : CharacterDecorator,ICharacter
         foreach(Talent talent in config.Talents)
         {
             _talents.Add(talent);
-            if (string.Compare(talent.Name, "œÒ‡ÈÍÂ") == 0)
+            if (string.Compare(talent.Name, "–ü—Å–∞–π–∫–µ—Ä") == 0)
                 _psyRating = 1;
         }
 

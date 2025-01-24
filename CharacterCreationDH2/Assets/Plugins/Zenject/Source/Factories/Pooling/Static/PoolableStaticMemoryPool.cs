@@ -1,4 +1,4 @@
-namespace Zenject
+﻿namespace Zenject
 {
     public class PoolableStaticMemoryPool<TValue> : StaticMemoryPool<TValue>
         where TValue : class, IPoolable, new()

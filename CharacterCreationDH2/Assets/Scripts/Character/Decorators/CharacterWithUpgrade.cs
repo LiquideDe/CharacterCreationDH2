@@ -1,4 +1,4 @@
-using System.Collections;
+п»їusing System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -87,7 +87,7 @@ public class CharacterWithUpgrade : CharacterDecorator, ICharacter
 
     public void UpgradeSkill(Skill upgradeSkill, int experienceSpentForSkill)
     {
-        //Каждый новый апгрейд мы создаем новую оболочку и добавляем скил, а не апгрейдим его
+        //РљР°Р¶РґС‹Р№ РЅРѕРІС‹Р№ Р°РїРіСЂРµР№Рґ РјС‹ СЃРѕР·РґР°РµРј РЅРѕРІСѓСЋ РѕР±РѕР»РѕС‡РєСѓ Рё РґРѕР±Р°РІР»СЏРµРј СЃРєРёР», Р° РЅРµ Р°РїРіСЂРµР№РґРёРј РµРіРѕ
         if (upgradeSkill.IsKnowledge)
         {            
             _skills.Add(new Knowledge((Knowledge)upgradeSkill, upgradeSkill.LvlLearned + 1));

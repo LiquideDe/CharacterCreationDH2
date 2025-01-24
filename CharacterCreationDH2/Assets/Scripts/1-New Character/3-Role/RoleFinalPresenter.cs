@@ -1,4 +1,4 @@
-using System;
+Ôªøusing System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine.UI;
@@ -32,7 +32,7 @@ public class RoleFinalPresenter : IPresenter
             List<List<Talent>> talentList = new List<List<Talent>>();
             talentList.Add(new List<Talent>());
             talentList[0].AddRange(_role.Talents);
-            _creatorToggles.CreateToggles(talentList, "“‡Î‡ÌÚ˚");
+            _creatorToggles.CreateToggles(talentList, "–¢–∞–ª–∞–Ω—Ç—ã");
         }
             
 
@@ -79,7 +79,7 @@ public class RoleFinalPresenter : IPresenter
         talents.Add(_role.Talents[toggleGroups[0].ActiveToggles().FirstOrDefault().GetComponent<MyToggle>().Id]);
 
         if (_role.BonusTalent.Length > 1)
-            talents.Add(new Talent("œÒ‡ÈÍÂ"));
+            talents.Add(new Talent("–ü—Å–∞–π–∫–µ—Ä"));
 
         sch++;
 

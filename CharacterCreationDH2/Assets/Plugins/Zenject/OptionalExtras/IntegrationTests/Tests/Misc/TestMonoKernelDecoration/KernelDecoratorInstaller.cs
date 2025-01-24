@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using Zenject;
 
 namespace Zenject.Tests.TestAnimationStateBehaviourInject

@@ -1,4 +1,4 @@
-namespace Zenject
+﻿namespace Zenject
 {
     // Zero parameters
     public class PoolableMemoryPool<TValue>

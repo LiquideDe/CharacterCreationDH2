@@ -1,4 +1,4 @@
-namespace Zenject.Tests.Installers.Installers
+﻿namespace Zenject.Tests.Installers.Installers
 {
     public class BarInstaller : Installer<string, BarInstaller>
     {
