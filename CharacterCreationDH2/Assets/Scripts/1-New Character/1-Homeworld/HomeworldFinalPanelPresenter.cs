@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 public class HomeworldFinalPanelPresenter : IPresenter
 {
@@ -10,14 +11,16 @@ public class HomeworldFinalPanelPresenter : IPresenter
     private ConfigForCharacterFromHomeworld _configs;
     private Homeworld _homeworld;
     private bool isFate, isWound, isAge, isHair, isTraditioan, isSkeen, isRemember, isBody, isEyes, isPhys;
+    private LvlFactory _lvlFactory;
 
-    public HomeworldFinalPanelPresenter(HomeworldFinalPanelView panelView, AudioManager audioManager, ICharacter character, Homeworld homeworld)
+    public HomeworldFinalPanelPresenter(HomeworldFinalPanelView panelView, AudioManager audioManager, ICharacter character, Homeworld homeworld, LvlFactory lvlFactory)
     {
         _panelView = panelView;
         _audioManager = audioManager;
         _character = character;
         _configs = new ConfigForCharacterFromHomeworld();
         _homeworld = homeworld;
+        _lvlFactory = lvlFactory;
         Subscribe();
     }
 
@@ -296,18 +299,43 @@ public class HomeworldFinalPanelPresenter : IPresenter
 
             _configs.SetSkills(_homeworld.Skills);
 
-            if(_homeworld.GetTalents() != null)
-                _configs.Talents.AddRange(_homeworld.GetTalents());
-
-            CharacterWithHomeworld character = new CharacterWithHomeworld(_character);
-            character.SetHomeWorld(_configs);
-            CharacterIsChosen?.Invoke(character);
-            Unsubscribe();
-            _panelView.DestroyView();
-            _panelView = null;
+            if (_homeworld.GetTalents() != null)
+                CreateChoose(_homeworld.GetTalents());
+            else
+                SetHomeworldToCharacterAndClose();
         }
         else
             _audioManager.PlayWarning();
+    }
+
+    private void CreateChoose(List<string> names)
+    {
+        ListWithNewItems list = _lvlFactory.Get( TypeScene.ListWithNewItems).GetComponent<ListWithNewItems>();
+        list.ChooseThisAndClose += SetTalent;
+        list.CloseList += CloseList;
+        list.Initialize(names, "Выберите талант");
+    }
+
+    private void CloseList(CanDestroyView view)
+    {
+        view.DestroyView();
+    }
+
+    private void SetTalent(string name, ListWithNewItems list)
+    {
+        _configs.Talents.Add(name);
+        list.HideRight(list.DestroyView);
+        SetHomeworldToCharacterAndClose();
+    }
+
+    private void SetHomeworldToCharacterAndClose()
+    {
+        CharacterWithHomeworld character = new CharacterWithHomeworld(_character);
+        character.SetHomeWorld(_configs);
+        CharacterIsChosen?.Invoke(character);
+        Unsubscribe();
+        _panelView.Hide(_panelView.DestroyView);
+        _panelView = null;
     }
 
     private void PressCancel(CanDestroyView view)

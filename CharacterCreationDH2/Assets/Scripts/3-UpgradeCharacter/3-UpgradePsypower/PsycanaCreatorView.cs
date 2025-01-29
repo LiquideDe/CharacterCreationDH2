@@ -11,7 +11,7 @@ public class PsycanaCreatorView : MonoBehaviour
     [SerializeField] PsyPanel _psyPanelPrefab;
     [SerializeField] GameObject[] lvls;
     [SerializeField] GameObject connectionsContainer, straightLine, panelDescription;
-    [SerializeField] HorizontalLayoutGroup layoutGroupFirst, layoutGroupSecond, layoutGroupThird;
+    [SerializeField] HorizontalLayoutGroup layoutGroupFirst, layoutGroupSecond, layoutGroupThird, layoutGroupFourth, layoutGroupFifth;
     [SerializeField] UpgradePsycanaView _view;
     private List<GameObject> lines = new List<GameObject>();
     private List<PsyPanel> psyPanels = new List<PsyPanel>();
@@ -40,6 +40,8 @@ public class PsycanaCreatorView : MonoBehaviour
         layoutGroupFirst.spacing = sizeSpacing.firstSpacing;
         layoutGroupSecond.spacing = sizeSpacing.secondSpacing;
         layoutGroupThird.spacing = sizeSpacing.thirdSpacing;
+        layoutGroupFourth.spacing = sizeSpacing.fourthSpacing;
+        layoutGroupFifth.spacing = sizeSpacing.fifthSpacing;
 
         foreach (PsyPower psyPower in psyPowers)
         {

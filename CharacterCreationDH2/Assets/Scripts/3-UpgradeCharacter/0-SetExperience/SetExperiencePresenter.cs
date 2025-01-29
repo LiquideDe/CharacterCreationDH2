@@ -27,7 +27,7 @@ public class SetExperiencePresenter : IPresenter
         CharacterWithUpgrade character = new CharacterWithUpgrade(_character);
         character.SetExperience(experience);
         Unscribe();
-        _view.DestroyView();
+        _view.Hide(_view.DestroyView);
         ReturnCharacterWithExperience?.Invoke(character);
     }
 }

@@ -11,6 +11,7 @@ public class ListWithNewItems : UniversalList
     [SerializeField] TMP_InputField _inputName;
     [SerializeField] Button _buttonClose;
     public event Action<string> ChooseThis;
+    public event Action<string, ListWithNewItems> ChooseThisAndClose;
     public event Action<CanDestroyView> CloseList;
     private List<string> _namesTotalList = new List<string>();
     private List<string> _namesListToView = new List<string>();
@@ -48,7 +49,11 @@ public class ListWithNewItems : UniversalList
         _itemsInList[oldIndex].Initialize(_namesListToView[newIndex]);
     }
 
-    private void ChooseThisItemPressed(string name) => ChooseThis?.Invoke(name);
+    private void ChooseThisItemPressed(string name) 
+    {
+        ChooseThis?.Invoke(name);
+        ChooseThisAndClose(name, this);
+    }
 
     private void SearchByInput(string text)
     {
@@ -80,5 +85,5 @@ public class ListWithNewItems : UniversalList
         }
     }
 
-    private void CloseListPressed() => HideRight(CloseList, this);//CloseList?.Invoke(this);
+    private void CloseListPressed() => CloseList?.Invoke(this);
 }

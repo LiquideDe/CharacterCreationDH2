@@ -33,7 +33,7 @@ public class ViewWithButtonsDoneAndCancel : AnimateShowAndHideView
         isButtonWithListener = true;
     }
 
-    private void ButtonCancelPressed() => HideRight(Cancel,this);//Cancel?.Invoke(this);
+    private void ButtonCancelPressed() => Cancel?.Invoke(this);
 
-    protected virtual void ButtonDonePressed() => Hide(Done);//Done?.Invoke();
+    protected virtual void ButtonDonePressed() => Done?.Invoke();
 }

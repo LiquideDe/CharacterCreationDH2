@@ -14,13 +14,16 @@ public class UpgradeTalentPresenter : IPresenter
     private bool _isEdit = false;
     private int _cost;
     private GameStat.Inclinations _inclination;
+    private LvlFactory _lvlFactory;
+    private List<IName> _someToAdding = new List<IName>();
 
-    public UpgradeTalentPresenter(ICharacter character, UpgradeTalentView view, AudioManager audioManager, CreatorTalents creatorTalents)
+    public UpgradeTalentPresenter(ICharacter character, UpgradeTalentView view, AudioManager audioManager, CreatorTalents creatorTalents, LvlFactory lvlFactory)
     {
         _character = character;
         _view = view;
         _audioManager = audioManager;
         _creatorTalents = creatorTalents;
+        _lvlFactory = lvlFactory;
         Subscribe();
         ShowTalents();
         _view.UpdateExperience($"{_character.ExperienceUnspent} ОО");
@@ -79,9 +82,158 @@ public class UpgradeTalentPresenter : IPresenter
             _character = character;
             _view.UpdateExperience($"{_character.ExperienceUnspent} ОО");
             ShowTalents(_inclination);
+
+            if(_talent.GetEquipments.Count > 0)
+            {
+                foreach (var listEquipments in _talent.GetEquipments)
+                {
+                    if (listEquipments.Count == 1)
+                        character.AddEquipment(listEquipments[0]);
+                    else
+                    {
+                        List<string> names = new List<string>();
+                        foreach (var item in listEquipments)
+                        {
+                            names.Add(item.Name);
+                            _someToAdding.Add(item);
+                        }                                            
+                        
+                        ShowListForChoose(names, "Выберите экипировку", AddEquipment);
+                    }                        
+                }
+            }
+
+            if(_talent.GetInclinations.Count > 0)
+            {
+                foreach (var listInclinations in _talent.GetInclinations)
+                {
+                    if (listInclinations.Count == 1)
+                        character.AddInclination(listInclinations[0]);
+                }
+            }
+
+            if(_talent.GetSkills.Count > 0)
+                foreach (var listSkills in _talent.GetSkills)
+                {
+                    if (listSkills.Count == 1)
+                        character.UpgradeSkill(listSkills[0], 0);
+                    else
+                    {
+                        List<string> names = new List<string>();
+                        foreach (var item in listSkills)
+                        {
+                            names.Add(item.Name);
+                            _someToAdding.Add(item);
+                        }
+
+                        ShowListForChoose(names, "Выберите навык", AddSkill);
+                    }
+                }
+
+            if(_talent.GetTalents.Count > 0)
+                foreach (var listTalents in _talent.GetTalents)
+                {
+                    if (listTalents.Count == 1)
+                        character.UpgradeTalent(listTalents[0], 0);
+                    else
+                    {
+                        List<string> names = new List<string>();
+                        foreach (var item in listTalents)
+                        {
+                            names.Add(item.Name);
+                            _someToAdding.Add(item);
+                        }
+
+                        ShowListForChoose(names, "Выберите талант", AddTalent);
+                    }
+                }
+
+            if(_talent.GetTraits.Count > 0)
+                foreach (var listTraits in _talent.GetTraits)
+                {
+                    if (listTraits.Count == 1)
+                        character.AddTrait(listTraits[0]);
+                    else
+                    {
+                        List<string> names = new List<string>();
+                        foreach (var item in listTraits)
+                        {
+                            names.Add(item.Name);
+                            _someToAdding.Add(item);
+                        }
+
+                        ShowListForChoose(names, "Выберите черту", AddTrait);
+                    }
+                }
+
+            if (_talent.GetWounds > 0)
+                character.AddWound();
         }
         else
             _audioManager.PlayWarning();
+    }    
+
+    private void ShowListForChoose(List<string> names, string text, Action<string, ListWithNewItems> action)
+    {
+        ListWithNewItems list = _lvlFactory.Get(TypeScene.ListWithNewItems).GetComponent<ListWithNewItems>();
+        list.ChooseThisAndClose += action;
+        list.Initialize(names, text);
+    }
+
+    private void AddEquipment(string name, ListWithNewItems list)
+    {
+        CharacterWithUpgrade character = (CharacterWithUpgrade)_character;
+        foreach (var item in _someToAdding)
+        {
+            if (string.Compare(item.Name, name, true) == 0)
+            {
+                character.AddEquipment((Equipment)item);
+                break;
+            }                
+        }
+        list.HideRight(list.DestroyView);
+    }
+
+    private void AddSkill(string name, ListWithNewItems list)
+    {
+        CharacterWithUpgrade character = (CharacterWithUpgrade)_character;
+        foreach (var item in _someToAdding)
+        {
+            if (string.Compare(item.Name, name, true) == 0)
+            {
+                character.UpgradeSkill((Skill)item, 0);
+                break;
+            }
+        }
+        list.HideRight(list.DestroyView);
+    }
+
+    private void AddTalent(string name, ListWithNewItems list)
+    {
+        CharacterWithUpgrade character = (CharacterWithUpgrade)_character;
+        foreach (var item in _someToAdding)
+        {
+            if (string.Compare(item.Name, name, true) == 0)
+            {
+                character.UpgradeTalent((Talent)item, 0);
+                break;
+            }
+        }
+        list.HideRight(list.DestroyView);
+    }
+
+    private void AddTrait(string name, ListWithNewItems list)
+    {
+        CharacterWithUpgrade character = (CharacterWithUpgrade)_character;
+        foreach (var item in _someToAdding)
+        {
+            if (string.Compare(item.Name, name, true) == 0)
+            {
+                character.AddTrait((Trait)item);
+                break;
+            }
+        }
+        list.HideRight(list.DestroyView);
     }
 
     private void NextDown()
@@ -193,6 +345,10 @@ public class UpgradeTalentPresenter : IPresenter
         if(_isEdit)
             return 0;
         int sum = 0;
+
+        if(talent.Rank > 3)
+            return talent.Rank;
+
         foreach (GameStat.Inclinations incl in _character.Inclinations)
         {
             if (incl == talent.Inclinations[0] || incl == talent.Inclinations[1])
@@ -209,12 +365,41 @@ public class UpgradeTalentPresenter : IPresenter
         if (TryFindRequireCharacteristic(_character.Characteristics, talent) && TryFindRequireSkill(_character.Skills, talent) &&
             TryFindRequireSome(_character.Implants, talent.RequirementImplants) && TryFindRequireSome(_character.Talents, talent.RequirementTalents) && 
             _character.InsanityPoints >= talent.RequirementInsanity && _character.CorruptionPoints >= talent.RequirementCorruption && 
-            _character.PsyRating >= talent.RequirementPsyRate && TryFindRequireSome(_character.Traits, talent.RequirementTraits)) 
+            _character.PsyRating >= talent.RequirementPsyRate && TryFindRequireSome(_character.Traits, talent.RequirementTraits) && 
+            TryFindConflict(talent) == false && TryFindBackground(talent)) 
         {
             return true;
         }
         
         return false;        
+    }
+
+    private bool TryFindConflict(Talent talent)
+    {
+        if(talent.ConflictTalent.Count == 0)
+            return false;
+
+        foreach (var item in talent.ConflictTalent)
+        {
+            for (int i = 0; i < _character.Talents.Count; i++)
+            {
+                if(string.Compare(item.Name, _character.Talents[i].Name, true) == 0)
+                    return true;
+            }
+        }
+
+        return false;
+    }
+
+    private bool TryFindBackground(Talent talent)
+    {
+        if (talent.RequirementBackground.Length == 0)
+            return true;
+
+        if(string.Compare(talent.RequirementBackground, _character.Background, true) == 0)
+            return true;
+
+        return false;
     }
 
     private bool TryFindRequireCharacteristic(List<Characteristic> characteristicsOfCharacter, Talent talent)

@@ -35,7 +35,8 @@ public class ButtonWithAdditionalInformation : Button, IPointerEnterHandler, IPo
         {GameStat.Inclinations.Tech, "Тех" },
         {GameStat.Inclinations.Toughness, "Вын" },
         {GameStat.Inclinations.Weapon, "НР" },
-        {GameStat.Inclinations.Willpower, "СВ" }
+        {GameStat.Inclinations.Willpower, "СВ" },
+        {GameStat.Inclinations.Elite, "ЭЛ" }
     };
 
     public GameStat.Inclinations Inclinations => _inclination;

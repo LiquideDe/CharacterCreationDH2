@@ -1,9 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using System;
 
+[Serializable]
 public class JSONPsyReader 
 {
     public string name, action;
-    public int cost, psyRate, id, lvl, parentId;
+    public int cost, psyRate, id, lvl, parentId, secondParent, thirdParent, fourthParent;
 }

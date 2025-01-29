@@ -89,7 +89,7 @@ public class BackgroundFinalPanelPresenter : IPresenter
         _audioManager.PlayDone();
         List<ToggleGroup> toggleGroups = _view.GetToggles();
         Unsubscribe();
-        _view.DestroyView();
+        _view.Hide(_view.DestroyView);
         ConfigForCharacterFromBackground config = new ConfigForCharacterFromBackground();
         config.Bonus = _background.BonusText;
         config.Name = _background.Name;

@@ -11,6 +11,7 @@
     ChoiceBetweenManualAndRandom,
     ManualCharacteristic,
     RandomCharacteristic,
+    RuleBookCharacteristic,
     UpgradeCharacteristic,
     UpgradeSkill,
     UpgradeTalent,

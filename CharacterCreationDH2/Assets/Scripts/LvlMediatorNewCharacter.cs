@@ -48,12 +48,16 @@ public class LvlMediatorNewCharacter
         loadingScreen.LoadingIsDone += NewCharacter;
     }
 
+    private void ShowMessage(CanvasIntermediate.NextTask nextTask, string text)
+    {
+        CanvasIntermediate canvasIntermediate = _lvlFactory.Get(TypeScene.Intermediate).GetComponent<CanvasIntermediate>();
+        canvasIntermediate.OpenIntermediatePanel(nextTask, text);
+    }
+
     private void NewCharacter()
     {
         _character = _characterFactory.Get();
-        CanvasIntermediate canvasIntermediate = _lvlFactory.Get(TypeScene.Intermediate).GetComponent<CanvasIntermediate>();
-        canvasIntermediate.gameObject.SetActive(true);
-        canvasIntermediate.OpenIntermediatePanel(ShowMessageBeforeWorld, "Это сорок первое тысячелетие. Вот уже сотню веков Император недвижимо восседает на Золотом троне Земли. " +
+        ShowMessage(ShowMessageBeforeWorld, "Это сорок первое тысячелетие. Вот уже сотню веков Император недвижимо восседает на Золотом троне Земли. " +
             "Волей богов он владычествует над человечеством, и мощью своих неисчислимых армий он повелевает миллионом миров. " +
             "Он – гниющий труп, незримо поддерживаемый  могуществом Тёмной эры технологий. " +
             "Он – Великий падальщик, которому каждый день приносят в жертву тысячу душ, и которой поэтому никогда по-настоящему не умрёт. " +
@@ -65,9 +69,7 @@ public class LvlMediatorNewCharacter
 
     private void ShowMessageBeforeWorld()
     {
-        CanvasIntermediate canvasIntermediate = _lvlFactory.Get(TypeScene.Intermediate).GetComponent<CanvasIntermediate>();
-        canvasIntermediate.gameObject.SetActive(true);
-        canvasIntermediate.OpenIntermediatePanel(OpenHomeworldPanelFromRight, "В следующем окне вам нужно выбрать свой родной мир. " +
+        ShowMessage(OpenHomeworldPanelFromRight, "В следующем окне вам нужно выбрать свой родной мир. " +
             "Тип мира будет отражать ваши привычки, вашу внешность и восприятие окружения. " +
             "Так же родной мир определяет сильные и слабые стороны");
     }
@@ -93,8 +95,7 @@ public class LvlMediatorNewCharacter
 
     private void ShowMessageBeforeBackground()
     {
-        CanvasIntermediate canvasIntermediate = _lvlFactory.Get(TypeScene.Intermediate).GetComponent<CanvasIntermediate>();
-        canvasIntermediate.OpenIntermediatePanel(OpenBackgroundPanelFromRight, "В следующем окне вам следует выбрать свою предисторию. Кем вы были до того как поступить на службу инквизиции. " +
+        ShowMessage(OpenBackgroundPanelFromRight, "В следующем окне вам следует выбрать свою предисторию. Кем вы были до того как поступить на службу инквизиции. " +
             "Этот выбор " +
             "повлияет на стартовую экипировку, таланты и склонности");
     }
@@ -120,8 +121,7 @@ public class LvlMediatorNewCharacter
 
     private void ShowMessageBeforeRole()
     {
-        CanvasIntermediate canvasIntermediate = _lvlFactory.Get(TypeScene.Intermediate).GetComponent<CanvasIntermediate>();
-        canvasIntermediate.OpenIntermediatePanel(OpenRoleCanvasFromRight, "В следующем окне вам следует выбрать свою роль. Это больше игромеханический выбор в каком направлении " +
+        ShowMessage(OpenRoleCanvasFromRight, "В следующем окне вам следует выбрать свою роль. Это больше игромеханический выбор в каком направлении " +
             "вы хотите развиваться. Выбор роли влияет на таланты и склонности.");
     }
 
@@ -153,7 +153,17 @@ public class LvlMediatorNewCharacter
         manulaAndRandom.ShowChoose();
         manulaAndRandom.ChooseManual += ShowManual;
         manulaAndRandom.ChoseRandom += ShowRandom;
+        manulaAndRandom.ChooseRuleBook += ShowRuleBook;
         return manulaAndRandom;
+    }
+
+    private void ShowRuleBook(int startCharacteristic)
+    {
+        CharacteristicsAsInRuleBookView view = _lvlFactory.Get( TypeScene.RuleBookCharacteristic).GetComponent<CharacteristicsAsInRuleBookView>();
+        CharacteristicsAsInRuleBookPresenter presenter = new CharacteristicsAsInRuleBookPresenter(_audioManager, view, _character, startCharacteristic);
+        presenter.GoNext += CharacterHasCharacteristics;
+        presenter.GoPrev += OpenRoleCanvasFromLeft;
+        view.Show();
     }
 
     private void ShowManual(int startCharacteristic)
@@ -177,21 +187,20 @@ public class LvlMediatorNewCharacter
 
     private void CharacterHasCharacteristics(ICharacter character)
     {
-        _character = character;
+        _character = character;        
         ShowMessageBeforeTrainingCharacteristics();
     }
 
     private void ShowMessageBeforeTrainingCharacteristics()
     {
-        CanvasIntermediate canvasIntermediate = _lvlFactory.Get(TypeScene.Intermediate).GetComponent<CanvasIntermediate>();
-        
-        canvasIntermediate.OpenIntermediatePanel(PrepareCharacterAnus, "В следующих трех окнах вы можете прокачать персонажа: вам доступно 1000 Очков Опыта, которые можно потратить как на " +
+        ShowMessage(PrepareCharacterAnus, "В следующих трех окнах вы можете прокачать персонажа: вам доступно 1000 Очков Опыта, которые можно потратить как на " +
             "улучшение храктеристик, так и на навыки и таланты. Вы можете свободно переключаться между ними. Наведя на шкалу интенсивности, вы увидите стоимость улучшения в очках опыта.");
     }
 
     private void PrepareCharacterAnus()
     {
         CharacterWithUpgrade character = new CharacterWithUpgrade(_character);
+        
         character.SetExperience(1000);
         _character = character;
         ShowUpgradeCharacteristicsFromRight(_character);
@@ -243,15 +252,19 @@ public class LvlMediatorNewCharacter
     {
         UpgradeTalentView upgradeTalent = _lvlFactory.Get(TypeScene.UpgradeTalent).GetComponent<UpgradeTalentView>();
 
-        UpgradeTalentPresenter talentPresenter = new UpgradeTalentPresenter(character, upgradeTalent, _audioManager, _creatorTalents);
+        UpgradeTalentPresenter talentPresenter = new UpgradeTalentPresenter(character, upgradeTalent, _audioManager, _creatorTalents, _lvlFactory);
         talentPresenter.ReturnToSkill += ShowUpgradeSkillFromLeft;
-
-        if (character.PsyRating > 0)
-            talentPresenter.GoNext += ShowPsycanaFromRight;
-        else
-            talentPresenter.GoNext += ShowProphecy;
+        talentPresenter.GoNext += CheckPsy;
 
         return upgradeTalent;
+    }
+
+    private void CheckPsy(ICharacter character)
+    {
+        if (character.PsyRating > 0)
+            ShowPsycanaFromRight(character);
+        else
+            ShowProphecy(character);
     }
 
     private void ShowPsycanaFromRight(ICharacter character) => ShowPsycana(character).Show();

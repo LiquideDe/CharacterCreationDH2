@@ -1,13 +1,17 @@
 ﻿using UnityEngine;
 using TMPro;
 using Zenject;
+using System;
 
 public class CharacteristicCard : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI _textName, _textAmount;
+    public event Action Reset;
+    public event Action AmountFromRandomIsSeted;
     private AudioManager _audioManager;
     private int _amount;
     private bool _isSetAmountFromRandomCard;
+    private int _baseAmount;
 
     public bool IsSetAmountFromRandomCard => _isSetAmountFromRandomCard;
     public int Amount => _amount;
@@ -19,6 +23,7 @@ public class CharacteristicCard : MonoBehaviour
     {
         _amount = amount;
         _textAmount.text = $"{amount}";
+        _baseAmount = amount;
     }
 
     public void PlusAmount(int amount)
@@ -30,5 +35,12 @@ public class CharacteristicCard : MonoBehaviour
         _textAmount.text = $"{_amount}";
     }
 
-    
+    public void ResetAmount()
+    {
+        _isSetAmountFromRandomCard = false;
+        _amount = _baseAmount;
+        _textAmount.color = Color.white;
+        _textAmount.text = $"{_amount}";
+        Reset?.Invoke();
+    }
 }

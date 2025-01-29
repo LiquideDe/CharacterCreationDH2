@@ -6,6 +6,7 @@ public class CharacterWithUpgrade : CharacterDecorator, ICharacter
 {
     private List<Characteristic> _characteristics;
     private int _experienceSpent, _experienceUnspent, _experienceTotal, _psyrate;
+    private int _wounds, _corruptionPoints;
 
     public CharacterWithUpgrade(ICharacter character) : base(character)
     {
@@ -13,6 +14,8 @@ public class CharacterWithUpgrade : CharacterDecorator, ICharacter
         _experienceUnspent = character.ExperienceUnspent;
         _experienceTotal = character.ExperienceTotal;
         _psyrate = character.PsyRating;
+        _wounds = character.Wounds;
+        _corruptionPoints = character.CorruptionPoints;
 
         _characteristics = new List<Characteristic>();
         foreach(Characteristic characteristic in _character.Characteristics)
@@ -25,9 +28,9 @@ public class CharacterWithUpgrade : CharacterDecorator, ICharacter
 
     public int InsanityPoints => _character.InsanityPoints;
 
-    public int Wounds => _character.Wounds;
+    public int Wounds => _wounds;
 
-    public int CorruptionPoints => _character.CorruptionPoints;
+    public int CorruptionPoints => _corruptionPoints;
 
     public int PsyRating => _psyrate;
 
@@ -87,7 +90,6 @@ public class CharacterWithUpgrade : CharacterDecorator, ICharacter
 
     public void UpgradeSkill(Skill upgradeSkill, int experienceSpentForSkill)
     {
-        //Каждый новый апгрейд мы создаем новую оболочку и добавляем скил, а не апгрейдим его
         if (upgradeSkill.IsKnowledge)
         {            
             _skills.Add(new Knowledge((Knowledge)upgradeSkill, upgradeSkill.LvlLearned + 1));
@@ -107,6 +109,22 @@ public class CharacterWithUpgrade : CharacterDecorator, ICharacter
         _experienceSpent += cost;
         _experienceUnspent -= cost;
         _experienceTotal = _experienceSpent + _experienceUnspent;
+        if (string.Compare(talent.Name, "Псайкер") == 0)
+        {
+            Debug.Log($"Gcfqrth");
+            _inclinations.Add(GameStat.Inclinations.Psyker);
+            if (string.Compare(_character.Background, "Адептус Астра Телепатика", true) == 0)
+            {
+                _psyrate = 2;
+                _traits.Add(new Trait("Санкционированный",0));                
+            }                         
+            else
+            {
+                _psyrate = 1;
+                System.Random random = new System.Random();
+                _corruptionPoints = random.Next(1, 11) + 3;
+            }                
+        }
     }
 
     public void UpgradePsyPower(PsyPower psyPower, bool isEdit)
@@ -126,6 +144,27 @@ public class CharacterWithUpgrade : CharacterDecorator, ICharacter
         _experienceSpent += cost;
         _experienceUnspent -= cost;
         _experienceTotal = _experienceSpent + _experienceUnspent;
+    }
+
+    public void AddTrait(Trait trait)
+    {
+        _traits.Add(trait);
+    }
+
+    public void AddInclination(GameStat.Inclinations inclination)
+    {
+        if(_inclinations.Contains(inclination) == false)
+            _inclinations.Add(inclination);
+    }
+
+    public void AddWound()
+    {
+        _wounds++;
+    }
+
+    public void AddEquipment(Equipment equipment)
+    {
+        _equipment.Add(equipment);
     }
 
     public void UpgradeWeapon(int costExp) => UpgradeCharacteristic(_characteristics[0], costExp);

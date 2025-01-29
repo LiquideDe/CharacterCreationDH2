@@ -1,12 +1,15 @@
 ﻿using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.TextCore.Text;
 
 public class CharacterWithRole : CharacterDecorator, ICharacter
 {
     private int _psyRating;
     private string _roleName;
     private string _bonusRole;
+    private int _corruptionPoints;
 
-    public CharacterWithRole(ICharacter character) : base(character) { _psyRating = character.PsyRating; }
+    public CharacterWithRole(ICharacter character) : base(character) { _psyRating = character.PsyRating; _corruptionPoints = character.CorruptionPoints; }
 
     public int Age => _character.Age;
 
@@ -14,7 +17,7 @@ public class CharacterWithRole : CharacterDecorator, ICharacter
 
     public int Wounds => _character.Wounds;
 
-    public int CorruptionPoints => _character.CorruptionPoints;
+    public int CorruptionPoints => _corruptionPoints;
 
     public int PsyRating => _psyRating;
 
@@ -86,9 +89,21 @@ public class CharacterWithRole : CharacterDecorator, ICharacter
         {
             _talents.Add(talent);
             if (string.Compare(talent.Name, "Псайкер") == 0)
-                _psyRating = 1;
-        }
-
-        
+            {
+                Debug.Log($"Псайкер");
+                _inclinations.Add(GameStat.Inclinations.Psyker);
+                if (string.Compare(_character.Background, "Адептус Астра Телепатика", true) == 0)
+                {
+                    _psyRating = 2;                    
+                    _traits.Add(new Trait("Санкционированный",0));
+                }
+                else
+                {
+                    _psyRating = 1;
+                    System.Random random = new System.Random();
+                    _corruptionPoints = random.Next(1, 11) + 3;                    
+                }                    
+            }                
+        }        
     }
 }

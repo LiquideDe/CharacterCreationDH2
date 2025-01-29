@@ -12,7 +12,7 @@ public class EditCharacteristicsAndEquipmentsPresenter : IPresenter
     private CreatorImplant _creatorImplant;
     private CreatorWeaponProperties _creatorWeaponProperties;
     private Character _character;
-    private CanDestroyView _newForm;
+    private AnimateShowAndHideView _newForm;
     private ListWithNewItems _listWithItems;
 
     private delegate void MethodFormEquipment();
@@ -237,7 +237,7 @@ public class EditCharacteristicsAndEquipmentsPresenter : IPresenter
     private void Prev()
     {
         //_audioManager.PlayClick();
-        Debug.Log($"Закрываем едит");
+        
         CheckAndCloseAllLists();
         Unscribe();
         _view.DestroyView();
@@ -367,11 +367,11 @@ public class EditCharacteristicsAndEquipmentsPresenter : IPresenter
     private void CheckAndCloseAllLists()
     {
         if (_newForm != null)
-            _newForm.DestroyView();
+            _newForm.HideRight(_newForm.DestroyView);
         _newForm = null;
 
         if (_listWithItems != null)
-            _listWithItems.DestroyView();
+            _listWithItems.HideRight(_listWithItems.DestroyView);
         _listWithItems = null;
     }
 
@@ -394,7 +394,7 @@ public class EditCharacteristicsAndEquipmentsPresenter : IPresenter
     private void ShowForm(CreatorNewEquipment newEquipmentForm)
     {
         _audioManager.PlayClick();
-        _listWithItems.DestroyView();
+        _listWithItems.HideRight(_listWithItems.DestroyView);
         newEquipmentForm.Cancel += CloseForm;
         newEquipmentForm.ReturnNewEquipment += AddNewEquipment;
         newEquipmentForm.WrongInput += _audioManager.PlayWarning;
@@ -405,7 +405,7 @@ public class EditCharacteristicsAndEquipmentsPresenter : IPresenter
     private void AddThisEquipment(string name)
     {
         _audioManager.PlayDone();
-        _listWithItems.DestroyView();
+        _listWithItems.HideRight(_listWithItems.DestroyView);
         Equipment equipment = _creatorEquipment.GetEquipment(name);
         if(equipment is Weapon)
         {
@@ -423,24 +423,24 @@ public class EditCharacteristicsAndEquipmentsPresenter : IPresenter
         _view.UpdateEquipment(_character.Equipments);
     }
 
-    private void CloseList(CanDestroyView view)
+    private void CloseList(CanDestroyView list)
     {
         _audioManager.PlayCancel();
-        view.DestroyView();
+        _listWithItems.HideRight(list.DestroyView);
         _listWithItems = null;
     }
 
-    private void CloseForm(CanDestroyView view)
+    private void CloseForm(CanDestroyView form)
     {
         _audioManager.PlayCancel();
-        view.DestroyView();
+        _newForm.HideRight(form.DestroyView);
         _newForm = null;
     }
 
     private void AddNewEquipment(Equipment equipment)
     {
         _audioManager.PlayDone();
-        _newForm.DestroyView();
+        _newForm.HideRight(_newForm.DestroyView);
         _newForm = null;
         _character.Equipments.Add(equipment);
         _view.UpdateEquipment(_character.Equipments);
@@ -461,7 +461,7 @@ public class EditCharacteristicsAndEquipmentsPresenter : IPresenter
     {
         _audioManager.PlayClick();
         if(_listWithItems != null)
-            _listWithItems.DestroyView();
+            _listWithItems.HideRight(_listWithItems.DestroyView);
         
         if(_newForm is CreatorNewEquipment newEquipmentForm)
             newEquipmentForm.AddProperty(name);

@@ -21,7 +21,7 @@ MonoBehaviour:
   _rolePrefab: {fileID: 180789720966915298, guid: ca1f2cb65bf6ce44da6c8f2e513b6578, type: 3}
   _rolePrefabFinal: {fileID: 292439495070755594, guid: d973926cca8b1ac4fbb9281bac3f79b2, type: 3}
   _chooseBetweenManualAndRandom: {fileID: 4164811852971504617, guid: 006ea4372d4fedf4aa4abb9949b7db5e, type: 3}
-  _characteristicRandomPrefab: {fileID: 3323039963964777101, guid: e12b8bdcae1307b42a675f83c351d19d, type: 3}
+  _characteristicRandomPrefab: {fileID: 4189435766429854039, guid: e12b8bdcae1307b42a675f83c351d19d, type: 3}
   _characteristicManual: {fileID: 6113670121111708238, guid: 24bd1c1596d19354284fea256bdab974, type: 3}
   _upgradeCharacteristic: {fileID: 3547599375573791126, guid: 35911fb1f51016e4da4698c3e102aa54, type: 3}
   _upgradeSkill: {fileID: 6402224352316528277, guid: 73f92937f56c02e448e22a1bd4e3c124, type: 3}
@@ -48,3 +48,4 @@ MonoBehaviour:
   _newImplant: {fileID: 1076729413628794959, guid: d5843230159ea5640a19f36660e9cb63, type: 3}
   _loading: {fileID: 5621377613331039072, guid: b5166934b487c4f4b921b347cb941390, type: 3}
   _canvasWithInfoForSkill: {fileID: 5520556549759321786, guid: 5f032971e971b8345af99a5d332b0360, type: 3}
+  _ruleBookCharacteristic: {fileID: 3171396665566444902, guid: 2a4783928084e254281f1d0d16d7ea23, type: 3}

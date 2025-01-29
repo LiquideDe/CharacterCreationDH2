@@ -78,8 +78,8 @@ public class RoleFinalPresenter : IPresenter
         List<Talent> talents = new List<Talent>();
         talents.Add(_role.Talents[toggleGroups[0].ActiveToggles().FirstOrDefault().GetComponent<MyToggle>().Id]);
 
-        if (_role.BonusTalent.Length > 1)
-            talents.Add(new Talent("Псайкер"));
+        if (_role.BonusTalent.Length > 1)        
+            talents.Add(new Talent("Псайкер"));      
 
         sch++;
 

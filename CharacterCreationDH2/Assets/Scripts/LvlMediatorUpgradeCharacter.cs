@@ -77,15 +77,19 @@ public class LvlMediatorUpgradeCharacter
     {
         UpgradeTalentView upgradeTalent = _lvlFactory.Get(TypeScene.UpgradeTalent).GetComponent<UpgradeTalentView>();
 
-        UpgradeTalentPresenter talentPresenter = new UpgradeTalentPresenter(character, upgradeTalent, _audioManager, _creatorTalents);
+        UpgradeTalentPresenter talentPresenter = new UpgradeTalentPresenter(character, upgradeTalent, _audioManager, _creatorTalents, _lvlFactory);
         talentPresenter.ReturnToSkill += ShowUpgradeSkillFromLeft;
-
-        if (character.PsyRating > 0)
-            talentPresenter.GoNext += ShowPsycanaFromRight;
-        else
-            talentPresenter.GoNext += ShowFinalMenu;
+        talentPresenter.GoNext += CheckPsy;
 
         return upgradeTalent;
+    }
+
+    private void CheckPsy(ICharacter character)
+    {
+        if (character.PsyRating > 0)
+            ShowPsycanaFromRight(character);
+        else
+            ShowFinalMenu(character);
     }
 
     private void ShowPsycanaFromRight(ICharacter character) => ShowPsycana(character).Show();

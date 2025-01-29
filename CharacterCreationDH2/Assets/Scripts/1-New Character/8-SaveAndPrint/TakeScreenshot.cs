@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Drawing;
 using System.IO;
 using System;
 
@@ -48,6 +47,7 @@ public class TakeScreenshot: MonoBehaviour {
         yield return new WaitForSeconds(0.1f);
         yield return new WaitForEndOfFrame();
 
+        
         Camera cam = Camera.main;
         Texture2D screenImage = new Texture2D(cam.pixelWidth, cam.pixelHeight);
         //Get Image from screen
@@ -67,22 +67,25 @@ public class TakeScreenshot: MonoBehaviour {
     }
 
     private void CombineImages() {
+        
         var cached = RenderTexture.active;
         var renderTexture = RenderTexture.GetTemporary(savedImages[0].width, savedImages[0].height);
-        var finalTexture = new Texture2D(renderTexture.width * 2, renderTexture.height * 2);
+        var finalTexture = new Texture2D((int)(renderTexture.width * 1.458f), renderTexture.height * 2);
+
         RenderTexture.active = renderTexture;
         UnityEngine.Graphics.Blit(savedImages[0], renderTexture);
-        finalTexture.ReadPixels(new Rect(0, 0, renderTexture.width, renderTexture.height), savedImages[0].width, 0);
+        finalTexture.ReadPixels(new Rect(0, 0, renderTexture.width, renderTexture.height), finalTexture.width - savedImages[0].width, 0);
         UnityEngine.Graphics.Blit(savedImages[1], renderTexture);
-        finalTexture.ReadPixels(new Rect(0, 0, renderTexture.width, renderTexture.height), savedImages[0].width, savedImages[0].height);
+        finalTexture.ReadPixels(new Rect(0, 0, renderTexture.width, renderTexture.height), finalTexture.width - savedImages[1].width, finalTexture.height - savedImages[3].height);
         UnityEngine.Graphics.Blit(savedImages[2], renderTexture);
-        finalTexture.ReadPixels(new Rect(0, 0, renderTexture.width, renderTexture.height), 0, savedImages[0].height);
+        finalTexture.ReadPixels(new Rect(0, 0, renderTexture.width, renderTexture.height), 0, finalTexture.height - savedImages[0].height);
         UnityEngine.Graphics.Blit(savedImages[3], renderTexture);
         finalTexture.ReadPixels(new Rect(0, 0, renderTexture.width, renderTexture.height), 0, 0);
 
         if (!Directory.Exists($"{Application.dataPath}/StreamingAssets/CharacterSheets/{_character.Name}"))
             Directory.CreateDirectory($"{Application.dataPath}/StreamingAssets/CharacterSheets/{_character.Name}");
         File.WriteAllBytes($"{Application.dataPath}/StreamingAssets/CharacterSheets/{_character.Name}/CharacterSheet{_pageName}.png", finalTexture.EncodeToPNG());
+
         if (_isManyPages == false) {
             WorkIsFinished?.Invoke();
             Destroy(gameObject);

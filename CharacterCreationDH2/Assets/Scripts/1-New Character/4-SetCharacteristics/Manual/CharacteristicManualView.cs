@@ -192,7 +192,7 @@ public class CharacteristicManualView : AnimateShowAndHideView
 
     private void MinusInfluence() => ChangeInfluence?.Invoke(-1);
 
-    private void DonePress() => Hide(Done);//Done?.Invoke();
+    private void DonePress() => Done?.Invoke();
 
-    private void PrevPress() => Hide(GoToPrev);
+    private void PrevPress() => GoToPrev?.Invoke();
 }

@@ -5,7 +5,6 @@ using UnityEngine;
 public class CharacterWithBackground : CharacterDecorator,ICharacter
 {
     private string _bonusBack, _nameBackground, _memoryBackground;
-    private int _psyRating;
 
     public CharacterWithBackground(ICharacter character) : base (character) { }
 
@@ -17,7 +16,7 @@ public class CharacterWithBackground : CharacterDecorator,ICharacter
 
     public int CorruptionPoints => _character.CorruptionPoints;
 
-    public int PsyRating => _psyRating;
+    public int PsyRating => _character.PsyRating;
 
     public int ExperienceTotal => _character.ExperienceTotal;
 
@@ -87,8 +86,6 @@ public class CharacterWithBackground : CharacterDecorator,ICharacter
         foreach(Talent talent in config.Talents)
         {
             _talents.Add(talent);
-            if (string.Compare(talent.Name, "Псайкер") == 0)
-                _psyRating = 1;
         }
 
         foreach(Equipment equipment in config.Equipments)        

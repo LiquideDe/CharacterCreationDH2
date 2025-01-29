@@ -76,7 +76,8 @@ public class UpgradePsycanaView : AnimateShowAndHideView
         _textActionPsypower.text = psyPower.Action;
         _textCostPsypower.text = psyPower.TextCost;
         _textDescription.text = psyPower.Description;        
-        _buttonBuyPsyPower.enabled = isPossibleToBuy;
+        //_buttonBuyPsyPower.enabled = isPossibleToBuy;
+        _buttonBuyPsyPower.gameObject.SetActive(isPossibleToBuy);
     }
 
     public void ClosePanelWithInformation() => _panelWithInfoAboutPsyPower.SetActive(false);

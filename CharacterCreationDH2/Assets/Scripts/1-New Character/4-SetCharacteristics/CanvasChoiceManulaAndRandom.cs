@@ -8,10 +8,12 @@ public class CanvasChoiceManulaAndRandom : AnimateShowAndHideView
 {
     public event Action<int> ChooseManual;
     public event Action<int> ChoseRandom;
+    public event Action<int> ChooseRuleBook;
     [SerializeField] private Slider _slider;
     [SerializeField] TextMeshProUGUI _textSliderValue;
-    [SerializeField] Button _buttonManual, _buttonRandom;
-    AudioManager _audioManager;  
+    [SerializeField] Button _buttonManual, _buttonRandom, _buttonAsRuleBook;
+    private AudioManager _audioManager;
+    private int _baseAmount;
 
 
     [Inject]
@@ -21,6 +23,15 @@ public class CanvasChoiceManulaAndRandom : AnimateShowAndHideView
         _slider.onValueChanged.AddListener(ChangedSlider);
         _buttonManual.onClick.AddListener(ShowFinalAnimationAndChooseManual);
         _buttonRandom.onClick.AddListener(ShowFinalAnimationAndChooseRandom);
+        _buttonAsRuleBook.onClick.AddListener(ShowFinalAnimationAndChooseRuleBook);
+    }    
+
+    private void OnDisable()
+    {
+        _slider.onValueChanged.RemoveAllListeners();
+        _buttonManual.onClick.RemoveAllListeners();
+        _buttonRandom.onClick.RemoveAllListeners();
+        _buttonAsRuleBook.onClick.RemoveAllListeners();
     }
 
     public void ShowChoose()
@@ -40,21 +51,34 @@ public class CanvasChoiceManulaAndRandom : AnimateShowAndHideView
         Hide(ChoosedManual);
     }
 
+    private void ShowFinalAnimationAndChooseRuleBook()
+    {
+        _audioManager.PlayDone();
+        Hide(ChoosedRuleBook);
+    }
+
     private void ChoosedRandom()
     {        
-        ChoseRandom?.Invoke((int)_slider.value);
+        ChoseRandom?.Invoke(_baseAmount);
         DestroyView();
     }
 
     private void ChoosedManual()
     {        
-        ChooseManual?.Invoke((int)_slider.value);
+        ChooseManual?.Invoke(_baseAmount);
+        DestroyView();
+    }
+
+    private void ChoosedRuleBook()
+    {
+        ChooseRuleBook?.Invoke(_baseAmount);
         DestroyView();
     }
 
     private void ChangedSlider(float value)
     {
-        _textSliderValue.text = $"Стартовый уровень характеристик = {(int)value}";
+        _baseAmount = 5 * (int)value + 10;
+        _textSliderValue.text = $"Стартовый уровень характеристик = {_baseAmount}";
     }
 
 

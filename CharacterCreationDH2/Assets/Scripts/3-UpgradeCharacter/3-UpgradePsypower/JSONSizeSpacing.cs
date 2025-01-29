@@ -4,5 +4,5 @@ using System;
 
 public class JSONSizeSpacing 
 {
-    public int firstSpacing, secondSpacing, thirdSpacing;
+    public int firstSpacing, secondSpacing, thirdSpacing, fourthSpacing, fifthSpacing;
 }

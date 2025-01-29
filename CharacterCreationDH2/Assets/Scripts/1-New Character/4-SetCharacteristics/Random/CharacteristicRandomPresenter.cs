@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using UnityEngine;
 
 public class CharacteristicRandomPresenter : IPresenter
 {
@@ -28,7 +27,8 @@ public class CharacteristicRandomPresenter : IPresenter
     {
         _view.ReturnToRole += ReturnToRolePressed;
         _view.ReturnCharacteristics += ReturnCharacteristics;
-    }
+        _view.GenerateAmounts += GenerateAmounts;
+    }    
 
     private void Unscribe()
     {
@@ -36,7 +36,7 @@ public class CharacteristicRandomPresenter : IPresenter
         _view.ReturnCharacteristics -= ReturnCharacteristics;
     }
 
-    protected void SearchCharacter(ICharacter character)
+    private void SearchCharacter(ICharacter character)
     {
         if (character is CharacterWithRole)
             _character = character;
@@ -86,7 +86,6 @@ public class CharacteristicRandomPresenter : IPresenter
 
     private void ReturnToRolePressed()
     {
-        //_audioManager.PlayCancel();
         Unscribe();
         _view.DestroyView();
         ReturnToRole?.Invoke();
@@ -94,11 +93,30 @@ public class CharacteristicRandomPresenter : IPresenter
 
     private void ReturnCharacteristics(List<int> characteristics)
     {
-        //_audioManager.PlayDone();
         CharacterWithCharacteristics character = new CharacterWithCharacteristics(_character);
         character.SetCharacteristics(characteristics);
         ReturnCharacterWithCharacteristics?.Invoke(character);
         Unscribe();
         _view.DestroyView();
+    }
+
+    private void GenerateAmounts()
+    {
+        _audioManager.PlayClick();
+        int[] ints = new int[10];
+        for (int i = 0; i < ints.Length; i++)
+        {
+            ints[i] = GenerateInt() + GenerateInt();
+        }
+
+        _view.SetCards(ints);
+    }
+
+    private int GenerateInt()
+    {
+        System.Random random = new System.Random();
+        int chislo = random.Next(1, 11);
+        UnityEngine.Debug.Log($"chislo = {chislo}");
+        return chislo;
     }
 }

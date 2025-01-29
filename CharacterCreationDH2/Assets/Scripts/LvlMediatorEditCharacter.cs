@@ -39,7 +39,6 @@ public class LvlMediatorEditCharacter
 
     private EditPropertyCharacterView ShowEditProperties(ICharacter character)
     {
-        Debug.Log($"Запускает едит");
         EditPropertyCharacterView propertyCharacterView = _lvlFactory.Get(TypeScene.EditProperties).GetComponent<EditPropertyCharacterView>();
 
         EditPropertyCharacterPresenter propertyCharacterPresenter = new EditPropertyCharacterPresenter
@@ -55,7 +54,6 @@ public class LvlMediatorEditCharacter
 
     private EditCharacteristicsAndEquipmentsView ShowEditCharacters(ICharacter character)
     {
-        Debug.Log($"character = {character.GetType()} is null {character == null}");
         EditCharacteristicsAndEquipmentsView equipmentsView = _lvlFactory.Get(TypeScene.EditCharacteristicsAndEquipments).GetComponent<EditCharacteristicsAndEquipmentsView>();
 
         EditCharacteristicsAndEquipmentsPresenter andEquipmentsPresenter =
@@ -115,7 +113,7 @@ public class LvlMediatorEditCharacter
     {
         UpgradeTalentView upgradeTalent = _lvlFactory.Get(TypeScene.UpgradeTalent).GetComponent<UpgradeTalentView>();
 
-        UpgradeTalentPresenter talentPresenter = new UpgradeTalentPresenter(character, upgradeTalent, _audioManager, _creatorTalents);
+        UpgradeTalentPresenter talentPresenter = new UpgradeTalentPresenter(character, upgradeTalent, _audioManager, _creatorTalents, _lvlFactory);
         talentPresenter.ReturnToSkill += ShowUpgradeSkillFromLeft;
         talentPresenter.SetEdit();
         talentPresenter.GoNext += ShowPsycanaFromRight;

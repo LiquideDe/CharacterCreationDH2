@@ -17,7 +17,7 @@ public class HomeworldPresenter : PresenterForHomeBackRole,IPresenter
     {
         _view.gameObject.SetActive(false);
         HomeworldFinalPanelView finalPanelView = _lvlFactory.Get(TypeScene.HomeworldFinal).GetComponent<HomeworldFinalPanelView>();
-        _finalPanelPresenter = new HomeworldFinalPanelPresenter( finalPanelView, _audioManager, _character, (Homeworld)_creator.Get(_id));
+        _finalPanelPresenter = new HomeworldFinalPanelPresenter( finalPanelView, _audioManager, _character, (Homeworld)_creator.Get(_id), _lvlFactory);
         _finalPanelPresenter.CancelChoice += CancelChoose;
         _finalPanelPresenter.CharacterIsChosen += ChooseDone;
     }

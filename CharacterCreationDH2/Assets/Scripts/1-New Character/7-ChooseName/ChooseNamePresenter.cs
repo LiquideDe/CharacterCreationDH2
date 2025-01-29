@@ -174,12 +174,12 @@ public class ChooseNamePresenter : IPresenter
     {
         if (_name.Length > 1)
         {
-            //_audioManager.PlayDone();
+            _audioManager.PlayDone();
             Unscribe();
             _character.SetName(_name);
             _character.SetGender(_sex);
             GoNext?.Invoke(_character);
-            _view.DestroyView();
+            _view.Hide(_view.DestroyView);
         }
         else
             _audioManager.PlayWarning();  

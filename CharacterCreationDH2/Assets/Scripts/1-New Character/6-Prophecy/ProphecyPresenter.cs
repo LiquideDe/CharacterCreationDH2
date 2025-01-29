@@ -253,10 +253,10 @@ public class ProphecyPresenter : IPresenter
     {
         if (isProphecied)
         {
-            //_audioManager.PlayDone();
+            _audioManager.PlayDone();
             GoNext?.Invoke(_character);
             Unscribe();
-            _view.DestroyView();
+            _view.Hide(_view.DestroyView);
         }
         else
             _audioManager.PlayWarning();

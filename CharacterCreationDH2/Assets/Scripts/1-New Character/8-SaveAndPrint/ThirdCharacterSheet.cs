@@ -9,15 +9,15 @@ public class ThirdCharacterSheet : TakeScreenshot
     [SerializeField] private TextMeshProUGUI _text, _textNameCharacter;
     private CreatorTalents _creatorTalents;
     private CreatorPsyPowers _creatorPsyPowers;
-    private CreatorTraits _creatorFeatures;
+    private CreatorTraits _creatorTraits;
     private int _page;
 
     [Inject]
-    private void Construct(CreatorTalents creatorTalents, CreatorPsyPowers creatorPsyPowers, CreatorTraits creatorFeatures)
+    private void Construct(CreatorTalents creatorTalents, CreatorPsyPowers creatorPsyPowers, CreatorTraits creatorTraits)
     {
         _creatorTalents = creatorTalents;
         _creatorPsyPowers = creatorPsyPowers;
-        _creatorFeatures = creatorFeatures;
+        _creatorTraits = creatorTraits;
     }
 
     public void Initialize(ICharacter character)
@@ -46,9 +46,29 @@ public class ThirdCharacterSheet : TakeScreenshot
                     _text.text += $"<b>{implant.Name}</b> - {implant.Description}\n \n";
         }        
 
-        _text.text += $"<indent=15%><size=150%>Особенности:</indent> \n<size=100%>";
-        foreach (Trait feature in character.Traits)
-            _text.text += $"<b>{feature.Name}</b> - {_creatorFeatures.GetTrait(feature.Name).Description}\n \n";
+        if(character.Traits.Count > 0)
+        {
+            _text.text += $"<indent=15%><size=150%>Особенности:</indent> \n<size=100%>";
+            foreach (Trait trait in character.Traits)
+            {
+                if(string.Compare(trait.Name, "Сверхъестественные чувства", true) == 0)
+                {
+                    if (string.Compare(character.Background, "Адептус Астра Телепатика", true) == 0)
+                        _text.text += $"<b>{trait.Name}({(int)(character.Characteristics[GameStat.CharacteristicToInt["Сила Воли"]].Amount)})</b> - {_creatorTraits.GetTrait(trait.Name).Description}\n \n";
+                    else
+                        _text.text += $"<b>{trait.Name}({trait.Lvl})</b> - {_creatorTraits.GetTrait(trait.Name).Description}\n \n";
+                }
+                else
+                {
+                    if(trait.Lvl > 0)
+                        _text.text += $"<b>{trait.Name}({trait.Lvl})</b> - {_creatorTraits.GetTrait(trait.Name).Description}\n \n";
+                    else
+                        _text.text += $"<b>{trait.Name}</b> - {_creatorTraits.GetTrait(trait.Name).Description}\n \n";
+                }
+                    
+            }
+                
+        }        
 
         _text.text += $"<indent=15%><size=150%>Экипировка:</indent> \n<size=100%>";
         foreach (Equipment equipment in character.Equipments)
@@ -63,11 +83,7 @@ public class ThirdCharacterSheet : TakeScreenshot
         _text.text += $"{character.BonusRole} \n \n";
 
 
-        StartCoroutine(TakePauseForText());
-
-
-
-        
+        StartCoroutine(TakePauseForText());       
     }
 
     IEnumerator TakePauseForText()
@@ -107,4 +123,5 @@ public class ThirdCharacterSheet : TakeScreenshot
         else
             StartScreenshot($"{PageName.Third}+{_page}", true);
     }
+
 }

@@ -90,16 +90,20 @@ public class CreatorPsyPowers
         int index = 0;
         foreach (string dir in dirs)
         {
-            psyPowers.Add(CreatePowers(dir));
-            schoolNames.Add(GameStat.ReadText(dir + "/Название.txt"));
-            connections.Add(CreateConnection(index));
-            if (File.Exists(dir + "/sizeSpacing.JSON"))
+            if (!dir.Contains("Example"))
             {
-                string[] jSonData = File.ReadAllLines(dir + "/sizeSpacing.JSON");
-                JSONSizeSpacing jSONSize = JsonUtility.FromJson<JSONSizeSpacing>(jSonData[0]);
-                sizeSpacings.Add(jSONSize);
+                psyPowers.Add(CreatePowers(dir));
+                schoolNames.Add(GameStat.ReadText(dir + "/Название.txt"));
+                connections.Add(CreateConnection(index));
+                if (File.Exists(dir + "/sizeSpacing.JSON"))
+                {
+                    string[] jSonData = File.ReadAllLines(dir + "/sizeSpacing.JSON");
+                    JSONSizeSpacing jSONSize = JsonUtility.FromJson<JSONSizeSpacing>(jSonData[0]);
+                    sizeSpacings.Add(jSONSize);
+                }
+                index++;
             }
-            index++;
+                
             yield return null;
         }
         PsyPowersIsCreated?.Invoke();
@@ -139,7 +143,10 @@ public class CreatorPsyPowers
         {
             if(psy.Lvl != 0 )
             {
-                con.Add(new Connection(GetPsyPowerById(school,psy.IdParent), psy));
+                foreach (var idParent in psy.IdParents)
+                {
+                    con.Add(new Connection(GetPsyPowerById(school, idParent), psy));
+                }                
             }
         }
         return con;

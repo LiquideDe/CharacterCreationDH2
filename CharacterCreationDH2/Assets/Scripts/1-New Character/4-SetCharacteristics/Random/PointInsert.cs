@@ -1,12 +1,20 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class PointInsert : MonoBehaviour, IDropHandler
 {
-    [SerializeField] CharacteristicCard characteristicCard;
-    bool isEmpty = true;
+    [SerializeField] private CharacteristicCard characteristicCard;
+    private bool isEmpty = true;
+
+    private void OnEnable()
+    {
+        characteristicCard.Reset += ResetBool;
+    }
+
+    private void OnDisable()
+    {
+        characteristicCard.Reset -= ResetBool;
+    }
 
     public void OnDrop(PointerEventData eventData)
     {
@@ -24,7 +32,8 @@ public class PointInsert : MonoBehaviour, IDropHandler
                 cardWith.gameObject.SetActive(false);
                 isEmpty = false;
             }
-        }
-        
+        }        
     }
+
+    private void ResetBool() => isEmpty = true;
 }

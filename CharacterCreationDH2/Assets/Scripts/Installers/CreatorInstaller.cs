@@ -9,8 +9,7 @@ public class CreatorInstaller : MonoInstaller
 
     private void BindInstance()
     {
-        Container.Bind<CreatorSkills>().AsSingle();
-        Container.Bind<CreatorTalents>().AsSingle();
+        Container.Bind<CreatorSkills>().AsSingle();        
         Container.Bind<CreatorEquipment>().AsSingle();
         Container.Bind<CreatorTraits>().AsSingle();
         Container.Bind<CreatorImplant>().AsSingle();

@@ -1,16 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using UnityEngine;
 
 public class PsyPower : IName
 {
     private string namePower, description, action, shortDescription;
-    private int cost, psyRateRequire, id, lvl, idParent, reqCorruption = 0;
+    private int cost, psyRateRequire, id, lvl, reqCorruption = 0;
+    private List<int> _parentsId = new List<int>();
     private bool isBase;
     private List<Characteristic> requireCharacteristics;
     private string textCost;
-    private List<Skill> requireSkills;
+    private List<Skill> requireSkills = new List<Skill>();
+    private List<Talent> _requireTalents = new List<Talent>();
+    private List<PsyPower> _requirePsyPowers = new List<PsyPower>();
     
     public PsyPower(JSONPsyReader psyReader, string path)
     {
@@ -21,7 +25,15 @@ public class PsyPower : IName
         id = psyReader.id;
         action = psyReader.action;
         lvl = psyReader.lvl;
-        idParent = psyReader.parentId;
+
+        _parentsId.Add(psyReader.parentId);
+        if(psyReader.secondParent > 0)
+            _parentsId.Add(psyReader.secondParent);
+        if(psyReader.thirdParent > 0)
+            _parentsId.Add(psyReader.thirdParent);
+        if(psyReader.fourthParent > 0)
+            _parentsId.Add(psyReader.fourthParent);
+
         shortDescription = GameStat.ReadText(path + "/Кратко.txt");
         
         if (id == 0)
@@ -60,6 +72,26 @@ public class PsyPower : IName
                 reqCorruption = int.Parse(GameStat.ReadText(path + "/Corruption.txt"));
             }
 
+            if (File.Exists(path + "/ReqTalents.txt"))
+            {
+                string textTalents = GameStat.ReadText(path + "/ReqTalents.txt");
+                var talents = textTalents.Split(new char[] { '/' }).ToList();
+                foreach (string talent in talents)
+                {
+                    _requireTalents.Add(new Talent(talent));
+                }
+            }
+
+            if (File.Exists(path + "/ReqPsyPower.txt"))
+            {
+                string textPsypowers = GameStat.ReadText(path + "/ReqPsyPower.txt");
+                var psypowers = textPsypowers.Split(new char[] { '/' }).ToList();
+                foreach (string psypower in psypowers)
+                {
+                    _requirePsyPowers.Add(new PsyPower(psypower));
+                }
+            }
+
         }        
 
             SetTextCost();
@@ -70,31 +102,47 @@ public class PsyPower : IName
         namePower = name;
     }
 
-    public string Name { get => namePower; }
-    public string Description { get => description; }
-    public int Cost { get => cost; }
-    public int PsyRateRequire { get => psyRateRequire; }
-    public int Id { get => id; }
-    public bool IsBase { get => isBase; }
-    public string Action { get => action; }
-    public int Lvl { get => lvl; }
-    public int IdParent { get => idParent; }
-    public List<Characteristic> RequireCharacteristics { get => requireCharacteristics; }
-    public string TextCost { get => textCost; }
-    public string ShortDescription { get => shortDescription; set => shortDescription = value; }
-    public List<Skill> RequireSkills { get => requireSkills; }
-    public int ReqCorruption { get => reqCorruption; }
+    public string Name => namePower;
+    public string Description => description;
+    public int Cost => cost;
+    public int PsyRateRequire => psyRateRequire;
+    public int Id => id;
+    public bool IsBase => isBase;
+    public string Action => action;
+    public int Lvl => lvl;
+    public List<int> IdParents => _parentsId;
+    public List<Characteristic> RequireCharacteristics => requireCharacteristics;
+    public string TextCost => textCost;
+    public string ShortDescription => shortDescription;
+    public List<Skill> RequireSkills => requireSkills; 
+    public int ReqCorruption => reqCorruption; 
+
+    public List<Talent> RequireTalents => _requireTalents;
+
+    public List<PsyPower> RequirePsyPowers => _requirePsyPowers;
 
     private void SetTextCost()
     {
-        textCost = $"ОО {cost}, ПР{psyRateRequire}";
-        if(requireCharacteristics != null)
-        {
-            foreach (Characteristic characteristic in requireCharacteristics)
-            {
+        textCost = $"Требования:\nОО {cost}, ПР{psyRateRequire}";
+        if(requireCharacteristics != null)        
+            foreach (Characteristic characteristic in requireCharacteristics)            
                 textCost += $", {characteristic.Name} {characteristic.Amount}";
-            }
-        }        
+
+        if(reqCorruption > 0)
+            textCost += $", Порча {reqCorruption}";
+
+        if(requireSkills.Count > 0)        
+            foreach (var skill in requireSkills)            
+                textCost += $", {skill.Name} - {skill.LvlLearned}ур.";
+
+        if (_requireTalents.Count > 0)
+            foreach (var talent in _requireTalents)
+                textCost += $", {talent.Name}";
+
+        if (_requirePsyPowers.Count > 0)
+            foreach (var psy in _requirePsyPowers)
+                textCost += $", Пси сила {psy.namePower}";
+
     }    
 
 }

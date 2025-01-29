@@ -18,9 +18,7 @@ public class CharacterWithHomeworld : CharacterDecorator,ICharacter
     private GameStat.CharacteristicName _advantageCharacteristicSecond;
     private GameStat.CharacteristicName _disadvantageCharacteristic;
     private string _tradition;
-    private string _bonusHomeworld;
-
-    
+    private string _bonusHomeworld;    
 
     public CharacterWithHomeworld(ICharacter character) : base(character) { }
 

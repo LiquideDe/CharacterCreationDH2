@@ -41,7 +41,8 @@ public static class GameStat {
         {Inclinations.Tech, "Тех" },
         {Inclinations.Toughness, "Выносливость" },
         {Inclinations.Weapon, "Ближний бой" },
-        {Inclinations.Willpower, "Сила Воли" }
+        {Inclinations.Willpower, "Сила Воли" },
+        {Inclinations.Elite, "Элита" },
     };
 
     public static Dictionary<string, Inclinations> inclinationReverseTranslate = new Dictionary<string, Inclinations>()

@@ -3,7 +3,7 @@ using TMPro;
 using UnityEngine.UI;
 using Zenject;
 
-public class CanvasIntermediate : MonoBehaviour
+public class CanvasIntermediate : AnimateShowAndHideView
 {
     [SerializeField] TextMeshProUGUI descriptionText;
     [SerializeField] Button button;
@@ -27,13 +27,14 @@ public class CanvasIntermediate : MonoBehaviour
     {
         this.nextTask = nextTask;
         descriptionText.text = text;
+        Show();
     }
 
     public void ButtonPressed()
     {
         _audioWork.PlayDone();
         nextTask?.Invoke();
-        Destroy(gameObject);
+        Hide(DestroyView);
     }
 
 }

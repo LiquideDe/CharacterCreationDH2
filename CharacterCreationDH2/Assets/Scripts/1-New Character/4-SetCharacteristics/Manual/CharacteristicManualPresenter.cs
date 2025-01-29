@@ -11,7 +11,7 @@ public class CharacteristicManualPresenter : IPresenter
     private int _baseAmount, _allPoints = 60;
     private AudioManager _audioManager;
     private int _weapon, _ballistic, _strength, _toughness, _agility, _intelligence, _perception, _willpower, _fellowship, _influence;
-    private const int _maxCharacteristic = 45;
+    private int _maxCharacteristic;
 
     public CharacteristicManualPresenter(ICharacter character, CharacteristicManualView view, int baseAmount, AudioManager audioManager)
     {
@@ -23,6 +23,10 @@ public class CharacteristicManualPresenter : IPresenter
         SearchCharacter(_character);
         SearchChracteristics(_character);
         SetAmountCharacteristics();
+        if (baseAmount <= 25)
+            _maxCharacteristic = 40;
+        else
+            _maxCharacteristic = 45;
     }
 
     private void SearchChracteristics(ICharacter character)
@@ -133,7 +137,7 @@ public class CharacteristicManualPresenter : IPresenter
 
     private void PlusOrMinusCharacteristic(GameStat.CharacteristicName characteristicName, ref int characteristic, int amount)
     {
-        if ((characteristic + amount > GetAmountDependsOnAdvantagesAndDisadvantage(characteristicName) && characteristic + amount <= _maxCharacteristic) && _allPoints > 0)
+        if ((characteristic + amount >= GetAmountDependsOnAdvantagesAndDisadvantage(characteristicName) && characteristic + amount <= _maxCharacteristic) && _allPoints > 0)
         {
             _audioManager.PlayClick();
             characteristic += amount;
@@ -166,12 +170,12 @@ public class CharacteristicManualPresenter : IPresenter
     {
         if (_allPoints == 0)
         {
-            //_audioManager.PlayDone();
+            _audioManager.PlayDone();
             CharacterWithCharacteristics character = new CharacterWithCharacteristics(_character);
             List<int> characteristics = new List<int>() { _weapon, _ballistic, _strength, _toughness, _agility, _intelligence, _perception, _willpower, _fellowship, _influence };
             character.SetCharacteristics(characteristics);
             Unscribe();
-            _view.DestroyView();
+            _view.Hide(_view.DestroyView);
             ReturnCharacterWithCharacteristics?.Invoke(character);
         }
         else
@@ -180,9 +184,9 @@ public class CharacteristicManualPresenter : IPresenter
 
     private void ReturnToPrevDown()
     {
-        //_audioManager.PlayCancel();
+        _audioManager.PlayCancel();
         Unscribe();
-        _view.DestroyView();
+        _view.HideRight(_view.DestroyView);
         ReturnToRole?.Invoke();
     }
 }

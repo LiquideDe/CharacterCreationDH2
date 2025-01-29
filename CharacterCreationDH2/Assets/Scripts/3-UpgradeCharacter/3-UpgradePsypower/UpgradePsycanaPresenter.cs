@@ -76,11 +76,33 @@ public class UpgradePsycanaPresenter : IPresenter
             isPossible = true;
         else if (_character.ExperienceUnspent >= _psyPower.Cost && _character.PsyRating >= _psyPower.PsyRateRequire && TryPsyPowerForReqPsyPowers(_psyPower) &&
             TryCheckCharacteristics(_psyPower.RequireCharacteristics, _character.Characteristics) && TryCheckSkills(_psyPower.RequireSkills, _character.Skills) &&
-            _character.CorruptionPoints >= _psyPower.ReqCorruption && TryNotDoublePsyPower(_psyPower))
+            _character.CorruptionPoints >= _psyPower.ReqCorruption && TryNotDoublePsyPower(_psyPower) && TryCheckTalents(_psyPower) && 
+            TryPsyPowerForPsyPowerFromAnotherSchool(_psyPower))
             isPossible = true;
 
 
         _view.ShowPsyPower(_psyPower, isPossible);
+    }
+
+    private bool TryPsyPowerForPsyPowerFromAnotherSchool(PsyPower psyPower)
+    {
+        if (psyPower.RequirePsyPowers.Count == 0)
+            return true;
+
+        int summ = 0;
+
+        foreach (var item in psyPower.RequirePsyPowers)        
+            foreach(var psypowerCharacter in _character.PsyPowers)            
+                if (string.Compare(item.Name, psypowerCharacter.Name, true) == 0)
+                {
+                    summ++;
+                    break;
+                }
+
+        if(summ == psyPower.RequirePsyPowers.Count)
+            return true;
+
+        return false; 
     }
 
     private bool TryPsyPowerForReqPsyPowers(PsyPower psyPower)
@@ -88,11 +110,18 @@ public class UpgradePsycanaPresenter : IPresenter
         if (psyPower.Lvl == 0)
             return true;
 
-        PsyPower parentPsyPower = _creatorPsyPowers.GetPsyPowerById(_school, psyPower.IdParent);
-        foreach(PsyPower power in _character.PsyPowers)
+        List<string> names = new List<string>();
+
+        foreach (var item in psyPower.IdParents)        
+            names.Add(_creatorPsyPowers.GetPsyPowerById(_school, item).Name);
+        
+        foreach (PsyPower power in _character.PsyPowers)
         {
-            if (string.Compare(power.Name, parentPsyPower.Name) == 0)
-                return true;
+            for(int i = 0; i < names.Count; i++)
+            {
+                if (string.Compare(power.Name, names[i]) == 0)
+                    return true;
+            }            
         }
 
         return false;
@@ -133,6 +162,26 @@ public class UpgradePsycanaPresenter : IPresenter
         }
            
         return true;
+    }
+
+    private bool TryCheckTalents(PsyPower psyPower)
+    {
+        if(psyPower.RequireTalents.Count == 0)
+            return true;
+
+        int summ = 0;
+        foreach (var talentInRequire in psyPower.RequireTalents)        
+            foreach (Talent talent in _character.Talents)            
+                if(string.Compare(talentInRequire.Name, talent.Name, true) == 0)
+                {
+                    summ++;
+                    break;
+                }  
+        
+        if(summ == psyPower.RequireTalents.Count)
+            return true;
+
+        return false;      
     }
 
     private void BuyPsyPower()
