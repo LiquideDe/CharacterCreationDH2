@@ -10,7 +10,7 @@ public class EditCharacteristicsAndEquipmentsPresenter : IPresenter
     private LvlFactory _lvlFactory;
     private CreatorEquipment _creatorEquipment;
     private CreatorImplant _creatorImplant;
-    private CreatorWeaponProperties _creatorWeaponProperties;
+    private CreatorWeaponTrait _creatorWeaponTraits;
     private Character _character;
     private AnimateShowAndHideView _newForm;
     private ListWithNewItems _listWithItems;
@@ -18,14 +18,14 @@ public class EditCharacteristicsAndEquipmentsPresenter : IPresenter
     private delegate void MethodFormEquipment();
 
     public EditCharacteristicsAndEquipmentsPresenter(EditCharacteristicsAndEquipmentsView view, AudioManager audioManager, 
-        LvlFactory lvlFactory, CreatorEquipment creatorEquipment, CreatorImplant creatorImplant, CreatorWeaponProperties creatorWeaponProperties, ICharacter character)
+        LvlFactory lvlFactory, CreatorEquipment creatorEquipment, CreatorImplant creatorImplant, CreatorWeaponTrait creatorWeaponProperties, ICharacter character)
     {
         _view = view;
         _audioManager = audioManager;
         _lvlFactory = lvlFactory;
         _creatorEquipment = creatorEquipment;
         _creatorImplant = creatorImplant;
-        _creatorWeaponProperties = creatorWeaponProperties;        
+        _creatorWeaponTraits = creatorWeaponProperties;        
         SearchCharacter(character);
         Subscribe();
         _view.Initialize(_character);
@@ -453,7 +453,7 @@ public class EditCharacteristicsAndEquipmentsPresenter : IPresenter
         ListWithNewItems list = _lvlFactory.Get(TypeScene.ListWithNewItems).GetComponent<ListWithNewItems>();
         list.CloseList += CloseList;
         list.ChooseThis += AddProperty;
-        list.Initialize(_creatorWeaponProperties.GetProperties(), $"Выберите особое качество");
+        list.Initialize(_creatorWeaponTraits.GetNames(), $"Выберите особое качество");
         _listWithItems = list;
     }
 

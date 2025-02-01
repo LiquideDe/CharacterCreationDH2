@@ -52,7 +52,7 @@ public class ListWithNewItems : UniversalList
     private void ChooseThisItemPressed(string name) 
     {
         ChooseThis?.Invoke(name);
-        ChooseThisAndClose(name, this);
+        ChooseThisAndClose?.Invoke(name, this);
     }
 
     private void SearchByInput(string text)

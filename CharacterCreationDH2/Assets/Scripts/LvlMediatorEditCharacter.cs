@@ -10,19 +10,19 @@ public class LvlMediatorEditCharacter
     private CreatorTraits _creatorTraits;
     private CreatorEquipment _creatorEquipment;
     private CreatorImplant _creatorImplant;
-    private CreatorWeaponProperties _creatorWeaponProperties;
+    private CreatorWeaponTrait _creatorWeaponTraits;
     private CreatorTalents _creatorTalents;
     private CreatorPsyPowers _creatorPsyPowers;
 
     public LvlMediatorEditCharacter(LvlFactory lvlFactory, AudioManager audioManager, CreatorTraits creatorTraits, CreatorEquipment creatorEquipment,
-        CreatorImplant creatorImplant, CreatorWeaponProperties creatorWeaponProperties, CreatorTalents creatorTalents, CreatorPsyPowers creatorPsyPowers)
+        CreatorImplant creatorImplant, CreatorWeaponTrait creatorWeaponProperties, CreatorTalents creatorTalents, CreatorPsyPowers creatorPsyPowers)
     {
         _lvlFactory = lvlFactory;
         _audioManager = audioManager;
         _creatorTraits = creatorTraits;
         _creatorEquipment = creatorEquipment;
         _creatorImplant = creatorImplant;
-        _creatorWeaponProperties = creatorWeaponProperties;
+        _creatorWeaponTraits = creatorWeaponProperties;
         _creatorTalents = creatorTalents;
         _creatorPsyPowers = creatorPsyPowers;
     }
@@ -57,7 +57,7 @@ public class LvlMediatorEditCharacter
         EditCharacteristicsAndEquipmentsView equipmentsView = _lvlFactory.Get(TypeScene.EditCharacteristicsAndEquipments).GetComponent<EditCharacteristicsAndEquipmentsView>();
 
         EditCharacteristicsAndEquipmentsPresenter andEquipmentsPresenter =
-            new EditCharacteristicsAndEquipmentsPresenter(equipmentsView, _audioManager, _lvlFactory, _creatorEquipment, _creatorImplant, _creatorWeaponProperties,
+            new EditCharacteristicsAndEquipmentsPresenter(equipmentsView, _audioManager, _lvlFactory, _creatorEquipment, _creatorImplant, _creatorWeaponTraits,
             character);
 
         andEquipmentsPresenter.GoNext += ShowUpgradeCharacteristicsFromRight;

@@ -15,7 +15,7 @@ public class Bootstrap : MonoBehaviour
     }
 
     [Inject]
-    private void Construct(LvlMediator lvlMediator, CreatorTalents creatorTalents, 
+    private void Construct(LvlMediator lvlMediator, CreatorTalents creatorTalents, CreatorWeaponTrait creatorWeaponTrait,
         CreatorPsyPowers creatorPsyPowers, CreatorTraits creatorTraits, CreatorImplant creatorImplant, CreatorSkills creatorSkills, CreatorEquipment creatorEquipment)
     {
         _lvlMediator = lvlMediator;
@@ -30,6 +30,8 @@ public class Bootstrap : MonoBehaviour
         creatorEquipment.SpecialIsDone += FinishCreating;
         creatorEquipment.ArmorIsDone += FinishCreating;
         creatorEquipment.ThingIsDone += FinishCreating;
+        creatorWeaponTrait.TraitsIsCreated += FinishCreating;
+
 
         creatorTalents.StartCreating();
         creatorPsyPowers.StartCreating();
@@ -37,12 +39,13 @@ public class Bootstrap : MonoBehaviour
         creatorImplant.StartCreate();
         creatorSkills.StartCreating();
         creatorEquipment.StartCreating();
+        creatorWeaponTrait.StartCreating();
     }
 
     private void FinishCreating()
     {
         _amountCreatorsDone++;
-        if (_amountCreatorsDone == 11)
+        if (_amountCreatorsDone == 12)
         {
             Destroy(_canvasLoad);
             _lvlMediator.MainMenu();

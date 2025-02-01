@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using Zenject;
+using System.Linq;
 
 public class ThirdCharacterSheet : TakeScreenshot
 {
@@ -10,14 +11,16 @@ public class ThirdCharacterSheet : TakeScreenshot
     private CreatorTalents _creatorTalents;
     private CreatorPsyPowers _creatorPsyPowers;
     private CreatorTraits _creatorTraits;
+    private CreatorWeaponTrait _creatorWeaponTrait;
     private int _page;
 
     [Inject]
-    private void Construct(CreatorTalents creatorTalents, CreatorPsyPowers creatorPsyPowers, CreatorTraits creatorTraits)
+    private void Construct(CreatorTalents creatorTalents, CreatorPsyPowers creatorPsyPowers, CreatorTraits creatorTraits, CreatorWeaponTrait weaponTrait)
     {
         _creatorTalents = creatorTalents;
         _creatorPsyPowers = creatorPsyPowers;
         _creatorTraits = creatorTraits;
+        _creatorWeaponTrait = weaponTrait;
     }
 
     public void Initialize(ICharacter character)
@@ -72,15 +75,39 @@ public class ThirdCharacterSheet : TakeScreenshot
 
         _text.text += $"<indent=15%><size=150%>Экипировка:</indent> \n<size=100%>";
         foreach (Equipment equipment in character.Equipments)
+        {
             _text.text += $"<b>{equipment.Name}</b>. {equipment.Amount}шт. \nОписание: {equipment.Description}. Вес: {equipment.Weight} \n \n";
+            if(equipment is Weapon weapon)
+            {
+                if(weapon.Properties.Length > 1)
+                {                    
+                    var weaponTraits = weapon.Properties.Split(new char[] { ',' }).ToList();
+                    foreach (var weaponTrait in weaponTraits)
+                    {
+                        if (!weaponTrait.Contains("("))
+                        {
+                            _text.text += $"{weaponTrait} - {_creatorWeaponTrait.Get(weaponTrait).Description} \n\n";
+                        }
+                        else
+                        {
+                            int openBracketIndex = weaponTrait.IndexOf('(');
+                            string name = weaponTrait.Substring(0, openBracketIndex).Trim();
 
-        _text.text += $"{character.Tradition} \n \n";
+                            _text.text += $"{weaponTrait} - {_creatorWeaponTrait.Get(name).Description} \n\n";
+                        }
+                    }
+                }
+            }
+        }
+            
 
-        _text.text += $"{character.BonusHomeworld} \n \n";
+        _text.text += $"<b>Традиция</b> - {character.Tradition} \n \n";
 
-        _text.text += $"{character.BonusBack} \n \n";
+        _text.text += $"<b>Бонус Родного Мира</b> - {character.BonusHomeworld} \n \n";
 
-        _text.text += $"{character.BonusRole} \n \n";
+        _text.text += $"<b>Бонус Предыстории</b> - {character.BonusBack} \n \n";
+
+        _text.text += $"<b>Бонус Роли</b> - {character.BonusRole} \n \n";
 
 
         StartCoroutine(TakePauseForText());       
