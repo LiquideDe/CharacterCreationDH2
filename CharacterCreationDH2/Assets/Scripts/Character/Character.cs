@@ -18,7 +18,7 @@ public class Character : ICharacter
     private List<PsyPower> _psyPowers = new List<PsyPower>();
     private List<Equipment> _equipments = new List<Equipment>();
     private List<MechImplant> _implants = new List<MechImplant>();
-    private List<Trait> _features = new List<Trait>();
+    private List<Trait> _traits = new List<Trait>();
 
     public Character(CreatorSkills skills)
     {
@@ -58,7 +58,7 @@ public class Character : ICharacter
     public string BonusBack => _bonusBack;
     public List<string> Mutation => _mutation;
     public List<PsyPower> PsyPowers => _psyPowers;
-    public List<Trait> Traits => _features;
+    public List<Trait> Traits => _traits;
     public string Name => _name;
     public string Background => _background;
     public string Role => _role;
@@ -117,7 +117,7 @@ public class Character : ICharacter
                 for (int i = 0; i < listTrait.Count; i++)
                 {
                     int.TryParse(traitLvl[i], out int lvl);
-                    _features.Add(new Trait(listTrait[i], lvl));
+                    _traits.Add(new Trait(listTrait[i], lvl));
                 }
             }
         

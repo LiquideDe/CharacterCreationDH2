@@ -111,20 +111,34 @@ public class Background : IHistoryCharacter
     private void GetTraits(string path)
     {
         List<string> files = new List<string>();
-        List<List<string>> traits = new List<List<string>>();
+        List<List<string>> traitNames = new List<List<string>>();
         files.AddRange(Directory.GetFiles(path, "*.txt"));
         foreach (string file in files)
         {
-            traits.Add(new List<string>());
-            traits[^1].AddRange(GameStat.ReadText(file).Split(new char[] { '/' }).ToList());
+            traitNames.Add(new List<string>());
+            traitNames[^1].AddRange(GameStat.ReadText(file).Split(new char[] { '/' }).ToList());
         }
 
-        foreach (List<string> traitList in traits)
+        foreach (List<string> traitList in traitNames)
         {
             _traits.Add(new List<Trait>());
             for (int i = 0; i < traitList.Count; i++)
             {
-                Trait trait = _creatorTraits.GetTrait(traitList[i]);
+                Trait trait = null;
+                if (traitList[i].Contains("("))
+                {
+                    int openBracketIndex = traitList[i].IndexOf('(');
+                    string nameTrait = traitList[i].Substring(0, openBracketIndex).Trim();
+                    int closeBracketIndex = traitList[i].IndexOf(')');
+                    int lvl = int.Parse(traitList[i].Substring(openBracketIndex + 1, closeBracketIndex - openBracketIndex - 1));
+                    trait = _creatorTraits.GetTrait(nameTrait);
+                    trait.Lvl = lvl;
+                }
+                else
+                {
+                    trait = _creatorTraits.GetTrait(traitList[i]);
+                }
+                
                 if (trait == null)
                     trait = new Trait(traitList[i], 0);
 

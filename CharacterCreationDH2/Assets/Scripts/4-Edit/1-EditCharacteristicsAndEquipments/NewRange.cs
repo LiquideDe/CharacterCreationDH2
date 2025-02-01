@@ -3,12 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using System.IO;
 
 public class NewRange : NewMelee
 {
     public TMP_InputField inputRange, inputRoFShort, inputRoFLong, inputClip, inputReload;
     public Toggle toggleSingle;
+    public MyDropDown _dropdownSounds;
+
+    public override void Initialize()
+    {
+        base.Initialize();
+        List<string> options = new List<string>() {"Револьвер", "Автомат", "Дробовик", "Лазерное", "Болтерное", "Огнемет", "Пистолет", "Плазменное",
+            "Мельта", "Грав", "Электро", "Радиационное" };
+        _dropdownSounds.AddOptions(options);
+    }
 
     public override void FinishCreating()
     {
@@ -52,6 +60,7 @@ public class NewRange : NewMelee
             rangeReader.rof = $"{rSingle}/{rShort}/{rLong}";
             rangeReader.weaponClass = inputClass.text;
             rangeReader.weight = weight;
+            rangeReader.typeSound = _dropdownSounds.Value;
 
             SaveEquipment($"{Application.dataPath}/StreamingAssets/Equipments/Weapons/Range/{rangeReader.name}.JSON", rangeReader);
 

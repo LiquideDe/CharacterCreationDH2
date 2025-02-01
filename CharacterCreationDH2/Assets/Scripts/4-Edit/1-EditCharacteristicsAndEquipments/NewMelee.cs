@@ -11,17 +11,23 @@ public class NewMelee : CreatorNewEquipment
 {
     public event Action NeedInProperties;
     [SerializeField] protected Button _buttonAddProperty;
+    [SerializeField] private Button _buttonDamageDice;
+    [SerializeField] private TextMeshProUGUI _textDamageDice;
     public TMP_InputField inputClass, inputDamage, inputBonusDamage, inputPenetration;
-    public TMP_Dropdown dropDown;
+    public MyDropDown _dropDown;
     public Transform content;
     public ItemWithNumberInList itemPrefab;
     List<ItemWithNumberInList> items = new List<ItemWithNumberInList>();
+    private readonly string[] _dices = new string[2] {"к10", "к5"};
 
     public override void Initialize()
     {
         base.Initialize();
         _buttonAddProperty.onClick.AddListener(NeedInPropertiesPressed);
-    }
+        _buttonDamageDice.onClick.AddListener(ChangeTextDamageDice);
+        List<string> options = new List<string>() { "Взрывной", "Режущий", "Ударный", "Энергетический"};
+        _dropDown.AddOptions(options);
+    }    
 
     public override void FinishCreating()
     {
@@ -48,10 +54,18 @@ public class NewMelee : CreatorNewEquipment
             WrongInputPressed();
     }
 
+    public override void AddProperty(string property)
+    {
+        ItemWithNumberInList item = Instantiate(itemPrefab, content);
+        item.RemoveThisItem += RemoveThisProperty;
+        item.Initialize(property, 0);
+        items.Add(item);
+    }
+
     protected string MakeDamageText()
     {
         string typeDamage = "";
-        switch (dropDown.value)
+        switch (_dropDown.Value)
         {
             case 0:
                 typeDamage = "В";
@@ -72,17 +86,25 @@ public class NewMelee : CreatorNewEquipment
         {
             damage = 1;
         }
-        string textdamage = $"{damage}к10+{bonusDamage}{typeDamage}";
+        string textdamage = $"{damage}{_textDamageDice.text}";
+
+        if (bonusDamage == 0)        
+            textdamage += $"+{bonusDamage}{typeDamage}";        
+        else
+            textdamage += $"{typeDamage}";
+
+        
         return textdamage;
     }
 
-    public override void AddProperty(string property)
+    private void ChangeTextDamageDice()
     {
-        ItemWithNumberInList item = Instantiate(itemPrefab, content);
-        item.RemoveThisItem += RemoveThisProperty;
-        item.Initialize(property, 0);
-        items.Add(item);
-    }
+        _audio.PlayClick();
+        if (_textDamageDice.text == _dices[0])
+            _textDamageDice.text = _dices[1];
+        else
+            _textDamageDice.text = _dices[0];
+    }    
 
     private void RemoveThisProperty(string name)
     {
