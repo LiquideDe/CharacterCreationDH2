@@ -14,7 +14,7 @@ public class MyDropDown : MonoBehaviour
     List<string> _options = new List<string>();
     private AudioManager _audioManager;
 
-    public int Value { get => _options.IndexOf(_textChooseDropDown.text); }
+    public int Value { get => _options.IndexOf(_textChooseDropDown.text); set { _textChooseDropDown.text = _options[value]; } }
 
     [Inject]
     private void Construct(AudioManager audioManager) => _audioManager = audioManager;

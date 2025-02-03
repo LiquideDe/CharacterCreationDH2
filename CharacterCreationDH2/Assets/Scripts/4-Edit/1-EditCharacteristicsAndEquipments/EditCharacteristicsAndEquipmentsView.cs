@@ -26,6 +26,7 @@ public class EditCharacteristicsAndEquipmentsView : AnimateShowAndHideView
     [SerializeField] private Transform _contentEquipment, _contentImplant;
     [SerializeField] private ItemInList _implantPrefab;
     [SerializeField] private ItemWithNumberInList _equipmentPrefab;
+    [SerializeField] private ButtonModifierWeapon _buttonModifierWeaponPrefab;
 
     public event Action IncreaseWeapon, IncreaseBallistic, IncreaseStrength, IncreaseWounds, IncreaseCorruption, IncreaseMadness, IncreaseInfluence,
         IncreaseFellowship, IncreaseWillpower, IncreasePerception, IncreaseIntelligence, IncreaseAgility, IncreaseToughness,
@@ -37,6 +38,8 @@ public class EditCharacteristicsAndEquipmentsView : AnimateShowAndHideView
 
 
     public event Action AddEquipment, AddArmor, AddWeapon, AddBallistic, AddGrenade, AddImplant, Next, Prev;
+
+    public event Action<Weapon> OpenModifierWeapon;
 
     public event Action<string> RemoveEquipment, RemoveImplant;
     public event Action<string, int> ChangeAmountEquipment;
@@ -172,9 +175,16 @@ public class EditCharacteristicsAndEquipmentsView : AnimateShowAndHideView
             item.ChangeAmount += ChangeAmountEquipmentPressed;
             item.RemoveThisItem += RemoveEquipmentPressed;
             item.Initialize(equipment.Name, equipment.Amount);
+            if (equipment is Weapon weapon)
+            {
+                ButtonModifierWeapon modifierWeapon = Instantiate(_buttonModifierWeaponPrefab, item.transform);
+                modifierWeapon.SetWeapon(weapon);
+                modifierWeapon.ModifierThisWeapon += ModifierWeapon;
+            }
+                
             _equipments.Add(item);
         }
-    }
+    }    
 
     public void UpdateImplants(List<MechImplant> mechImplants)
     {
@@ -269,4 +279,6 @@ public class EditCharacteristicsAndEquipmentsView : AnimateShowAndHideView
     private void IncreaseBallisticPressed() => IncreaseBallistic?.Invoke();
 
     private void IncreaseWeaponPressed() => IncreaseWeapon?.Invoke();
+
+    private void ModifierWeapon(Weapon weapon) => OpenModifierWeapon?.Invoke(weapon);
 }

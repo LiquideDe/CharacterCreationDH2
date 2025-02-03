@@ -43,7 +43,7 @@ public abstract class UniversalList : AnimateShowAndHideView
 
     private void OnDisable() => _scrollbar.onValueChanged.RemoveAllListeners();
 
-    public virtual void Initialize(int countList)
+    public virtual void Initialize(int countList, bool isNewList = true)
     {
         _num = countList;
         SubWhenOnEnableDontWork();
@@ -77,7 +77,8 @@ public abstract class UniversalList : AnimateShowAndHideView
         }
         _prefab.SetActive(false);
         _container.anchoredPosition3D += _offsetVec * (_containerHalfSize - ((Direction == LISTDIRECTION.HORIZONTAL ? _maskRT.rect.size.x : _maskRT.rect.size.y) * 0.5f));
-        Show();
+        if(isNewList)
+            Show();
     }
 
     public void ReorderItemsByPos(float normPos)

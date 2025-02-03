@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class Weapon : Equipment
+﻿public class Weapon : Equipment
 {
     private string classWeapon, rof, damage, reload, properties;
     private int range, penetration, clip, typeSound;    

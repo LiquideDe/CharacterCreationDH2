@@ -73,7 +73,7 @@ public class ListWithNewItems : UniversalList
                 FillListWhenSearchEmpty();
             
         }
-        base.Initialize(_namesListToView.Count);
+        base.Initialize(_namesListToView.Count, false);
     }
 
     private void FillListWhenSearchEmpty()

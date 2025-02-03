@@ -8,7 +8,7 @@ using System;
 public class CreatorNewEquipment : ViewWithButtonsDoneAndCancel
 {
 
-    [SerializeField] protected TMP_InputField _inputName, _inputWeight, _inputRarity;
+    [SerializeField] protected TMP_InputField _inputName, _inputWeight, _inputRarity, _description;
 
     public event Action<Equipment> ReturnNewEquipment;
     public event Action WrongInput;
@@ -25,13 +25,15 @@ public class CreatorNewEquipment : ViewWithButtonsDoneAndCancel
         if (_inputName.text != "")
         {
             float.TryParse(_inputWeight.text, out float weight);
-            JSONEquipmentReader reader = new JSONEquipmentReader();
-            reader.name = _inputName.text;
-            reader.description = "";
-            reader.weight = weight;
-            reader.rarity = _inputRarity.text;
-            reader.typeEquipment = Equipment.TypeEquipment.Thing.ToString();
-            reader.amount = 1;
+            JSONEquipmentReader reader = new JSONEquipmentReader
+            {
+                name = _inputName.text,
+                weight = weight,
+                rarity = _inputRarity.text,
+                typeEquipment = Equipment.TypeEquipment.Thing.ToString(),
+                amount = 1,
+                description = _description.text
+            };
             SaveEquipment($"{Application.dataPath}/StreamingAssets/Equipments/Things/{reader.name}.JSON", reader);
             Equipment equipment = new Equipment(_inputName.text, "", _inputRarity.text, 1, weight);
             ReturnNewEquipment?.Invoke(equipment);
@@ -42,7 +44,7 @@ public class CreatorNewEquipment : ViewWithButtonsDoneAndCancel
 
     }
 
-    public virtual void AddProperty(string property) { Debug.Log($"Не работает увы"); }
+    public virtual void AddProperty(string property, int lvl = 0) { }
 
     protected void SaveEquipment<T>(string path, T jsonToSave)
     {

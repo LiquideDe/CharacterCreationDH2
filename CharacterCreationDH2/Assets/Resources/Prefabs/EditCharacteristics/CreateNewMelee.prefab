@@ -820,8 +820,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.5256, y: 1.0727}
-  m_SizeDelta: {x: -4.2312, y: -2.1454}
+  m_AnchoredPosition: {x: -0.03709984, y: -0.052799225}
+  m_SizeDelta: {x: -5.9195, y: -6.3659}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &7823806305366175945
 MonoBehaviour:
@@ -2423,8 +2423,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -25, y: 0}
-  m_SizeDelta: {x: 100, y: 50}
+  m_AnchoredPosition: {x: -22.4677, y: -0.1406}
+  m_SizeDelta: {x: 94.935, y: 44.3727}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3842887146899124588
 CanvasRenderer:
@@ -6756,6 +6756,7 @@ MonoBehaviour:
   _inputName: {fileID: 6903269053118426098}
   _inputWeight: {fileID: 6903269052856151469}
   _inputRarity: {fileID: 3293397259375395282}
+  _description: {fileID: 0}
   _buttonAddProperty: {fileID: 2922444026890490458}
   _buttonDamageDice: {fileID: 2672783588359951541}
   _textDamageDice: {fileID: 7361129253932309092}
@@ -6897,8 +6898,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u200B"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: f8035e30d7cbd524591361b71fc29bb7, type: 2}
+  m_sharedMaterial: {fileID: -363482053378558046, guid: f8035e30d7cbd524591361b71fc29bb7, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

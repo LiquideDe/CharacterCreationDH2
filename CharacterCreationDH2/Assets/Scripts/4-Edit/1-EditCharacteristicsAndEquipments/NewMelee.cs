@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System;
+using System.Linq;
 
 public class NewMelee : CreatorNewEquipment
 {
@@ -16,6 +17,7 @@ public class NewMelee : CreatorNewEquipment
     public ItemWithNumberInList itemPrefab;
     List<ItemWithNumberInList> items = new List<ItemWithNumberInList>();
     private readonly string[] _dices = new string[2] {"к10", "к5"};
+    protected bool _isNewWeapon = true;
 
     public override void Initialize()
     {
@@ -26,23 +28,98 @@ public class NewMelee : CreatorNewEquipment
         _dropDown.AddOptions(options);
     }    
 
+    public virtual void SetWeapon(Weapon weapon)
+    {
+        _isNewWeapon = false;
+        _inputName.text = weapon.Name;
+        _inputName.interactable = false;
+        inputClass.text = weapon.ClassWeapon;
+        inputPenetration.text = weapon.Penetration.ToString();
+        _inputWeight.text = weapon.Weight.ToString();
+        _inputRarity.text = weapon.Rarity.ToString();
+
+        int amount;
+        string dice;
+        int bonusDamage = 0;
+        string typeDamage;
+
+        if (weapon.Damage.Contains('+'))
+        {
+            string[] parts = weapon.Damage.Split('+');
+
+            string dicePart = parts[0];
+            amount = int.Parse(dicePart.Split('к')[0]);
+            dice = "к" + dicePart.Split('к')[1];
+
+            string bonusPart = parts[1];
+            bonusDamage = int.Parse(bonusPart.Substring(0, bonusPart.Length - 1));
+            typeDamage = bonusPart.Substring(bonusPart.Length - 1);
+        }
+        else
+        {
+            string dicePart = weapon.Damage;
+            amount = int.Parse(dicePart.Split('к')[0]);
+            dice = "к" + dicePart.Split('к')[1].Substring(0, dicePart.Split('к')[1].Length - 1);
+            typeDamage = dicePart.Substring(dicePart.Length - 1);
+        }
+
+        inputDamage.text = amount.ToString();
+        inputBonusDamage.text = bonusDamage.ToString();
+
+        switch (typeDamage)
+        {
+            case "В":
+                _dropDown.Value = 0;
+                break;
+            case "Р":
+                _dropDown.Value = 1;
+                break;
+            case "У":
+                _dropDown.Value = 2;
+                break;
+            case "Э":
+                _dropDown.Value = 3;
+                break;
+        }
+                
+        var properties = weapon.Properties.Split(new char[] { ',' }).ToList();
+        foreach (var item in properties)
+        {
+            if (item.Contains("("))
+            {
+                int openBracketIndex = item.IndexOf('(');
+                int closeBracketIndex = item.IndexOf(")");
+                string name = item.Substring(0, openBracketIndex).Trim();
+                string stringInt = item.Substring(openBracketIndex + 1, closeBracketIndex - (openBracketIndex + 1));
+                int.TryParse(stringInt, out int value);
+                AddProperty(name, value);
+            }                
+            else
+                AddProperty(item);
+        }
+    }
+
     public override void FinishCreating()
     {
         if (_inputName.text != "" && inputClass.text.Length > 0 && inputPenetration.text.Length > 0 && _inputWeight.text.Length > 0)
         {
             float.TryParse(_inputWeight.text, out float weight);
             int.TryParse(inputPenetration.text, out int penetration);
-            JSONMeleeReader meleeReader = new JSONMeleeReader();
-            meleeReader.name = _inputName.text;
-            meleeReader.penetration = penetration;
-            meleeReader.properties = TranslatePropertiesToText();
-            meleeReader.weaponClass = inputClass.text;
-            meleeReader.weight = weight;
-            meleeReader.damage = MakeDamageText();
-            meleeReader.typeEquipment = Equipment.TypeEquipment.Melee.ToString();
-            meleeReader.amount = 1;
+            JSONMeleeReader meleeReader = new JSONMeleeReader
+            {
+                name = _inputName.text,
+                penetration = penetration,
+                properties = TranslatePropertiesToText(),
+                weaponClass = inputClass.text,
+                weight = weight,
+                damage = MakeDamageText(),
+                typeEquipment = Equipment.TypeEquipment.Melee.ToString(),
+                amount = 1,
+                rarity = _inputRarity.text
+            };
 
-            SaveEquipment($"{Application.dataPath}/StreamingAssets/Equipments/Weapons/Melee/{meleeReader.name}.JSON", meleeReader);
+            if (_isNewWeapon)
+                SaveEquipment($"{Application.dataPath}/StreamingAssets/Equipments/Weapons/Melee/{meleeReader.name}.JSON", meleeReader);
 
             Weapon weapon = new Weapon(meleeReader);
             SendEquipment(weapon);
@@ -51,11 +128,11 @@ public class NewMelee : CreatorNewEquipment
             WrongInputPressed();
     }
 
-    public override void AddProperty(string property)
+    public override void AddProperty(string property, int lvl = 0)
     {
         ItemWithNumberInList item = Instantiate(itemPrefab, content);
         item.RemoveThisItem += RemoveThisProperty;
-        item.Initialize(property, 0);
+        item.Initialize(property, lvl);
         items.Add(item);
     }
 
@@ -85,7 +162,7 @@ public class NewMelee : CreatorNewEquipment
         }
         string textdamage = $"{damage}{_textDamageDice.text}";
 
-        if (bonusDamage == 0)        
+        if (bonusDamage != 0)        
             textdamage += $"+{bonusDamage}{typeDamage}";        
         else
             textdamage += $"{typeDamage}";

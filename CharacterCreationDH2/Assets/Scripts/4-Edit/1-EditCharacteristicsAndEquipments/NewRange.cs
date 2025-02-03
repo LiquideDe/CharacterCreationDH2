@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Linq;
 
 public class NewRange : NewMelee
 {
@@ -15,6 +16,21 @@ public class NewRange : NewMelee
         List<string> options = new List<string>() {"Револьвер", "Автомат", "Дробовик", "Лазерное", "Болтерное", "Огнемет", "Пистолет", "Плазменное",
             "Мельта", "Грав", "Электро", "Радиационное" };
         _dropdownSounds.AddOptions(options);
+    }
+
+    public override void SetWeapon(Weapon weapon)
+    {
+        base.SetWeapon(weapon);
+        inputRange.text = weapon.Range.ToString();
+        var rof = weapon.Rof.Split(new char[] { '/' }).ToList();
+        inputRoFShort.text = rof[1];
+        inputRoFLong.text = rof[2];
+        if (string.Compare(rof[0], "-", true)==0)
+            toggleSingle.isOn = false;
+        else toggleSingle.isOn = true;
+        inputClip.text = weapon.Clip.ToString();
+        inputReload.text = weapon.Reload.ToString();
+        _dropdownSounds.Value = weapon.TypeSound;
     }
 
     public override void FinishCreating()
@@ -60,8 +76,10 @@ public class NewRange : NewMelee
             rangeReader.weaponClass = inputClass.text;
             rangeReader.weight = weight;
             rangeReader.typeSound = _dropdownSounds.Value;
+            rangeReader.rarity = _inputRarity.text;
 
-            SaveEquipment($"{Application.dataPath}/StreamingAssets/Equipments/Weapons/Range/{rangeReader.name}.JSON", rangeReader);
+            if(_isNewWeapon)
+                SaveEquipment($"{Application.dataPath}/StreamingAssets/Equipments/Weapons/Range/{rangeReader.name}.JSON", rangeReader);
 
             Weapon weapon = new Weapon(rangeReader);
             SendEquipment(weapon);

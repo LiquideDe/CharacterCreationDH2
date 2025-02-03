@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 public class EditCharacteristicsAndEquipmentsPresenter : IPresenter
 {
@@ -83,7 +84,10 @@ public class EditCharacteristicsAndEquipmentsPresenter : IPresenter
         _view.RemoveEquipment += RemoveEquipment;
         _view.RemoveImplant += RemoveImplant;
 
-    }
+        _view.OpenModifierWeapon += OpenModifier;
+
+    }    
+
     private void Unscribe()
     {
         _view.AddArmor -= ShowArmor;
@@ -128,6 +132,8 @@ public class EditCharacteristicsAndEquipmentsPresenter : IPresenter
         _view.Prev -= Prev;
         _view.RemoveEquipment -= RemoveEquipment;
         _view.RemoveImplant -= RemoveImplant;
+
+        _view.OpenModifierWeapon -= OpenModifier;
     }
     private void DecreaseAgility() => DecreaseCharacteristic(4);
 
@@ -309,23 +315,23 @@ public class EditCharacteristicsAndEquipmentsPresenter : IPresenter
 
     private void ShowNewWeapons() => ShowListWithNewEquipments(Equipment.TypeEquipment.Melee, $"Выберите оружие ближнего боя", ShowNewMeleeForm);
 
-    private void ShowNewMeleeForm() => ShowFormWithProperties(_lvlFactory.Get(TypeScene.NewMelee).GetComponent<NewMelee>());
+    private void ShowNewMeleeForm() => ShowFormWithProperties(_lvlFactory.Get(TypeScene.NewMelee).GetComponent<NewMelee>(), AddNewEquipment);
 
     private void ShowNewGrenade() => ShowListWithNewEquipments( Equipment.TypeEquipment.Grenade, "Выберите гранату", ShowNewGrenadeForm);
 
-    private void ShowNewGrenadeForm() => ShowFormWithProperties(_lvlFactory.Get(TypeScene.NewGrenade).GetComponent<NewGrenade>());
+    private void ShowNewGrenadeForm() => ShowFormWithProperties(_lvlFactory.Get(TypeScene.NewGrenade).GetComponent<NewGrenade>(), AddNewEquipment);
 
     private void ShowNewEquipment() => ShowListWithNewEquipments(Equipment.TypeEquipment.Thing, "Выберите снаряжение", ShowEquipmentForm);
 
-    private void ShowEquipmentForm() => ShowForm(_lvlFactory.Get(TypeScene.NewEquipment).GetComponent<CreatorNewEquipment>());
+    private void ShowEquipmentForm() => ShowForm(_lvlFactory.Get(TypeScene.NewEquipment).GetComponent<CreatorNewEquipment>(), AddNewEquipment);
 
     private void ShowBallistic() => ShowListWithNewEquipments(Equipment.TypeEquipment.Range, "Выберите стрелковое оружие", ShowNewBallistic);
 
-    private void ShowNewBallistic() => ShowFormWithProperties(_lvlFactory.Get(TypeScene.NewRange).GetComponent<NewRange>());
+    private void ShowNewBallistic() => ShowFormWithProperties(_lvlFactory.Get(TypeScene.NewRange).GetComponent<NewRange>(), AddNewEquipment);
 
     private void ShowArmor() => ShowListWithNewEquipments(Equipment.TypeEquipment.Armor, "Выберите броню", ShowNewArmor);
 
-    private void ShowNewArmor() => ShowForm(_lvlFactory.Get(TypeScene.NewArmor).GetComponent<NewArmor>());
+    private void ShowNewArmor() => ShowForm(_lvlFactory.Get(TypeScene.NewArmor).GetComponent<NewArmor>(), AddNewEquipment);
 
     private void ShowListWithNewEquipments(Equipment.TypeEquipment typeEquipment, string title, MethodFormEquipment method)
     {
@@ -385,18 +391,19 @@ public class EditCharacteristicsAndEquipmentsPresenter : IPresenter
         return names;
     }
 
-    private void ShowFormWithProperties(NewMelee newMelee)
+    private void ShowFormWithProperties(NewMelee newMelee, Action<Equipment> DoItWithEquipment)
     {
         newMelee.NeedInProperties += ShowListWithProperties;
-        ShowForm(newMelee);       
+        ShowForm(newMelee, DoItWithEquipment);       
     }
 
-    private void ShowForm(CreatorNewEquipment newEquipmentForm)
+    private void ShowForm(CreatorNewEquipment newEquipmentForm, Action<Equipment> DoItWithEquipment)
     {
         _audioManager.PlayClick();
-        _listWithItems.HideRight(_listWithItems.DestroyView);
+        if(_listWithItems != null)
+            _listWithItems.HideRight(_listWithItems.DestroyView);
         newEquipmentForm.Cancel += CloseForm;
-        newEquipmentForm.ReturnNewEquipment += AddNewEquipment;
+        newEquipmentForm.ReturnNewEquipment += DoItWithEquipment;
         newEquipmentForm.WrongInput += _audioManager.PlayWarning;
         newEquipmentForm.Initialize();
         _newForm = newEquipmentForm;
@@ -492,5 +499,45 @@ public class EditCharacteristicsAndEquipmentsPresenter : IPresenter
                 break;
             }
         _view.UpdateEquipment(_character.Equipments);
+    }
+
+    private void OpenModifier(Weapon weapon)
+    {
+        _audioManager.PlayClick();
+        if(weapon.TypeEq == Equipment.TypeEquipment.Melee)
+        {
+            ShowFormWithProperties(_lvlFactory.Get(TypeScene.NewMelee).GetComponent<NewMelee>(), ModifierWeapon);
+            if(_newForm is NewMelee newMelee)            
+                newMelee.SetWeapon(weapon);
+        }
+        else if(weapon.TypeEq == Equipment.TypeEquipment.Range)
+        {
+            ShowFormWithProperties(_lvlFactory.Get(TypeScene.NewRange).GetComponent<NewRange>(), ModifierWeapon);
+            if (_newForm is NewRange newRange)            
+                newRange.SetWeapon(weapon);            
+        }
+        else if(weapon.TypeEq == Equipment.TypeEquipment.Grenade)
+        {
+            ShowFormWithProperties(_lvlFactory.Get(TypeScene.NewGrenade).GetComponent<NewGrenade>(), ModifierWeapon);
+            if(_newForm is NewGrenade newGrenade)
+                newGrenade.SetWeapon(weapon);
+        }
+    }
+
+    private void ModifierWeapon(Equipment equipment)
+    {
+        _audioManager.PlayDone();
+        _newForm.HideRight(_newForm.DestroyView);
+        _newForm = null;
+        Weapon weapon = (Weapon)equipment;
+        for (int i = 0; i < _character.Equipments.Count; i++)
+        {
+            if (string.Compare(equipment.Name, _character.Equipments[i].Name, true) == 0)
+            {
+                _character.Equipments[i] = weapon;
+                _view.UpdateEquipment(_character.Equipments);
+                break;
+            }
+        }
     }
 }

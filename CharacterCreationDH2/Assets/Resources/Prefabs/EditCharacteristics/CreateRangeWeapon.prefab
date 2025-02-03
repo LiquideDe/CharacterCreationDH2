@@ -217,6 +217,7 @@ MonoBehaviour:
   _inputName: {fileID: 7408336680628314747}
   _inputWeight: {fileID: 7408336679689994802}
   _inputRarity: {fileID: 959218218431818956}
+  _description: {fileID: 0}
   _buttonAddProperty: {fileID: 3119543214713058002}
   _buttonDamageDice: {fileID: 7518035436363524137}
   _textDamageDice: {fileID: 891114236837636891}
@@ -11971,8 +11972,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -25, y: 0}
-  m_SizeDelta: {x: 100, y: 50}
+  m_AnchoredPosition: {x: -22.6894, y: 0.0826}
+  m_SizeDelta: {x: 95.379, y: 44.5536}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &9135447401012928362
 CanvasRenderer:
