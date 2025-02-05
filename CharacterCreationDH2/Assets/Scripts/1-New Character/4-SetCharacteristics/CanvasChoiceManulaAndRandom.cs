@@ -13,7 +13,7 @@ public class CanvasChoiceManulaAndRandom : AnimateShowAndHideView
     [SerializeField] TextMeshProUGUI _textSliderValue;
     [SerializeField] Button _buttonManual, _buttonRandom, _buttonAsRuleBook;
     private AudioManager _audioManager;
-    private int _baseAmount;
+    private int _baseAmount = 15;
 
 
     [Inject]

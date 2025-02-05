@@ -20,7 +20,7 @@ public class ArmorOnBody : MonoBehaviour
         implants = mechImplants;
         FindBonusArmorFromTraits(traits);
         if (armor.TypeEq == Equipment.TypeEquipment.Shield) 
-        { 
+        {
             if (_shieldBody == 0)
                 SetShield(armor);
             else if (_shieldBody < armor.DefBody)
@@ -81,7 +81,7 @@ public class ArmorOnBody : MonoBehaviour
             if (prevArmor < armorPoint)
             {
                 textArmor.text = (armorPoint + armorFromImplant + armorFromShield).ToString();
-                textTotal.text = (armorPoint + bonusToughness + armorFromImplant + additionalBonusToughness).ToString();
+                textTotal.text = (armorPoint + bonusToughness + armorFromImplant + additionalBonusToughness + armorFromShield).ToString();
             }            
         }
         if(armorPoint == 0 && textArmor.text.Length == 0)

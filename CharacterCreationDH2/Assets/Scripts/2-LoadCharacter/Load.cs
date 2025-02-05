@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
@@ -85,6 +84,11 @@ public class Load
                 equipments.Add(new Weapon(grenadeReader));
             }
             else if (typeReader.typeEquipment == Equipment.TypeEquipment.Armor.ToString())
+            {
+                JSONArmorReader armorReader = JsonUtility.FromJson<JSONArmorReader>(data[i]);
+                equipments.Add(new Armor(armorReader));
+            }
+            else if(typeReader.typeEquipment == Equipment.TypeEquipment.Shield.ToString())
             {
                 JSONArmorReader armorReader = JsonUtility.FromJson<JSONArmorReader>(data[i]);
                 equipments.Add(new Armor(armorReader));

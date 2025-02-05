@@ -65,20 +65,20 @@ public class SecondCharacterSheet : CharacterSheetWithCharacteristics
                     }
                 }
             }
-            else if (equipment.TypeEq == Equipment.TypeEquipment.Armor || equipment.TypeEq == Equipment.TypeEquipment.Shield)
-            {
-                foreach (ArmorBlock armorBlock in armorBlocks)
-                {
-                    if (armorBlock.IsEmpty)
-                    {
-                        Armor armor = (Armor)equipment;
-                        armorBlock.FillBlock(armor, character.Implants, character.Traits);
-                        break;
-                    }
-                }
-            }
-        }        
-        
+        }
+
+        foreach (Equipment equipment in character.Equipments)
+        {
+            if (equipment.TypeEq == Equipment.TypeEquipment.Shield)
+                SetArmorInArmorBlock(equipment, character);
+        }
+
+        foreach (Equipment equipment in character.Equipments)
+        {
+            if (equipment.TypeEq == Equipment.TypeEquipment.Armor)
+                SetArmorInArmorBlock(equipment, character);
+        }
+
         textMoveHalf.text = $"{agility}" ;
         textMoveFull.text = $"{agility * 2}";
         textNatisk.text = $"{agility * 3}";
@@ -106,6 +106,17 @@ public class SecondCharacterSheet : CharacterSheetWithCharacteristics
 
         onBody.GenerateQr();
         StartCoroutine(ReadyToStart(character));
+    }
+
+    private void SetArmorInArmorBlock(Equipment equipment, ICharacter character)
+    {
+        foreach (ArmorBlock armorBlock in armorBlocks)
+            if (armorBlock.IsEmpty)
+            {
+                Armor armor = (Armor)equipment;
+                armorBlock.FillBlock(armor, character.Implants, character.Traits);
+                break;
+            }
     }
 
     IEnumerator ReadyToStart(ICharacter character)

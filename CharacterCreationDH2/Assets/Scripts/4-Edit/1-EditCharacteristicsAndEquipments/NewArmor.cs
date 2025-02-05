@@ -69,7 +69,7 @@ public class NewArmor : CreatorNewEquipment
                 armorReader.description += $"Покрывает только голову.";
                 armorReader.descriptionArmor = $"Покрывает только голову.";
             }
-            if (_toogleShield) 
+            if (_toogleShield.isOn) 
                 armorReader.typeEquipment = Equipment.TypeEquipment.Shield.ToString();
             else
                 armorReader.typeEquipment = Equipment.TypeEquipment.Armor.ToString();

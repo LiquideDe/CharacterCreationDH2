@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
 using UnityEngine;
 
 public class Armor : Equipment
@@ -8,7 +7,8 @@ public class Armor : Equipment
     private string placeArmor;
     public Armor(JSONArmorReader armorReader) : base (armorReader.name, armorReader.description, armorReader.rarity, armorReader.amount, armorReader.weight)
     {
-        typeEquipment = TypeEquipment.Armor;
+        Enum.TryParse(armorReader.typeEquipment, true, out TypeEquipment equipmentType);
+        typeEquipment = equipmentType;
         defHead = armorReader.head;
         defHands = armorReader.hands;
         defBody = armorReader.body;
