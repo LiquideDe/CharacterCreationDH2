@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using System;
 
 public class ArmorOnBody : MonoBehaviour
 {
@@ -11,39 +12,178 @@ public class ArmorOnBody : MonoBehaviour
         textArmorHead, textArmorLeftHand, textArmorRightHand, textArmorBody, textArmorLeftLeg, textArmorRightLeg;
 
     [SerializeField] private RawImage _rawImage;
-    private int bonusToughness, _bonusWillpower;
-    private int _shieldHead, _shieldBody, _shieldLeftHand, _shieldLegs;
+    private int _bonusToughness, _bonusWillpower;
+    private int _bestShieldHead, _bestShieldBody, _bestShieldLeftHand, _bestShieldLegs;
     private int _bonusArmorFromTrait;
-    private List<MechImplant> implants = new List<MechImplant>();
-    public void SetArmor(Armor armor, List<MechImplant> mechImplants, List<Trait> traits)
+    private int _bonusArmorFromImplantHead, _bonusArmorFromImplantBody, _bonusArmorFromImplantRightHand, _bonusArmorFromImplantLeftHand, _bonusArmorFromImplantRightLeg, _bonusArmorFromImplantLeftLeg;
+    private int _bonusToughnessFromImplantHead, _bonusToughnessFromImplantBody, _bonusToughnessFromImplantRightHand, _bonusToughnessFromImplantLeftHand, _bonusToughnessFromImplantRightLeg, _bonusToughnessFromImplantLeftLeg;
+    private int _bestArmorHead, _bestArmorBody, _bestArmorHands, _bestArmorLegs;
+    private int _bonusToughnessFromTrait;
+    
+    public void SetArmor(ICharacter character)
     {
-        implants = mechImplants;
-        FindBonusArmorFromTraits(traits);
-        if (armor.TypeEq == Equipment.TypeEquipment.Shield) 
+        _bonusToughness = character.Characteristics[GameStat.CharacteristicToInt["Выносливость"]].Amount / 10;
+        _bonusWillpower = character.Characteristics[GameStat.CharacteristicToInt["Сила Воли"]].Amount / 10;
+        CalculateArmorAndToughnessFromImplant(character.Implants);
+
+        foreach (var item in character.Equipments)
         {
-            if (_shieldBody == 0)
-                SetShield(armor);
-            else if (_shieldBody < armor.DefBody)
-                    SetShield(armor);            
+            if (item.TypeEq == Equipment.TypeEquipment.Armor)
+                SetArmor(item);
+            else if(item.TypeEq == Equipment.TypeEquipment.Shield)
+                SetShield(item);
         }
-        else
-        {
-            SetBigger(armor.DefHead, textArmorHead, textTotalHead, MechImplant.PartsOfBody.Head);
-            SetBigger(armor.DefHands, textArmorLeftHand, textTotalLeftHand, MechImplant.PartsOfBody.LeftHand);
-            SetBigger(armor.DefHands, textArmorRightHand, textTotalRightHand, MechImplant.PartsOfBody.RightHand);
-            SetBigger(armor.DefBody, textArmorBody, textTotalBody, MechImplant.PartsOfBody.Body);
-            SetBigger(armor.DefLegs, textArmorLeftLeg, textTotalLeftLeg, MechImplant.PartsOfBody.LeftLeg);
-            SetBigger(armor.DefLegs, textArmorRightLeg, textTotalRightLeg, MechImplant.PartsOfBody.RightLeg);
-        }        
-    }
 
-    public void SetToughness(int bonusToughness, int bonusWillpower)
+        FindBonusArmorFromTraits(character.Traits);
+        FindBonusToughnessFromTraits(character.Traits);
+        FillTexts();
+    }       
+
+    private void CalculateArmorAndToughnessFromImplant(List<MechImplant> implants)
     {
-        this.bonusToughness = bonusToughness;
-        _bonusWillpower = bonusWillpower;
+        foreach(MechImplant implant in implants)
+        {
+            if(implant.Place == MechImplant.PartsOfBody.Head)
+            {
+                _bonusArmorFromImplantHead += implant.Armor;
+                _bonusToughnessFromImplantHead += implant.BonusToughness;
+            }
+
+            else if(implant.Place == MechImplant.PartsOfBody.Body)
+            {
+                _bonusArmorFromImplantBody += implant.Armor;
+                _bonusToughnessFromImplantBody += implant.BonusToughness;
+            }
+
+            else if(implant.Place == MechImplant.PartsOfBody.RightHand)
+            {
+                _bonusArmorFromImplantRightHand += implant.Armor;
+                _bonusToughnessFromImplantRightHand += implant.BonusToughness;
+            }
+
+            else if (implant.Place == MechImplant.PartsOfBody.LeftHand)
+            {
+                _bonusArmorFromImplantLeftHand += implant.Armor;
+                _bonusToughnessFromImplantLeftHand += implant.BonusToughness;
+            }
+
+            else if (implant.Place == MechImplant.PartsOfBody.RightLeg)
+            {
+                _bonusArmorFromImplantRightLeg += implant.Armor;
+                _bonusToughnessFromImplantRightLeg += implant.BonusToughness;
+            }
+
+            else if (implant.Place == MechImplant.PartsOfBody.LeftLeg)
+            {
+                _bonusArmorFromImplantLeftLeg += implant.Armor;
+                _bonusToughnessFromImplantLeftLeg += implant.BonusToughness;
+            }
+
+            else if(implant.Place == MechImplant.PartsOfBody.All)
+            {
+                _bonusArmorFromImplantHead += implant.Armor;
+                _bonusToughnessFromImplantHead += implant.BonusToughness;
+                _bonusArmorFromImplantBody += implant.Armor;
+                _bonusToughnessFromImplantBody += implant.BonusToughness;
+                _bonusArmorFromImplantRightHand += implant.Armor;
+                _bonusToughnessFromImplantRightHand += implant.BonusToughness;
+                _bonusArmorFromImplantLeftHand += implant.Armor;
+                _bonusToughnessFromImplantLeftHand += implant.BonusToughness;
+                _bonusArmorFromImplantRightLeg += implant.Armor;
+                _bonusToughnessFromImplantRightLeg += implant.BonusToughness;
+                _bonusArmorFromImplantLeftLeg += implant.Armor;
+                _bonusToughnessFromImplantLeftLeg += implant.BonusToughness;
+            }
+        }
     }
 
-    public void GenerateQr()
+    private void SetShield(Equipment equipment)
+    {
+        Armor armor = (Armor)equipment;
+        if(armor.DefBody > _bestShieldBody)
+        {
+            _bestShieldHead = armor.DefHead;
+            _bestShieldBody = armor.DefBody;
+            _bestShieldLeftHand = armor.DefHands;
+            _bestShieldLegs = armor.DefLegs;
+        }
+    }
+
+    private void SetArmor(Equipment equipment)
+    {
+        Armor armor = (Armor)equipment;
+        if(armor.DefHead > _bestArmorHead)
+            _bestArmorHead = armor.DefHead;
+
+        if(armor.DefHands > _bestArmorHands)
+            _bestArmorHands = armor.DefHands;
+
+        if(armor.DefBody > _bestArmorBody)
+            _bestArmorBody = armor.DefBody;
+
+        if(armor.DefLegs > _bestArmorLegs)
+            _bestArmorLegs = armor.DefLegs;
+    }
+
+
+    private void FindBonusArmorFromTraits(List<Trait> traits)
+    {
+        foreach (var item in traits)
+        {
+            if (string.Compare(item.Name, "Машина", true) == 0)
+                _bonusArmorFromTrait += item.Lvl;
+            else if (string.Compare(item.Name, "Природная броня", true) == 0)
+                _bonusArmorFromTrait += item.Lvl;
+        }
+    }
+
+    private void FindBonusToughnessFromTraits(List<Trait> traits)
+    {
+        foreach (var item in traits)
+        {
+            if(string.Compare(item.Name, "Сверхъестественная Выносливость", true) == 0)
+                _bonusToughnessFromTrait += item.Lvl;
+            else if(string.Compare(item.Name, "Демонический", true) == 0)
+                _bonusToughnessFromTrait += item.Lvl;
+        }
+    }
+
+    private void FillTexts()
+    {
+        int armor = _bestShieldHead + _bonusArmorFromTrait + _bonusArmorFromImplantHead + _bestArmorHead;
+        int toughnessPlusArmor = armor + _bonusToughness + _bonusToughnessFromImplantHead + _bonusToughnessFromTrait;
+        textArmorHead.text = $"{armor}";
+        textTotalHead.text = $"{toughnessPlusArmor}";
+
+        armor = _bestShieldBody + _bonusArmorFromTrait + _bonusArmorFromImplantBody + _bestArmorBody;
+        toughnessPlusArmor = armor + _bonusToughness + _bonusToughnessFromImplantBody + _bonusToughnessFromTrait;
+        textArmorBody.text = $"{armor}";
+        textTotalBody.text = $"{toughnessPlusArmor}";
+
+        armor = _bonusArmorFromTrait + _bonusArmorFromImplantRightHand + _bestArmorHands;
+        toughnessPlusArmor = armor + _bonusToughness + _bonusToughnessFromImplantRightHand + _bonusToughnessFromTrait;
+        textArmorRightHand.text = $"{armor}";
+        textTotalRightHand.text = $"{toughnessPlusArmor}";
+
+        armor = _bestShieldLeftHand + _bonusArmorFromTrait + _bonusArmorFromImplantLeftHand + _bestArmorHands;
+        toughnessPlusArmor = armor + _bonusToughness + _bonusToughnessFromImplantLeftHand + _bonusToughnessFromTrait;
+        textArmorLeftHand.text = $"{armor}";
+        textTotalLeftHand.text = $"{toughnessPlusArmor}";
+
+        armor = _bestShieldLegs + _bonusArmorFromTrait + _bonusArmorFromImplantRightLeg + _bestArmorLegs;
+        toughnessPlusArmor = armor + _bonusToughness + _bonusToughnessFromImplantRightLeg + _bonusToughnessFromTrait;
+        textArmorRightLeg.text = $"{armor}";
+        textTotalRightLeg.text = $"{toughnessPlusArmor}";
+
+        armor = _bestShieldLegs + _bonusArmorFromTrait + _bonusArmorFromImplantLeftLeg + _bestArmorLegs;
+        toughnessPlusArmor = armor + _bonusToughness + _bonusToughnessFromImplantLeftLeg + _bonusToughnessFromTrait;
+        textArmorLeftLeg.text = $"{armor}";
+        textTotalLeftLeg.text = $"{toughnessPlusArmor}";
+
+        GenerateQr();
+    }
+
+    private void GenerateQr()
     {
         //Пример бонус вынослоивости = 4, бонус СВ = 3, броня Легкий панцирь.
         //A/3/0/4/6/10/4/8/4/8/4/8/4/8
@@ -56,107 +196,5 @@ public class ArmorOnBody : MonoBehaviour
             $"{textArmorLeftLeg.text}/{textTotalLeftLeg.text}";
 
         _rawImage.texture = new GeneratorQRCode().EncodeTextToQrCode(textToCode);
-    }
-
-    private void SetBigger(int armorPoint, TextMeshProUGUI textArmor, TextMeshProUGUI textTotal, MechImplant.PartsOfBody partOfBody)
-    {
-        
-        int armorFromImplant = CalculateArmorFromImplant(partOfBody);
-        int additionalBonusToughness = AdditionalBonusToughnessFromImplant(partOfBody);
-        int armorFromShield = ArmorPointFromShield(partOfBody);
-        if(textArmor.text.Length == 0 && armorPoint > 0)
-        {
-            textArmor.text = (armorPoint + armorFromImplant + armorFromShield).ToString();
-            textTotal.text = (armorPoint + bonusToughness + armorFromImplant + additionalBonusToughness + armorFromShield).ToString();
-        }
-        else if(textArmor.text.Length == 0 && armorPoint == 0 && armorFromShield == 0)
-        {
-            textTotal.text = (bonusToughness + additionalBonusToughness).ToString();
-        }
-        else
-        {
-            int.TryParse(textArmor.text, out int prevArmor);
-            prevArmor -= (CalculateArmorFromImplant(partOfBody)+ armorFromShield);
-
-            if (prevArmor < armorPoint)
-            {
-                textArmor.text = (armorPoint + armorFromImplant + armorFromShield).ToString();
-                textTotal.text = (armorPoint + bonusToughness + armorFromImplant + additionalBonusToughness + armorFromShield).ToString();
-            }            
-        }
-        if(armorPoint == 0 && textArmor.text.Length == 0)
-        {
-            textArmor.text = (armorFromImplant + armorFromShield).ToString();
-            textTotal.text = (bonusToughness + armorFromImplant + additionalBonusToughness + armorFromShield).ToString();
-        }
-    }
-
-    private int CalculateArmorFromImplant(MechImplant.PartsOfBody partOfBody)
-    {
-        int addingArmor = 0;
-        foreach(MechImplant implant in implants)
-        {
-            if(implant.Place == partOfBody || implant.Place == MechImplant.PartsOfBody.All)
-            {
-                addingArmor += implant.Armor;
-            }
-        }
-        return addingArmor;
-    }
-
-    private int AdditionalBonusToughnessFromImplant(MechImplant.PartsOfBody partOfBody)
-    {
-        int addingToughness = 0;
-        foreach (MechImplant implant in implants)
-        {
-            if (implant.Place == partOfBody || implant.Place == MechImplant.PartsOfBody.All)
-            {
-                addingToughness += implant.BonusToughness;
-            }
-        }
-        return addingToughness;
-    }
-
-    private void SetShield(Armor armor)
-    {
-        _shieldHead = armor.DefHead;
-        _shieldBody = armor.DefBody;
-        _shieldLeftHand = armor.DefHands;
-        _shieldLegs = armor.DefLegs;
-    }
-
-    private int ArmorPointFromShield(MechImplant.PartsOfBody partOfBody)
-    {
-        switch (partOfBody)
-        {
-            case MechImplant.PartsOfBody.Head:
-                return _shieldHead;
-
-            case MechImplant.PartsOfBody.Body:
-                return _shieldBody;
-
-            case MechImplant.PartsOfBody.LeftHand:
-                return _shieldLeftHand;
-
-            case MechImplant.PartsOfBody.RightLeg:
-                return _shieldLegs;
-
-            case MechImplant.PartsOfBody.LeftLeg:
-                return _shieldLegs;
-
-            default:
-                return 0;
-        }
-    }
-
-    private void FindBonusArmorFromTraits(List<Trait> traits)
-    {
-        foreach (var item in traits)
-        {
-            if (string.Compare(item.Name, "Машина", true) == 0)
-                _bonusArmorFromTrait += item.Lvl;
-            else if (string.Compare(item.Name, "Природная броня", true) == 0)
-                _bonusArmorFromTrait += item.Lvl;
-        }
     }
 }

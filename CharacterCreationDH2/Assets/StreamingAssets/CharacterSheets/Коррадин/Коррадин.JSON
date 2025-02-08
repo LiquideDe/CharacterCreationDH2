@@ -126,7 +126,7 @@
     "penetration": 0,
     "clip": 30,
     "amount": 1,
-    "typeSound": 0,
+    "typeSound": 3,
     "weight": 1.5
 }
 {

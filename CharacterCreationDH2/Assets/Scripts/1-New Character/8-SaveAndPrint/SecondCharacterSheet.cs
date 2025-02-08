@@ -11,7 +11,6 @@ public class SecondCharacterSheet : CharacterSheetWithCharacteristics
     [SerializeField] private TextMeshProUGUI textWound, textMoveHalf, textMoveFull, textNatisk, textRun, 
         textFatigue, textWeight, textWeightUp, textWeightPush, _textNameCharacter;
     [SerializeField] private WeaponBlock[] weaponBlocks;
-    [SerializeField] private ArmorBlock[] armorBlocks;
     [SerializeField] private ArmorOnBody onBody;
     [SerializeField] private Image characterImage;
     [SerializeField] private Sprite _ispritePsyRateAstraTelepatica, _spritePsyRateInquisition;
@@ -47,7 +46,6 @@ public class SecondCharacterSheet : CharacterSheetWithCharacteristics
             112f, 225f, 337f, 450f, 675f, 900f, 1350f, 1800f, 2250f, 2900f, 3550f, 4200f, 4850f, 5500f, 6300f, 7250f, 8300f, 9550f, 11000,
         13000, 15000, 17000, 20000, 23000, 26000, 30000, 35000, 40000, 46000, 53000, 70000, 80000, 92000, 106000};
 
-        onBody.SetToughness(toughness, character.Characteristics[GameStat.CharacteristicToInt["Сила Воли"]].Amount/10);
         textWound.text = character.Wounds.ToString();
         
         _textNameCharacter.text = $"Имя персонажа: <u>{character.Name}</u>";
@@ -67,17 +65,7 @@ public class SecondCharacterSheet : CharacterSheetWithCharacteristics
             }
         }
 
-        foreach (Equipment equipment in character.Equipments)
-        {
-            if (equipment.TypeEq == Equipment.TypeEquipment.Shield)
-                SetArmorInArmorBlock(equipment, character);
-        }
-
-        foreach (Equipment equipment in character.Equipments)
-        {
-            if (equipment.TypeEq == Equipment.TypeEquipment.Armor)
-                SetArmorInArmorBlock(equipment, character);
-        }
+        onBody.SetArmor(character);
 
         textMoveHalf.text = $"{agility}" ;
         textMoveFull.text = $"{agility * 2}";
@@ -104,20 +92,9 @@ public class SecondCharacterSheet : CharacterSheetWithCharacteristics
             _textPsyRate.text = character.PsyRating.ToString();
         }
 
-        onBody.GenerateQr();
         StartCoroutine(ReadyToStart(character));
     }
 
-    private void SetArmorInArmorBlock(Equipment equipment, ICharacter character)
-    {
-        foreach (ArmorBlock armorBlock in armorBlocks)
-            if (armorBlock.IsEmpty)
-            {
-                Armor armor = (Armor)equipment;
-                armorBlock.FillBlock(armor, character.Implants, character.Traits);
-                break;
-            }
-    }
 
     IEnumerator ReadyToStart(ICharacter character)
     {
