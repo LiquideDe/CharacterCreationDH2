@@ -1,28 +1,26 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System;
 using UnityEngine;
+using Cysharp.Threading.Tasks;
 
 public class CreatorTalents
 {
     public event Action CreateTalentIsDone;
 
     private List<Talent> talents = new List<Talent>();
-    private AudioManager _audioManager;
     private CreatorSkills _creatorSkills;
     private CreatorTraits _creatorTraits;
 
     public List<Talent> Talents { get => talents; }
 
-    public CreatorTalents(AudioManager audioManager, CreatorSkills creatorSkills, CreatorTraits creatorTraits)
+    public CreatorTalents(CreatorSkills creatorSkills, CreatorTraits creatorTraits)
     {
-        _audioManager = audioManager;
         _creatorSkills = creatorSkills;
         _creatorTraits = creatorTraits;
     }
 
-    public void StartCreating() => _audioManager.StartCoroutine(CreateTalentCoroutine());
+    public void StartCreating() => CreateTalent().Forget();
     
 
     public Talent GetTalent(string name)
@@ -39,16 +37,16 @@ public class CreatorTalents
         return null;
     }
 
-    private IEnumerator CreateTalentCoroutine()
+    private async UniTask CreateTalent()
     {
         List<string> dirs = new List<string>();
-        dirs.AddRange(Directory.GetDirectories($"{Application.dataPath}/StreamingAssets/Talents"));        
+        dirs.AddRange(Directory.GetDirectories($"{Application.dataPath}/StreamingAssets/Talents"));
         for (int i = 0; i < dirs.Count; i++)
         {
             if (!dirs[i].Contains("Elite") && !dirs[i].Contains("Example"))
             {
                 talents.Add(new Talent(dirs[i], _creatorSkills, this, _creatorTraits));
-                yield return null;
+                await UniTask.Yield();
             }
         }
         dirs.Clear();
@@ -58,7 +56,7 @@ public class CreatorTalents
             if (!dirs[i].Contains("Example"))
             {
                 talents.Add(new Talent(dirs[i], _creatorSkills, this, _creatorTraits));
-                yield return null;
+                await UniTask.Yield();
             }
         }
         CreateTalentIsDone?.Invoke();

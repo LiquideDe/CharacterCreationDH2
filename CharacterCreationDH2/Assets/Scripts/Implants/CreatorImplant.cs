@@ -1,8 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System;
 using UnityEngine;
+using Cysharp.Threading.Tasks;
 
 public class CreatorImplant
 {
@@ -13,7 +13,7 @@ public class CreatorImplant
 
     public CreatorImplant(AudioManager audioManager) => _audioManager = audioManager;
 
-    public void StartCreate() => _audioManager.StartCoroutine(CreateImplant());
+    public void StartCreate() => CreateImplant().Forget();
 
     public void AddImplant(MechImplant implant)
     {
@@ -34,7 +34,7 @@ public class CreatorImplant
         return null;
     }
 
-    private IEnumerator CreateImplant()
+    private async UniTask CreateImplant()
     {
         string[] implantsJson = Directory.GetFiles($"{Application.dataPath}/StreamingAssets/Implants", "*.JSON");
 
@@ -43,7 +43,7 @@ public class CreatorImplant
             string[] data = File.ReadAllLines(implant);
             SaveLoadImplant implantSaveLoad = JsonUtility.FromJson<SaveLoadImplant>(data[0]);
             implants.Add(new MechImplant(implantSaveLoad));
-            yield return null;
+            await UniTask.Yield();
         }
         CreatingImplantIsDone?.Invoke();
     }

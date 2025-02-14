@@ -57,11 +57,11 @@ public class Load
                 implants.Add(new MechImplant(implant));
             }
         }
-        
 
         List<Equipment> equipments = new List<Equipment>();       
         for(int i = max; i < data.Count; i++)
         {
+            Debug.Log($"data = {data[i]}");
             JSONTypeReader typeReader = JsonUtility.FromJson<JSONTypeReader>(data[i]);
             if (typeReader.typeEquipment == Equipment.TypeEquipment.Thing.ToString())
             {

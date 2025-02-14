@@ -1,17 +1,17 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using Cysharp.Threading.Tasks;
 
 public class CreatorRole : ICreator
 {
     public event Action CreatingRoleIsDone;
     private List<Role> _roles = new List<Role>();
 
-    public CreatorRole(CreatorTalents creatorTalents, AudioManager audioManager)
+    public void CreateRoles(CreatorTalents creatorTalents)
     {
-        audioManager.StartCoroutine(CreateRoleCoroutine( creatorTalents));
+        CreateRoleAsync(creatorTalents).Forget();
     }
 
     public int Count => _roles.Count;
@@ -21,14 +21,14 @@ public class CreatorRole : ICreator
         return _roles[id];
     }
 
-    private IEnumerator CreateRoleCoroutine(CreatorTalents creatorTalents)
+    private async UniTask CreateRoleAsync(CreatorTalents creatorTalents)
     {
         List<string> dirs = new List<string>();
         dirs.AddRange(Directory.GetDirectories($"{Application.dataPath}/StreamingAssets/Roles"));
         foreach (string dir in dirs)
         {
             _roles.Add(new Role(dir, creatorTalents));
-            yield return null;
+            await UniTask.Yield();
         }
         CreatingRoleIsDone?.Invoke();
     }

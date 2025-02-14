@@ -1,8 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using System;
+using Cysharp.Threading.Tasks;
 
 public class CreatorEquipment
 {
@@ -12,22 +12,18 @@ public class CreatorEquipment
     public event Action RangeIsDone;
     public event Action GrenadeIsDone;
     public event Action SpecialIsDone;
-
-    private AudioManager _audioManager;
     private List<Equipment> equipments = new List<Equipment>();
 
     public List<Equipment> Equipments  => equipments; 
 
-    public CreatorEquipment(AudioManager audioManager) => _audioManager = audioManager;
-
     public void StartCreating()
     {
-        _audioManager.StartCoroutine(AddThingCoroutine());
-        _audioManager.StartCoroutine(AddArmorCoroutine());
-        _audioManager.StartCoroutine(AddMeleeCoroutine());
-        _audioManager.StartCoroutine(AddRangeCoroutine());
-        _audioManager.StartCoroutine(AddGrenadeCoroutine());
-        _audioManager.StartCoroutine(AddSpecialCoroutine());
+        AddThing().Forget();
+        AddArmor().Forget();
+        AddMelee().Forget();
+        AddRange().Forget();
+        AddGrenade().Forget();
+        AddSpecial().Forget();
     }
 
     public Equipment GetEquipment(string nameEq)
@@ -48,7 +44,7 @@ public class CreatorEquipment
         equipments.Add(equipment);
     }
 
-    private IEnumerator AddThingCoroutine()
+    private async UniTask AddThing()
     {
         string[] things = Directory.GetFiles($"{Application.dataPath}/StreamingAssets/Equipments" + "/Things", "*.JSON");
         foreach (string thing in things)
@@ -56,12 +52,12 @@ public class CreatorEquipment
             string[] data = File.ReadAllLines(thing);
             JSONEquipmentReader equipmentReader = JsonUtility.FromJson<JSONEquipmentReader>(data[0]);
             equipments.Add(new Equipment(equipmentReader.name, equipmentReader.description, equipmentReader.rarity, equipmentReader.amount, equipmentReader.weight));
-            yield return null;
+            await UniTask.Yield();
         }
         ThingIsDone?.Invoke();
     }
 
-    private IEnumerator AddArmorCoroutine()
+    private async UniTask AddArmor()
     {
         string[] armors = Directory.GetFiles($"{Application.dataPath}/StreamingAssets/Equipments" + "/Armor", "*.JSON");
         foreach (string armor in armors)
@@ -69,12 +65,12 @@ public class CreatorEquipment
             string[] data = File.ReadAllLines(armor);
             JSONArmorReader armortReader = JsonUtility.FromJson<JSONArmorReader>(data[0]);
             equipments.Add(new Armor(armortReader));
-            yield return null;
+            await UniTask.Yield();
         }
         ArmorIsDone?.Invoke();
     }
 
-    private IEnumerator AddMeleeCoroutine()
+    private async UniTask AddMelee()
     {
         string[] meleeWeapons = Directory.GetFiles($"{Application.dataPath}/StreamingAssets/Equipments" + "/Weapons/Melee", "*.JSON");
         foreach (string melee in meleeWeapons)
@@ -82,12 +78,12 @@ public class CreatorEquipment
             string[] data = File.ReadAllLines(melee);
             JSONMeleeReader meleeReader = JsonUtility.FromJson<JSONMeleeReader>(data[0]);
             equipments.Add(new Weapon(meleeReader));
-            yield return null;
+            await UniTask.Yield();
         }
         MeleeIsDone?.Invoke();
     }
 
-    private IEnumerator AddRangeCoroutine()
+    private async UniTask AddRange()
     {
         string[] rangeWeapons = Directory.GetFiles($"{Application.dataPath}/StreamingAssets/Equipments" + "/Weapons/Range", "*.JSON");
         foreach (string range in rangeWeapons)
@@ -95,12 +91,12 @@ public class CreatorEquipment
             string[] data = File.ReadAllLines(range);
             JSONRangeReader rangeReader = JsonUtility.FromJson<JSONRangeReader>(data[0]);
             equipments.Add(new Weapon(rangeReader));
-            yield return null;
+            await UniTask.Yield();
         }
         RangeIsDone?.Invoke();
     }
 
-    private IEnumerator AddGrenadeCoroutine()
+    private async UniTask AddGrenade()
     {
         string[] grenadeWeapons = Directory.GetFiles($"{Application.dataPath}/StreamingAssets/Equipments" + "/Weapons/Grenade", "*.JSON");
         foreach (string grenade in grenadeWeapons)
@@ -108,12 +104,12 @@ public class CreatorEquipment
             string[] data = File.ReadAllLines(grenade);
             JSONGrenadeReader grenadeReader = JsonUtility.FromJson<JSONGrenadeReader>(data[0]);
             equipments.Add(new Weapon(grenadeReader));
-            yield return null;
+            await UniTask.Yield();
         }
         GrenadeIsDone?.Invoke();
     }
 
-    private IEnumerator AddSpecialCoroutine()
+    private async UniTask AddSpecial()
     {
         string[] specialWeapons = Directory.GetFiles($"{Application.dataPath}/StreamingAssets/Equipments" + "/Special", "*.JSON");
         foreach (string special in specialWeapons)
@@ -121,7 +117,7 @@ public class CreatorEquipment
             string[] data = File.ReadAllLines(special);
             JSONSpecialReader specialReader = JsonUtility.FromJson<JSONSpecialReader>(data[0]);
             equipments.Add(new Special(specialReader));
-            yield return null;
+            await UniTask.Yield();
         }
         SpecialIsDone?.Invoke();
     }

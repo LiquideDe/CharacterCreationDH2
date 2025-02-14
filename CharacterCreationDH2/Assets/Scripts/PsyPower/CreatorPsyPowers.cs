@@ -1,8 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System;
 using UnityEngine;
+using Cysharp.Threading.Tasks;
 
 public class CreatorPsyPowers
 {
@@ -10,13 +10,9 @@ public class CreatorPsyPowers
     private List<List<PsyPower>> psyPowers = new List<List<PsyPower>>();
     private List<string> schoolNames = new List<string>();
     private List<List<Connection>> connections = new List<List<Connection>>();
-    private List<JSONSizeSpacing> sizeSpacings = new List<JSONSizeSpacing>();
-    private AudioManager _audioManager;
+    private List<JSONSizeSpacing> sizeSpacings = new List<JSONSizeSpacing>();    
 
-    public CreatorPsyPowers(AudioManager audioManager) => _audioManager = audioManager;
-    
-
-    public void StartCreating() => _audioManager.StartCoroutine(CreatePsyPowersCoroutine());
+    public void StartCreating() => CreatePsyPowersAsync().Forget();
     
 
     public List<PsyPower> GetPowers(int school)
@@ -83,7 +79,7 @@ public class CreatorPsyPowers
         return null;
     }
 
-    private IEnumerator CreatePsyPowersCoroutine()
+    private async UniTask CreatePsyPowersAsync()
     {
         List<string> dirs = new List<string>();
         dirs.AddRange(Directory.GetDirectories($"{Application.dataPath}/StreamingAssets/PsyPowers"));
@@ -103,8 +99,8 @@ public class CreatorPsyPowers
                 }
                 index++;
             }
-                
-            yield return null;
+
+            await UniTask.Yield();
         }
         PsyPowersIsCreated?.Invoke();
     }

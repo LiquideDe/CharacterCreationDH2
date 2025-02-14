@@ -38,14 +38,18 @@ public class LvlMediatorNewCharacter
     {
         LoadingCanvas loadingScreen = _lvlFactory.Get(TypeScene.Loading).GetComponent<LoadingCanvas>();
         loadingScreen.SetMaxAmount(3);
-        _creatorWorlds = new CreatorWorlds(_creatorSkills, _audioManager);
-        _creatorBackgrounds = new CreatorBackgrounds(_creatorSkills, _creatorTalents, _creatorTraits, _creatorImplant, _audioManager);
-        _creatorRole = new CreatorRole(_creatorTalents, _audioManager);
+        _creatorWorlds = new CreatorWorlds();
+        _creatorBackgrounds = new CreatorBackgrounds();
+        _creatorRole = new CreatorRole();
 
         _creatorWorlds.CreateWorldIsFinished += loadingScreen.PlusReady;
         _creatorBackgrounds.CreateBackgroundIsDone += loadingScreen.PlusReady;
         _creatorRole.CreatingRoleIsDone += loadingScreen.PlusReady;
         loadingScreen.LoadingIsDone += NewCharacter;
+
+        _creatorWorlds.CreateWorlds(_creatorSkills);
+        _creatorBackgrounds.CreateBackgrounds(_creatorSkills, _creatorTalents, _creatorTraits, _creatorImplant);
+        _creatorRole.CreateRoles(_creatorTalents);
     }
 
     private void ShowMessage(CanvasIntermediate.NextTask nextTask, string text)

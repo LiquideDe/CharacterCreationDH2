@@ -32,11 +32,19 @@
     "corruptionPoints": 0,
     "wounds": 10,
     "psyRating": 0,
+    "halfMove": 3,
+    "fullMove": 6,
+    "natisk": 9,
+    "run": 18,
+    "fatigue": 4,
     "experienceTotal": 1000,
     "experienceUnspent": 200,
     "experienceSpent": 800,
     "amountImplants": 5,
-    "amountSkills": 10
+    "amountSkills": 10,
+    "carryWeight": 27.0,
+    "liftWeight": 54.0,
+    "pushWeight": 108.0
 }
 {
     "name": "Навык Рукопашной",
@@ -89,11 +97,7 @@
     "lvlLearnedChar": 0
 }
 {
-    "name": "Адептус Механикус",
-    "lvlLearned": 1
-}
-{
-    "name": "Ксеносы",
+    "name": "Язык Эльдар",
     "lvlLearned": 1
 }
 {
@@ -105,7 +109,11 @@
     "lvlLearned": 1
 }
 {
-    "name": "Язык Эльдар",
+    "name": "Ксеносы",
+    "lvlLearned": 1
+}
+{
+    "name": "Адептус Механикус",
     "lvlLearned": 1
 }
 {
@@ -177,8 +185,8 @@
     "penetration": 2,
     "clip": 5,
     "amount": 1,
-    "typeSound": 6,
-    "weight": 3.0
+    "weight": 3.0,
+ "typeSound":6
 }
 {
     "name": "Оптический механодендрит",
@@ -201,7 +209,6 @@
     "maxAgility": 100,
     "armorPoint": 1,
     "amount": 1,
-    "bonusStrength": 0,
     "weight": 4.0
 }
 {
@@ -226,8 +233,8 @@
     "penetration": 8,
     "clip": 0,
     "amount": 1,
-    "typeSound": 7,
-    "weight": 0.0
+    "weight": 0.0,
+ "typeSound":7
 }
 {
     "name": "Фуцелиновый факел(м-д)",
@@ -243,6 +250,6 @@
     "penetration": 4,
     "clip": 0,
     "amount": 1,
-    "typeSound": 5,
-    "weight": 0.0
+    "weight": 0.0,
+ "typeSound":5
 }

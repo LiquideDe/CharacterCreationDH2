@@ -1,19 +1,16 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using Cysharp.Threading.Tasks;
 
 public class CreatorSkills
 {
     public event Action SkillsIsCreated;
-    private AudioManager _audioManager;
     private List<Skill> _skills = new List<Skill>();
-
     public List<Skill> Skills { get => _skills; }
-    public CreatorSkills(AudioManager audioManager) => _audioManager = audioManager;
 
-    public void StartCreating() => _audioManager.StartCoroutine(CreateSkillsCoroutine());
+    public void StartCreating() => CreateSkills().Forget();
 
     public Skill GetSkill(string skillName)
     {
@@ -42,7 +39,7 @@ public class CreatorSkills
         return false;
     }
 
-    private IEnumerator CreateSkillsCoroutine()
+    private async UniTask CreateSkills()
     {
         List<string> dirs = new List<string>();
         dirs.AddRange(Directory.GetDirectories($"{Application.dataPath}/StreamingAssets/Skills"));
@@ -57,7 +54,7 @@ public class CreatorSkills
                 JSONSkillLoader skillLoader = JsonUtility.FromJson<JSONSkillLoader>(data[0]);
                 string typeName = new DirectoryInfo(System.IO.Path.GetDirectoryName(knowledges[j])).Name;
                 _skills.Add(new Knowledge(skillLoader, typeName));
-                yield return null;
+                await UniTask.Yield();
             }
         }
         List<string> skills = new List<string>();
@@ -67,7 +64,7 @@ public class CreatorSkills
             string[] data = File.ReadAllLines(skills[i]);
             JSONSkillLoader skillLoader = JsonUtility.FromJson<JSONSkillLoader>(data[0]);
             _skills.Add(new Skill(skillLoader, "Skill"));
-            yield return null;
+            await UniTask.Yield();
         }
 
         SkillsIsCreated?.Invoke();
