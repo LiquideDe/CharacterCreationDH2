@@ -13,6 +13,8 @@ public class UpgradeTalentView : AnimateShowAndHideView
     [SerializeField] List<ButtonWithAdditionalInformation> _ruleButtons;
     [SerializeField] TextMeshProUGUI _textDescription, _textDescriptionButton, _textExperience;
     [SerializeField] GameObject _panelWithDescriptionButton;
+    [SerializeField] Button _buttonShowWhenExpEnough;
+    [SerializeField] Sprite _spriteShow, _spriteHide;
 
     public event Action Next, Prev, Cancel;
     public event Action LearnTalent;
@@ -20,6 +22,7 @@ public class UpgradeTalentView : AnimateShowAndHideView
     public event Action ShowAllTalents;
     public event Action<GameStat.Inclinations> ShowAsDefault;
     public event Action<GameStat.Inclinations> ShowTalentsWithInclination;
+    public event Action ShowWhenExp;
 
 
     private void OnEnable()
@@ -48,7 +51,8 @@ public class UpgradeTalentView : AnimateShowAndHideView
         _buttonShowUnavailable.ShowDescription += ShowInfoForAllButton;
         _buttonStudy.onClick.AddListener(LearnTalentPressed);
         _talentList.ShowThisTalent += ShowThisTalentPressed;
-    }
+        _buttonShowWhenExpEnough.onClick.AddListener(ShowOrHideTalentWithExp);
+    }    
 
     private void OnDisable()
     {
@@ -72,6 +76,7 @@ public class UpgradeTalentView : AnimateShowAndHideView
         _buttonShowUnavailable.onClick.RemoveAllListeners();
         _buttonStudy.onClick.RemoveAllListeners();
         _talentList.ShowThisTalent -= ShowThisTalentPressed;
+        _buttonShowWhenExpEnough.onClick.RemoveAllListeners();
     }
 
     public void Initialize(List<Talent> talents, List<int> costs, List<bool> isCanTaken) => _talentList.Initialize(talents, costs, isCanTaken);    
@@ -94,6 +99,10 @@ public class UpgradeTalentView : AnimateShowAndHideView
 
     public void SetButtonShowAllActive() => _buttonShowUnavailable.SetActive();
     public void SetButtonShowAllDeactive() => _buttonShowUnavailable.SetDeactive();
+
+    public void SetButtonShowWhenExpTrue() => _buttonShowWhenExpEnough.image.sprite = _spriteShow;
+
+    public void SetButtonShowWhenExpFalse() => _buttonShowWhenExpEnough.image.sprite = _spriteHide;
 
     private void ShowTalentWithCertainInclination(GameStat.Inclinations inclination)
     {
@@ -141,5 +150,7 @@ public class UpgradeTalentView : AnimateShowAndHideView
         foreach (ButtonWithAdditionalInformation button in _ruleButtons)
             button.SetActive();                    
     }
+
+    private void ShowOrHideTalentWithExp() => ShowWhenExp?.Invoke();
 
 }

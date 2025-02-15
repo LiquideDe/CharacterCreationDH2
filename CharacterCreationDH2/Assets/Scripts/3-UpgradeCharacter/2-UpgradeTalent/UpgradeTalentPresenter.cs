@@ -1,5 +1,8 @@
 ﻿using System.Collections.Generic;
 using System;
+using UnityEngine;
+using Unity.VisualScripting;
+using System.Linq;
 
 public class UpgradeTalentPresenter : IPresenter
 {
@@ -13,6 +16,7 @@ public class UpgradeTalentPresenter : IPresenter
     private bool _isHideUnavailable = true;
     private bool _isEdit = false;
     private int _cost;
+    private bool _isHideTooExpensive = false;
     private GameStat.Inclinations _inclination;
     private LvlFactory _lvlFactory;
     private List<IName> _someToAdding = new List<IName>();
@@ -45,7 +49,8 @@ public class UpgradeTalentPresenter : IPresenter
         _view.ShowAsDefault += ShowTalents;
         _view.ShowTalentsWithInclination += ShowTalents;
         _view.ShowThisTalent += ShowThisTalent;
-    }
+        _view.ShowWhenExp += ShowTooExpensive;
+    }    
 
     private void Unscribe()
     {
@@ -57,6 +62,7 @@ public class UpgradeTalentPresenter : IPresenter
         _view.ShowAsDefault -= ShowTalents;
         _view.ShowTalentsWithInclination -= ShowTalents;
         _view.ShowThisTalent -= ShowThisTalent;
+        _view.ShowWhenExp -= ShowTooExpensive;
     }
 
     private void CancelDown()
@@ -275,31 +281,39 @@ public class UpgradeTalentPresenter : IPresenter
         List<bool> isCanTaken = new List<bool>();
         _inclination = inclination;
         _audioManager.PlayClick();
+        /*
         foreach(Talent talent in _creatorTalents.Talents)
         {
             if (talent.IsCanTaken || _isEdit)
             {
-                if(TryDontDouble(talent) || talent.IsRepeatable)
+                int cost = CalculateCostTalent(talent);
+                if (TryDontDouble(talent) || talent.IsRepeatable)
                 {
                     if(inclination == GameStat.Inclinations.None)
                     {
                         if (_isEdit)
                         {
                             talents.Add(talent);
-                            costs.Add(CalculateCostTalent(talent));
+                            costs.Add(cost);
                             isCanTaken.Add(true);
                         }
                         else if (!IsCanTaken(talent) && !_isHideUnavailable)
                         {
-                            talents.Add(talent);
-                            costs.Add(CalculateCostTalent(talent));
-                            isCanTaken.Add(false);
+                            if (TryExpEnough(cost))
+                            {
+                                talents.Add(talent);
+                                costs.Add(cost);
+                                isCanTaken.Add(false);
+                            }                            
                         }
                         else if (IsCanTaken(talent))
                         {
-                            talents.Add(talent);
-                            costs.Add(CalculateCostTalent(talent));
-                            isCanTaken.Add(true);
+                            if (TryExpEnough(cost))
+                            {
+                                talents.Add(talent);
+                                costs.Add(cost);
+                                isCanTaken.Add(true);
+                            }                            
                         }
                     }
                     else
@@ -307,27 +321,66 @@ public class UpgradeTalentPresenter : IPresenter
                         if (_isEdit && TryTalentForInclination(talent, inclination))
                         {
                             talents.Add(talent);
-                            costs.Add(CalculateCostTalent(talent));
+                            costs.Add(cost);
                             isCanTaken.Add(true);
                         }
                         else if (!IsCanTaken(talent) && !_isHideUnavailable && TryTalentForInclination(talent, inclination))
                         {
-                            talents.Add(talent);
-                            costs.Add(CalculateCostTalent(talent));
-                            isCanTaken.Add(false);
+                            if (TryExpEnough(cost))
+                            {
+                                talents.Add(talent);
+                                costs.Add(cost);
+                                isCanTaken.Add(false);
+                            }                            
                         }
                         else if (IsCanTaken(talent) && TryTalentForInclination(talent, inclination))
                         {
-                            talents.Add(talent);
-                            costs.Add(CalculateCostTalent(talent));
-                            isCanTaken.Add(true);
+                            if (TryExpEnough(cost))
+                            {
+                                talents.Add(talent);
+                                costs.Add(cost);
+                                isCanTaken.Add(true);
+                            }                            
                         }
                     }
                 }                
             }
+        }*/
+
+        foreach (var talent in _creatorTalents.Talents.Where(t => t.IsCanTaken || _isEdit))
+        {
+            int cost = CalculateCostTalent(talent);
+
+            if (!TryDontDouble(talent) && !talent.IsRepeatable)
+                continue;
+
+            bool canBeTaken = IsCanTaken(talent);
+            bool expEnough = TryExpEnough(cost);
+            bool matchesInclination = inclination == GameStat.Inclinations.None || TryTalentForInclination(talent, inclination);
+
+            if (!matchesInclination)
+                continue;
+
+            if (_isEdit || (canBeTaken && expEnough) || (!_isHideUnavailable && expEnough))
+            {
+                talents.Add(talent);
+                costs.Add(cost);
+                isCanTaken.Add(_isEdit || canBeTaken);
+            }
         }
 
+
         _view.Initialize(talents, costs, isCanTaken);
+    }
+
+    private bool TryExpEnough(int cost)
+    {
+        if (!_isHideTooExpensive)
+            return true;
+
+        if (_character.ExperienceUnspent >= cost)
+            return true;
+        return false;
     }
 
     private bool TryDontDouble(Talent talent)
@@ -362,6 +415,9 @@ public class UpgradeTalentPresenter : IPresenter
 
     private bool IsCanTaken(Talent talent)
     {
+        if(_isEdit)
+            return true;
+
         if (TryFindRequireCharacteristic(_character.Characteristics, talent) && TryFindRequireSkill(_character.Skills, talent) &&
             TryFindRequireSome(_character.Implants, talent.RequirementImplants) && TryFindRequireSome(_character.Talents, talent.RequirementTalents) && 
             _character.InsanityPoints >= talent.RequirementInsanity && _character.CorruptionPoints >= talent.RequirementCorruption && 
@@ -488,5 +544,21 @@ public class UpgradeTalentPresenter : IPresenter
         _talent = talent;
         _cost = CalculateCostTalent(talent);
         _view.ShowTalent(talent, IsCanTaken(talent), _cost);
-    } 
+    }
+
+    private void ShowTooExpensive()
+    {
+        _audioManager.PlayClick();
+        if (_isHideTooExpensive)
+        {
+            _isHideTooExpensive = false;
+            _view.SetButtonShowWhenExpFalse();
+        }
+        else
+        {
+            _isHideTooExpensive = true;
+            _view.SetButtonShowWhenExpTrue();           
+        }
+        ShowTalents(_inclination);
+    }
 }
