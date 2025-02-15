@@ -304,7 +304,7 @@ public class UpgradeTalentPresenter : IPresenter
                     }
                     else
                     {
-                        if (_isEdit)
+                        if (_isEdit && TryTalentForInclination(talent, inclination))
                         {
                             talents.Add(talent);
                             costs.Add(CalculateCostTalent(talent));
