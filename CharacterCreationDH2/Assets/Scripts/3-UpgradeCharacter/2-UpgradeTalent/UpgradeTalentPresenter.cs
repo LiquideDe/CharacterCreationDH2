@@ -280,72 +280,7 @@ public class UpgradeTalentPresenter : IPresenter
         List<int> costs = new List<int>();
         List<bool> isCanTaken = new List<bool>();
         _inclination = inclination;
-        _audioManager.PlayClick();
-        /*
-        foreach(Talent talent in _creatorTalents.Talents)
-        {
-            if (talent.IsCanTaken || _isEdit)
-            {
-                int cost = CalculateCostTalent(talent);
-                if (TryDontDouble(talent) || talent.IsRepeatable)
-                {
-                    if(inclination == GameStat.Inclinations.None)
-                    {
-                        if (_isEdit)
-                        {
-                            talents.Add(talent);
-                            costs.Add(cost);
-                            isCanTaken.Add(true);
-                        }
-                        else if (!IsCanTaken(talent) && !_isHideUnavailable)
-                        {
-                            if (TryExpEnough(cost))
-                            {
-                                talents.Add(talent);
-                                costs.Add(cost);
-                                isCanTaken.Add(false);
-                            }                            
-                        }
-                        else if (IsCanTaken(talent))
-                        {
-                            if (TryExpEnough(cost))
-                            {
-                                talents.Add(talent);
-                                costs.Add(cost);
-                                isCanTaken.Add(true);
-                            }                            
-                        }
-                    }
-                    else
-                    {
-                        if (_isEdit && TryTalentForInclination(talent, inclination))
-                        {
-                            talents.Add(talent);
-                            costs.Add(cost);
-                            isCanTaken.Add(true);
-                        }
-                        else if (!IsCanTaken(talent) && !_isHideUnavailable && TryTalentForInclination(talent, inclination))
-                        {
-                            if (TryExpEnough(cost))
-                            {
-                                talents.Add(talent);
-                                costs.Add(cost);
-                                isCanTaken.Add(false);
-                            }                            
-                        }
-                        else if (IsCanTaken(talent) && TryTalentForInclination(talent, inclination))
-                        {
-                            if (TryExpEnough(cost))
-                            {
-                                talents.Add(talent);
-                                costs.Add(cost);
-                                isCanTaken.Add(true);
-                            }                            
-                        }
-                    }
-                }                
-            }
-        }*/
+        _audioManager.PlayClick();        
 
         foreach (var talent in _creatorTalents.Talents.Where(t => t.IsCanTaken || _isEdit))
         {

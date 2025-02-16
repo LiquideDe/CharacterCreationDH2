@@ -927,7 +927,7 @@ MonoBehaviour:
   _inputName: {fileID: 9011472552913724950}
   _inputWeight: {fileID: 9011472552591390118}
   _inputRarity: {fileID: 1282611410319552707}
-  _description: {fileID: 2784563393872978527}
+  _inputDescription: {fileID: 2784563393872978527}
 --- !u!114 &2066509249225122255
 MonoBehaviour:
   m_ObjectHideFlags: 0

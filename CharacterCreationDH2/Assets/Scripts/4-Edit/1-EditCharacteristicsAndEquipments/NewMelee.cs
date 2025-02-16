@@ -115,7 +115,9 @@ public class NewMelee : CreatorNewEquipment
                 damage = MakeDamageText(),
                 typeEquipment = Equipment.TypeEquipment.Melee.ToString(),
                 amount = 1,
-                rarity = _inputRarity.text
+                rarity = _inputRarity.text,
+                description = _inputDescription.text
+                
             };
 
             if (_isNewWeapon)

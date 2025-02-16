@@ -77,6 +77,7 @@ public class NewRange : NewMelee
             rangeReader.weight = weight;
             rangeReader.typeSound = _dropdownSounds.Value;
             rangeReader.rarity = _inputRarity.text;
+            rangeReader.description = _inputDescription.text;
 
             if(_isNewWeapon)
                 SaveEquipment($"{Application.dataPath}/StreamingAssets/Equipments/Weapons/Range/{rangeReader.name}.JSON", rangeReader);
