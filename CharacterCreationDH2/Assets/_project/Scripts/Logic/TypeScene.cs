@@ -1,0 +1,45 @@
+﻿namespace CharacterCreation
+{
+    public enum TypeScene
+    {
+        MainMenu,
+        Homeworld,
+        HomeworldFinal,
+        Background,
+        BackgroundFinal,
+        Role,
+        RoleFinal,
+        Intermediate,
+        ChoiceBetweenManualAndRandom,
+        ManualCharacteristic,
+        RandomCharacteristic,
+        RuleBookCharacteristic,
+        UpgradeCharacteristic,
+        UpgradeSkill,
+        UpgradeTalent,
+        UpgradePsycana,
+        Prophecy,
+        Name,
+        FirstPage,
+        SecondPage,
+        ThirdPage,
+        Pictures,
+        Loads,
+        InputExperience,
+        FinalMenu,
+        ListWithNewItems,
+        ListWithNewItemsAndNewButton,
+        InputNewProperty,
+        EditProperties,
+        EditCharacteristicsAndEquipments,
+        NewMelee,
+        NewRange,
+        NewGrenade,
+        NewEquipment,
+        NewImplant,
+        NewArmor,
+        Loading,
+        SkillInformationPanel
+    }
+}
+
