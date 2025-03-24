@@ -18,10 +18,11 @@ namespace CharacterCreation
         private int _bonusArmorFromImplantHead, _bonusArmorFromImplantBody, _bonusArmorFromImplantRightHand, _bonusArmorFromImplantLeftHand, _bonusArmorFromImplantRightLeg, _bonusArmorFromImplantLeftLeg;
         private int _bonusToughnessFromImplantHead, _bonusToughnessFromImplantBody, _bonusToughnessFromImplantRightHand, _bonusToughnessFromImplantLeftHand, _bonusToughnessFromImplantRightLeg, _bonusToughnessFromImplantLeftLeg;
         private int _bestArmorHead, _bestArmorBody, _bestArmorHands, _bestArmorLegs;
-        private int _bonusToughnessFromTrait;
+        private int _bonusToughnessFromTrait, _wounds;
 
         public void SetArmor(ICharacter character)
         {
+            _wounds = character.Wounds;
             _bonusToughness = character.Characteristics[GameStat.CharacteristicToInt["Выносливость"]].Amount / 10;
             _bonusWillpower = character.Characteristics[GameStat.CharacteristicToInt["Сила Воли"]].Amount / 10;
             CalculateArmorAndToughnessFromImplant(character.Implants);
@@ -193,7 +194,7 @@ namespace CharacterCreation
                 $"{textArmorRightHand.text}/{textTotalRightHand.text}/" +
                 $"{textArmorLeftHand.text}/{textTotalLeftHand.text}/" +
                 $"{textArmorRightLeg.text}/{textTotalRightLeg.text}/" +
-                $"{textArmorLeftLeg.text}/{textTotalLeftLeg.text}";
+                $"{textArmorLeftLeg.text}/{textTotalLeftLeg.text}/{_wounds}";
 
             _rawImage.texture = new GeneratorQRCode().EncodeTextToQrCode(textToCode);
         }
