@@ -111,7 +111,7 @@ namespace CharacterCreation
             }
             UpdateInclinations(nameInclinations);
             UpdateMental(character.MentalDisorders);
-            UpdateMutation(character.Mutation);
+            UpdateMutation(character.Mutations);
         }
 
         public void UpdateTraits(List<Trait> traits)

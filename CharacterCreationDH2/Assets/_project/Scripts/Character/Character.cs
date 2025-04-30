@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
+using static CharacterCreation.GameStat;
 
 namespace CharacterCreation
 {
@@ -11,11 +13,11 @@ namespace CharacterCreation
         private int _age, _fatePoint, _insanityPoints, _corruptionPoints, _wounds, _psyRating,
             _experienceTotal, _experienceUnspent, _experienceSpent;
         private List<Characteristic> _characteristics = new List<Characteristic>();
-        private List<GameStat.Inclinations> _inclinations = new List<GameStat.Inclinations>();
+        private List<Inclinations> _inclinations = new List<Inclinations>();
         private List<Talent> _talents = new List<Talent>();
         private List<Skill> _skills = new List<Skill>();
         private List<string> _mentalDisorders = new List<string>();
-        private List<string> _mutation = new List<string>();
+        private List<string> _mutations = new List<string>();
         private List<PsyPower> _psyPowers = new List<PsyPower>();
         private List<Equipment> _equipments = new List<Equipment>();
         private List<MechImplant> _implants = new List<MechImplant>();
@@ -51,13 +53,13 @@ namespace CharacterCreation
         public int ExperienceUnspent => _experienceUnspent;
         public int ExperienceSpent => _experienceSpent;
         public List<Characteristic> Characteristics => _characteristics;
-        public List<GameStat.Inclinations> Inclinations => _inclinations;
+        public List<Inclinations> Inclinations => _inclinations;
         public List<Skill> Skills => _skills;
         public List<Talent> Talents => _talents;
         public List<MechImplant> Implants => _implants;
         public List<string> MentalDisorders => _mentalDisorders;
         public string BonusBack => _bonusBack;
-        public List<string> Mutation => _mutation;
+        public List<string> Mutations => _mutations;
         public List<PsyPower> PsyPowers => _psyPowers;
         public List<Trait> Traits => _traits;
         public string Name => _name;
@@ -141,7 +143,7 @@ namespace CharacterCreation
             {
                 foreach (string inclination in incls)
                 {
-                    AddInclination((GameStat.Inclinations)Enum.Parse(typeof(GameStat.Inclinations), inclination));
+                    AddInclination((Inclinations)Enum.Parse(typeof(Inclinations), inclination));
                 }
             }
 
@@ -157,7 +159,7 @@ namespace CharacterCreation
 
             if (loadCharacter.mutation.Length > 0)
             {
-                _mutation = loadCharacter.mutation.Split(new char[] { '/' }).ToList();
+                _mutations = loadCharacter.mutation.Split(new char[] { '/' }).ToList();
             }
 
             _name = loadCharacter.name;
@@ -203,6 +205,82 @@ namespace CharacterCreation
 
             _psyRating = loadCharacter.psyRating;
             _tradition = loadCharacter.tradition;
+            _equipments.AddRange(equipments);
+        }
+
+        public void LoadData(CharacterData characterData)
+        {
+            _age = characterData.character.age;
+            _ageText = characterData.character.ageText;
+            _background = characterData.character.background;
+            _bonusBack = characterData.character.bonusBack;
+            _constitution = characterData.character.constitution;
+            _corruptionPoints = characterData.character.corruptionPoints;
+            _elite = characterData.character.elite;
+            _bonusHomeworld = characterData.character.bonusHomeworld;
+            _bonusRole = characterData.character.bonusRole;
+            _experienceSpent = characterData.character.experienceSpent;
+            _experienceTotal = characterData.character.experienceTotal;
+            _experienceUnspent = characterData.character.experienceUnspent;
+            _eyes = characterData.character.eyes;
+            _fatePoint = characterData.character.fatePoint;
+            _gender = characterData.character.gender;
+            _hair = characterData.character.hair;
+            _homeworld = characterData.character.homeworld;
+            _insanityPoints = characterData.character.insanityPoints;
+            _memoryOfBackground = characterData.character.memoryOfBackground;
+            _memoryOfHome = characterData.character.memoryOfHome;
+            _name = characterData.character.name;
+            _physFeatures = characterData.character.physFeatures;
+            _prophecy = characterData.character.prophecy;
+            _role = characterData.character.role;
+            _skeen = characterData.character.skeen;
+            _wounds = characterData.character.wounds;
+            _psyRating = characterData.character.psyRating;
+            _tradition = characterData.character.tradition;
+
+            _talents = characterData.talents.Select(t => new Talent(t.name)).ToList();
+            _mentalDisorders = characterData.mentalDisorders.Select(x => x.name).ToList();
+            _mutations = characterData.mutations.Select(x => x.name).ToList();
+            _psyPowers = characterData.psyPowers.Select(p => new PsyPower(p.name)).ToList();
+            _inclinations = characterData.inclinations.
+                Select(i =>
+                {
+                    if (Enum.TryParse<Inclinations>(i.name, out var result))
+                        return result;
+                    else
+                        throw new Exception($"Invalid inclination enum value: {i.name}");
+                }).ToList();
+
+            _traits = characterData.traits.Select(t => new Trait(t.name, t.lvl)).ToList();
+            foreach (Skill skill in _skills)
+            {
+                foreach (SaveLoadSkill loadSkill in characterData.skills)
+                {
+                    if (string.Compare(skill.Name, loadSkill.name) == 0)
+                    {
+                        skill.LvlLearned = loadSkill.lvlLearned;
+                        break;
+                    }
+                }
+            }
+            for (int i = 0; i < characterData.characteristics.Count; i++)
+            {
+                Debug.Log($"{characterData.characteristics[i].name} = {characterData.characteristics[i].lvlLearnedChar}");
+                _characteristics[i].Amount = characterData.characteristics[i].amount;
+                _characteristics[i].LvlLearned = characterData.characteristics[i].lvlLearnedChar;
+            }
+            _implants = characterData.implants.Select(i => new MechImplant(i)).ToList();
+            List<Armor> armors = characterData.armors.Select(a => new Armor(a)).ToList();
+            List<Weapon> ranges = characterData.ranges.Select(r => new Weapon(r)).ToList();
+            List<Weapon> melees = characterData.melees.Select(m => new Weapon(m)).ToList();
+            List<Weapon> grenades = characterData.grenades.Select(g => new Weapon(g)).ToList();
+            List<Equipment> equipments = characterData.equipments.Select(e => new Equipment(e)).ToList();
+
+            _equipments.AddRange(armors);
+            _equipments.AddRange(ranges);
+            _equipments.AddRange(melees);
+            _equipments.AddRange(grenades);
             _equipments.AddRange(equipments);
         }
 

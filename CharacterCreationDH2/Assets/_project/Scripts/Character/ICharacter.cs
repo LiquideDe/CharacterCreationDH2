@@ -21,7 +21,7 @@ namespace CharacterCreation
         public List<MechImplant> Implants { get; }
         public List<string> MentalDisorders { get; }
         public string BonusBack { get; }
-        public List<string> Mutation { get; }
+        public List<string> Mutations { get; }
         public List<PsyPower> PsyPowers { get; }
         public List<Trait> Traits { get; }
         public string Name { get; }

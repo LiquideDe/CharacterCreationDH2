@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 
 namespace CharacterCreation
 {
@@ -12,6 +13,24 @@ namespace CharacterCreation
             //var path = $"{Application.dataPath}/StreamingAssets/CharacterSheets//.JSON";
 
             string[] jsonFile = Directory.GetFiles(path, "*.JSON");
+            string[] jsonFile1 = Directory.GetFiles(path, "*.jsonn");
+
+            if (jsonFile.Length > 0)
+                LoadOldVersion(character, jsonFile);
+
+            if(jsonFile1.Length > 0)
+                LoadNewVersion(character, jsonFile1);
+        }
+
+        private void LoadNewVersion(Character character, string[] jsonFile)
+        {
+            string json = File.ReadAllText(jsonFile[0]);
+            CharacterData data = JsonUtility.FromJson<CharacterData>(json);
+            character.LoadData(data);
+        }
+
+        private void LoadOldVersion(Character character, string[] jsonFile)
+        {
             string allText = File.ReadAllText(jsonFile[0]);
             //string[] data = File.ReadAllLines(path);
             allText = allText.Replace(Environment.NewLine, string.Empty);

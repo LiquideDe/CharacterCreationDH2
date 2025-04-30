@@ -1,7 +1,9 @@
 ﻿
+using System;
+
 namespace CharacterCreation
 {
-    public class Weapon : Equipment
+    public class Weapon : Equipment, ISerializableEquipment
     {
         private string classWeapon, rof, damage, reload, properties;
         private int range, penetration, clip, typeSound;
@@ -63,6 +65,65 @@ namespace CharacterCreation
         public string Reload { get => reload; }
         public string Properties { get => properties; }
         public int TypeSound => typeSound;
+
+        public override object ToJsonReader()
+        {
+            switch (TypeEq)
+            {
+                case TypeEquipment.Melee:
+                    return new JSONMeleeReader
+                    {
+                        amount = Amount,
+                        damage = Damage,
+                        description = Description,
+                        name = Name,
+                        penetration = Penetration,
+                        properties = Properties,
+                        rarity = Rarity,
+                        typeEquipment = TypeEq.ToString(),
+                        weaponClass = ClassWeapon,
+                        weight = Weight
+                    };
+
+                case TypeEquipment.Range:
+                    return new JSONRangeReader
+                    {
+                        amount = Amount,
+                        damage = Damage,
+                        description = Description,
+                        name = Name,
+                        penetration = Penetration,
+                        properties = Properties,
+                        rarity = Rarity,
+                        typeEquipment = TypeEq.ToString(),
+                        weaponClass = ClassWeapon,
+                        weight = Weight,
+                        clip = Clip,
+                        range = Range,
+                        reload = Reload,
+                        rof = Rof,
+                        typeSound = TypeSound
+                    };
+
+                case TypeEquipment.Grenade:
+                    return new JSONGrenadeReader
+                    {
+                        amount = Amount,
+                        damage = Damage,
+                        description = Description,
+                        name = Name,
+                        penetration = Penetration,
+                        properties = Properties,
+                        rarity = Rarity,
+                        typeEquipment = TypeEq.ToString(),
+                        weaponClass = ClassWeapon,
+                        weight = Weight
+                    };
+
+                default:
+                    throw new NotSupportedException($"Unsupported weapon type: {TypeEq}");
+            }
+        }
     }
 }
 

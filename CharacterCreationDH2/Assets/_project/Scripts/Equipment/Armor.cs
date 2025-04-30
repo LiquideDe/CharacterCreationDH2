@@ -2,7 +2,7 @@
 
 namespace CharacterCreation
 {
-    public class Armor : Equipment
+    public class Armor : Equipment, ISerializableEquipment
     {
         private int defHead, defHands, defBody, defLegs, maxAgil, armorPoint, bonusStrength;
         private string placeArmor;
@@ -42,6 +42,27 @@ namespace CharacterCreation
         public int ArmorPoint => armorPoint;
 
         public int BonusStrength => bonusStrength;
+
+        public override object ToJsonReader()
+        {
+            return new JSONArmorReader
+            {
+                amount = Amount,
+                armorPoint = ArmorPoint,
+                body = DefBody,
+                description = Description,
+                descriptionArmor = PlaceArmor,
+                hands = DefHands,
+                head = DefHead,
+                legs = DefLegs,
+                maxAgility = MaxAgil,
+                name = Name,
+                typeEquipment = TypeEq.ToString(),
+                weight = Weight,
+                bonusStrength = BonusStrength,
+                rarity = Rarity
+            };
+        }
     }
 }
 

@@ -1,6 +1,9 @@
-﻿
+﻿using System;
+
+
 namespace CharacterCreation
 {
+    [Serializable]
     public class JSONArmorReader
     {
         public string name, description, descriptionArmor, rarity, typeEquipment;

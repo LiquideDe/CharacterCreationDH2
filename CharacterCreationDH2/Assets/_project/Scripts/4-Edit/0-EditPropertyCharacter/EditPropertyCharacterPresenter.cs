@@ -53,10 +53,10 @@ namespace CharacterCreation
         private void RemoveMutation(string mutationName)
         {
             _audioManager.PlayCancel();
-            Debug.Log($"До удаления у персонажа мутаций {_character.Mutation.Count}");
-            _character.Mutation.Remove(mutationName);
-            Debug.Log($"После удаления у персонажа мутаций {_character.Mutation.Count}, удаляли мутацию {mutationName}");
-            _view.UpdateMutation(_character.Mutation);
+            Debug.Log($"До удаления у персонажа мутаций {_character.Mutations.Count}");
+            _character.Mutations.Remove(mutationName);
+            Debug.Log($"После удаления у персонажа мутаций {_character.Mutations.Count}, удаляли мутацию {mutationName}");
+            _view.UpdateMutation(_character.Mutations);
         }
 
         private void RemoveMental(string mentalName)
@@ -137,8 +137,8 @@ namespace CharacterCreation
         {
             Debug.Log($"Добавляем новую мутацию {mutation}");
             _audioManager.PlayDone();
-            _character.Mutation.Add(mutation);
-            _view.UpdateMutation(_character.Mutation);
+            _character.Mutations.Add(mutation);
+            _view.UpdateMutation(_character.Mutations);
             CloseAllSmallWindows();
         }
 

@@ -47,7 +47,7 @@ namespace CharacterCreation
 
         public string BonusBack => _character.BonusBack;
 
-        public List<string> Mutation => _character.Mutation;
+        public List<string> Mutations => _character.Mutations;
 
         public string Background => _character.Background;
 

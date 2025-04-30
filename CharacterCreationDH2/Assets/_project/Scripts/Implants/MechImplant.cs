@@ -15,13 +15,13 @@ namespace CharacterCreation
 
         public MechImplant(string name, string textDescription)
         {
-            this._name = name;
-            this._textDescription = textDescription;
+            _name = name;
+            _textDescription = textDescription;
         }
 
         public MechImplant(string name)
         {
-            this._name = name;
+            _name = name;
             _textDescription = "";
         }
 

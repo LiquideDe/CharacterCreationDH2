@@ -37,7 +37,7 @@ namespace CharacterCreation
                 }
             }
 
-            foreach (string mut in character.Mutation)
+            foreach (string mut in character.Mutations)
             {
                 _textMutationText.text += mut + '\n';
             }

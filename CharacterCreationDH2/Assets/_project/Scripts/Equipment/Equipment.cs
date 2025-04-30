@@ -1,8 +1,7 @@
-﻿using UnityEngine;
-
+﻿
 namespace CharacterCreation
 {
-    public class Equipment : INameWithDescription
+    public class Equipment : INameWithDescription, ISerializableEquipment
     {
         private string _nameEquipment, _description, _rarity;
         private float _weight;
@@ -20,6 +19,16 @@ namespace CharacterCreation
             _weight = weight;
             _rarity = rarity;
             _amount = amount;
+        }
+
+        public Equipment(JSONEquipmentReader reader)
+        {
+            _nameEquipment = reader.name;
+            _description = reader.description;
+            typeEquipment = TypeEquipment.Thing;
+            _weight = reader.weight;
+            _rarity = reader.rarity;
+            _amount = reader.amount;
         }
 
         public Equipment(Equipment equipment)
@@ -40,6 +49,19 @@ namespace CharacterCreation
         public float Weight => _weight;
         public string Rarity => _rarity;
         public int Amount { get => _amount; set => _amount = value; }
+
+        public virtual object ToJsonReader()
+        {
+            return new JSONEquipmentReader
+            {
+                amount = Amount,
+                description = Description,
+                name = Name,
+                rarity = Rarity,
+                typeEquipment = TypeEq.ToString(),
+                weight = Weight
+            };
+        }
 
         private string GetName()
         {
