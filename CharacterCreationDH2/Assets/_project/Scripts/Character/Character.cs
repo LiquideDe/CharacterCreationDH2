@@ -266,7 +266,6 @@ namespace CharacterCreation
             }
             for (int i = 0; i < characterData.characteristics.Count; i++)
             {
-                Debug.Log($"{characterData.characteristics[i].name} = {characterData.characteristics[i].lvlLearnedChar}");
                 _characteristics[i].Amount = characterData.characteristics[i].amount;
                 _characteristics[i].LvlLearned = characterData.characteristics[i].lvlLearnedChar;
             }

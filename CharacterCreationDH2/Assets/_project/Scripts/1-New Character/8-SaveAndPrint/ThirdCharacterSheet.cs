@@ -3,6 +3,7 @@ using UnityEngine;
 using TMPro;
 using Zenject;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace CharacterCreation
 {
@@ -32,13 +33,14 @@ namespace CharacterCreation
             _text.text += $"<indent=15%><size=150%>Таланты:</indent> \n<size=100%>";
 
             foreach (Talent talent in character.Talents)
-                _text.text += $"<b>{talent.Name}</b> - {_creatorTalents.GetTalent(talent.Name).LongDescription} \n \n";
+                _text.text += $"<b>{talent.Name}</b> - {GetDescriptionTalent(talent.Name)} \n \n";
 
             if (character.PsyPowers.Count > 0)
             {
                 _text.text += $"<indent=15%><size=150%>Психо-силы:</indent> \n<size=100%>";
                 foreach (PsyPower psyPower in character.PsyPowers)
-                    _text.text += $"<b>{psyPower.Name}</b> - Действие:{_creatorPsyPowers.GetPsyPower(psyPower.Name).Action}, {_creatorPsyPowers.GetPsyPower(psyPower.Name).Description} \n \n";
+                    _text.text += $"<b>{psyPower.Name}</b> - " +
+                        $"Действие:{_creatorPsyPowers.GetPsyPower(psyPower.Name).Action}, {GetDescriptionPsy(psyPower.Name)} \n \n";
 
             }
 
@@ -58,16 +60,16 @@ namespace CharacterCreation
                     if (string.Compare(trait.Name, "Сверхъестественные чувства", true) == 0)
                     {
                         if (string.Compare(character.Background, "Адептус Астра Телепатика", true) == 0)
-                            _text.text += $"<b>{trait.Name}({(int)(character.Characteristics[GameStat.CharacteristicToInt["Сила Воли"]].Amount)})</b> - {_creatorTraits.GetTrait(trait.Name).Description}\n \n";
+                            _text.text += $"<b>{trait.Name}({(int)(character.Characteristics[GameStat.CharacteristicToInt["Сила Воли"]].Amount)})</b> - {GetDescriptionTrait(trait.Name)}\n \n";
                         else
-                            _text.text += $"<b>{trait.Name}({trait.Lvl})</b> - {_creatorTraits.GetTrait(trait.Name).Description}\n \n";
+                            _text.text += $"<b>{trait.Name}({trait.Lvl})</b> - {GetDescriptionTrait(trait.Name)}\n \n";
                     }
                     else
                     {
                         if (trait.Lvl > 0)
-                            _text.text += $"<b>{trait.Name}({trait.Lvl})</b> - {_creatorTraits.GetTrait(trait.Name).Description}\n \n";
+                            _text.text += $"<b>{trait.Name}({trait.Lvl})</b> - {GetDescriptionTrait(trait.Name)}\n \n";
                         else
-                            _text.text += $"<b>{trait.Name}</b> - {_creatorTraits.GetTrait(trait.Name).Description}\n \n";
+                            _text.text += $"<b>{trait.Name}</b> - {GetDescriptionTrait(trait.Name)}\n \n";
                     }
 
                 }
@@ -82,19 +84,20 @@ namespace CharacterCreation
                 {
                     if (weapon.Properties.Length > 1)
                     {
-                        var weaponTraits = weapon.Properties.Split(new char[] { ',' }).ToList();
+                        string noWhitespace = Regex.Replace(weapon.Properties, @"\s+", "");
+                        var weaponTraits = noWhitespace.Split(new char[] { ',' }).ToList();
                         foreach (var weaponTrait in weaponTraits)
                         {
                             if (!weaponTrait.Contains("("))
-                            {
-                                _text.text += $"{weaponTrait} - {_creatorWeaponTrait.Get(weaponTrait).Description} \n\n";
+                            {    
+                                _text.text += $"{weaponTrait} - {GetDescriptionWeaponTrait(weaponTrait)} \n\n";
                             }
                             else
                             {
                                 int openBracketIndex = weaponTrait.IndexOf('(');
                                 string name = weaponTrait.Substring(0, openBracketIndex).Trim();
 
-                                _text.text += $"{weaponTrait} - {_creatorWeaponTrait.Get(name).Description} \n\n";
+                                _text.text += $"{weaponTrait} - {GetDescriptionWeaponTrait(weaponTrait)} \n\n";
                             }
                         }
                     }
@@ -152,6 +155,38 @@ namespace CharacterCreation
                 StartScreenshot($"{PageName.Third}+{_page}", true);
         }
 
+        private string GetDescriptionWeaponTrait(string name)
+        {
+            var trait = _creatorWeaponTrait.Get(name);
+            if (trait != null)
+                return trait.Description;
+
+            return "Описание не найдено";
+        }
+
+        private string GetDescriptionTrait(string name)
+        {
+            var trait = _creatorTraits.GetTrait(name);
+            if(trait != null)
+                return trait.Description;
+            return "Описание не найдено";
+        }
+
+        private string GetDescriptionPsy(string name)
+        {
+            var trait = _creatorPsyPowers.GetPsyPower(name);
+            if (trait != null)
+                return trait.Description;
+            return "Описание не найдено";
+        }
+
+        private string GetDescriptionTalent(string name)
+        {
+            var trait = _creatorTalents.GetTalent(name);
+            if (trait != null)
+                return trait.LongDescription;
+            return "Описание не найдено";
+        }
     }
 }
 

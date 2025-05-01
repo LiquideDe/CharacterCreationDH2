@@ -81,7 +81,6 @@ namespace CharacterCreation
 
             var cached = RenderTexture.active;
             var renderTexture = RenderTexture.GetTemporary(savedImages[0].width, savedImages[0].height);
-            Debug.Log($"высота {renderTexture.height}");
             var finalTexture = new Texture2D((int)(renderTexture.width * 1.458f), renderTexture.height * 2);
 
             RenderTexture.active = renderTexture;
