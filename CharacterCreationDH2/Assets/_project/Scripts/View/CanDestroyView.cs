@@ -4,7 +4,7 @@ namespace CharacterCreation
 {
     public class CanDestroyView : MonoBehaviour
     {
-        public void DestroyView() => Destroy(gameObject);
+        public virtual void DestroyView() => Destroy(gameObject);
     }
 }
 

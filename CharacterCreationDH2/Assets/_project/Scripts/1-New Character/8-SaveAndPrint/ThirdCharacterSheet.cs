@@ -3,7 +3,6 @@ using UnityEngine;
 using TMPro;
 using Zenject;
 using System.Linq;
-using System.Text.RegularExpressions;
 
 namespace CharacterCreation
 {
@@ -83,9 +82,8 @@ namespace CharacterCreation
                 if (equipment is Weapon weapon)
                 {
                     if (weapon.Properties.Length > 1)
-                    {
-                        string noWhitespace = Regex.Replace(weapon.Properties, @"\s+", "");
-                        var weaponTraits = noWhitespace.Split(new char[] { ',' }).ToList();
+                    {                        
+                        var weaponTraits = weapon.Properties.Split(new char[] { ',' }).ToList();
                         foreach (var weaponTrait in weaponTraits)
                         {
                             if (!weaponTrait.Contains("("))

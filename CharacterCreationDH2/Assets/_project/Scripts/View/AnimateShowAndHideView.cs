@@ -11,6 +11,7 @@ namespace CharacterCreation
         [SerializeField] private CanvasGroup _bodyGroup;
         [SerializeField] private RectTransform _bodyTransform;
         protected AudioManager _audio;
+        private Sequence animationSequence;
 
         [Inject]
         private void Construct(AudioManager audioManager) => _audio = audioManager;
@@ -22,9 +23,9 @@ namespace CharacterCreation
                 Vector2 targetBodyPosition = _bodyTransform.anchoredPosition;
                 Vector2 startShift = new Vector2(Screen.width / 2, targetBodyPosition.y);
                 _audio.PlayPopUp();
-                Sequence animation = DOTween.Sequence();
+                animationSequence = DOTween.Sequence();
 
-                animation.Append(_bodyGroup.DOFade(1, 1f).From(0)).Join(_bodyTransform.DOAnchorPos(targetBodyPosition, 1f).From(startShift));
+                animationSequence.Append(_bodyGroup.DOFade(1, 1f).From(0)).Join(_bodyTransform.DOAnchorPos(targetBodyPosition, 1f).From(startShift));
             }
 
         }
@@ -34,9 +35,9 @@ namespace CharacterCreation
             Vector2 targetBodyPosition = _bodyTransform.anchoredPosition;
             Vector2 startShift = new Vector2(-Screen.width / 2, targetBodyPosition.y);
             _audio.PlayPopUp();
-            Sequence animation = DOTween.Sequence();
+            animationSequence = DOTween.Sequence();
 
-            animation.Append(_bodyGroup.DOFade(1, 1f).From(0)).Join(_bodyTransform.DOAnchorPos(targetBodyPosition, 1f).From(startShift));
+            animationSequence.Append(_bodyGroup.DOFade(1, 1f).From(0)).Join(_bodyTransform.DOAnchorPos(targetBodyPosition, 1f).From(startShift));
         }
 
         public void Hide(Action HideIsDone)
@@ -44,9 +45,9 @@ namespace CharacterCreation
             Vector2 targetBodyPosition = _bodyTransform.anchoredPosition;
             Vector2 finishShift = new Vector2(-Screen.width / 2, targetBodyPosition.y);
             _audio.PlayPopDown();
-            Sequence animation = DOTween.Sequence();
+            animationSequence = DOTween.Sequence();
 
-            animation.Append(_bodyGroup.DOFade(0, 1f).From(1)).Join(_bodyTransform.DOAnchorPos(finishShift, 1f).From(targetBodyPosition)).
+            animationSequence.Append(_bodyGroup.DOFade(0, 1f).From(1)).Join(_bodyTransform.DOAnchorPos(finishShift, 1f).From(targetBodyPosition)).
                 OnComplete(() => HideIsDone?.Invoke());
         }
 
@@ -55,9 +56,9 @@ namespace CharacterCreation
             Vector2 targetBodyPosition = _bodyTransform.anchoredPosition;
             Vector2 finishShift = new Vector2(Screen.width / 2, targetBodyPosition.y);
             _audio.PlayPopDown();
-            Sequence animation = DOTween.Sequence();
+            animationSequence = DOTween.Sequence();
 
-            animation.Append(_bodyGroup.DOFade(0, 1f).From(1)).Join(_bodyTransform.DOAnchorPos(finishShift, 1f).From(targetBodyPosition)).
+            animationSequence.Append(_bodyGroup.DOFade(0, 1f).From(1)).Join(_bodyTransform.DOAnchorPos(finishShift, 1f).From(targetBodyPosition)).
                 OnComplete(() => HideIsDone?.Invoke());
         }
 
@@ -66,9 +67,9 @@ namespace CharacterCreation
             Vector2 targetBodyPosition = _bodyTransform.anchoredPosition;
             Vector2 finishShift = new Vector2(Screen.width / 2, targetBodyPosition.y);
             _audio.PlayPopDown();
-            Sequence animation = DOTween.Sequence();
+            animationSequence = DOTween.Sequence();
 
-            animation.Append(_bodyGroup.DOFade(0, 1f).From(1)).Join(_bodyTransform.DOAnchorPos(finishShift, 1f).From(targetBodyPosition)).
+            animationSequence.Append(_bodyGroup.DOFade(0, 1f).From(1)).Join(_bodyTransform.DOAnchorPos(finishShift, 1f).From(targetBodyPosition)).
                 OnComplete(() => HideIsDone?.Invoke(text));
         }
 
@@ -77,9 +78,9 @@ namespace CharacterCreation
             Vector2 targetBodyPosition = _bodyTransform.anchoredPosition;
             Vector2 finishShift = new Vector2(Screen.width / 2, targetBodyPosition.y);
             _audio.PlayPopDown();
-            Sequence animation = DOTween.Sequence();
+            animationSequence = DOTween.Sequence();
 
-            animation.Append(_bodyGroup.DOFade(0, 1f).From(1)).Join(_bodyTransform.DOAnchorPos(finishShift, 1f).From(targetBodyPosition)).
+            animationSequence.Append(_bodyGroup.DOFade(0, 1f).From(1)).Join(_bodyTransform.DOAnchorPos(finishShift, 1f).From(targetBodyPosition)).
                 OnComplete(() => HideIsDone?.Invoke(canDestroyView));
         }
 
@@ -88,12 +89,17 @@ namespace CharacterCreation
             Vector2 targetBodyPosition = _bodyTransform.anchoredPosition;
             Vector2 finishShift = new Vector2(-Screen.width / 2, targetBodyPosition.y);
             _audio.PlayPopDown();
-            Sequence animation = DOTween.Sequence();
+            animationSequence = DOTween.Sequence();
 
-            animation.Append(_bodyGroup.DOFade(0, 1f).From(1)).Join(_bodyTransform.DOAnchorPos(finishShift, 1f).From(targetBodyPosition)).
+            animationSequence.Append(_bodyGroup.DOFade(0, 1f).From(1)).Join(_bodyTransform.DOAnchorPos(finishShift, 1f).From(targetBodyPosition)).
                 OnComplete(() => HideIsDone?.Invoke(ints));
         }
 
+        public override void DestroyView()
+        {
+            animationSequence.Kill();
+            base.DestroyView();
+        }
     }
 }
 
