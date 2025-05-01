@@ -56,11 +56,11 @@ namespace CharacterCreation
             yield return new WaitForSeconds(0.1f);
             yield return new WaitForEndOfFrame();
 
-
             Camera cam = Camera.main;
-            Texture2D screenImage = new Texture2D(cam.pixelWidth, cam.pixelHeight);
-            //Get Image from screen
-            screenImage.ReadPixels(new Rect(0, 0, cam.pixelWidth, cam.pixelHeight), 0, 0);
+            int width = cam.pixelWidth;
+            int height = cam.pixelHeight;
+            Texture2D screenImage = new Texture2D(width, height);            
+            screenImage.ReadPixels(new Rect((Screen.width - width) / 2, (Screen.height - height) / 2, width, height), 0, 0);
             screenImage.Apply();
             //Convert to png
             byte[] pngBytes = screenImage.EncodeToPNG();
@@ -75,12 +75,13 @@ namespace CharacterCreation
             CombineImages();
 
         }
-
+        
         private void CombineImages()
         {
 
             var cached = RenderTexture.active;
             var renderTexture = RenderTexture.GetTemporary(savedImages[0].width, savedImages[0].height);
+            Debug.Log($"высота {renderTexture.height}");
             var finalTexture = new Texture2D((int)(renderTexture.width * 1.458f), renderTexture.height * 2);
 
             RenderTexture.active = renderTexture;
@@ -115,6 +116,8 @@ namespace CharacterCreation
             rectImage.anchorMax = new Vector2(x, y);
             rectImage.pivot = new Vector2(x, y);
         }
+
+        
     }
 }
 

@@ -5806,6 +5806,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rectImage: {fileID: 4625915920099612017}
+  canvasToCapture: {fileID: 4625915919483757505}
   textWeapon: {fileID: 5652604401941044765}
   textBallistic: {fileID: 8380644530257472118}
   textStrength: {fileID: 7951695472798459363}
