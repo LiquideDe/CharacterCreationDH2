@@ -30,6 +30,7 @@ namespace CharacterCreation
 
         private void OnDisable()
         {
+            ClearSubscribe();
             _slider.onValueChanged.RemoveAllListeners();
             _buttonManual.onClick.RemoveAllListeners();
             _buttonRandom.onClick.RemoveAllListeners();
@@ -83,7 +84,12 @@ namespace CharacterCreation
             _textSliderValue.text = $"Стартовый уровень характеристик = {_baseAmount}";
         }
 
-
+        private void ClearSubscribe()
+        {
+            ChooseManual = null;
+            ChoseRandom = null;
+            ChooseRuleBook = null;
+        }
     }
 }
 

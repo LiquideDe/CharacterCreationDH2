@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="ddd27c52-38ed-4c5f-b1f8-353a3e5e6624" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/CharacterSheets/Аки/CharacterSheetFirst.png" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/StreamingAssets/CharacterSheets/Аки/CharacterSheetFirst.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/CharacterSheets/Аки/CharacterSheetSecond.png" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/StreamingAssets/CharacterSheets/Аки/CharacterSheetSecond.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/CharacterSheets/Аки/CharacterSheetThird+2.png" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/StreamingAssets/CharacterSheets/Аки/CharacterSheetThird+2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/CharacterSheets/Аки/CharacterSheetThird.png" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/StreamingAssets/CharacterSheets/Аки/CharacterSheetThird.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/CharacterSheets/Аки/Аки.jsonn" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/StreamingAssets/CharacterSheets/Аки/Аки.jsonn" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/CharacterSheets/Арктурия/CharacterSheetFirst.png" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/StreamingAssets/CharacterSheets/Арктурия/CharacterSheetFirst.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/CharacterSheets/Арктурия/CharacterSheetSecond.png" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/StreamingAssets/CharacterSheets/Арктурия/CharacterSheetSecond.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/CharacterSheets/Арктурия/CharacterSheetThird+2.png" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/StreamingAssets/CharacterSheets/Арктурия/CharacterSheetThird+2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/CharacterSheets/Арктурия/CharacterSheetThird.png" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/StreamingAssets/CharacterSheets/Арктурия/CharacterSheetThird.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/CharacterSheets/Арктурия/Арктурия.jsonn" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/StreamingAssets/CharacterSheets/Арктурия/Арктурия.jsonn" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/CharacterSheets/Остэо Хондроз/CharacterSheetFirst.png" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/StreamingAssets/CharacterSheets/Остэо Хондроз/CharacterSheetFirst.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/CharacterSheets/Остэо Хондроз/CharacterSheetSecond.png" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/StreamingAssets/CharacterSheets/Остэо Хондроз/CharacterSheetSecond.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/CharacterSheets/Остэо Хондроз/CharacterSheetThird+2.png" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/StreamingAssets/CharacterSheets/Остэо Хондроз/CharacterSheetThird+2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/CharacterSheets/Остэо Хондроз/CharacterSheetThird.png" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/StreamingAssets/CharacterSheets/Остэо Хондроз/CharacterSheetThird.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/CharacterSheets/Остэо Хондроз/Остэо Хондроз.jsonn" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/StreamingAssets/CharacterSheets/Остэо Хондроз/Остэо Хондроз.jsonn" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/CharacterSheets/Сибилла Варпп/CharacterSheetFirst.png" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/StreamingAssets/CharacterSheets/Сибилла Варпп/CharacterSheetFirst.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/CharacterSheets/Сибилла Варпп/CharacterSheetSecond.png" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/StreamingAssets/CharacterSheets/Сибилла Варпп/CharacterSheetSecond.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/CharacterSheets/Сибилла Варпп/CharacterSheetThird+2.png" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/StreamingAssets/CharacterSheets/Сибилла Варпп/CharacterSheetThird+2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/CharacterSheets/Сибилла Варпп/CharacterSheetThird+3.png" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/StreamingAssets/CharacterSheets/Сибилла Варпп/CharacterSheetThird+3.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/CharacterSheets/Сибилла Варпп/CharacterSheetThird.png" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/StreamingAssets/CharacterSheets/Сибилла Варпп/CharacterSheetThird.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/CharacterSheets/Сибилла Варпп/Сибилла Варпп.jsonn" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/StreamingAssets/CharacterSheets/Сибилла Варпп/Сибилла Варпп.jsonn" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/CharacterSheets/Тетта Гамма 3/CharacterSheetFirst.png" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/StreamingAssets/CharacterSheets/Тетта Гамма 3/CharacterSheetFirst.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/CharacterSheets/Тетта Гамма 3/CharacterSheetSecond.png" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/StreamingAssets/CharacterSheets/Тетта Гамма 3/CharacterSheetSecond.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/CharacterSheets/Тетта Гамма 3/CharacterSheetThird+2.png" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/StreamingAssets/CharacterSheets/Тетта Гамма 3/CharacterSheetThird+2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/CharacterSheets/Тетта Гамма 3/CharacterSheetThird.png" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/StreamingAssets/CharacterSheets/Тетта Гамма 3/CharacterSheetThird.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/CharacterSheets/Тетта Гамма 3/Тетта Гамма 3.jsonn" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/StreamingAssets/CharacterSheets/Тетта Гамма 3/Тетта Гамма 3.jsonn" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/Scripts/1-New Character/4-SetCharacteristics/AsInRuleBook/CharacteristicsAsInRuleBookPresenter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_project/Scripts/1-New Character/4-SetCharacteristics/AsInRuleBook/CharacteristicsAsInRuleBookPresenter.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/Scripts/1-New Character/4-SetCharacteristics/CanvasChoiceManulaAndRandom.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_project/Scripts/1-New Character/4-SetCharacteristics/CanvasChoiceManulaAndRandom.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/Scripts/1-New Character/4-SetCharacteristics/Manual/CharacteristicManualPresenter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_project/Scripts/1-New Character/4-SetCharacteristics/Manual/CharacteristicManualPresenter.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/Scripts/1-New Character/4-SetCharacteristics/Random/CharacteristicRandomPresenter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_project/Scripts/1-New Character/4-SetCharacteristics/Random/CharacteristicRandomPresenter.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/Scripts/1-New Character/6-Prophecy/ProphecyPresenter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_project/Scripts/1-New Character/6-Prophecy/ProphecyPresenter.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/Scripts/1-New Character/7-ChooseName/ChooseNamePresenter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_project/Scripts/1-New Character/7-ChooseName/ChooseNamePresenter.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/Scripts/1-New Character/8-SaveAndPrint/TakePicturesPresenter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_project/Scripts/1-New Character/8-SaveAndPrint/TakePicturesPresenter.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/Scripts/1-New Character/8-SaveAndPrint/TakeScreenshot.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_project/Scripts/1-New Character/8-SaveAndPrint/TakeScreenshot.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/Scripts/1-New Character/CanvasIntermediate.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_project/Scripts/1-New Character/CanvasIntermediate.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/Scripts/1-New Character/PresenterForHomeBackRole.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_project/Scripts/1-New Character/PresenterForHomeBackRole.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/Scripts/3-UpgradeCharacter/0-UpgradeCharacteristics/UpgradeCharacteristicsPresenter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_project/Scripts/3-UpgradeCharacter/0-UpgradeCharacteristics/UpgradeCharacteristicsPresenter.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/Scripts/3-UpgradeCharacter/1-UpgradeSkill/UpgradeSkillPresenter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_project/Scripts/3-UpgradeCharacter/1-UpgradeSkill/UpgradeSkillPresenter.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/Scripts/3-UpgradeCharacter/2-UpgradeTalent/UpgradeTalentPresenter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_project/Scripts/3-UpgradeCharacter/2-UpgradeTalent/UpgradeTalentPresenter.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/Scripts/3-UpgradeCharacter/3-UpgradePsypower/UpgradePsycanaPresenter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_project/Scripts/3-UpgradeCharacter/3-UpgradePsypower/UpgradePsycanaPresenter.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/Scripts/Logic/GameStat.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_project/Scripts/Logic/GameStat.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Packages/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/manifest.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Packages/packages-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/packages-lock.json" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 5
+}]]></component>
+  <component name="ProjectId" id="2yxeAw5cMKprwi1A8cV4Xrm4lWZ" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "main",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
+    <configuration name="Start Unity" type="RunUnityExe" factoryName="Unity Executable">
+      <option name="EXE_PATH" value="C:\Program Files\Unity\Hub\Editor\2022.3.50f1\Editor\Unity.exe" />
+      <option name="PROGRAM_PARAMETERS" value="-projectPath C:\Users\User\Documents\GitHub\CharacterCreationDH2\CharacterCreationDH2 -debugCodeOptimization" />
+      <option name="WORKING_DIRECTORY" value="C:\Users\User\Documents\GitHub\CharacterCreationDH2\CharacterCreationDH2" />
+      <option name="PASS_PARENT_ENVS" value="1" />
+      <option name="USE_EXTERNAL_CONSOLE" value="0" />
+      <option name="ENV_FILE_PATHS" value="" />
+      <option name="REDIRECT_INPUT_PATH" value="" />
+      <option name="PTY_MODE" value="Auto" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Unit Tests (batch mode)" type="RunUnityExe" factoryName="Unity Executable">
+      <option name="EXE_PATH" value="C:\Program Files\Unity\Hub\Editor\2022.3.50f1\Editor\Unity.exe" />
+      <option name="PROGRAM_PARAMETERS" value="-runTests -batchmode -projectPath C:\Users\User\Documents\GitHub\CharacterCreationDH2\CharacterCreationDH2 -testResults Logs/results.xml -logFile Logs/Editor.log -testPlatform EditMode -debugCodeOptimization" />
+      <option name="WORKING_DIRECTORY" value="C:\Users\User\Documents\GitHub\CharacterCreationDH2\CharacterCreationDH2" />
+      <option name="PASS_PARENT_ENVS" value="1" />
+      <option name="USE_EXTERNAL_CONSOLE" value="0" />
+      <option name="ENV_FILE_PATHS" value="" />
+      <option name="REDIRECT_INPUT_PATH" value="" />
+      <option name="PTY_MODE" value="Auto" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Attach to Unity Editor &amp; Play" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="UNITY_ATTACH_AND_PLAY" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
+      <option name="allowRunningInParallel" value="false" />
+      <option name="listenPortForConnections" value="false" />
+      <option name="pid" />
+      <option name="projectPathOnTarget" />
+      <option name="runtimes">
+        <list />
+      </option>
+      <option name="selectedOptions">
+        <list />
+      </option>
+      <option name="useMixedMode" value="false" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
+      <option name="allowRunningInParallel" value="false" />
+      <option name="listenPortForConnections" value="false" />
+      <option name="pid" />
+      <option name="projectPathOnTarget" />
+      <option name="runtimes">
+        <list />
+      </option>
+      <option name="selectedOptions">
+        <list />
+      </option>
+      <option name="useMixedMode" value="false" />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="ddd27c52-38ed-4c5f-b1f8-353a3e5e6624" name="Changes" comment="" />
+      <created>1750780512219</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1750780512219</updated>
+      <workItem from="1750780514120" duration="19000" />
+    </task>
+    <servers />
+  </component>
+  <component name="UnityProjectConfiguration" hasMinimizedUI="true" />
+  <component name="UnityProjectDiscoverer">
+    <option name="hasUnityReference" value="true" />
+    <option name="unityProject" value="true" />
+    <option name="unityProjectFolder" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="DotNet_Exception_Breakpoints">
+          <properties exception="System.OperationCanceledException" breakIfHandledByOtherCode="false" displayValue="System.OperationCanceledException" />
+          <option name="timeStamp" value="1" />
+        </breakpoint>
+        <breakpoint enabled="true" type="DotNet_Exception_Breakpoints">
+          <properties exception="System.Threading.Tasks.TaskCanceledException" breakIfHandledByOtherCode="false" displayValue="System.Threading.Tasks.TaskCanceledException" />
+          <option name="timeStamp" value="2" />
+        </breakpoint>
+        <breakpoint enabled="true" type="DotNet_Exception_Breakpoints">
+          <properties exception="System.Threading.ThreadAbortException" breakIfHandledByOtherCode="false" displayValue="System.Threading.ThreadAbortException" />
+          <option name="timeStamp" value="3" />
+        </breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>

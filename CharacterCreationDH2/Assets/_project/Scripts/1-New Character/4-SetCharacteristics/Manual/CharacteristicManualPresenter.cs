@@ -179,6 +179,7 @@ namespace CharacterCreation
                 Unscribe();
                 _view.Hide(_view.DestroyView);
                 ReturnCharacterWithCharacteristics?.Invoke(character);
+                ClearSubscribe();
             }
             else
                 _audioManager.PlayWarning();
@@ -190,6 +191,13 @@ namespace CharacterCreation
             Unscribe();
             _view.HideRight(_view.DestroyView);
             ReturnToRole?.Invoke();
+            ClearSubscribe();
+        }
+
+        private void ClearSubscribe()
+        {
+            ReturnCharacterWithCharacteristics = null;
+            ReturnToRole = null;
         }
     }
 }

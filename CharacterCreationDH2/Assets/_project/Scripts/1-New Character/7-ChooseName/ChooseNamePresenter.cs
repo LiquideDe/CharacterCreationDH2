@@ -178,6 +178,7 @@ namespace CharacterCreation
                 _character.SetName(_name);
                 _character.SetGender(_sex);
                 GoNext?.Invoke(_character);
+                GoNext = null;
                 _view.Hide(_view.DestroyView);
             }
             else

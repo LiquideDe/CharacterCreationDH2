@@ -22,12 +22,12 @@
         "age": 17,
         "fatePoint": 3,
         "insanityPoints": 7,
-        "corruptionPoints": 6,
+        "corruptionPoints": 20,
         "wounds": 8,
-        "psyRating": 3,
-        "experienceTotal": 3000,
-        "experienceUnspent": 50,
-        "experienceSpent": 2950
+        "psyRating": 4,
+        "experienceTotal": 4050,
+        "experienceUnspent": 0,
+        "experienceSpent": 4050
     },
     "talents": [
         {
@@ -47,8 +47,15 @@
         }
     ],
     "mentalDisorders": [],
-    "mutations": [],
+    "mutations": [
+        {
+            "name": "Третий глаз"
+        }
+    ],
     "psyPowers": [
+        {
+            "name": "Черная Длань"
+        },
         {
             "name": "Сверхъестественное Чутье"
         },
@@ -91,7 +98,16 @@
             "name": "Finesse"
         }
     ],
-    "traits": [],
+    "traits": [
+        {
+            "name": "Демонический",
+            "lvl": 2
+        },
+        {
+            "name": "Сверхъестественная Сила",
+            "lvl": 2
+        }
+    ],
     "skills": [
         {
             "name": "Адептус Астра Телепатика",
@@ -107,6 +123,10 @@
         },
         {
             "name": "Бдительность",
+            "lvlLearned": 1
+        },
+        {
+            "name": "Навигация Варп",
             "lvlLearned": 1
         },
         {

@@ -36,6 +36,7 @@ namespace CharacterCreation
         {
             _audioWork.PlayDone();
             nextTask?.Invoke();
+            nextTask = null;
             Hide(DestroyView);
         }
 

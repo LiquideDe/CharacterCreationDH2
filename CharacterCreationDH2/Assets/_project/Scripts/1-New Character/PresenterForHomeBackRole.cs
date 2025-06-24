@@ -77,6 +77,7 @@ namespace CharacterCreation
         {
             Unscribe();
             ChooseIsDone?.Invoke(character);
+            ChooseIsDone = null;
         }
 
         private void PressReturnToPrevWindow()
@@ -84,6 +85,7 @@ namespace CharacterCreation
             Unscribe();
             _view.DestroyView();
             ReturnToPrevWindow?.Invoke();
+            ReturnToPrevWindow = null;
         }
     }
 }

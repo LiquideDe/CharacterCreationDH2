@@ -25,9 +25,9 @@
         "corruptionPoints": 6,
         "wounds": 13,
         "psyRating": 0,
-        "experienceTotal": 3000,
-        "experienceUnspent": 0,
-        "experienceSpent": 3000
+        "experienceTotal": 4000,
+        "experienceUnspent": 100,
+        "experienceSpent": 3900
     },
     "talents": [
         {
@@ -93,7 +93,7 @@
         },
         {
             "name": "Командование",
-            "lvlLearned": 2
+            "lvlLearned": 3
         },
         {
             "name": "Навигация Звездная",

@@ -76,6 +76,7 @@ namespace CharacterCreation
             Unscribe();
             _view.DestroyView();
             GoToTalent?.Invoke(_character);
+            ClearSubscribe();
         }
 
         private void PrevWindowPressed()
@@ -84,6 +85,7 @@ namespace CharacterCreation
             Unscribe();
             _view.DestroyView();
             ReturnToCharacteristics?.Invoke(_character);
+            ClearSubscribe();
         }
 
         private void UpgradeSkill(Skill skill, int cost)
@@ -212,6 +214,13 @@ namespace CharacterCreation
                     return skill1.Name.CompareTo(skill2.Name);
                 });
             _creatorView.Initialize(skills, _character.Inclinations);
+        }
+
+        private void ClearSubscribe()
+        {
+            GoToTalent = null;
+            ReturnToCharacteristics = null;
+            ShowInformationPanel = null;
         }
     }
 }

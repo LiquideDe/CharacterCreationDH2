@@ -90,7 +90,7 @@ namespace CharacterCreation
                 _buttonStudy.gameObject.SetActive(false);
         }
 
-        public void CleanTalent()
+        public void ClearTalent()
         {
             _textDescription.text = "";
             _buttonStudy.gameObject.SetActive(false);

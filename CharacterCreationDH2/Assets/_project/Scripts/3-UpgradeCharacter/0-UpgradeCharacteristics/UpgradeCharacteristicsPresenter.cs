@@ -223,6 +223,11 @@ namespace CharacterCreation
                 _audioManager.PlayWarning();
         }
 
+        private void ClearSubscribe()
+        {
+            ReturnToPrev = null;
+            GoNext = null;
+        }
     }
 }
 

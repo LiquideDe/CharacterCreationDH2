@@ -37,6 +37,7 @@ namespace CharacterCreation
         private void ThirdIsFinished()
         {
             WorkIsFinished?.Invoke(_character);
+            WorkIsFinished = null;
         }
     }
 }

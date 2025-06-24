@@ -207,6 +207,7 @@ namespace CharacterCreation
             //_audioManager.PlayClick();
             ReturnToTalent?.Invoke(_character);
             Unscribe();
+            ClearSubscribe();
             _view.DestroyView();
         }
 
@@ -215,6 +216,7 @@ namespace CharacterCreation
             //_audioManager.PlayDone();
             GoNext?.Invoke(_character);
             Unscribe();
+            ClearSubscribe();
             _view.DestroyView();
         }
 
@@ -250,6 +252,12 @@ namespace CharacterCreation
 
         private void UpdateTextInView() => _view.SetExperience($"{_character.ExperienceUnspent} ОО", $"ПР {_character.PsyRating}",
             $"Для повышения ПР трубется {200 * (_character.PsyRating + 1)} ОО", _creatorPsyPowers.GetNameSchool(_school));
+
+        private void ClearSubscribe()
+        {
+            ReturnToTalent = null;
+            GoNext = null;
+        }
     }
 }
 

@@ -6,7 +6,7 @@ using System;
 
 namespace CharacterCreation
 {
-    public class TakeScreenshot : MonoBehaviour
+    public class TakeScreenshot : MonoBehaviour, IDisposable
     {
         public event Action WorkIsFinished;
         public event Action PageSaved;
@@ -116,7 +116,10 @@ namespace CharacterCreation
             rectImage.pivot = new Vector2(x, y);
         }
 
-        
+        public void Dispose()
+        {
+            
+        }
     }
 }
 

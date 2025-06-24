@@ -84,7 +84,7 @@ namespace CharacterCreation
                 _audioManager.PlayDone();
                 CharacterWithUpgrade character = new CharacterWithUpgrade(_character);
                 character.UpgradeTalent(_talent, _cost);
-                _view.CleanTalent();
+                _view.ClearTalent();
                 _character = character;
                 _view.UpdateExperience($"{_character.ExperienceUnspent} ОО");
                 ShowTalents(_inclination);
@@ -247,6 +247,7 @@ namespace CharacterCreation
             //_audioManager.PlayClick();
             GoNext?.Invoke(_character);
             Unscribe();
+            ClearSubscribe();
             _view.DestroyView();
         }
 
@@ -255,6 +256,7 @@ namespace CharacterCreation
             //_audioManager.PlayClick();
             ReturnToSkill?.Invoke(_character);
             Unscribe();
+            ClearSubscribe();
             _view.DestroyView();
         }
 
@@ -495,6 +497,12 @@ namespace CharacterCreation
                 _view.SetButtonShowWhenExpTrue();
             }
             ShowTalents(_inclination);
+        }
+
+        private void ClearSubscribe()
+        {
+            GoNext = null;
+            ReturnToSkill = null;
         }
     }
 }

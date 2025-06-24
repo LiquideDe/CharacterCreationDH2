@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System;
+using UnityEngine;
 
 namespace CharacterCreation
 {
@@ -113,6 +114,8 @@ namespace CharacterCreation
             character.SetCharacteristics(ints);
             _view.Hide(_view.DestroyView);
             GoNext?.Invoke(character);
+            GoNext = null;
+            GoPrev = null;
         }
 
         private void Cancel()
@@ -121,6 +124,8 @@ namespace CharacterCreation
             _view.HideRight(_view.DestroyView);
             Unscribe();
             GoPrev?.Invoke();
+            GoPrev = null;
+            GoNext = null;
         }
 
         private int GenerateInt()

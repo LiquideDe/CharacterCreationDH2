@@ -36,6 +36,7 @@ namespace CharacterCreation
         {
             _view.ReturnToRole -= ReturnToRolePressed;
             _view.ReturnCharacteristics -= ReturnCharacteristics;
+            _view.GenerateAmounts -= GenerateAmounts;
         }
 
         private void SearchCharacter(ICharacter character)
@@ -91,6 +92,7 @@ namespace CharacterCreation
             Unscribe();
             _view.DestroyView();
             ReturnToRole?.Invoke();
+            ClearSubsribe();
         }
 
         private void ReturnCharacteristics(List<int> characteristics)
@@ -100,6 +102,7 @@ namespace CharacterCreation
             ReturnCharacterWithCharacteristics?.Invoke(character);
             Unscribe();
             _view.DestroyView();
+            ClearSubsribe();
         }
 
         private void GenerateAmounts()
@@ -120,6 +123,12 @@ namespace CharacterCreation
             int chislo = random.Next(1, 11);
             UnityEngine.Debug.Log($"chislo = {chislo}");
             return chislo;
+        }
+
+        private void ClearSubsribe()
+        {
+            ReturnCharacterWithCharacteristics = null;
+            ReturnToRole = null;
         }
     }
 }

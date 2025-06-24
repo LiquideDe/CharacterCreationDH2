@@ -258,6 +258,7 @@ namespace CharacterCreation
                 _audioManager.PlayDone();
                 GoNext?.Invoke(_character);
                 Unscribe();
+                GoNext = null;
                 _view.Hide(_view.DestroyView);
             }
             else
