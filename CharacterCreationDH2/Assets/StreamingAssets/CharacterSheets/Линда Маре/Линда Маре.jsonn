@@ -69,15 +69,15 @@
     "traits": [],
     "skills": [
         {
-            "name": "Бдительность",
-            "lvlLearned": 1
-        },
-        {
             "name": "Адептус Арбитрес",
             "lvlLearned": 1
         },
         {
             "name": "Преступность",
+            "lvlLearned": 1
+        },
+        {
+            "name": "Бдительность",
             "lvlLearned": 1
         },
         {

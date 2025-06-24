@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using TMPro;
+using System.Collections.Generic;
+using static UnityEditor.Progress;
 
 namespace CharacterCreation
 {
@@ -9,6 +11,16 @@ namespace CharacterCreation
         [SerializeField]
         private TextMeshProUGUI textName, _textDescription, _textMutationText, _textCorruptionPoints, _textMentalText, _textInsanityPoints, _textFatePoint,
             _textSpentExperience, _textUnspentExperience, _textTotalExperience;
+        private Dictionary<string, SkillList> _skillListDict = new Dictionary<string, SkillList>();
+
+        private void Awake()
+        {
+            foreach (var item in skillSquares)
+            {
+                if (CheckSkillListNotKnowlidge(item))
+                    _skillListDict.Add(item.SkillName, item);
+            }
+        }
 
         public override void Initialize(ICharacter character)
         {
@@ -70,15 +82,7 @@ namespace CharacterCreation
         {
             if (!skill.IsKnowledge)
             {
-                foreach (SkillList skillList in skillSquares)
-                {
-                    if (string.Compare(skillList.SkillName, skill.Name, true) == 0)
-                    {
-
-                        skillList.SetLvlLearned(skill.LvlLearned);
-                        break;
-                    }
-                }
+                _skillListDict[skill.Name].SetLvlLearned(skill.LvlLearned);
             }
             else
             {
@@ -87,7 +91,7 @@ namespace CharacterCreation
                     if (string.Compare(skillList.SkillName, skill.TypeSkill, true) == 0)
                     {
                         if (skillList.KnowledgeTextName.Length == 0)
-                        {
+                        {                            
                             skillList.KnowledgeTextName = skill.Name;
                             skillList.SetLvlLearned(skill.LvlLearned);
                             break;
@@ -97,7 +101,29 @@ namespace CharacterCreation
             }
         }
 
+        private bool CheckSkillListNotKnowlidge(SkillList skillList)
+        {
+            if (string.Compare(skillList.SkillName, "0", true) == 0)            
+                return false;
 
+            if (string.Compare(skillList.SkillName, "CommonLore", true) == 0)
+                return false;
+
+            if (string.Compare(skillList.SkillName, "Trade", true) == 0)
+                return false;
+
+            if (string.Compare(skillList.SkillName, "ForbiddenLore", true) == 0)
+                return false;
+
+            if (string.Compare(skillList.SkillName, "Linguistics", true) == 0)
+                return false;
+
+            if (string.Compare(skillList.SkillName, "ScholasticLore", true) == 0)
+                return false;
+
+            return true;
+
+        }
     }
 }
 

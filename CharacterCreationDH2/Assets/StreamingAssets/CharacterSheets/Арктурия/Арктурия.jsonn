@@ -90,15 +90,15 @@
     "traits": [],
     "skills": [
         {
-            "name": "Тактика Империалис",
-            "lvlLearned": 1
-        },
-        {
             "name": "Адепта Сороритас",
             "lvlLearned": 1
         },
         {
             "name": "Высокий Готик",
+            "lvlLearned": 1
+        },
+        {
+            "name": "Тактика Империалис",
             "lvlLearned": 1
         },
         {

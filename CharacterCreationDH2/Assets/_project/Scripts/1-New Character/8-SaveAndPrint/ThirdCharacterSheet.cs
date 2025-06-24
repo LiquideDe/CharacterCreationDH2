@@ -95,7 +95,7 @@ namespace CharacterCreation
                                 int openBracketIndex = weaponTrait.IndexOf('(');
                                 string name = weaponTrait.Substring(0, openBracketIndex).Trim();
 
-                                _text.text += $"{weaponTrait} - {GetDescriptionWeaponTrait(weaponTrait)} \n\n";
+                                _text.text += $"{name} - {GetDescriptionWeaponTrait(name)} \n\n";
                             }
                         }
                     }
@@ -155,6 +155,7 @@ namespace CharacterCreation
 
         private string GetDescriptionWeaponTrait(string name)
         {
+            name = RemoveLeadingWhitespace(name);
             var trait = _creatorWeaponTrait.Get(name);
             if (trait != null)
                 return trait.Description;
@@ -184,6 +185,11 @@ namespace CharacterCreation
             if (trait != null)
                 return trait.LongDescription;
             return "Описание не найдено";
+        }
+
+        string RemoveLeadingWhitespace(string input)
+        {
+            return input.TrimStart();
         }
     }
 }

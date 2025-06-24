@@ -75,22 +75,6 @@
     "traits": [],
     "skills": [
         {
-            "name": "Обман",
-            "lvlLearned": 1
-        },
-        {
-            "name": "Обаяние",
-            "lvlLearned": 1
-        },
-        {
-            "name": "Проницательность",
-            "lvlLearned": 1
-        },
-        {
-            "name": "Бдительность",
-            "lvlLearned": 1
-        },
-        {
             "name": "Администратум",
             "lvlLearned": 1
         },
@@ -107,11 +91,27 @@
             "lvlLearned": 1
         },
         {
+            "name": "Бдительность",
+            "lvlLearned": 1
+        },
+        {
             "name": "Коммерция",
             "lvlLearned": 1
         },
         {
             "name": "Логика",
+            "lvlLearned": 1
+        },
+        {
+            "name": "Обаяние",
+            "lvlLearned": 1
+        },
+        {
+            "name": "Обман",
+            "lvlLearned": 1
+        },
+        {
+            "name": "Проницательность",
             "lvlLearned": 1
         },
         {
