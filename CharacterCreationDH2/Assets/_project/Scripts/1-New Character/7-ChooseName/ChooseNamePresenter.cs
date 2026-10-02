@@ -177,12 +177,18 @@ namespace CharacterCreation
                 Unscribe();
                 _character.SetName(_name);
                 _character.SetGender(_sex);
-                GoNext?.Invoke(_character);
-                GoNext = null;
-                _view.Hide(_view.DestroyView);
+                _view.Hide(StartTakingPictures);
             }
             else
                 _audioManager.PlayWarning();
+        }
+
+        private void StartTakingPictures()
+        {
+            _view.DestroyView();
+            UnityEngine.Debug.Log("[FIX] Name selection closed; starting character-sheet screenshots.");
+            GoNext?.Invoke(_character);
+            GoNext = null;
         }
 
         private void GenerateNamePressed()
