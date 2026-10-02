@@ -559,10 +559,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 
+  m_text: ghjfghjfghjfghjgfhjgfhj
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 5c7ddc4c10ee2884db59b40bf5848e3b, type: 2}
-  m_sharedMaterial: {fileID: -4580698940997624542, guid: 5c7ddc4c10ee2884db59b40bf5848e3b, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: f8035e30d7cbd524591361b71fc29bb7, type: 2}
+  m_sharedMaterial: {fileID: -363482053378558046, guid: f8035e30d7cbd524591361b71fc29bb7, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
